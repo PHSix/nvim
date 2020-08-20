@@ -1,0 +1,30 @@
+{
+    "tsserver.npm": "/usr/bin/npm",
+    "explorer.icon.enableVimDevicons" : true,
+    "git.changedSign.text": "+",
+    "diagnostic.enable": false,
+    "languageserver": {
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+            "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": "/tmp/ccls"
+                }
+            }
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": ["go.mod"],
+            "disableWorkspaceFolders": true,
+            "filetypes": ["go"],
+            "initializationOptions": {
+                "gocodeCompletionEnabled" : true,
+                "diagnosticEnabled": false,
+                "lintTool": "golint"
+            }
+        }
+
+    }
+}
