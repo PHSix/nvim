@@ -104,10 +104,6 @@ autocmd filetype markdown inoremap <buffer> <silent> ,4 ####<space><enter><++><e
 autocmd filetype markdown inoremap <buffer> <silent> ,t <c-r>=strftime("%y-%m-%d %h:%m:%s")<cr>
 autocmd filetype markdown inoremap <buffer> <silent> ,g {% web  <++> %} <++><esc>fb2li
 autocmd filetype markdown inoremap <buffer> <silent> ,d {% download  <++> %} <++><esc>fd2li
-" highlight Cursorline  ctermfg=99 ctermbg=NONE cterm=bold guifg=white guibg=yellow gui=bold
-" highlight Cursorline  ctermfg=104 ctermbg=NONE cterm=bold guifg=white guibg=yellow gui=bold
-" highlight Cursorline  ctermfg=56 ctermbg=NONE cterm=bold guifg=white guibg=yellow gui=bold
-" highlight Pmenu  ctermfg=black ctermbg=blue  guibg=darkgrey  guifg=black
 highlight clear SignColumn
 highlight Cursorline  ctermfg=Green  ctermbg=NONE cterm=bold guifg=white guibg=yellow gui=bold
 highlight EndOfBuffer  ctermfg=NONE ctermbg=NONE  guibg=NONE  guifg=NONE cterm=NONE gui=NONE
@@ -117,7 +113,12 @@ highlight VertSplit ctermfg=147 ctermbg=147
 highlight Pmenu  ctermfg=black ctermbg=blue
 highlight PmenuSel ctermfg=7 ctermbg=4
 highlight WarningMsg ctermbg=39 ctermfg=NONE
-highlight SignColumn ctermbg=NONE ctermfg=NONE
+highlight SignColumn   ctermfg=NONE ctermbg=NONE  guibg=NONE  guifg=NONE cterm=NONE gui=NONE
+hi! DiffAdd ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+hi! DiffChange ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+hi! DiffDelete ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
+
 
 map R :call CompileRunGcc()<CR>
 func! CompileRunGcc()
@@ -193,7 +194,6 @@ Plug 'lilydjwg/colorizer'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'liuchengxu/vim-clap', {'do': 'cargo build --release'}
 Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'turbio/bracey.vim'
 Plug 'dart-lang/dart-vim-plugin'
@@ -202,28 +202,30 @@ Plug 'lilydjwg/fcitx.vim'
 Plug 'dkarter/bullets.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'bling/vim-bufferline'
+Plug 'crusoexia/vim-dracula'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 "
 " ---  coc.nvim  ---
 "
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
 else
-  set signcolumn=yes
+    set signcolumn=yes
 endif
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 set hidden
 set nobackup
@@ -268,9 +270,9 @@ nmap <Leader>sw :CocList grep<CR>
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd FileType txt let b:coc_suggest_disable = 1
 let g:markdown_fenced_languages = [
-      \ 'vim',
-      \ 'help'
-      \]
+            \ 'vim',
+            \ 'help'
+            \]
 
 "
 " ---  vim-airline  ---
@@ -300,15 +302,21 @@ let g:airline_mode_map = {
             \ ''     : 'V',
             \ }
 let g:airline_theme= "deus"
-let g:airline#extensions#ale#enabled = 1
-let airline#extensions#ale#error_symbol = '✗:'
-let airline#extensions#ale#warning_symbol = '⚡:'
-let airline#extensions#ale#show_line_numbers = 1
-let airline#extensions#ale#open_lnum_symbol = '(L'
-let airline#extensions#ale#close_lnum_symbol = ')'
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#bufferline#overwrite_variables = 1
-
+let g:airline_symbols_ascii = 1
+let g:airline_extensions = ['branch', 'tabline']
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='⚡'
 
 
 "
@@ -434,6 +442,7 @@ let g:startify_custom_header =
 " \'       _\/\\\___\//\\\\\_\/\\\\\\\\\\\\\\\____\///\\\\\/__________\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_ ',
 " \'        _\///_____\/////__\///////////////_______\/////_____________\///________\///////////__\///______________\///__',
 " \])
+"
 function! StartifyEntryFormat()
     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
@@ -443,11 +452,6 @@ endfunction
 "
 " ---  vim-clap  ---
 "
-
-" let g:clap_theme = 'material_design_dark'
-" let g:clap_theme = 'atom_dark'
-" let g:clap_theme = 'nord'
-" let g:clap_theme = 'solarizd_dark'
 let g:clap_theme = 'solarizd_light'
 nnoremap <Leader>ss :Clap grep<CR>
 nnoremap <Leader>sf :Clap filer<CR>
@@ -455,26 +459,6 @@ nnoremap <Leader>sb :Clap buffers<CR>
 nnoremap <Leader>sh :Clap hist/<CR>
 nnoremap <Leader>sc :Clap hist:<CR>
 nnoremap <Leader>sl :Clap history<CR>
-
-
-
-"
-" ---  ale  ---
-"
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-augroup YourGroup
-    autocmd!
-    autocmd User ALELint call YourFunction()
-augroup END
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
 
 
 

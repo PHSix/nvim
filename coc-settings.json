@@ -2,7 +2,6 @@
     "tsserver.npm": "/usr/bin/npm",
     "explorer.icon.enableVimDevicons" : true,
     "git.changedSign.text": "+",
-    "diagnostic.enable": false,
     "languageserver": {
         "ccls": {
             "command": "ccls",
