@@ -199,10 +199,32 @@ Plug 'turbio/bracey.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'lilydjwg/fcitx.vim'
+Plug 'dkarter/bullets.vim'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'bling/vim-bufferline'
 call plug#end()
 "
 " ---  coc.nvim  ---
 "
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 set hidden
 set nobackup
 set nowritebackup
@@ -243,12 +265,17 @@ nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
 nmap <Leader>e :CocCommand explorer<CR>
 nmap <Leader>sw :CocList grep<CR>
-
+autocmd FileType markdown let b:coc_suggest_disable = 1
+autocmd FileType txt let b:coc_suggest_disable = 1
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help'
+      \]
 
 "
 " ---  vim-airline  ---
 "
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -279,6 +306,8 @@ let airline#extensions#ale#warning_symbol = '⚡:'
 let airline#extensions#ale#show_line_numbers = 1
 let airline#extensions#ale#open_lnum_symbol = '(L'
 let airline#extensions#ale#close_lnum_symbol = ')'
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#bufferline#overwrite_variables = 1
 
 
 
@@ -456,8 +485,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
-
-
 
 
 
