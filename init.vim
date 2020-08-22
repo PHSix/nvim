@@ -202,8 +202,6 @@ Plug 'lilydjwg/fcitx.vim'
 Plug 'dkarter/bullets.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'bling/vim-bufferline'
-Plug 'crusoexia/vim-dracula'
-Plug 'lifepillar/vim-solarized8'
 call plug#end()
 "
 " ---  coc.nvim  ---
@@ -260,7 +258,7 @@ let g:coc_snippet_next = '<tab>'
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
-let g:coc_global_extensions = ["coc-pairs", "coc-css","coc-highlight", "coc-html", "coc-json", "coc-snippets", "coc-vimlsp", "coc-python", "coc-lists", "coc-tsserver","coc-translator", "coc-rust-analyzer", "coc-rls", "coc-git", "coc-java", "coc-vimtex", "coc-go", "coc-emmet","coc-diagnostic", "coc-sql", "coc-sh", "coc-clangd",  "coc-yaml", "coc-xml", "coc-explorer", "coc-flutter-tools", "coc-yank", "coc-todolist"]
+let g:coc_global_extensions = ["coc-pairs", "coc-css","coc-highlight", "coc-html", "coc-json", "coc-snippets", "coc-vimlsp", "coc-python", "coc-lists", "coc-tsserver","coc-translator", "coc-rust-analyzer", "coc-rls", "coc-git", "coc-java", "coc-vimtex", "coc-go", "coc-emmet","coc-diagnostic", "coc-sql", "coc-sh", "coc-clangd",  "coc-yaml", "coc-xml", "coc-explorer", "coc-flutter-tools", "coc-yank"]
 nmap <Leader>w <Plug>(coc-translator-p)
 vmap <Leader>w <Plug>(coc-translator-pv)
 nmap <Leader>r <Plug>(coc-translator-r)
@@ -277,10 +275,10 @@ let g:markdown_fenced_languages = [
 "
 " ---  vim-airline  ---
 "
-" let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#coc#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#enabled = 0
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_mode_map = {
             \ '__'     : '-',
             \ 'c'      : 'C',
@@ -305,7 +303,6 @@ let g:airline_theme= "deus"
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#bufferline#overwrite_variables = 1
 let g:airline_symbols_ascii = 1
-let g:airline_extensions = ['branch', 'tabline']
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
