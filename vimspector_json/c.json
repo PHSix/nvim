@@ -1,0 +1,12 @@
+{
+    "configurations": {
+        "Attach": {
+            "adapter": "vscode-cpptools",
+            "configuration": {
+                "request": "attach",
+                "program": "<path to binary>",
+                "MIMode": "gdb"
+            }
+        }
+    }
+}

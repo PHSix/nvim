@@ -1,12 +1,31 @@
 {
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "suggest.noselect": true,
+    "suggest.enablePreselect": false,
     "tsserver.npm": "/usr/bin/npm",
-    "explorer.icon.enableVimDevicons" : true,
+    "explorer.icon.enableVimDevicons": true,
     "git.changedSign.text": "+",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "json"
+    ],
+    "diagnostic.refreshOnInsertMode": false,
     "languageserver": {
         "ccls": {
             "command": "ccls",
-            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
-            "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+            "filetypes": [
+                "c",
+                "cc",
+                "cpp",
+                "c++",
+                "objc",
+                "objcpp"
+            ],
+            "rootPatterns": [
+                ".ccls",
+                "compile_commands.json",
+                ".git/",
+                ".hg/"
+            ],
             "initializationOptions": {
                 "cache": {
                     "directory": "/tmp/ccls"
@@ -15,15 +34,18 @@
         },
         "golang": {
             "command": "gopls",
-            "rootPatterns": ["go.mod"],
+            "rootPatterns": [
+                "go.mod"
+            ],
             "disableWorkspaceFolders": true,
-            "filetypes": ["go"],
+            "filetypes": [
+                "go"
+            ],
             "initializationOptions": {
-                "gocodeCompletionEnabled" : true,
+                "gocodeCompletionEnabled": true,
                 "diagnosticEnabled": false,
                 "lintTool": "golint"
             }
         }
-
     }
 }
