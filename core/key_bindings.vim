@@ -32,6 +32,9 @@ map fO zo
 map fm zm  " 全部折叠
 map fn zn  " 全部展开
 map fy "+y
+nmap <leader>; $a;<ESC>
+vmap <leader>; $A;<ESC>
+
 
 nmap Q :call Buffer_close()<CR>
 function Buffer_close() 

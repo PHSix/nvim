@@ -1,3 +1,4 @@
 /plugged
 /undodir
-
+/autoload/plug.vim.old
+/.netrwhist

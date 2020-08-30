@@ -86,4 +86,6 @@ let g:coc_global_extensions = [
             \"coc-explorer",
             \"coc-flutter-tools",
             \"coc-yank",
-            \"coc-actions"]
+            \"coc-actions",
+            \"coc-cmake",
+            \]

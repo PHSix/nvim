@@ -176,12 +176,12 @@ let g:rbpt_loadcmd_toggle = 0
 " ---  vim-clap  ---
 "
 let g:clap_theme = 'solarizd_light'
-nnoremap <Leader>ss :Clap grep<CR>
-nnoremap <Leader>sf :Clap filer<CR>
-nnoremap <Leader>sb :Clap buffers<CR>
-nnoremap <Leader>sh :Clap hist/<CR>
-nnoremap <Leader>sc :Clap hist:<CR>
-nnoremap <Leader>sl :Clap history<CR>
+nnoremap <Leader>cs :Clap grep<CR>
+nnoremap <Leader>cf :Clap filer<CR>
+nnoremap <Leader>cb :Clap buffers<CR>
+nnoremap <Leader>ch :Clap hist/<CR>
+nnoremap <Leader>cc :Clap hist:<CR>
+nnoremap <Leader>cl :Clap history<CR>
 
 
 
@@ -207,15 +207,6 @@ source ~/.config/nvim/plug/coc/coc_config.vim
 
 " dashboard.nvim
 let g:dashboard_default_executive ='clap'
-let g:dashboard_custom_shortcut={
-            \ 'last_session'       : 'SPC s l',
-            \ 'find_history'       : 'SPC f h',
-            \ 'find_file'          : 'SPC f f',
-            \ 'new_file'           : 'SPC c n',
-            \ 'change_colorscheme' : 'SPC t c',
-            \ 'find_word'          : 'SPC f a',
-            \ 'book_marks'         : 'SPC f b',
-            \ }
 let g:dashboard_custom_header = [
             \'         _             _            _      _          _        _         _   _       ',
             \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
@@ -229,6 +220,35 @@ let g:dashboard_custom_header = [
             \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
             \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
             \ ]
+
+
+nmap <Leader>bs :<C-u>SessionSave<CR>
+nmap <Leader>bl :<C-u>SessionLoad<CR>
+nmap <Leader>cn :<C-u>DashboardNewFile<CR>
+nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
+nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
+nnoremap <silent> <Leader>cc :<C-u>Clap colors<CR>
+nnoremap <silent> <Leader>fa :<C-u>Clap grep2<CR>
+nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
+
+let g:dashboard_custom_shortcut={
+            \ 'find_word' : 'SPC f a',
+            \ 'find_file' : 'SPC f f',
+            \ 'last_session' : 'SPC s l',
+            \ 'find_history' : 'SPC f h',
+            \ 'new_file' : 'SPC c n',
+            \ 'change_colorscheme' : 'SPC t c',
+            \ 'book_marks' : 'SPC f b',
+            \ }
+
+"
+" ---  vim-easy-aligen
+"
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 
 
@@ -245,4 +265,12 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
             \   'down': 20,
             \   'sink': function('<sid>read_template_into_buffer')
             \ })
-noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
+noremap <leader>dt :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
+noremap <leader>dq :VimspectorReset<CR>
+noremap <leader>dw :VimspectorReset
+noremap <leader>dp <Plug>VimspectorToggleBreakpoint
+noremap <leader>dr <Plug>VimspectorRestart
+noremap <leader>dg <Plug>VimspectorContinue
+let g:vimspector_sidebar_width = 30
+let g:vimspector_bottombar_height = 7
+

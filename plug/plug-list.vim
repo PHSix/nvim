@@ -32,4 +32,5 @@ Plug 'sainnhe/forest-night'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'vimwiki/vimwiki'
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python --enable-go --enable-bash --enable-c'}
+Plug 'junegunn/vim-easy-align'
 call plug#end()
