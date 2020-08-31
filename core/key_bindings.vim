@@ -5,6 +5,10 @@ noremap <A-j> 5j
 noremap <A-k> 5k
 noremap <A-h> 5h
 noremap <A-l> 5l
+noremap <C-j> 5j
+noremap <C-k> 5k
+noremap <C-h> 5h
+noremap <C-l> 5l
 nmap <leader>nvim :e ~/.config/nvim/init.vim
 nmap ,lg :term lazygit<cr>
 map <space> <leader>

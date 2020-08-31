@@ -38,7 +38,8 @@ nmap <Leader>w <Plug>(coc-translator-p)
 vmap <Leader>w <Plug>(coc-translator-pv)
 nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
-nmap <A-m> :CocCommand explorer<CR>
+nmap <A-m> :CocCommand explorer --position floating<CR>
+nmap <C-m> :CocCommand explorer --position floating<CR>
 nmap <Leader>sw :CocList grep<CR>
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd FileType txt let b:coc_suggest_disable = 1
