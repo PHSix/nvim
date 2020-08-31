@@ -176,12 +176,12 @@ let g:rbpt_loadcmd_toggle = 0
 " ---  vim-clap  ---
 "
 let g:clap_theme = 'solarizd_light'
-nnoremap <Leader>cs :Clap grep<CR>
-nnoremap <Leader>cf :Clap filer<CR>
-nnoremap <Leader>cb :Clap buffers<CR>
-nnoremap <Leader>ch :Clap hist/<CR>
-nnoremap <Leader>cc :Clap hist:<CR>
-nnoremap <Leader>cl :Clap history<CR>
+nnoremap <Leader>es :Clap grep<CR>
+nnoremap <Leader>ef :Clap filer<CR>
+nnoremap <Leader>eb :Clap buffers<CR>
+nnoremap <Leader>eh :Clap hist/<CR>
+nnoremap <Leader>ec :Clap hist:<CR>
+nnoremap <Leader>el :Clap history<CR>
 
 
 
@@ -189,9 +189,11 @@ nnoremap <Leader>cl :Clap history<CR>
 "
 " ---  vim-visual-multi  ---
 "
-let g:VM_maps = {}
+let g:VM_maps                       = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+let g:VM_maps["Add Cursor Down"]    = '<C-Down>'
+let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
 
 
 
@@ -273,4 +275,9 @@ noremap <leader>dr <Plug>VimspectorRestart
 noremap <leader>dg <Plug>VimspectorContinue
 let g:vimspector_sidebar_width = 30
 let g:vimspector_bottombar_height = 7
+
+
+
+
+
 
