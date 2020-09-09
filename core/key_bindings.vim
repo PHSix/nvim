@@ -14,6 +14,8 @@ nmap ,lg :term lazygit<cr>
 map <space> <leader>
 nmap <A-n> :bp<cr>
 nmap <A-b> :bn<cr>
+nmap <C-[> :bp<cr>
+nmap <C-]> :bn<cr>
 nmap <leader>h <C-w>h
 nmap <leader>j <C-w>j
 nmap <leader>k <C-w>k
@@ -38,6 +40,10 @@ map fn zn  " 全部展开
 map fy "+y
 nmap <leader>; $a;<ESC>
 vmap <leader>; $A;<ESC>
+map gl $
+map gh ^
+nnoremap <leader>bl :bn<cr>
+nnoremap <leader>bh :bp<cr>
 
 
 nmap Q :call Buffer_close()<CR>

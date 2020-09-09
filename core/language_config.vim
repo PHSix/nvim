@@ -23,7 +23,7 @@ func! CompileRunGcc()
         :sp
         :term python3 %
     elseif &filetype == 'markdown'
-        let g:mkdp_browser = 'chromium'
+        let g:mkdp_browser = 'surf'
         exec "MarkdownPreview"
     elseif &filetype == 'tex'
         silent! exec "VimtexStop"

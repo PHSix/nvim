@@ -38,8 +38,6 @@ nmap <Leader>w <Plug>(coc-translator-p)
 vmap <Leader>w <Plug>(coc-translator-pv)
 nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
-nmap <A-m> :CocCommand explorer --position floating<CR>
-nmap <C-m> :CocCommand explorer --position floating<CR>
 nmap <Leader>sw :CocList grep<CR>
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd FileType txt let b:coc_suggest_disable = 1
@@ -59,6 +57,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
 let g:coc_global_extensions = [
             \"coc-pairs", 
             \"coc-css",
@@ -84,9 +83,10 @@ let g:coc_global_extensions = [
             \"coc-clangd",
             \"coc-yaml",
             \"coc-xml",
-            \"coc-explorer",
             \"coc-flutter-tools",
             \"coc-yank",
             \"coc-actions",
             \"coc-cmake",
+            \"coc-tabnine",
+            \"coc-todolist",
             \]

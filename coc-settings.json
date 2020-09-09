@@ -3,7 +3,6 @@
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "tsserver.npm": "/usr/bin/npm",
-    "explorer.icon.enableVimDevicons": true,
     "git.changedSign.text": "+",
     "coc.preferences.formatOnSaveFiletypes": [
         "json"

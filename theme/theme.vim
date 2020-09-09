@@ -1,5 +1,5 @@
 set termguicolors
-colorscheme dogrun
+colorscheme OceanicNext
 " the configuration options should be placed before `colorscheme forest-night`
 " highlight clear SignColumn
 " highlight Cursorline  ctermfg=NONE  ctermbg=NONE cterm=bold guifg=white guibg=yellow gui=bold
