@@ -224,7 +224,7 @@ let g:dashboard_custom_header = [
             \ ]
 
 
-nmap <Leader>ps :<C-u>SessionSave<CR>
+nmap <Leader>bs :<C-u>SessionSave<CR>
 nmap <Leader>pl :<C-u>SessionLoad<CR>
 nmap <Leader>pn :<C-u>DashboardNewFile<CR>
 nnoremap <silent> <Leader>ph :<C-u>Clap history<CR>

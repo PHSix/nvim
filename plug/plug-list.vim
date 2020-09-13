@@ -36,4 +36,5 @@ Plug 'junegunn/vim-easy-align'
 Plug 'voldikss/vim-hello-word'
 Plug 'glepnir/spaceline.vim'
 Plug 'PHSix/vim-buffet'
+Plug 'cespare/vim-toml'
 call plug#end()
