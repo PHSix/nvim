@@ -1,45 +1,45 @@
 "
 " ---  vim-airline  ---
 "
-let g:airline#extensions#coc#enabled = 0
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#ale#enabled = 0
-let g:airline_mode_map = {
-            \ '__'     : '-',
-            \ 'c'      : 'C',
-            \ 'i'      : 'I',
-            \ 'ic'     : 'I',
-            \ 'ix'     : 'I',
-            \ 'n'      : 'N',
-            \ 'multi'  : 'M',
-            \ 'ni'     : 'N',
-            \ 'no'     : 'N',
-            \ 'R'      : 'R',
-            \ 'Rv'     : 'R',
-            \ 's'      : 'S',
-            \ 'S'      : 'S',
-            \ ''     : 'S',
-            \ 't'      : 'T',
-            \ 'v'      : 'V',
-            \ 'V'      : 'V',
-            \ ''     : 'V',
-            \ }
-" let g:airline_theme= "deus"
-let g:airline_theme = 'forest_night'
-let g:airline#extensions#bufferline#enabled = 1
-let g:airline#extensions#bufferline#overwrite_variables = 1
-let g:airline_symbols_ascii = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.dirty='⚡'
+" let g:airline#extensions#coc#enabled = 0
+" let g:airline#extensions#tabline#enabled = 0
+" let g:airline#extensions#ale#enabled = 0
+" let g:airline_mode_map = {
+            " \ '__'     : '-',
+            " \ 'c'      : 'C',
+            " \ 'i'      : 'I',
+            " \ 'ic'     : 'I',
+            " \ 'ix'     : 'I',
+            " \ 'n'      : 'N',
+            " \ 'multi'  : 'M',
+            " \ 'ni'     : 'N',
+            " \ 'no'     : 'N',
+            " \ 'R'      : 'R',
+            " \ 'Rv'     : 'R',
+            " \ 's'      : 'S',
+            " \ 'S'      : 'S',
+            " \ ''     : 'S',
+            " \ 't'      : 'T',
+            " \ 'v'      : 'V',
+            " \ 'V'      : 'V',
+            " \ ''     : 'V',
+            " \ }
+" " let g:airline_theme= "deus"
+" let g:airline_theme = 'forest_night'
+" let g:airline#extensions#bufferline#enabled = 1
+" let g:airline#extensions#bufferline#overwrite_variables = 1
+" let g:airline_symbols_ascii = 1
+" if !exists('g:airline_symbols')
+    " let g:airline_symbols = {}
+" endif
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.maxlinenr = ''
+" let g:airline_symbols.dirty='⚡'
 
 
 "
@@ -307,8 +307,6 @@ autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
     " Define mappings
     nnoremap <silent><buffer><expr> <CR>
-                \ defx#is_directory() ?
-                \ defx#do_action('open_tree') :
                 \ defx#do_action('multi', ['drop'])
     nnoremap <silent><buffer><expr> yy
                 \ defx#do_action('copy')
@@ -320,7 +318,7 @@ function! s:defx_my_settings() abort
                 \ defx#is_directory() ?
                 \ defx#do_action('open') :
                 \ defx#do_action('multi', ['drop'])
-    nnoremap <silent><buffer><expr> <Space>l
+    nnoremap <silent><buffer><expr> <Space>h
                 \ defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> <Space>k
                 \ defx#do_action('open', 'vsplit')
@@ -379,7 +377,22 @@ endfunction
 
 
 
-nnoremap <C-m> :Defx -split=vertical -winwidth=35 -direction=topleft<CR>
+" nnoremap <silent><buffer><expr> <C-m>
+            " \ defx#is_opened_tree() ?
+            " \ defx#do_action('close_tree') :
+            " \ :Defx -split=vertical -winwidth=35 -direction=topleft<CR>
+" nnoremap <C-m> :Defx -split=vertical -winwidth=35 -direction=topleft<CR>
+nnoremap <C-m> :call Open_Tree()<CR>
+let g:Defx_tree_opened = 0
+function Open_Tree()
+    if g:Defx_tree_opened == 1
+        eval("defx#do_action('quit')")
+        g:Defx_tree_opened = 0
+    elseif g:Defx_tree_opened == 0
+        execute(":Defx -split=vertical -winwidth=35 -direction=topleft")
+        g:Defx_tree_opened = 1
+    endif
+endfunction
 
 
 
@@ -414,4 +427,33 @@ hi default link DefxIconsOpenedTreeIcon Directory
 hi default link DefxIconsNestedTreeIcon Directory
 hi default link DefxIconsClosedTreeIcon Directory
 
+
+"
+"  ---  spaceline  ---
+"
+let g:spaceline_seperate_style= 'arrow'
+
+
+
+"
+" ---  vim-buffet  ---
+"
+nmap <leader>1 <Plug>BuffetSwitch(1)
+nmap <leader>2 <Plug>BuffetSwitch(2)
+nmap <leader>3 <Plug>BuffetSwitch(3)
+nmap <leader>4 <Plug>BuffetSwitch(4)
+nmap <leader>5 <Plug>BuffetSwitch(5)
+nmap <leader>6 <Plug>BuffetSwitch(6)
+nmap <leader>7 <Plug>BuffetSwitch(7)
+nmap <leader>8 <Plug>BuffetSwitch(8)
+nmap <leader>9 <Plug>BuffetSwitch(9)
+nmap <leader>0 <Plug>BuffetSwitch(10)
+let g:buffet_always_show_tabline = 1
+let g:buffet_powerline_separators = 1
+let g:buffet_left_trunc_icon = "<"
+let g:buffet_right_trunc_icon = ">"
+" let g:buffet_tab_icon = " "
+" let g:buffet_tab_icon = " "
+" let g:buffet_tab_icon = " "
+let g:buffet_tab_icon = " "
 
