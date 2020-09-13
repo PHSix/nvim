@@ -34,7 +34,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-python --enable-go --enable-bash --enable-c'}
 Plug 'junegunn/vim-easy-align'
 Plug 'voldikss/vim-hello-word'
-Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'glepnir/spaceline.vim'
 Plug 'PHSix/vim-buffet'
 call plug#end()

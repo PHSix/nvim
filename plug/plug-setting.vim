@@ -224,23 +224,23 @@ let g:dashboard_custom_header = [
             \ ]
 
 
-nmap <Leader>bs :<C-u>SessionSave<CR>
-nmap <Leader>bl :<C-u>SessionLoad<CR>
-nmap <Leader>cn :<C-u>DashboardNewFile<CR>
-nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
-nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
-nnoremap <silent> <Leader>cc :<C-u>Clap colors<CR>
-nnoremap <silent> <Leader>fa :<C-u>Clap grep2<CR>
-nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
+nmap <Leader>ps :<C-u>SessionSave<CR>
+nmap <Leader>pl :<C-u>SessionLoad<CR>
+nmap <Leader>pn :<C-u>DashboardNewFile<CR>
+nnoremap <silent> <Leader>ph :<C-u>Clap history<CR>
+nnoremap <silent> <Leader>pf :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
+nnoremap <silent> <Leader>pc :<C-u>Clap colors<CR>
+nnoremap <silent> <Leader>pa :<C-u>Clap grep2<CR>
+nnoremap <silent> <Leader>pb :<C-u>Clap marks<CR>
 
 let g:dashboard_custom_shortcut={
-            \ 'find_word' : 'SPC f a',
-            \ 'find_file' : 'SPC f f',
-            \ 'last_session' : 'SPC s l',
-            \ 'find_history' : 'SPC f h',
-            \ 'new_file' : 'SPC c n',
-            \ 'change_colorscheme' : 'SPC t c',
-            \ 'book_marks' : 'SPC f b',
+            \ 'find_word' : 'SPC p a',
+            \ 'find_file' : 'SPC p f',
+            \ 'last_session' : 'SPC p l',
+            \ 'find_history' : 'SPC p h',
+            \ 'new_file' : 'SPC p n',
+            \ 'change_colorscheme' : 'SPC p c',
+            \ 'book_marks' : 'SPC p b',
             \ }
 
 "
@@ -295,137 +295,6 @@ nnoremap <leader>us :MundoShow<CR>
 " ---  vim-hello-world  ---
 "
 let g:helloword_vocabulary_path = "~/.config/nvim/plugged/vim-hello-word/test/CET6.json"
-
-
-
-
-
-"
-" ---  defx.nvim  ---
-"
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-    " Define mappings
-    nnoremap <silent><buffer><expr> <CR>
-                \ defx#do_action('multi', ['drop'])
-    nnoremap <silent><buffer><expr> yy
-                \ defx#do_action('copy')
-    nnoremap <silent><buffer><expr> dd
-                \ defx#do_action('move')
-    nnoremap <silent><buffer><expr> p
-                \ defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l
-                \ defx#is_directory() ?
-                \ defx#do_action('open') :
-                \ defx#do_action('multi', ['drop'])
-    nnoremap <silent><buffer><expr> <Space>h
-                \ defx#do_action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> <Space>k
-                \ defx#do_action('open', 'vsplit')
-    nnoremap <silent><buffer><expr> P
-                \ defx#do_action('preview')
-    nnoremap <silent><buffer><expr> o
-                \ defx#do_action('open_tree', 'toggle')
-    nnoremap <silent><buffer><expr> mk
-                \ defx#do_action('new_directory')
-    nnoremap <silent><buffer><expr> cn
-                \ defx#do_action('new_file')
-    nnoremap <silent><buffer><expr> M
-                \ defx#do_action('new_multiple_files')
-    nnoremap <silent><buffer><expr> C
-                \ defx#do_action('toggle_columns',
-                \                'mark:indent:icon:filename:type:size:time')
-    nnoremap <silent><buffer><expr> S
-                \ defx#do_action('toggle_sort', 'time')
-    nnoremap <silent><buffer><expr> dr
-                \ defx#do_action('remove')
-    nnoremap <silent><buffer><expr> rn
-                \ defx#do_action('rename')
-    nnoremap <silent><buffer><expr> !
-                \ defx#do_action('execute_command')
-    nnoremap <silent><buffer><expr> x
-                \ defx#do_action('execute_system')
-    nnoremap <silent><buffer><expr> yp
-                \ defx#do_action('yank_path')
-    nnoremap <silent><buffer><expr> zh
-                \ defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><expr> ;
-                \ defx#do_action('repeat')
-    nnoremap <silent><buffer><expr> h
-                \ defx#do_action('cd', ['..'])
-    " nnoremap <silent><buffer><expr> cd
-    " \ defx#do_action('cd')
-    nnoremap <silent><buffer><expr> q
-                \ defx#do_action('quit')
-    nnoremap <silent><buffer><expr> <C-m>
-                \ defx#do_action('quit')
-    nnoremap <silent><buffer><expr> <Space>
-                \ defx#do_action('toggle_select') . 'j'
-    nnoremap <silent><buffer><expr> a
-                \ defx#do_action('toggle_select_all')
-    nnoremap <silent><buffer><expr> j
-                \ line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><expr> k
-                \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-l>
-                \ defx#do_action('redraw')
-    nnoremap <silent><buffer><expr> <C-g>
-                \ defx#do_action('print')
-    nnoremap <silent><buffer><expr> cd
-                \ defx#do_action('change_vim_cwd')
-endfunction
-
-
-
-" nnoremap <silent><buffer><expr> <C-m>
-            " \ defx#is_opened_tree() ?
-            " \ defx#do_action('close_tree') :
-            " \ :Defx -split=vertical -winwidth=35 -direction=topleft<CR>
-" nnoremap <C-m> :Defx -split=vertical -winwidth=35 -direction=topleft<CR>
-nnoremap <C-m> :call Open_Tree()<CR>
-let g:Defx_tree_opened = 0
-function Open_Tree()
-    if g:Defx_tree_opened == 1
-        eval("defx#do_action('quit')")
-        g:Defx_tree_opened = 0
-    elseif g:Defx_tree_opened == 0
-        execute(":Defx -split=vertical -winwidth=35 -direction=topleft")
-        g:Defx_tree_opened = 1
-    endif
-endfunction
-
-
-
-
-
-"
-" ---  defx-icons  ---
-"
-let g:defx_icons_enable_syntax_highlight = 0
-let g:defx_icons_column_length = 1
-let g:defx_icons_directory_icon = ''
-let g:defx_icons_mark_icon = '*'
-let g:defx_icons_copy_icon = ''
-let g:defx_icons_move_icon = ''
-let g:defx_icons_parent_icon = ''
-let g:defx_icons_default_icon = ''
-let g:defx_icons_directory_symlink_icon = ''
-" Options below are applicable only when using "tree" feature
-let g:defx_icons_root_opened_tree_icon = ''
-let g:defx_icons_nested_opened_tree_icon = ''
-let g:defx_icons_nested_closed_tree_icon = ''
-let g:defx_icons_term_colors = {
-\ 'red': 2
-\ }
-hi default link DefxIconsMarkIcon Statement
-hi default link DefxIconsCopyIcon WarningMsg
-hi default link DefxIconsMoveIcon ErrorMsg
-hi default link DefxIconsDirectory Directory
-hi default link DefxIconsParentDirectory Directory
-hi default link DefxIconsSymlinkDirectory Directory
-hi default link DefxIconsOpenedTreeIcon Directory
-hi default link DefxIconsNestedTreeIcon Directory
-hi default link DefxIconsClosedTreeIcon Directory
 
 
 "
