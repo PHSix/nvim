@@ -1,3 +1,8 @@
+autocmd BufReadPost *
+            \ if line("'\"")>0&&line("'\"")<=line("$") |
+            \       exe "normal g'\"" |
+            \ endif"
+autocmd WinLeave * setlocal nocursorline
 autocmd BufNewFile,BufRead *.md set nofoldenable
 autocmd BufNewFile,BufRead *.js set nofoldenable
 autocmd BufNewFile,BufRead *.conf set nofoldenable

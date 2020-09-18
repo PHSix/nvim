@@ -1,11 +1,8 @@
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'mhinz/vim-startify'
 Plug 'hardcoreplayers/dashboard-nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
@@ -18,7 +15,7 @@ Plug 'liuchengxu/vim-clap', {'do': 'cargo build --release'}
 Plug 'junegunn/vim-easy-align', {'on':'<Plug>(EasyAlign)'}
 Plug 'sheerun/vim-polyglot'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'turbio/bracey.vim', {'for': 'html'}
+Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server', 'for': ['html']}
 Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'lilydjwg/fcitx.vim'
@@ -37,4 +34,11 @@ Plug 'voldikss/vim-hello-word'
 Plug 'glepnir/spaceline.vim'
 Plug 'PHSix/vim-buffet'
 Plug 'cespare/vim-toml'
+Plug 'nvim-lua/completion-nvim'
+" Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
+Plug 'jwarby/antovim'
+Plug 'rafcamlet/coc-nvim-lua'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 call plug#end()
+

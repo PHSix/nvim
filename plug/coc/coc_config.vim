@@ -5,7 +5,7 @@
 set hidden
 set nobackup
 set nowritebackup
-set updatetime=100
+" set updatetime=100
 set shortmess+=c
 autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup mygroup
@@ -87,6 +87,5 @@ let g:coc_global_extensions = [
             \"coc-yank",
             \"coc-actions",
             \"coc-cmake",
-            \"coc-tabnine",
             \"coc-todolist",
             \]

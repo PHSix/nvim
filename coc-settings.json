@@ -31,20 +31,11 @@
                 }
             }
         },
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod"
-            ],
-            "disableWorkspaceFolders": true,
+        "lua": {
+            "command": "lua-lsp",
             "filetypes": [
-                "go"
-            ],
-            "initializationOptions": {
-                "gocodeCompletionEnabled": true,
-                "diagnosticEnabled": false,
-                "lintTool": "golint"
-            }
+                "lua"
+            ]
         }
     }
 }
