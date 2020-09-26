@@ -39,6 +39,12 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'jwarby/antovim'
 Plug 'rafcamlet/coc-nvim-lua'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'dunstontc/vim-vscode-theme'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'skreek/skeletor.vim'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'itchyny/vim-cursorword'
 call plug#end()
+
 

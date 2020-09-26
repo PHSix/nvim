@@ -1,5 +1,7 @@
-set termguicolors
-colorscheme OceanicNext
+" set termguicolors
+" colorscheme OceanicNext
+
+" colorscheme oceanic_material
 " the configuration options should be placed before `colorscheme forest-night`
 " highlight clear SignColumn
 " highlight Cursorline  ctermfg=NONE  ctermbg=NONE cterm=bold guifg=white guibg=yellow gui=bold
@@ -15,3 +17,9 @@ colorscheme OceanicNext
 " hi! DiffChange ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 " hi! DiffDelete ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
+
+
+
+colorscheme material
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+set termguicolors

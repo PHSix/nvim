@@ -3,7 +3,7 @@ set relativenumber                     " 开启相应行号显示
 syntax on                              " 开启高亮
 set mouse=a                            " 允许光标操作
 set encoding=utf-8 fileencodings=utf-8 " 使用utf-8编码
-" set whichwrap+=<,>,h,l                 " 允许跨行
+set whichwrap+=<,>,h,l                 " 允许跨行
 set matchtime=1
 set autoindent                         " 开启自动缩进
 set expandtab                          " 使用tab缩进

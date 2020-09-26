@@ -1,45 +1,3 @@
-"
-" ---  vim-airline  ---
-"
-" let g:airline#extensions#coc#enabled = 0
-" let g:airline#extensions#tabline#enabled = 0
-" let g:airline#extensions#ale#enabled = 0
-" let g:airline_mode_map = {
-            " \ '__'     : '-',
-            " \ 'c'      : 'C',
-            " \ 'i'      : 'I',
-            " \ 'ic'     : 'I',
-            " \ 'ix'     : 'I',
-            " \ 'n'      : 'N',
-            " \ 'multi'  : 'M',
-            " \ 'ni'     : 'N',
-            " \ 'no'     : 'N',
-            " \ 'R'      : 'R',
-            " \ 'Rv'     : 'R',
-            " \ 's'      : 'S',
-            " \ 'S'      : 'S',
-            " \ ''     : 'S',
-            " \ 't'      : 'T',
-            " \ 'v'      : 'V',
-            " \ 'V'      : 'V',
-            " \ ''     : 'V',
-            " \ }
-" " let g:airline_theme= "deus"
-" let g:airline_theme = 'forest_night'
-" let g:airline#extensions#bufferline#enabled = 1
-" let g:airline#extensions#bufferline#overwrite_variables = 1
-" let g:airline_symbols_ascii = 1
-" if !exists('g:airline_symbols')
-    " let g:airline_symbols = {}
-" endif
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.maxlinenr = ''
-" let g:airline_symbols.dirty='⚡'
 
 
 "
@@ -209,19 +167,19 @@ source ~/.config/nvim/plug/coc/coc_config.vim
 
 " dashboard.nvim
 let g:dashboard_default_executive ='clap'
-let g:dashboard_custom_header = [
-            \'         _             _            _      _          _        _         _   _       ',
-            \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-            \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-            \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-            \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-            \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-            \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-            \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-            \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-            \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-            \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
-            \ ]
+" let g:dashboard_custom_header = [
+            " \'         _             _            _      _          _        _         _   _       ',
+            " \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
+            " \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
+            " \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
+            " \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
+            " \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
+            " \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
+            " \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
+            " \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
+            " \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
+            " \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
+            " \ ]
 
 
 nmap <Leader>bs :<C-u>SessionSave<CR>
@@ -389,13 +347,6 @@ let g:lua_tree_show_icons = {
     \ 'folders': 0,
     \ 'files': 0,
     \}
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath
-
-" You can edit keybindings be defining this variable
-" You don't have to define all keys.
-" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
 let g:lua_tree_bindings = {
     \ 'edit':            ['<CR>', 'o'],
     \ 'edit_vsplit':     '<C-v>',
@@ -415,13 +366,6 @@ let g:lua_tree_bindings = {
     \ 'prev_git_item':   '[c',
     \ 'next_git_item':   ']c',
     \}
-
-" Disable default mappings by plugin
-" Bindings are enable by default, disabled on any non-zero value
-" let lua_tree_disable_keybindings=1
-
-" default will show icon by default if no icon is provided
-" default shows no icon by default
 let g:lua_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
@@ -441,11 +385,9 @@ let g:lua_tree_icons = {
 nnoremap <C-m> :LuaTreeToggle<CR>
 " nnoremap <leader>r :LuaTreeRefresh<CR>
 " nnoremap <leader>n :LuaTreeFindFile<CR>
-" LuaTreeOpen and LuaTreeClose are also available if you need them
 
 set termguicolors " this variable must be enabled for colors to be applied properly
 
-" a list of groups can be found at `:help lua_tree_highlight`
 highlight LuaTreeFolderIcon guibg=blue
 
 
