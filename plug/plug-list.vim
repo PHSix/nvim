@@ -4,7 +4,6 @@ Plug 'hardcoreplayers/dashboard-nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
-Plug 'Yggdroot/indentLine'
 Plug 'liuchengxu/vista.vim'
 Plug 'francoiscabrol/ranger.vim', {'on': 'Ranger'}
 Plug 'rhysd/accelerated-jk'
@@ -45,6 +44,7 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'skreek/skeletor.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'itchyny/vim-cursorword'
+Plug 'dstein64/vim-startuptime'
 call plug#end()
 
 

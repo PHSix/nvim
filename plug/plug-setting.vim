@@ -8,12 +8,6 @@ noremap F :Autoformat<CR>
 
 
 
-"
-" ---  indentLine  ---
-"
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_enabled = 0
-autocmd filetype python let g:indentLine_enabled = 0
 
 
 
