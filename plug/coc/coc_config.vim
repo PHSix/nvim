@@ -88,4 +88,5 @@ let g:coc_global_extensions = [
             \"coc-actions",
             \"coc-cmake",
             \"coc-todolist",
+            \"coc-template",
             \]

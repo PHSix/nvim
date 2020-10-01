@@ -9,10 +9,6 @@ noremap F :Autoformat<CR>
 
 
 
-
-
-
-
 "
 " ---  vista  ----
 "
@@ -156,7 +152,6 @@ let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
 let g:mkdp_browser = 'surf'
 
 
-source ~/.config/nvim/plug/coc/coc_config.vim
 
 
 " dashboard.nvim
@@ -209,24 +204,24 @@ nmap ga <Plug>(EasyAlign)
 "
 " ---  vimspector  ---
 "
-let g:vimspector_enable_mappings = 'HUMAN'
-function! s:read_template_into_buffer(template)
-    " has to be a function to avoid the extra space fzf#run insers otherwise
-    execute '0r ~/.config/nvim/vimspector_json/'.a:template
-endfunction
-command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
-            \   'source': 'ls -1 ~/.config/nvim/vimspector_json',
-            \   'down': 20,
-            \   'sink': function('<sid>read_template_into_buffer')
-            \ })
-noremap <leader>dt :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
-noremap <leader>dq :VimspectorReset<CR>
-noremap <leader>dw :VimspectorReset
-noremap <leader>dp <Plug>VimspectorToggleBreakpoint
-noremap <leader>dr <Plug>VimspectorRestart
-noremap <leader>dg <Plug>VimspectorContinue
-let g:vimspector_sidebar_width = 30
-let g:vimspector_bottombar_height = 7
+" let g:vimspector_enable_mappings = 'HUMAN'
+" function! s:read_template_into_buffer(template)
+    " " has to be a function to avoid the extra space fzf#run insers otherwise
+    " execute '0r ~/.config/nvim/vimspector_json/'.a:template
+" endfunction
+" command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
+            " \   'source': 'ls -1 ~/.config/nvim/vimspector_json',
+            " \   'down': 20,
+            " \   'sink': function('<sid>read_template_into_buffer')
+            " \ })
+" noremap <leader>dt :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
+" noremap <leader>dq :VimspectorReset<CR>
+" noremap <leader>dw :VimspectorReset
+" noremap <leader>dp <Plug>VimspectorToggleBreakpoint
+" noremap <leader>dr <Plug>VimspectorRestart
+" noremap <leader>dg <Plug>VimspectorContinue
+" let g:vimspector_sidebar_width = 30
+" let g:vimspector_bottombar_height = 7
 
 
 
@@ -269,36 +264,20 @@ nmap <leader>7 <Plug>BuffetSwitch(7)
 nmap <leader>8 <Plug>BuffetSwitch(8)
 nmap <leader>9 <Plug>BuffetSwitch(9)
 nmap <leader>0 <Plug>BuffetSwitch(10)
-let g:buffet_always_show_tabline = 1
-let g:buffet_powerline_separators = 1
-let g:buffet_left_trunc_icon = "<"
-let g:buffet_right_trunc_icon = ">"
+" let g:buffet_always_show_tabline = 1
+" let g:buffet_powerline_separators = 1
+" let g:buffet_left_trunc_icon = "<"
+" let g:buffet_right_trunc_icon = ">"
 " let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
-let g:buffet_tab_icon = " "
+" let g:buffet_tab_icon = " "
 
 
 
 
-autocmd BufEnter * lua require'completion'.on_attach()
-let g:completion_enable_auto_popup = 1
-inoremap <silent><expr> <c-p> completion#trigger_completion() "map <c-p> to manually trigger completion
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
 
 
-"
-" ---  chadtree  ---
-"
-" nnoremap <silent> <C-m> <cmd>CHADopen<CR>
 
 
 
@@ -384,6 +363,11 @@ set termguicolors " this variable must be enabled for colors to be applied prope
 
 highlight LuaTreeFolderIcon guibg=blue
 
+augroup nvim_tree_au
+    
+augroup end
 
 
 
+
+source ~/.config/nvim/plug/coc/coc_config.vim

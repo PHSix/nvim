@@ -1,5 +1,6 @@
 nmap S :w<CR>
 nmap X :q!<CR>
+nmap <leader>w :w<CR>
 nmap <leader>nl :noh<cr>
 noremap <A-j> 5j
 noremap <A-k> 5k
@@ -44,9 +45,11 @@ map gl $
 map gh ^
 nnoremap <leader>bl :bn<cr>
 nnoremap <leader>bh :bp<cr>
+nmap <ESC> <ESC>
 
 
 nmap Q :call Buffer_close()<CR>
+nmap <leader>q :call Buffer_close()<CR>
 function Buffer_close() 
     let str = execute(":ls")
     if len(str) > 90
