@@ -76,47 +76,47 @@ let g:rbpt_loadcmd_toggle = 0
 " ---  vim-startify  ---
 "
 
-" let g:startify_lists = [
-" \ { 'type': 'files',     'header': ['   MRU']            },
-" \ { 'type': 'sessions',  'header': ['   Sessions']       },
-" \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-" \ ]
+let g:startify_lists = [
+\ { 'type': 'files',     'header': ['   MRU']            },
+\ { 'type': 'sessions',  'header': ['   Sessions']       },
+\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+\ ]
 
-" " let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
-" let g:startify_bookmarks = [ "~/.config/nvim/coc-settings.json", '~/.zshrc', "~/.config/awesome/rc.lua", "~/.config/picom.conf", "~/.config/i3/config" ]
+" let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
+let g:startify_bookmarks = [ "~/.config/nvim/coc-settings.json", '~/.zshrc', "~/.config/awesome/rc.lua", "~/.config/picom.conf", "~/.config/i3/config" ]
 
+let g:startify_custom_header =
+\startify#center(
+\[
+\'         _             _            _      _          _        _         _   _       ',
+\'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
+\'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
+\'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
+\'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
+\'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
+\'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
+\'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
+\' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
+\'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
+\'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
+\])
 " let g:startify_custom_header =
 " \startify#center(
 " \[
-" \'         _             _            _      _          _        _         _   _       ',
-" \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-" \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-" \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-" \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-" \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-" \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-" \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-" \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-" \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-" \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
+" \'__/\\\\\_____/\\\__/\\\\\\\\\\\\\\\_______/\\\\\_______/\\\________/\\\__/\\\\\\\\\\\__/\\\\____________/\\\\_        ',
+" \' _\/\\\\\\___\/\\\_\/\\\///////////______/\\\///\\\____\/\\\_______\/\\\_\/////\\\///__\/\\\\\\________/\\\\\\_       ',
+" \'  _\/\\\/\\\__\/\\\_\/\\\_______________/\\\/__\///\\\__\//\\\______/\\\______\/\\\_____\/\\\//\\\____/\\\//\\\_      ',
+" \'   _\/\\\//\\\_\/\\\_\/\\\\\\\\\\\______/\\\______\//\\\__\//\\\____/\\\_______\/\\\_____\/\\\\///\\\/\\\/_\/\\\_     ',
+" \'    _\/\\\\//\\\\/\\\_\/\\\///////______\/\\\_______\/\\\___\//\\\__/\\\________\/\\\_____\/\\\__\///\\\/___\/\\\_    ',
+" \'     _\/\\\_\//\\\/\\\_\/\\\_____________\//\\\______/\\\_____\//\\\/\\\_________\/\\\_____\/\\\____\///_____\/\\\_   ',
+" \'      _\/\\\__\//\\\\\\_\/\\\______________\///\\\__/\\\________\//\\\\\__________\/\\\_____\/\\\_____________\/\\\_  ',
+" \'       _\/\\\___\//\\\\\_\/\\\\\\\\\\\\\\\____\///\\\\\/__________\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_ ',
+" \'        _\///_____\/////__\///////////////_______\/////_____________\///________\///////////__\///______________\///__',
 " \])
-" " let g:startify_custom_header =
-" " \startify#center(
-" " \[
-" " \'__/\\\\\_____/\\\__/\\\\\\\\\\\\\\\_______/\\\\\_______/\\\________/\\\__/\\\\\\\\\\\__/\\\\____________/\\\\_        ',
-" " \' _\/\\\\\\___\/\\\_\/\\\///////////______/\\\///\\\____\/\\\_______\/\\\_\/////\\\///__\/\\\\\\________/\\\\\\_       ',
-" " \'  _\/\\\/\\\__\/\\\_\/\\\_______________/\\\/__\///\\\__\//\\\______/\\\______\/\\\_____\/\\\//\\\____/\\\//\\\_      ',
-" " \'   _\/\\\//\\\_\/\\\_\/\\\\\\\\\\\______/\\\______\//\\\__\//\\\____/\\\_______\/\\\_____\/\\\\///\\\/\\\/_\/\\\_     ',
-" " \'    _\/\\\\//\\\\/\\\_\/\\\///////______\/\\\_______\/\\\___\//\\\__/\\\________\/\\\_____\/\\\__\///\\\/___\/\\\_    ',
-" " \'     _\/\\\_\//\\\/\\\_\/\\\_____________\//\\\______/\\\_____\//\\\/\\\_________\/\\\_____\/\\\____\///_____\/\\\_   ',
-" " \'      _\/\\\__\//\\\\\\_\/\\\______________\///\\\__/\\\________\//\\\\\__________\/\\\_____\/\\\_____________\/\\\_  ',
-" " \'       _\/\\\___\//\\\\\_\/\\\\\\\\\\\\\\\____\///\\\\\/__________\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_ ',
-" " \'        _\///_____\/////__\///////////////_______\/////_____________\///________\///////////__\///______________\///__',
-" " \])
-" "
-" function! StartifyEntryFormat()
-" return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-" endfunction
+"
+function! StartifyEntryFormat()
+return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+endfunction
 
 
 
@@ -155,7 +155,7 @@ let g:mkdp_browser = 'surf'
 
 
 " dashboard.nvim
-let g:dashboard_default_executive ='clap'
+" let g:dashboard_default_executive ='clap'
 " let g:dashboard_custom_header = [
             " \'         _             _            _      _          _        _         _   _       ',
             " \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
@@ -171,24 +171,24 @@ let g:dashboard_default_executive ='clap'
             " \ ]
 
 
-nmap <Leader>bs :<C-u>SessionSave<CR>
-nmap <Leader>pl :<C-u>SessionLoad<CR>
-nmap <Leader>pn :<C-u>DashboardNewFile<CR>
-nnoremap <silent> <Leader>ph :<C-u>Clap history<CR>
-nnoremap <silent> <Leader>pf :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
-nnoremap <silent> <Leader>pc :<C-u>Clap colors<CR>
-nnoremap <silent> <Leader>pa :<C-u>Clap grep2<CR>
-nnoremap <silent> <Leader>pb :<C-u>Clap marks<CR>
+" nmap <Leader>bs :<C-u>SessionSave<CR>
+" nmap <Leader>pl :<C-u>SessionLoad<CR>
+" nmap <Leader>pn :<C-u>DashboardNewFile<CR>
+" nnoremap <silent> <Leader>ph :<C-u>Clap history<CR>
+" nnoremap <silent> <Leader>pf :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
+" nnoremap <silent> <Leader>pc :<C-u>Clap colors<CR>
+" nnoremap <silent> <Leader>pa :<C-u>Clap grep2<CR>
+" nnoremap <silent> <Leader>pb :<C-u>Clap marks<CR>
 
-let g:dashboard_custom_shortcut={
-            \ 'find_word' : 'SPC p a',
-            \ 'find_file' : 'SPC p f',
-            \ 'last_session' : 'SPC p l',
-            \ 'find_history' : 'SPC p h',
-            \ 'new_file' : 'SPC p n',
-            \ 'change_colorscheme' : 'SPC p c',
-            \ 'book_marks' : 'SPC p b',
-            \ }
+" let g:dashboard_custom_shortcut={
+            " \ 'find_word' : 'SPC p a',
+            " \ 'find_file' : 'SPC p f',
+            " \ 'last_session' : 'SPC p l',
+            " \ 'find_history' : 'SPC p h',
+            " \ 'new_file' : 'SPC p n',
+            " \ 'change_colorscheme' : 'SPC p c',
+            " \ 'book_marks' : 'SPC p b',
+            " \ }
 
 "
 " ---  vim-easy-aligen
@@ -364,10 +364,62 @@ set termguicolors " this variable must be enabled for colors to be applied prope
 highlight LuaTreeFolderIcon guibg=blue
 
 augroup nvim_tree_au
-    
+
 augroup end
 
 
 
+"
+" ---  vim-go  ---
+"
+let g:go_version_warning = 0
+let g:go_echo_go_info = 0
+let g:go_fmt_autosave = 0
+let g:go_doc_popup_window = 1
+let g:go_def_mapping_enabled = 0
+let g:go_template_autocreate = 0
+let g:go_textobj_enabled = 0
+let g:go_auto_type_info = 1
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+
+
+
+"
+" ---  vimwiki  ---
+"
+nnoremap <leader>t :VimwikiToggleListItem<CR>
+let wiki = {}
+let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', "go": "go"}
+let g:vimwiki_folding = ''
+
+"
+" ---  antovim  ---
+"
+nnoremap <leader>aa :Antovim<CR>
+
+
+"
+" ---  ale  ---
+"
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_column_color = 1
+let g:ale_sign_warning = '<<'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_linter_aliases = {
+      " \'javascriptreact': ['javascript', 'jsx'],
+      " \'typescriptreact': ['tsx', 'typescript'],
+      " \}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+let g:ale_fix_on_save = 1
+highlight clear ALEErrorSign
+highlight link ALEWarningSign todo
+let g:ale_close_preview_on_insert = 1
 
 source ~/.config/nvim/plug/coc/coc_config.vim

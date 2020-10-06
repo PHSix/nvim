@@ -25,14 +25,14 @@ nmap <leader>sl :set splitright<CR>:vsplit<CR>
 nmap <leader>sh :set nosplitright<CR>:vsplit<CR>
 nmap <leader>sj :set nosplitbelow<CR>:split<CR>
 nmap <leader>sk :set splitbelow<CR>:split<CR>
-nmap <leader>wl <C-w>t<C-w>L<CR>
-nmap <leader>wh <C-w>t<C-w>H<CR>
-nmap <leader>wj <C-w>t<C-w>J<CR>
-nmap <leader>wk <C-w>t<C-w>K<CR>
-nnoremap K :resize +5<CR>
-nnoremap J :resize -5<CR>
-nnoremap L :vertical resize +5<CR>
-nnoremap H :vertical resize -5<CR>
+nmap <leader>wl <C-w>t<C-w>L
+nmap <leader>wh <C-w>t<C-w>H
+nmap <leader>wj <C-w>t<C-w>J
+nmap <leader>wk <C-w>t<C-w>K
+nnoremap <leader>K :resize +5<CR>
+nnoremap <leader>J :resize -5<CR>
+nnoremap <leader>L :vertical resize +5<CR>
+nnoremap <leader>H :vertical resize -5<CR>
 map ff zf  " 创建折叠
 map fo zO  " 打开折叠
 map fO zo
@@ -46,11 +46,12 @@ map gh ^
 nnoremap <leader>bl :bn<cr>
 nnoremap <leader>bh :bp<cr>
 nmap <ESC> <ESC>
+nmap <CR> <CR>
 
 
 nmap Q :call Buffer_close()<CR>
 nmap <leader>q :call Buffer_close()<CR>
-function Buffer_close() 
+function Buffer_close()
     let str = execute(":ls")
     if len(str) > 90
         let name = bufname()

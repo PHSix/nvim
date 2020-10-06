@@ -23,7 +23,8 @@ inoremap <silent><expr> <TAB>
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "<CR>"
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
@@ -41,6 +42,7 @@ vmap <Leader>r <Plug>(coc-translator-rv)
 nmap <Leader>sw :CocList grep<CR>
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd FileType txt let b:coc_suggest_disable = 1
+autocmd FileType vimwiki let b:coc_suggest_disable = 1
 let g:markdown_fenced_languages = [
             \ 'vim',
             \ 'help'
@@ -59,7 +61,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 let g:coc_global_extensions = [
-            \"coc-pairs", 
+            \"coc-pairs",
             \"coc-css",
             \"coc-highlight",
             \"coc-html",
@@ -89,4 +91,5 @@ let g:coc_global_extensions = [
             \"coc-cmake",
             \"coc-todolist",
             \"coc-template",
+            \"coc-html",
             \]

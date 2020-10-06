@@ -1,6 +1,6 @@
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'hardcoreplayers/dashboard-nvim'
+" Plug 'hardcoreplayers/dashboard-nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
@@ -36,6 +36,9 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'itchyny/vim-cursorword'
 Plug 'dstein64/vim-startuptime'
+Plug 'fatih/vim-go'
+Plug 'mhinz/vim-startify'
+Plug 'dense-analysis/ale'
 call plug#end()
 
 

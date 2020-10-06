@@ -30,6 +30,9 @@ augroup tab_space_length
     autocmd BufNewFile,BufRead *.dart set tabstop=2
     autocmd BufNewFile,BufRead *.dart set softtabstop=2
     autocmd BufNewFile,BufRead *.dart set shiftwidth=2
+    autocmd BufNewFile,BufRead *.go set tabstop=2
+    autocmd BufNewFile,BufRead *.go set softtabstop=2
+    autocmd BufNewFile,BufRead *.go set shiftwidth=2
 augroup END
 augroup markdown_snippets
     autocmd!
@@ -54,3 +57,31 @@ augroup markdown_snippets
     autocmd filetype markdown inoremap <buffer> <silent> ,g {% web  <++> %} <++><esc>fb2li
     autocmd filetype markdown inoremap <buffer> <silent> ,d {% download  <++> %} <++><esc>fd2li
 augroup END
+
+
+augroup todo_comments
+    autocmd filetype vim inoremap <buffer> <silent>  <C-t> " TODO:
+    autocmd filetype go inoremap <buffer> <silent>  <C-t> // TODO:
+    autocmd filetype python inoremap <buffer> <silent>  <C-t> # TODO:
+    autocmd filetype c inoremap <buffer> <silent>  <C-t> // TODO:
+    autocmd filetype cpp inoremap <buffer> <silent>  <C-t> // TODO:
+    autocmd filetype lua inoremap <buffer> <silent>  <C-t> -- TODO:
+augroup END
+
+" function Get_current_line()
+    " let line =  getline('.')
+    " call Add_semicolon(lines)
+" endfunction
+
+" function Add_semicolon(lines)
+    " if lines[0:1] == "//"
+        " return
+    " elseif string(lines[len(lines) - 1: len(lines)]) == string(";")
+        " return
+    " elseif string(lines[len(lines) - 1: len(lines)]) == string("{")
+        " return
+    " elseif string(lines[len(lines) - 1: len(lines)]) == string(" ")
+    " else
+        " call setline('.', getline('.') . ';')
+    " endif
+" endfunction
