@@ -43,6 +43,7 @@ nmap <Leader>sw :CocList grep<CR>
 autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd FileType txt let b:coc_suggest_disable = 1
 autocmd FileType vimwiki let b:coc_suggest_disable = 1
+autocmd FileType gomod let b:coc_suggest_disable = 1
 let g:markdown_fenced_languages = [
             \ 'vim',
             \ 'help'
@@ -77,7 +78,6 @@ let g:coc_global_extensions = [
             \"coc-git",
             \"coc-java",
             \"coc-vimtex",
-            \"coc-go",
             \"coc-emmet",
             \"coc-diagnostic",
             \"coc-sql",

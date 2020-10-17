@@ -49,6 +49,8 @@ func! CompileRunGcc()
         :term cargo run
     elseif &filetype == 'dart'
         :CocCommand flutter.run
+    elseif &filetype == 'vim'
+        :source %
     else
         set splitbelow
         :sp

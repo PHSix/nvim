@@ -5,6 +5,7 @@ source ~/.config/nvim/core/autocmd.vim
 source ~/.config/nvim/plug/plug-list.vim
 source ~/.config/nvim/plug/plug-setting.vim
 source ~/.config/nvim/theme/theme.vim
+source ~/.config/nvim/core/func.vim
 " source ~/.config/nvim/core/myplug.vim
 
 

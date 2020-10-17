@@ -10,7 +10,6 @@
     "diagnostic.refreshOnInsertMode": false,
     "languageserver": {
         "ccls": {
-            "diagnostic.enable": false,
             "command": "ccls",
             "filetypes": [
                 "c",
@@ -31,6 +30,16 @@
                     "directory": "/tmp/ccls"
                 }
             }
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "disableWorkspaceFolders": true,
+            "filetypes": [
+                "go"
+            ]
         },
         "lua": {
             "command": "lua-lsp",

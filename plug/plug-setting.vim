@@ -1,5 +1,3 @@
-
-
 "
 " ---  vim-autoformat  ---
 "
@@ -120,16 +118,6 @@ endfunction
 
 
 
-"
-" ---  vim-clap  ---
-"
-let g:clap_theme = 'solarizd_light'
-nnoremap <Leader>es :Clap grep<CR>
-nnoremap <Leader>ef :Clap filer<CR>
-nnoremap <Leader>eb :Clap buffers<CR>
-nnoremap <Leader>eh :Clap hist/<CR>
-nnoremap <Leader>ec :Clap hist:<CR>
-nnoremap <Leader>el :Clap history<CR>
 
 
 
@@ -362,10 +350,7 @@ nnoremap <C-m> :LuaTreeToggle<CR>
 set termguicolors " this variable must be enabled for colors to be applied properly
 
 highlight LuaTreeFolderIcon guibg=blue
-
-augroup nvim_tree_au
-
-augroup end
+nmap <CR> <CR>
 
 
 
@@ -399,27 +384,8 @@ let g:vimwiki_folding = ''
 nnoremap <leader>aa :Antovim<CR>
 
 
-"
-" ---  ale  ---
-"
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '>>'
-let g:ale_sign_column_color = 1
-let g:ale_sign_warning = '<<'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_linter_aliases = {
-      " \'javascriptreact': ['javascript', 'jsx'],
-      " \'typescriptreact': ['tsx', 'typescript'],
-      " \}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\}
-let g:ale_fix_on_save = 1
-highlight clear ALEErrorSign
-highlight link ALEWarningSign todo
-let g:ale_close_preview_on_insert = 1
+
+" nnoremap <Leader>p <cmd>lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
 
 source ~/.config/nvim/plug/coc/coc_config.vim

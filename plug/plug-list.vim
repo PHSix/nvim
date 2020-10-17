@@ -9,7 +9,6 @@ Plug 'francoiscabrol/ranger.vim', {'on': 'Ranger'}
 Plug 'rhysd/accelerated-jk'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'liuchengxu/vim-clap', {'do': 'cargo build --release'}
 Plug 'junegunn/vim-easy-align', {'on':'<Plug>(EasyAlign)'}
 Plug 'sheerun/vim-polyglot'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -38,7 +37,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'dstein64/vim-startuptime'
 Plug 'fatih/vim-go'
 Plug 'mhinz/vim-startify'
-Plug 'dense-analysis/ale'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
 call plug#end()
-
-
