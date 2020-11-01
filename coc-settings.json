@@ -5,7 +5,8 @@
     "tsserver.npm": "/usr/bin/npm",
     "git.changedSign.text": "+",
     "coc.preferences.formatOnSaveFiletypes": [
-        "json"
+        "json",
+        "c"
     ],
     "diagnostic.refreshOnInsertMode": false,
     "languageserver": {

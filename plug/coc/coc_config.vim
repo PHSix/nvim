@@ -35,8 +35,8 @@ inoremap <silent><expr> <c-l> coc#refresh()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
-nmap <Leader>w <Plug>(coc-translator-p)
-vmap <Leader>w <Plug>(coc-translator-pv)
+nmap <Leader>wo <Plug>(coc-translator-p)
+vmap <Leader>wv <Plug>(coc-translator-pv)
 nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
 nmap <Leader>sw :CocList grep<CR>
@@ -82,7 +82,6 @@ let g:coc_global_extensions = [
             \"coc-diagnostic",
             \"coc-sql",
             \"coc-sh",
-            \"coc-clangd",
             \"coc-yaml",
             \"coc-xml",
             \"coc-flutter-tools",

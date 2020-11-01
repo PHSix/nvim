@@ -75,29 +75,29 @@ let g:rbpt_loadcmd_toggle = 0
 "
 
 let g:startify_lists = [
-\ { 'type': 'files',     'header': ['   MRU']            },
-\ { 'type': 'sessions',  'header': ['   Sessions']       },
-\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-\ ]
+            \ { 'type': 'files',     'header': ['   MRU']            },
+            \ { 'type': 'sessions',  'header': ['   Sessions']       },
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+            \ ]
 
 " let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
 let g:startify_bookmarks = [ "~/.config/nvim/coc-settings.json", '~/.zshrc', "~/.config/awesome/rc.lua", "~/.config/picom.conf", "~/.config/i3/config" ]
 
 let g:startify_custom_header =
-\startify#center(
-\[
-\'         _             _            _      _          _        _         _   _       ',
-\'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-\'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-\'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-\'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-\'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-\'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-\'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-\' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-\'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-\'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
-\])
+            \startify#center(
+            \[
+            \'         _             _            _      _          _        _         _   _       ',
+            \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
+            \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
+            \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
+            \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
+            \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
+            \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
+            \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
+            \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
+            \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
+            \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
+            \])
 " let g:startify_custom_header =
 " \startify#center(
 " \[
@@ -113,7 +113,7 @@ let g:startify_custom_header =
 " \])
 "
 function! StartifyEntryFormat()
-return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
 
 
@@ -145,18 +145,18 @@ let g:mkdp_browser = 'surf'
 " dashboard.nvim
 " let g:dashboard_default_executive ='clap'
 " let g:dashboard_custom_header = [
-            " \'         _             _            _      _          _        _         _   _       ',
-            " \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-            " \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-            " \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-            " \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-            " \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-            " \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-            " \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-            " \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-            " \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-            " \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
-            " \ ]
+" \'         _             _            _      _          _        _         _   _       ',
+" \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
+" \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
+" \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
+" \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
+" \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
+" \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
+" \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
+" \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
+" \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
+" \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
+" \ ]
 
 
 " nmap <Leader>bs :<C-u>SessionSave<CR>
@@ -169,14 +169,14 @@ let g:mkdp_browser = 'surf'
 " nnoremap <silent> <Leader>pb :<C-u>Clap marks<CR>
 
 " let g:dashboard_custom_shortcut={
-            " \ 'find_word' : 'SPC p a',
-            " \ 'find_file' : 'SPC p f',
-            " \ 'last_session' : 'SPC p l',
-            " \ 'find_history' : 'SPC p h',
-            " \ 'new_file' : 'SPC p n',
-            " \ 'change_colorscheme' : 'SPC p c',
-            " \ 'book_marks' : 'SPC p b',
-            " \ }
+" \ 'find_word' : 'SPC p a',
+" \ 'find_file' : 'SPC p f',
+" \ 'last_session' : 'SPC p l',
+" \ 'find_history' : 'SPC p h',
+" \ 'new_file' : 'SPC p n',
+" \ 'change_colorscheme' : 'SPC p c',
+" \ 'book_marks' : 'SPC p b',
+" \ }
 
 "
 " ---  vim-easy-aligen
@@ -194,14 +194,14 @@ nmap ga <Plug>(EasyAlign)
 "
 " let g:vimspector_enable_mappings = 'HUMAN'
 " function! s:read_template_into_buffer(template)
-    " " has to be a function to avoid the extra space fzf#run insers otherwise
-    " execute '0r ~/.config/nvim/vimspector_json/'.a:template
+" " has to be a function to avoid the extra space fzf#run insers otherwise
+" execute '0r ~/.config/nvim/vimspector_json/'.a:template
 " endfunction
 " command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
-            " \   'source': 'ls -1 ~/.config/nvim/vimspector_json',
-            " \   'down': 20,
-            " \   'sink': function('<sid>read_template_into_buffer')
-            " \ })
+" \   'source': 'ls -1 ~/.config/nvim/vimspector_json',
+" \   'down': 20,
+" \   'sink': function('<sid>read_template_into_buffer')
+" \ })
 " noremap <leader>dt :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
 " noremap <leader>dq :VimspectorReset<CR>
 " noremap <leader>dw :VimspectorReset
@@ -252,13 +252,13 @@ nmap <leader>7 <Plug>BuffetSwitch(7)
 nmap <leader>8 <Plug>BuffetSwitch(8)
 nmap <leader>9 <Plug>BuffetSwitch(9)
 nmap <leader>0 <Plug>BuffetSwitch(10)
-" let g:buffet_always_show_tabline = 1
-" let g:buffet_powerline_separators = 1
-" let g:buffet_left_trunc_icon = "<"
-" let g:buffet_right_trunc_icon = ">"
+let g:buffet_always_show_tabline = 1
+let g:buffet_powerline_separators = 1
+let g:buffet_left_trunc_icon = "<"
+let g:buffet_right_trunc_icon = ">"
 " let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
-" let g:buffet_tab_icon = " "
+let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
 
 
@@ -273,15 +273,15 @@ nmap <leader>0 <Plug>BuffetSwitch(10)
 " ---  fzy  ---
 "
 function! FzyCommand(choice_command, vim_command)
-  try
-    let output = system(a:choice_command . " | fzy ")
-  catch /Vim:Interrupt/
-    " Swallow errors from ^C, allow redraw! below
-  endtry
-  redraw!
-  if v:shell_error == 0 && !empty(output)
-    exec a:vim_command . ' ' . output
-  endif
+    try
+        let output = system(a:choice_command . " | fzy ")
+    catch /Vim:Interrupt/
+        " Swallow errors from ^C, allow redraw! below
+    endtry
+    redraw!
+    if v:shell_error == 0 && !empty(output)
+        exec a:vim_command . ' ' . output
+    endif
 endfunction
 
 nnoremap <leader>ze :call FzyCommand("find . -type f", ":e")<cr>
@@ -304,44 +304,44 @@ let g:lua_tree_git_hl = 1 "0 by default, will enable file highlight for git attr
 let g:lua_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
 let g:lua_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
 let g:lua_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 0,
-    \}
+            \ 'git': 1,
+            \ 'folders': 0,
+            \ 'files': 0,
+            \}
 let g:lua_tree_bindings = {
-    \ 'edit':            ['<CR>', 'o'],
-    \ 'edit_vsplit':     '<C-v>',
-    \ 'edit_split':      '<C-x>',
-    \ 'edit_tab':        '<C-t>',
-    \ 'toggle_ignored':  'I',
-    \ 'toggle_dotfiles': 'H',
-    \ 'refresh':         'R',
-    \ 'preview':         '<Tab>',
-    \ 'cd':              '<C-]>',
-    \ 'create':          'a',
-    \ 'remove':          'd',
-    \ 'rename':          'r',
-    \ 'cut':             'x',
-    \ 'copy':            'c',
-    \ 'paste':           'p',
-    \ 'prev_git_item':   '[c',
-    \ 'next_git_item':   ']c',
-    \}
+            \ 'edit':            ['<CR>', 'o'],
+            \ 'edit_vsplit':     '<C-v>',
+            \ 'edit_split':      '<C-x>',
+            \ 'edit_tab':        '<C-t>',
+            \ 'toggle_ignored':  'I',
+            \ 'toggle_dotfiles': 'H',
+            \ 'refresh':         'R',
+            \ 'preview':         '<Tab>',
+            \ 'cd':              '<C-]>',
+            \ 'create':          'a',
+            \ 'remove':          'd',
+            \ 'rename':          'r',
+            \ 'cut':             'x',
+            \ 'copy':            'c',
+            \ 'paste':           'p',
+            \ 'prev_git_item':   '[c',
+            \ 'next_git_item':   ']c',
+            \}
 let g:lua_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★"
-    \   },
-    \ 'folder': {
-    \   'default': "",
-    \   'open': ""
-    \   }
-    \ }
+            \ 'default': '',
+            \ 'symlink': '',
+            \ 'git': {
+            \   'unstaged': "✗",
+            \   'staged': "✓",
+            \   'unmerged': "",
+            \   'renamed': "➜",
+            \   'untracked': "★"
+            \   },
+            \ 'folder': {
+            \   'default': "",
+            \   'open': ""
+            \   }
+            \ }
 
 nnoremap <C-m> :LuaTreeToggle<CR>
 " nnoremap <leader>r :LuaTreeRefresh<CR>
@@ -388,4 +388,11 @@ nnoremap <leader>aa :Antovim<CR>
 " nnoremap <Leader>p <cmd>lua require'telescope.builtin'.find_files{}<CR>
 nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
 
+
+"
+" ---  galaxyline  ---
+"
+execute("lua require(\"eviline\")")
+
 source ~/.config/nvim/plug/coc/coc_config.vim
+

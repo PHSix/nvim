@@ -51,6 +51,9 @@ func! CompileRunGcc()
         :CocCommand flutter.run
     elseif &filetype == 'vim'
         :source %
+    elseif &filetype == 'lua'
+        :sp
+        :term lua %
     else
         set splitbelow
         :sp

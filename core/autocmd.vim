@@ -36,6 +36,9 @@ augroup tab_space_length
   autocmd BufNewFile,BufRead *.vim set tabstop=2
   autocmd BufNewFile,BufRead *.vim set softtabstop=2
   autocmd BufNewFile,BufRead *.vim set shiftwidth=2
+  autocmd BufNewFile,BufRead *.cpp set tabstop=4
+  autocmd BufNewFile,BufRead *.cpp set softtabstop=4
+  autocmd BufNewFile,BufRead *.cpp set shiftwidth=4
 augroup END
 augroup markdown_snippets
   autocmd!
