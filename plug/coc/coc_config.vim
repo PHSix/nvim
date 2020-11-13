@@ -36,6 +36,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
 nmap <Leader>wo <Plug>(coc-translator-p)
+vmap <Leader>wo <Plug>(coc-translator-p)
 vmap <Leader>wv <Plug>(coc-translator-pv)
 nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
@@ -91,4 +92,5 @@ let g:coc_global_extensions = [
             \"coc-todolist",
             \"coc-template",
             \"coc-html",
+            \"coc-cmake",
             \]

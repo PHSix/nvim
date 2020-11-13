@@ -81,7 +81,7 @@ let g:startify_lists = [
             \ ]
 
 " let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
-let g:startify_bookmarks = [ "~/.config/nvim/coc-settings.json", '~/.zshrc', "~/.config/awesome/rc.lua", "~/.config/picom.conf", "~/.config/i3/config" ]
+let g:startify_bookmarks = [ "~/.config/nvim/coc-settings.json", "~/.config/picom.conf", "~/.config/i3/config","~/.config/nvim/plug/plug-setting.vim", "~/.config/nvim/plug/coc/coc_config.vim", "~/.config/fish/config.fish"]
 
 let g:startify_custom_header =
             \startify#center(
@@ -258,9 +258,29 @@ let g:buffet_left_trunc_icon = "<"
 let g:buffet_right_trunc_icon = ">"
 " let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
-let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
+" let g:buffet_tab_icon = " "
+" let g:buffet_tab_icon = "🪐"
+" let g:buffet_tab_icon = "♓"
+" let g:buffet_tab_icon = "🚀"
+" let g:buffet_tab_icon = "✈️ "
+" let g:buffet_tab_icon = "🛰️ "
+" let g:buffet_tab_icon = "⚡"
+" let g:buffet_tab_icon = "🌈"
+" let g:buffet_tab_icon = "🌠"
+" let g:buffet_tab_icon = "🌌"
+" let g:buffet_tab_icon = "🌀"
+" let g:buffet_tab_icon = "<->"
+let g:buffet_tab_icon = "🌵"
 
+
+
+
+"
+" --- wildfire ---
+"
+
+let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it"]
 
 
 
