@@ -4,9 +4,6 @@
 noremap F :Autoformat<CR>
 
 
-
-
-
 "
 " ---  vista  ----
 "
@@ -70,52 +67,6 @@ let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 
 
-"
-" ---  vim-startify  ---
-"
-
-let g:startify_lists = [
-            \ { 'type': 'files',     'header': ['   MRU']            },
-            \ { 'type': 'sessions',  'header': ['   Sessions']       },
-            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-            \ ]
-
-" let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.zshrc' ]
-let g:startify_bookmarks = [ "~/.config/nvim/coc-settings.json", "~/.config/picom.conf", "~/.config/i3/config","~/.config/nvim/plug/plug-setting.vim", "~/.config/nvim/plug/coc/coc_config.vim", "~/.config/fish/config.fish"]
-
-let g:startify_custom_header =
-            \startify#center(
-            \[
-            \'         _             _            _      _          _        _         _   _       ',
-            \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-            \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-            \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-            \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-            \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-            \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-            \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-            \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-            \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-            \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
-            \])
-" let g:startify_custom_header =
-" \startify#center(
-" \[
-" \'__/\\\\\_____/\\\__/\\\\\\\\\\\\\\\_______/\\\\\_______/\\\________/\\\__/\\\\\\\\\\\__/\\\\____________/\\\\_        ',
-" \' _\/\\\\\\___\/\\\_\/\\\///////////______/\\\///\\\____\/\\\_______\/\\\_\/////\\\///__\/\\\\\\________/\\\\\\_       ',
-" \'  _\/\\\/\\\__\/\\\_\/\\\_______________/\\\/__\///\\\__\//\\\______/\\\______\/\\\_____\/\\\//\\\____/\\\//\\\_      ',
-" \'   _\/\\\//\\\_\/\\\_\/\\\\\\\\\\\______/\\\______\//\\\__\//\\\____/\\\_______\/\\\_____\/\\\\///\\\/\\\/_\/\\\_     ',
-" \'    _\/\\\\//\\\\/\\\_\/\\\///////______\/\\\_______\/\\\___\//\\\__/\\\________\/\\\_____\/\\\__\///\\\/___\/\\\_    ',
-" \'     _\/\\\_\//\\\/\\\_\/\\\_____________\//\\\______/\\\_____\//\\\/\\\_________\/\\\_____\/\\\____\///_____\/\\\_   ',
-" \'      _\/\\\__\//\\\\\\_\/\\\______________\///\\\__/\\\________\//\\\\\__________\/\\\_____\/\\\_____________\/\\\_  ',
-" \'       _\/\\\___\//\\\\\_\/\\\\\\\\\\\\\\\____\///\\\\\/__________\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_ ',
-" \'        _\///_____\/////__\///////////////_______\/////_____________\///________\///////////__\///______________\///__',
-" \])
-"
-function! StartifyEntryFormat()
-    return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
-endfunction
-
 
 
 
@@ -137,46 +88,31 @@ let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
 "
 " ---  markdown-preview.nvim  ---
 "
-let g:mkdp_browser = 'surf'
+let g:mkdp_browser = 'chromium'
 
 
 
 
 " dashboard.nvim
-" let g:dashboard_default_executive ='clap'
-" let g:dashboard_custom_header = [
-" \'         _             _            _      _          _        _         _   _       ',
-" \'        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-" \'       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-" \'      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-" \'     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-" \'    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-" \'   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-" \'  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-" \' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-" \'/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-" \'\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
-" \ ]
+let g:dashboard_default_executive ='fzf'
+nnoremap <silent> <c-f>s :<C-u>SessionSave<CR>
+nnoremap <silent> <c-f>l :<C-u>SessionLoad<CR>
+nnoremap <silent> <c-f>h :DashboardFindHistory<CR>
+nnoremap <silent> <c-f>f :DashboardFindFile<CR>
+nnoremap <silent> <c-f>c :DashboardChangeColorscheme<CR>
+nnoremap <silent> <c-f>w :DashboardFindWord<CR>
+nnoremap <silent> <c-f>b :DashboardJumpMark<CR>
+nnoremap <silent> <c-f>n :DashboardNewFile<CR>
 
-
-" nmap <Leader>bs :<C-u>SessionSave<CR>
-" nmap <Leader>pl :<C-u>SessionLoad<CR>
-" nmap <Leader>pn :<C-u>DashboardNewFile<CR>
-" nnoremap <silent> <Leader>ph :<C-u>Clap history<CR>
-" nnoremap <silent> <Leader>pf :<C-u>Clap files ++finder=rg --ignore --hidden --files<cr>
-" nnoremap <silent> <Leader>pc :<C-u>Clap colors<CR>
-" nnoremap <silent> <Leader>pa :<C-u>Clap grep2<CR>
-" nnoremap <silent> <Leader>pb :<C-u>Clap marks<CR>
-
-" let g:dashboard_custom_shortcut={
-" \ 'find_word' : 'SPC p a',
-" \ 'find_file' : 'SPC p f',
-" \ 'last_session' : 'SPC p l',
-" \ 'find_history' : 'SPC p h',
-" \ 'new_file' : 'SPC p n',
-" \ 'change_colorscheme' : 'SPC p c',
-" \ 'book_marks' : 'SPC p b',
-" \ }
+let g:dashboard_custom_shortcut={
+            \ 'last_session'       : '<Ctrl-f>l',
+            \ 'find_history'       : '<Ctrl-f>h',
+            \ 'find_file'          : '<Ctrl-f>f',
+            \ 'new_file'           : '<Ctrl-f>n',
+            \ 'change_colorscheme' : '<Ctrl-f>c',
+            \ 'find_word'          : '<Ctrl-f>w',
+            \ 'book_marks'         : '<Ctrl-f>b',
+            \ }
 
 "
 " ---  vim-easy-aligen
@@ -187,29 +123,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-
-
-"
-" ---  vimspector  ---
-"
-" let g:vimspector_enable_mappings = 'HUMAN'
-" function! s:read_template_into_buffer(template)
-" " has to be a function to avoid the extra space fzf#run insers otherwise
-" execute '0r ~/.config/nvim/vimspector_json/'.a:template
-" endfunction
-" command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
-" \   'source': 'ls -1 ~/.config/nvim/vimspector_json',
-" \   'down': 20,
-" \   'sink': function('<sid>read_template_into_buffer')
-" \ })
-" noremap <leader>dt :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
-" noremap <leader>dq :VimspectorReset<CR>
-" noremap <leader>dw :VimspectorReset
-" noremap <leader>dp <Plug>VimspectorToggleBreakpoint
-" noremap <leader>dr <Plug>VimspectorRestart
-" noremap <leader>dg <Plug>VimspectorContinue
-" let g:vimspector_sidebar_width = 30
-" let g:vimspector_bottombar_height = 7
 
 
 
@@ -266,12 +179,12 @@ let g:buffet_right_trunc_icon = ">"
 " let g:buffet_tab_icon = "✈️ "
 " let g:buffet_tab_icon = "🛰️ "
 " let g:buffet_tab_icon = "⚡"
-" let g:buffet_tab_icon = "🌈"
+let g:buffet_tab_icon = "🌈"
 " let g:buffet_tab_icon = "🌠"
 " let g:buffet_tab_icon = "🌌"
 " let g:buffet_tab_icon = "🌀"
 " let g:buffet_tab_icon = "<->"
-let g:buffet_tab_icon = "🌵"
+" let g:buffet_tab_icon = "🌵"
 
 
 
@@ -387,7 +300,7 @@ let g:go_textobj_enabled = 0
 let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
-
+let g:go_statusline_duration = 0
 
 
 "
@@ -415,4 +328,6 @@ nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
 execute("lua require(\"eviline\")")
 
 source ~/.config/nvim/plug/coc/coc_config.vim
+
+
 

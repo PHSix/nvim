@@ -1,6 +1,6 @@
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'hardcoreplayers/dashboard-nvim'
+Plug 'hardcoreplayers/dashboard-nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
@@ -36,10 +36,20 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'itchyny/vim-cursorword'
 Plug 'dstein64/vim-startuptime'
 Plug 'fatih/vim-go'
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/telescope.nvim'
 Plug 'chrisbra/unicode.vim'
 Plug 'gcmt/wildfire.vim'
+Plug 'kdheepak/lazygit.nvim'
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Plug 'junegunn/fzf.vim' " needed for previews
+Plug 'antoinemadec/coc-fzf'
+Plug 'sakshamgupta05/vim-todo-highlight'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'Dimercel/todo-vim'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'bfrg/vim-cmake-help'
 call plug#end()

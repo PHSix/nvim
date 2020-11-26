@@ -26,6 +26,5 @@ set fdm=manual                         " 代码折叠的模式
 set list                               " 使你的vim的空格显示更加好看
 set listchars=tab:\|\ ,trail:▫         " 同上
 set scrolloff=5
-set encoding=UTF-8
 set history=400
 set autochdir                          " 自动切换到文件当前目录

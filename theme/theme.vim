@@ -20,6 +20,17 @@
 
 
 
-colorscheme material
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-set termguicolors
+" colorscheme material
+" let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+" set termguicolors
+" Theme
+ syntax enable
+" for vim 7
+ set t_Co=256
+
+" for vim 8
+ if (has("termguicolors"))
+  set termguicolors
+ endif
+
+colorscheme OceanicNext

@@ -42,7 +42,7 @@ nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
 nmap <Leader>sw :CocList grep<CR>
 autocmd FileType markdown let b:coc_suggest_disable = 1
-autocmd FileType txt let b:coc_suggest_disable = 1
+" autocmd FileType txt let b:coc_suggest_disable = 1
 autocmd FileType vimwiki let b:coc_suggest_disable = 1
 autocmd FileType gomod let b:coc_suggest_disable = 1
 let g:markdown_fenced_languages = [
@@ -70,7 +70,6 @@ let g:coc_global_extensions = [
             \"coc-json",
             \"coc-snippets",
             \"coc-vimlsp",
-            \"coc-python",
             \"coc-lists",
             \"coc-tsserver",
             \"coc-translator",
@@ -93,4 +92,15 @@ let g:coc_global_extensions = [
             \"coc-template",
             \"coc-html",
             \"coc-cmake",
+            \"coc-go",
+            \"coc-clangd",
+            \"coc-rainbow-fart",
             \]
+
+nmap <leader>o <Plug>(coc-refactor)
+let g:coc_fzf_preview_toggle_key = '?'
+let g:coc_fzf_preview = ''
+let g:coc_fzf_opts = []
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+call coc_fzf#common#add_list_source('fzf-buffers', 'display open buffers', 'Buffers')
+

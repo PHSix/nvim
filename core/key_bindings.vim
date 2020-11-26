@@ -20,7 +20,7 @@ nmap <C-]> :bn<cr>
 nmap <leader>h <C-w>h
 nmap <leader>j <C-w>j
 nmap <leader>k <C-w>k
-map <leader>l <C-w>l
+nmap <leader>l <C-w>l
 nmap <leader>sl :set splitright<CR>:vsplit<CR>
 nmap <leader>sh :set nosplitright<CR>:vsplit<CR>
 nmap <leader>sj :set nosplitbelow<CR>:split<CR>
@@ -64,3 +64,4 @@ function Buffer_close()
         execute(":q")
     endif
 endfunction
+command! -nargs=1 -complete=help H help <args> | silent only
