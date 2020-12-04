@@ -33,4 +33,5 @@
   set termguicolors
  endif
 
-colorscheme OceanicNext
+" colorscheme OceanicNext
+colorscheme deus

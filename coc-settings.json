@@ -18,7 +18,7 @@
         "dart"
     ],
     "rainbow-fart.ffplay": "/usr/bin/ffplay",
-    "rainbow-fart.enabled": true,
+    "rainbow-fart.enabled": false,
     "rainbow-fart.locale": [
         "zh"
     ],
@@ -33,6 +33,11 @@
     "cmake.cmakePath": "/usr/bin/cmake",
     "clangd.semanticHighlighting": true,
     "rust-analyzer.serverPath": "/usr/bin/rust-analyzer",
+    "emmet.includeLanguages": {
+        "vue": "html",
+        "vue-html": "html",
+        "wxml": "html"
+    },
     "languageserver": {
         "lua": {
             "command": "lua-lsp",
@@ -40,6 +45,5 @@
                 "lua"
             ]
         }
-    },
-    "rainbow-fart.disable-voice-packages": []
+    }
 }

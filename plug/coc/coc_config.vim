@@ -92,9 +92,9 @@ let g:coc_global_extensions = [
             \"coc-template",
             \"coc-html",
             \"coc-cmake",
-            \"coc-go",
             \"coc-clangd",
             \"coc-rainbow-fart",
+            \"coc-vetur"
             \]
 
 nmap <leader>o <Plug>(coc-refactor)
