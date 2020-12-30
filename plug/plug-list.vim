@@ -6,6 +6,7 @@ Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'liuchengxu/vista.vim'
 Plug 'francoiscabrol/ranger.vim', {'on': 'Ranger'}
+Plug 'rbgrouleff/bclose.vim'
 Plug 'rhysd/accelerated-jk'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kien/rainbow_parentheses.vim'
@@ -44,6 +45,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Dimercel/todo-vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'bfrg/vim-cmake-help'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'bsdelf/bufferhint'
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-icons'
+Plug 'bling/vim-bufferline'
 call plug#end()

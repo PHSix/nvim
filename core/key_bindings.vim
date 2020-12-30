@@ -36,25 +36,27 @@ map fn zn  " 全部展开
 map fy "+y
 nmap <leader>; $a;<ESC>
 vmap <leader>; $A;<ESC>
-map gl $
+map gl $h
 map gh ^
 nmap <ESC> <ESC>
 nmap <CR> <CR>
 
 
-nmap Q :call Buffer_close()<CR>
-nmap <leader>q :call Buffer_close()<CR>
-function Buffer_close()
-    let str = execute(":ls")
-    if len(str) > 90
-        let name = bufname()
-        if name[:4] == "term:"
-            execute(":q")
-        else
-            execute(":bwipeout")
-        endif
-    else
-        execute(":q")
-    endif
+nmap Q :call QuitOrClose()<CR>
+function! g:QuitOrClose()
+  let l:buflist = split(execute("ls"), "\n")
+  if len(l:buflist) == 1 && &filetype != "help"
+    :q
+  elseif &filetype == "dashboard"
+    :q
+  else
+    :bw
+  endif
 endfunction
+
+
+nmap X :bwipeout<CR>
+
 command! -nargs=1 -complete=help H help <args> | silent only
+
+

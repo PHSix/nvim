@@ -94,7 +94,8 @@ let g:coc_global_extensions = [
             \"coc-cmake",
             \"coc-clangd",
             \"coc-rainbow-fart",
-            \"coc-vetur"
+            \"coc-vetur",
+            \"coc-marketplace",
             \]
 
 nmap <leader>o <Plug>(coc-refactor)

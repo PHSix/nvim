@@ -1,4 +1,5 @@
 set number
+set hidden
 set relativenumber                     " 开启相应行号显示
 syntax on                              " 开启高亮
 set mouse=a                            " 允许光标操作

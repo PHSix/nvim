@@ -155,20 +155,20 @@ let g:spaceline_seperate_style= 'arrow'
 "
 " ---  vim-buffet  ---
 "
-nmap <leader>1 <Plug>BuffetSwitch(1)
-nmap <leader>2 <Plug>BuffetSwitch(2)
-nmap <leader>3 <Plug>BuffetSwitch(3)
-nmap <leader>4 <Plug>BuffetSwitch(4)
-nmap <leader>5 <Plug>BuffetSwitch(5)
-nmap <leader>6 <Plug>BuffetSwitch(6)
-nmap <leader>7 <Plug>BuffetSwitch(7)
-nmap <leader>8 <Plug>BuffetSwitch(8)
-nmap <leader>9 <Plug>BuffetSwitch(9)
-nmap <leader>0 <Plug>BuffetSwitch(10)
-let g:buffet_always_show_tabline = 1
-let g:buffet_powerline_separators = 1
-let g:buffet_left_trunc_icon = "<"
-let g:buffet_right_trunc_icon = ">"
+" nmap <leader>1 <Plug>BuffetSwitch(1)
+" nmap <leader>2 <Plug>BuffetSwitch(2)
+" nmap <leader>3 <Plug>BuffetSwitch(3)
+" nmap <leader>4 <Plug>BuffetSwitch(4)
+" nmap <leader>5 <Plug>BuffetSwitch(5)
+" nmap <leader>6 <Plug>BuffetSwitch(6)
+" nmap <leader>7 <Plug>BuffetSwitch(7)
+" nmap <leader>8 <Plug>BuffetSwitch(8)
+" nmap <leader>9 <Plug>BuffetSwitch(9)
+" nmap <leader>0 <Plug>BuffetSwitch(10)
+" let g:buffet_always_show_tabline = 1
+" let g:buffet_powerline_separators = 1
+" let g:buffet_left_trunc_icon = "<"
+" let g:buffet_right_trunc_icon = ">"
 " let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
 " let g:buffet_tab_icon = " "
@@ -183,7 +183,7 @@ let g:buffet_right_trunc_icon = ">"
 " let g:buffet_tab_icon = "🌠"
 " let g:buffet_tab_icon = "🌌"
 " let g:buffet_tab_icon = "🌀"
-let g:buffet_tab_icon = "=>"
+" let g:buffet_tab_icon = "=>"
 " let g:buffet_tab_icon = "🌵"
 
 
@@ -260,6 +260,78 @@ nnoremap <Leader>p <cmd>lua require'telescope.builtin'.git_files{}<CR>
 "
 execute("lua require(\"eviline\")")
 
+
+"
+" ---  defx.nvim  ---
+"
+call defx#custom#option('_', {
+            \'winwidth': 30,
+            \'split': 'vertical',
+            \'direction': 'topleft',
+            \'show_ignored_files': 0,
+            \'buffer_name': '',
+            \'toggle': 1,
+            \'resume': 1
+            \})
+nnoremap <leader>e :Defx<CR>
+autocmd FileType defx call s:defx_mappings()
+
+function! s:defx_mappings() abort
+    nnoremap <silent><buffer><expr> o     <SID>defx_toggle_tree()                    " 打开或者关闭文件夹，文件
+    nnoremap <silent><buffer><expr> zh     defx#do_action('toggle_ignored_files')     " 显示隐藏文件
+    nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> y defx#do_action('copy')
+    nnoremap <silent><buffer><expr> x defx#do_action('move')
+    nnoremap <silent><buffer><expr> mk defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> q defx#do_action('quit')
+    nnoremap <silent><buffer><expr> d defx#do_action('remove_trash')
+    nnoremap <silent><buffer><expr> v defx#do_action('toggle_select')
+    nnoremap <silent><buffer><expr> V defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> u defx#do_action('cd', '..')
+endfunction
+function! s:defx_toggle_tree() abort
+    " Open current file, or toggle directory expand/collapse
+    if defx#is_directory()
+        return defx#do_action('open_or_close_tree')
+    endif
+    return defx#do_action('multi', ['drop'])
+endfunction
+let g:defx_icons_enable_syntax_highlight = 1
+let g:defx_icons_column_length = 1
+let g:defx_icons_directory_icon = ''
+let g:defx_icons_mark_icon = '*'
+let g:defx_icons_copy_icon = ''
+let g:defx_icons_move_icon = ''
+let g:defx_icons_parent_icon = ''
+let g:defx_icons_default_icon = ''
+let g:defx_icons_directory_symlink_icon = ''
+" Options below are applicable only when using "tree" feature
+let g:defx_icons_root_opened_tree_icon = ''
+let g:defx_icons_nested_opened_tree_icon = ''
+let g:defx_icons_nested_closed_tree_icon = ''
+hi default link DefxIconsMarkIcon Statement
+hi default link DefxIconsCopyIcon WarningMsg
+hi default link DefxIconsMoveIcon ErrorMsg
+hi default link DefxIconsDirectory Directory
+hi default link DefxIconsParentDirectory Directory
+hi default link DefxIconsSymlinkDirectory Directory
+hi default link DefxIconsOpenedTreeIcon Directory
+hi default link DefxIconsNestedTreeIcon Directory
+hi default link DefxIconsClosedTreeIcon Directory
+
+
+nnoremap <leader>1 :call MyBufSwitch(0)<CR>
+nnoremap <leader>2 :call MyBufSwitch(1)<CR>
+nnoremap <leader>3 :call MyBufSwitch(2)<CR>
+nnoremap <leader>4 :call MyBufSwitch(3)<CR>
+
+" fzf
+nnoremap <leader>[ :Buffers<CR>
+
 source ~/.config/nvim/plug/coc/coc_config.vim
 
 
+" asynctasks
+let g:asyncrun_open = 9
+let g:asynctasks_rtp_config = "asynctasks.ini"
+nnoremap R :AsyncTask file-run<CR>
