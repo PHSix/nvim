@@ -32,6 +32,9 @@
     ],
     "cmake.cmakePath": "/usr/bin/cmake",
     "clangd.semanticHighlighting": true,
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build"
+    ],
     "rust-analyzer.serverPath": "/usr/bin/rust-analyzer",
     "emmet.includeLanguages": {
         "vue": "html",
@@ -43,6 +46,16 @@
             "command": "lua-lsp",
             "filetypes": [
                 "lua"
+            ]
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "disableWorkspaceFolders": true,
+            "filetypes": [
+                "go"
             ]
         }
     }
