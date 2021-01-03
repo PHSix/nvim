@@ -6,7 +6,7 @@ return require('packer').startup(function()
   use {
     'glepnir/galaxyline.nvim',
     branch = 'main',
-    config = function() require'linuxconfig/eviline' end,
+    config = function() require'linux/eviline' end,
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
   use {'tpope/vim-surround'}
