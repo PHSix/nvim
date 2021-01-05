@@ -32,7 +32,9 @@ return require('packer').startup(function()
   }
   use {
     'rafi/awesome-vim-colorschemes',
-    opt=true,
+    config = function()
+      vim.cmd("colorscheme deus")
+    end
   }
   use {
     'rhysd/accelerated-jk',
@@ -108,73 +110,74 @@ return require('packer').startup(function()
       vim.api.nvim_exec(
         [[
         let g:VM_maps                       = {}
-        let g:VM_maps['Find Under']         = '<C-d>'         
-        let g:VM_maps['Find Subword Under'] = '<C-d>'        
+        let g:VM_maps['Find Under']         = '<C-d>'
+        let g:VM_maps['Find Subword Under'] = '<C-d>'
         let g:VM_maps["Add Cursor Down"]    = '<C-Down>'
         let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
         ]], true)
-    end
-  }
-  use {
-    "glepnir/lspsaga.nvim"
-  }
-  use {
-    "norcalli/nvim-colorizer.lua",
-    config = function() 
-      require'colorizer'.setup()
-    end
-  }
-  use {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    config = function() 
-      vim.g.coc_global_extensions = {
-        'coc-json',
-        'coc-pairs',
-        'coc-highlight',
-        'coc-lists',
-        'coc-yank',
-        'coc-actions',
-        'coc-marketplace',
-        'coc-diagnostic',
-        'coc-vimlsp',
-        'coc-translator',
-        'coc-git',
+      end
+    }
+    use {
+      "glepnir/lspsaga.nvim"
+    }
+    use {
+      "norcalli/nvim-colorizer.lua",
+      config = function()
+        require'colorizer'.setup()
+      end
+    }
+    use {
+      'neoclide/coc.nvim',
+      branch = 'release',
+      config = function()
+        vim.g.coc_global_extensions = {
+          'coc-json',
+          'coc-pairs',
+          'coc-highlight',
+          'coc-lists',
+          'coc-yank',
+          'coc-actions',
+          'coc-marketplace',
+          'coc-diagnostic',
+          'coc-vimlsp',
+          'coc-translator',
+          'coc-git',
 
-        'coc-emmet',
-        'coc-html',
-        'coc-css',
-        'coc-tsserver',
-        'coc-yaml',
-        'coc-xml',
-        'coc-sql',
-        'coc-cmake',
-        'coc-clangd',
-        'coc-vetur',
-        'coc-flutter-tools',
-        'coc-template',
-        'coc-sh',
-        'coc-todolist',
-      }
-      vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
-    end
-  }
-  use {
-    'antoinemadec/coc-fzf',
-    config = function() 
-      vim.g.coc_fzf_preview_toggle_key = '?'
-      vim.g.coc_fzf_preview = ''
-      vim.g.fzf_lazyout = {
-        window = {
-          width = 0.9,
-          height = 0.6
+          'coc-emmet',
+          'coc-html',
+          'coc-css',
+          'coc-tsserver',
+          'coc-yaml',
+          'coc-xml',
+          'coc-sql',
+          'coc-cmake',
+          'coc-clangd',
+          'coc-vetur',
+          'coc-flutter-tools',
+          'coc-template',
+          'coc-sh',
+          'coc-todolist',
+          'coc-markdownlint',
         }
-      }
+        vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
+        vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
+      end
+    }
+    use {
+      'antoinemadec/coc-fzf',
+      config = function()
+        vim.g.coc_fzf_preview_toggle_key = '?'
+        vim.g.coc_fzf_preview = ''
+        vim.g.fzf_lazyout = {
+          window = {
+            width = 0.9,
+            height = 0.6
+          }
+        }
 
-      --vim.call.["coc_fzf#common#add_list_source"]({'fzf-buffers', 'display open buffers', 'Buffers'})
-    end
-  }
-end)
+        --vim.call.["coc_fzf#common#add_list_source"]({'fzf-buffers', 'display open buffers', 'Buffers'})
+      end
+    }
+  end)
 
 
