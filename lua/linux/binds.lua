@@ -33,4 +33,8 @@ vim.api.nvim_set_keymap("n", '<leader>sh', ':set nosplitright<CR>:vsplit<CR>', {
 vim.api.nvim_set_keymap("n", '<leader>sk', ':set nosplitbelow<CR>:split<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap("n", '<leader>sj', ':set splitbelow<CR>:split<CR>', {noremap=true, silent=true})
 
+vim.api.nvim_set_keymap("n", '<leader>h', '<C-w>h', {noremap=false, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>k', '<C-w>k', {noremap=false, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>l', '<C-w>l', {noremap=false, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>j', '<C-w>j', {noremap=false, silent=true})
 
