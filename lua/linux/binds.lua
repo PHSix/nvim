@@ -28,5 +28,9 @@ vim.api.nvim_set_keymap("n", '<leader>4', ":call MyBufSwitch(3)<CR>", {silent=tr
 vim.api.nvim_set_keymap("n", '<leader>5', ":call MyBufSwitch(4)<CR>", {silent=true})
 vim.api.nvim_set_keymap("n", '<leader>6', ":call MyBufSwitch(5)<CR>", {silent=true})
 vim.api.nvim_set_keymap("n", 'Q', ":call QuitOrClose()<CR>", {noremap=true,silent=true})
+vim.api.nvim_set_keymap("n", '<leader>sl', ':set splitright<CR>:vsplit<CR>', {noremap=true, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>sh', ':set nosplitright<CR>:vsplit<CR>', {noremap=true, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>sk', ':set nosplitbelow<CR>:split<CR>', {noremap=true, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>sj', ':set splitbelow<CR>:split<CR>', {noremap=true, silent=true})
 
 
