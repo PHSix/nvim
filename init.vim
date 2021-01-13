@@ -88,12 +88,14 @@ augroup markdown_snippets
   autocmd filetype markdown inoremap <buffer> <silent> ,d {% download  <++> %} <++><esc>fd2li
 augroup END
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup mygroup
-    autocmd!
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+if !empty(glob("/home/ph/.local/share/nvim/site/pack/packer/start/coc.nvim"))
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  augroup mygroup
+      autocmd!
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  augroup end
+endif
 if has("patch-8.1.1564")
     set signcolumn=number
 else
