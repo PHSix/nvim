@@ -170,6 +170,8 @@ return require('packer').startup(function()
           'coc-sh',
           'coc-todolist',
           'coc-markdownlint',
+          'coc-python',
+          'coc-rainbow-fart'
         }
         vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
         vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
