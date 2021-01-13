@@ -192,6 +192,9 @@ return require('packer').startup(function()
         --vim.call.["coc_fzf#common#add_list_source"]({'fzf-buffers', 'display open buffers', 'Buffers'})
       end
     }
+    use {
+      'fatih/vim-go', 
+    }
   end)
 
 
