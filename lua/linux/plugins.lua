@@ -1,3 +1,12 @@
+local execute = vim.api.nvim_command
+local fn = vim.fn
+
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  execute('!git clone https://github.com.cnpmjs.org/PHSix/packer.nvim '..install_path)
+  execute(':PackerInstall')
+end
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   use {'wbthomason/packer.nvim', opt = true}
@@ -92,7 +101,10 @@ return require('packer').startup(function()
   }
   use {'dart-lang/dart-vim-plugin'}
   use {'dhruvasagar/vim-table-mode'}
-  use {'numirias/semshi'}
+  use {
+    'numirias/semshi',
+    opt=true
+  }
   use {
     'kien/rainbow_parentheses.vim',
     config = function()
