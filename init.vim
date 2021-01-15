@@ -88,7 +88,7 @@ augroup markdown_snippets
   autocmd filetype markdown inoremap <buffer> <silent> ,d {% download  <++> %} <++><esc>fd2li
 augroup END
 
-if !empty(glob("/home/ph/.local/share/nvim/site/pack/packer/start/coc.nvim"))
+if !empty(glob("~/.local/share/nvim/site/pack/packer/start/coc.nvim"))
   autocmd CursorHold * silent call CocActionAsync('highlight')
   augroup mygroup
       autocmd!
