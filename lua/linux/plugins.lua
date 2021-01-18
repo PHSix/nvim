@@ -104,11 +104,13 @@ return require('packer').startup(function()
   use {
     'skywind3000/asynctasks.vim',
     requires = {'skywind3000/asyncrun.vim'},
+    opt=true,
     config = function()
       vim.g.asyncrun_open = 9
       vim.g.asynctasks_rtp_config = "asynctasks.ini"
       vim.api.nvim_set_keymap("n", "R", ":AsyncTask file-run<CR>", {noremap=true, silent=true})
-    end
+    end,
+    cmd = {"AsyncTask", "AsyncRun", "AsyncTaskEdit", "AsyncTaskList", "AsyncTaskProfile", "AsyncTaskMacro"}
   }
   use {'dart-lang/dart-vim-plugin'}
   use {'dhruvasagar/vim-table-mode'}
@@ -232,7 +234,12 @@ return require('packer').startup(function()
       cmd = {"Startuptime"}
     }
     use {
-      'tpope/vim-fugitive'
+      'jreybert/vimagit',
+      opt=true,
+      cmd = {"Magit", "MagitOnly"}
+    }
+    use {
+      'yamatsum/nvim-cursorline'
     }
   end)
 
