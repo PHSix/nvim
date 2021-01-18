@@ -81,11 +81,9 @@ return require('packer').startup(function()
   use {
     'francoiscabrol/ranger.vim',
     requires = {'rbgrouleff/bclose.vim', opt=true},
-    opt = true,
     config = function()
       vim.api.nvim_set_keymap("n", "<leader>f", ":Ranger<CR>", {noremap=false, silent=true})
     end,
-    cmd = {"Ranger"}
   }
   use {'sheerun/vim-polyglot'}
   use {
@@ -104,13 +102,12 @@ return require('packer').startup(function()
   use {
     'skywind3000/asynctasks.vim',
     requires = {'skywind3000/asyncrun.vim'},
-    opt=true,
     config = function()
       vim.g.asyncrun_open = 9
       vim.g.asynctasks_rtp_config = "asynctasks.ini"
-      vim.api.nvim_set_keymap("n", "R", ":AsyncTask file-run<CR>", {noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", "R", ":AsyncTask file-run<CR>",   { noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", "B", ":AsyncTask file-build<CR>", { noremap=true, silent=true})
     end,
-    cmd = {"AsyncTask", "AsyncRun", "AsyncTaskEdit", "AsyncTaskList", "AsyncTaskProfile", "AsyncTaskMacro"}
   }
   use {'dart-lang/dart-vim-plugin'}
   use {'dhruvasagar/vim-table-mode'}
@@ -227,11 +224,6 @@ return require('packer').startup(function()
       opt=true,
       requires = {'kristijanhusak/defx-icons', opt=true},
       cmd = {"Defx"}
-    }
-    use{
-      'dstein64/vim-startuptime',
-      opt=true,
-      cmd = {"Startuptime"}
     }
     use {
       'jreybert/vimagit',
