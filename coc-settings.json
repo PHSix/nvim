@@ -1,5 +1,4 @@
 {
-    "coc.preferences.extensionUpdateCheck": "daily",
     "git.addedSign.text": "|",
     "git.removedSign.text": "|",
     "git.changeRemovedSign.text": "|",
@@ -15,7 +14,8 @@
     "diagnostic.refreshOnInsertMode": false,
     "coc.preferences.formatOnSaveFiletypes": [
         "json",
-        "dart"
+        "dart",
+        "lua"
     ],
     "rainbow-fart.ffplay": "/usr/bin/ffplay",
     "rainbow-fart.enabled": false,
@@ -35,6 +35,7 @@
     "clangd.arguments": [
         "--compile-commands-dir=${workspaceFolder}/build"
     ],
+    "clangd.disableDiagnostics": false,
     "rust-analyzer.serverPath": "/usr/bin/rust-analyzer",
     "emmet.includeLanguages": {
         "vue": "html",

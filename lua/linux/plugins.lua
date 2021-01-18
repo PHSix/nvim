@@ -23,6 +23,15 @@ return require('packer').startup(function()
     'hardcoreplayers/dashboard-nvim',
     setup = function()
       vim.g.dashboard_default_executive = 'fzf'
+      vim.g.dashboard_custom_header = {
+        "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
+        "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
+        "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
+        "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
+        "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
+        "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
+      }
+      vim.g.dashboard_preview_pipeline = "lolcat"
       vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
       vim.api.nvim_set_keymap("n", "<C-f>s", ":<C-u>SessionSave<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap=true, silent=true})
@@ -72,9 +81,11 @@ return require('packer').startup(function()
   use {
     'francoiscabrol/ranger.vim',
     requires = {'rbgrouleff/bclose.vim', opt=true},
+    opt = true,
     config = function()
       vim.api.nvim_set_keymap("n", "<leader>f", ":Ranger<CR>", {noremap=false, silent=true})
-    end
+    end,
+    cmd = {"Ranger"}
   }
   use {'sheerun/vim-polyglot'}
   use {
@@ -154,6 +165,7 @@ return require('packer').startup(function()
           'coc-vimlsp',
           'coc-translator',
           'coc-git',
+          'coc-snippets',
 
           'coc-emmet',
           'coc-html',
@@ -193,7 +205,34 @@ return require('packer').startup(function()
       end
     }
     use {
-      'fatih/vim-go', 
+      'fatih/vim-go',
+      config = function()
+        vim.g.go_version_warning = 0
+        vim.g.go_echo_go_info = 0
+        vim.g.go_fmt_autosave = 0
+        vim.g.go_doc_popup_window = 1
+        vim.g.go_def_mapping_enabled = 0
+        vim.g.go_template_autocreate = 0
+        vim.g.go_textobj_enabled = 0
+        vim.g.go_auto_type_info = 1
+        vim.g.go_def_mapping_enabled = 0
+        vim.g.go_doc_keywordprg_enabled = 0
+        vim.g.go_statusline_duration = 0
+      end
+    }
+    use {
+      'Shougo/defx.nvim',
+      opt=true,
+      requires = {'kristijanhusak/defx-icons', opt=true},
+      cmd = {"Defx"}
+    }
+    use{
+      'dstein64/vim-startuptime',
+      opt=true,
+      cmd = {"Startuptime"}
+    }
+    use {
+      'tpope/vim-fugitive'
     }
   end)
 
