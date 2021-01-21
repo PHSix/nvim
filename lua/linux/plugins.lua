@@ -230,9 +230,6 @@ return require('packer').startup(function()
       opt=true,
       cmd = {"Magit", "MagitOnly"}
     }
-    use {
-      'yamatsum/nvim-cursorline'
-    }
   end)
 
 
