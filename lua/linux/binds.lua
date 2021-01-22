@@ -21,7 +21,7 @@ vim.api.nvim_set_keymap('v', 'gh','^', {noremap=false,silent=true})
 vim.api.nvim_set_keymap('n', 'gk','%', {noremap=false,silent=true})
 vim.api.nvim_set_keymap('v', 'gk','%', {noremap=false,silent=true})
 
-vim.api.nvim_set_keymap("n", 'Q', ":call QuitOrClose()<CR>", {noremap=true,silent=true})
+vim.api.nvim_set_keymap("n", 'Q', ":lua QuitOrClose()<CR>", {noremap=true,silent=true})
 vim.api.nvim_set_keymap("n", '<leader>sl', ':set splitright<CR>:vsplit<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap("n", '<leader>sh', ':set nosplitright<CR>:vsplit<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap("n", '<leader>sk', ':set nosplitbelow<CR>:split<CR>', {noremap=true, silent=true})

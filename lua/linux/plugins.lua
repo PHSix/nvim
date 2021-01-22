@@ -5,7 +5,6 @@ local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com.cnpmjs.org/PHSix/packer.nvim '..install_path)
-  execute(':PackerInstall')
 end
 vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
@@ -41,6 +40,24 @@ return require('packer').startup(function()
       vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardJumpMark<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>b", ":DashboardJumpMark<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>n", ":DashboardNewFile<CR>", {noremap=true, silent=true})
+      vim.g.dashboard_custom_shortcut = {
+        last_session="<Ctrl-f>l",
+        find_history="<Ctrl-f>h",
+        find_file="<Ctrl-f>f",
+        new_file="<Ctrl-f>n",
+        change_colorscheme="<Ctrl-f>c",
+        find_word="<Ctrl-f>w",
+        book_marks="<Ctrl-f>b"
+      }
+      -- vim.g.dashboard_custom_shortcut['last_session'] = "<Ctrl-f>l"
+            --\ 'last_session'       : '<Ctrl-f>l',
+            --\ 'find_history'       : '<Ctrl-f>h',
+            --\ 'find_file'          : '<Ctrl-f>f',
+            --\ 'new_file'           : '<Ctrl-f>n',
+            --\ 'change_colorscheme' : '<Ctrl-f>c',
+            --\ 'find_word'          : '<Ctrl-f>w',
+            --\ 'book_marks'         : '<Ctrl-f>b',
+            --\ }
     end,
   }
   use {
@@ -160,6 +177,7 @@ return require('packer').startup(function()
       'neoclide/coc.nvim',
       branch = 'release',
       config = function()
+        vim.wo.signcolumn = "yes"
         vim.g.coc_global_extensions = {
           'coc-json',
           'coc-pairs',
@@ -194,6 +212,18 @@ return require('packer').startup(function()
         }
         vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
         vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
+        vim.api.nvim_set_keymap("i", "<TAB>", "v:lua.Coc_tab()", {noremap=true, silent=true, expr=true})
+        vim.api.nvim_set_keymap("i", "<S-TAB>", "v:lua.Coc_shift_tab()", {noremap=true, silent=true, expr=true})
+        vim.api.nvim_set_keymap("i", "<CR>", "v:lua.Coc_enter()", {noremap=true, silent=true, expr=true})
+        if vim.fn.glob("~/.local/share/nvim/size/pack/packer/start/coc.nvim") ~= nil then
+          vim.cmd("autocmd CursorHold * silent call CocActionAsync('highlight')")
+          vim.cmd("augroup mygroup")
+          vim.cmd("autocmd!")
+          vim.cmd("autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')")
+          vim.cmd("autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')")
+          vim.cmd("augroup end")
+        end
+
       end
     }
     use {
@@ -207,8 +237,6 @@ return require('packer').startup(function()
             height = 0.6
           }
         }
-
-        --vim.call.["coc_fzf#common#add_list_source"]({'fzf-buffers', 'display open buffers', 'Buffers'})
       end
     }
     use {

@@ -1,4 +1,6 @@
 {
+    "yank.byteLengthLimit": 40960,
+    "yank.limit": 6,
     "git.addedSign.text": "|",
     "git.removedSign.text": "|",
     "git.changeRemovedSign.text": "|",
@@ -30,7 +32,7 @@
     "python.linting.pylintArgs": [
         "--extension-pkg-whitelist=cv2"
     ],
-    "diagnostic.enable": false,
+    "diagnostic.enable": true,
     "cmake.cmakePath": "/usr/bin/cmake",
     "clangd.semanticHighlighting": true,
     "clangd.arguments": [
