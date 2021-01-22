@@ -247,6 +247,9 @@ return require('packer').startup(function()
     use {
       'npxbr/glow.nvim'
     }
+    use {
+      'rafcamlet/coc-nvim-lua'
+    }
   end)
 
 
