@@ -113,7 +113,7 @@ return require('packer').startup(function()
     config = function()
       vim.g.asyncrun_open = 9
       vim.g.asynctasks_rtp_config = "asynctasks.ini"
-      vim.api.nvim_set_keymap("n", "R", ":AsyncTask file-run<CR>",   { noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", "R", ":lua StartR()<CR>",   { noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "B", ":AsyncTask file-build<CR>", { noremap=true, silent=true})
     end,
   }
@@ -243,6 +243,9 @@ return require('packer').startup(function()
     }
     use {
       'delphinus/vim-auto-cursorline'
+    }
+    use {
+      'npxbr/glow.nvim'
     }
   end)
 
