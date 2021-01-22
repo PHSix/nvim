@@ -30,6 +30,7 @@
     "python.linting.pylintArgs": [
         "--extension-pkg-whitelist=cv2"
     ],
+    "diagnostic.enable": false,
     "cmake.cmakePath": "/usr/bin/cmake",
     "clangd.semanticHighlighting": true,
     "clangd.arguments": [

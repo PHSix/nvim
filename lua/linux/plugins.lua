@@ -1,6 +1,6 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
-
+vim.g.github_mirror = "fastgit"
 local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -229,6 +229,12 @@ return require('packer').startup(function()
       'jreybert/vimagit',
       opt=true,
       cmd = {"Magit", "MagitOnly"}
+    }
+    use {
+      'neomake/neomake'
+    }
+    use {
+      'delphinus/vim-auto-cursorline'
     }
   end)
 
