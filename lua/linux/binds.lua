@@ -37,4 +37,6 @@ vim.api.nvim_set_keymap("n", '<leader>h', '<C-w>h', {noremap=false, silent=true}
 vim.api.nvim_set_keymap("n", '<leader>k', '<C-w>k', {noremap=false, silent=true})
 vim.api.nvim_set_keymap("n", '<leader>l', '<C-w>l', {noremap=false, silent=true})
 vim.api.nvim_set_keymap("n", '<leader>j', '<C-w>j', {noremap=false, silent=true})
+vim.api.nvim_set_keymap("n", '<leader>nl',':noh<CR>',{noremap=false,silent=true})
 
+vim.api.nvim_set_keymap("t", '<C-p>', '<C-\\><C-n>', {noremap=true, silent=true})
