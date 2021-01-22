@@ -6,25 +6,6 @@ autocmd BufReadPost *
 
 let g:BufL = []
 
-autocmd BufAdd,BufDelete,BufCreate * :call Bufchange()
-function Bufchange()
-  let buflist = split(execute("ls"), "\n")
-  let buf_list_number = []
-  let count_i = 0
-  for b:v in buflist
-    call add(buf_list_number, split(b:v, " ")[0])
-  endfor
-  let g:BufL = buf_list_number
-endfunction
-call Bufchange()
-
-function! MyBufSwitch(num)
-  if a:num > len(g:BufL) - 1
-    echom "You input is "..a:num..".Buffer list length is " .. len(g:BufL) .. " don't use oversize!"
-    return
-  endif
-  execute(':'.g:BufL[a:num].'b')
-endfunction
 
 augroup cursorline_display
   autocmd!
