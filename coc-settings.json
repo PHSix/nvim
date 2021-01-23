@@ -32,14 +32,14 @@
     "python.linting.pylintArgs": [
         "--extension-pkg-whitelist=cv2"
     ],
-    "diagnostic.enable": true,
+    "python.analysis.diagnosticEnabled": false,
+    "Lua.diagnostics.enable": false,
     "cmake.cmakePath": "/usr/bin/cmake",
     "clangd.semanticHighlighting": true,
     "clangd.arguments": [
         "--compile-commands-dir=${workspaceFolder}/build"
     ],
-    "clangd.disableDiagnostics": false,
-    "rust-analyzer.serverPath": "/usr/bin/rust-analyzer",
+    "clangd.disableDiagnostics": true,
     "emmet.includeLanguages": {
         "vue": "html",
         "vue-html": "html",
@@ -47,6 +47,7 @@
     },
     "languageserver": {
         "golang": {
+            "disableDiagnostics": true,
             "command": "gopls",
             "rootPatterns": [
                 "go.mod"

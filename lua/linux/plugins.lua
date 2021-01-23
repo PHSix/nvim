@@ -7,6 +7,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com.cnpmjs.org/PHSix/packer.nvim '..install_path)
 end
 vim.cmd [[packadd packer.nvim]]
+require('packer').init({
+    clone_timeout = 30,
+  })
 return require('packer').startup(function()
   use {'wbthomason/packer.nvim', opt = true}
   use {'lilydjwg/fcitx.vim'}
@@ -22,15 +25,11 @@ return require('packer').startup(function()
     'hardcoreplayers/dashboard-nvim',
     setup = function()
       vim.g.dashboard_default_executive = 'fzf'
-      vim.g.dashboard_custom_header = {
-        "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
-        "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
-        "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
-        "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
-        "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
-        "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
-      }
+      vim.g.dashboard_preview_command = 'cat'
       vim.g.dashboard_preview_pipeline = "lolcat"
+      vim.g.dashboard_preview_file = vim.fn['getenv']('HOME') .. '/.config/nvim/static/neovim.txt'
+      vim.g.dashboard_preview_file_height = 8
+      vim.g.dashboard_preview_file_width = 50
       vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
       vim.api.nvim_set_keymap("n", "<C-f>s", ":<C-u>SessionSave<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap=true, silent=true})
@@ -50,14 +49,14 @@ return require('packer').startup(function()
         book_marks="<Ctrl-f>b"
       }
       -- vim.g.dashboard_custom_shortcut['last_session'] = "<Ctrl-f>l"
-            --\ 'last_session'       : '<Ctrl-f>l',
-            --\ 'find_history'       : '<Ctrl-f>h',
-            --\ 'find_file'          : '<Ctrl-f>f',
-            --\ 'new_file'           : '<Ctrl-f>n',
-            --\ 'change_colorscheme' : '<Ctrl-f>c',
-            --\ 'find_word'          : '<Ctrl-f>w',
-            --\ 'book_marks'         : '<Ctrl-f>b',
-            --\ }
+      --\ 'last_session'       : '<Ctrl-f>l',
+      --\ 'find_history'       : '<Ctrl-f>h',
+      --\ 'find_file'          : '<Ctrl-f>f',
+      --\ 'new_file'           : '<Ctrl-f>n',
+      --\ 'change_colorscheme' : '<Ctrl-f>c',
+      --\ 'find_word'          : '<Ctrl-f>w',
+      --\ 'book_marks'         : '<Ctrl-f>b',
+      --\ }
     end,
   }
   use {
@@ -212,6 +211,7 @@ return require('packer').startup(function()
         }
         vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
         vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
+        vim.api.nvim_set_keymap("v", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
         vim.api.nvim_set_keymap("i", "<TAB>", "v:lua.Coc_tab()", {noremap=true, silent=true, expr=true})
         vim.api.nvim_set_keymap("i", "<S-TAB>", "v:lua.Coc_shift_tab()", {noremap=true, silent=true, expr=true})
         vim.api.nvim_set_keymap("i", "<CR>", "v:lua.Coc_enter()", {noremap=true, silent=true, expr=true})
@@ -267,7 +267,23 @@ return require('packer').startup(function()
       cmd = {"Magit", "MagitOnly"}
     }
     use {
-      'neomake/neomake'
+      'dense-analysis/ale',
+      config = function ()
+        vim.g.ale_sign_error = '✗'
+        vim.g.ale_sign_warning = '⚡'
+        vim.g.ale_linters = {
+          c={'clang'},
+          python={'pylint', 'flake8', 'mypy', 'pyright'},
+          go={'gofmt', 'golint', 'go vet'},
+          lua={'all'}
+        }
+        vim.cmd("let g:ale_linters['c++'] = 'clangd'")
+        vim.g.ale_echo_msg_error_str = 'Error'
+        vim.g.ale_echo_msg_warning_str = 'Warning'
+        vim.g.ale_echo_msg_format = '%s [%severity%]'
+        vim.api.nvim_set_keymap('n', 'g[', '<Plug>(ale_previous_wrap)', {noremap=false, silent=true})
+        vim.api.nvim_set_keymap('n', 'g]', '<Plug>(ale_next_wrap)', {noremap=false, silent=true})
+      end
     }
     use {
       'delphinus/vim-auto-cursorline'
@@ -278,6 +294,23 @@ return require('packer').startup(function()
     use {
       'rafcamlet/coc-nvim-lua'
     }
+    use {
+      'liuchengxu/vista.vim',
+      config = function ()
+        vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
+        vim.cmd("let g:vista#renderer#enable_icon = 1")
+      end
+    }
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+      config = function ()
+        vim.api.nvim_set_keymap("n", '<leader>tf',':Telescope find_files<CR>', {noremap=true, silent=true})
+        vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope live_grep<CR>', {noremap=true, silent=true})
+        vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope help_tags<CR>', {noremap=true, silent=true})
+      end
+    }
   end)
+
 
 

@@ -32,5 +32,5 @@ vim.o.encoding = "utf-8"
 vim.o.syntax = "on"
 vim.o.hidden = true
 vim.o.writebackup = true
-vim.cmd("set undodir=~/.config/nvim/undodir")
+--vim.cmd("set undodir=~/.config/nvim/undodir")
 
