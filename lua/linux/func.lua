@@ -2,8 +2,7 @@ local vim = vim
 function StartR()
   if vim.bo.filetype == "markdown" then
     vim.cmd(":Glow")
-  else
-    vim.cmd(":AsyncTask file-run")
+  else vim.cmd(":AsyncTask file-run")
   end
 end
 
@@ -39,15 +38,23 @@ end
 
 
 function QuitOrClose()
-  if (vim.bo.filetype ~= "dashboard" or vim.bo.filetype ~= nil) and string.len(vim.bo.filetype) > 0 then
-    vim.cmd(":BufferClose")
-    if string.len(vim.bo.filetype) == 0 then
-      vim.cmd(":q")
-    end
+  if vim.bo.filetype == "dashboard" or string.len(vim.bo.filetype) == 0 or vim.bo.filetype == "vista" or vim.bo.filetype == nil  or vim.bo.filetype == "help" then
+    vim.cmd(":q")
   else
+    if string.len(vim.bo.filetype) > 0 then
+      vim.cmd(":BufferClose")
+      if string.len(vim.bo.filetype) == 0 then
+        vim.cmd("q")
+      end
+      return
+    end
     vim.cmd(":q")
   end
 end
 
+function QuitSearch()
+  work = vim.fn['expand']('<cword>')
+  vim.cmd("/" .. work)
+end
 
 
