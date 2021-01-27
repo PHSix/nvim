@@ -36,9 +36,19 @@ function Check_back_space()
   return (col == 0 or vim.api.nvim_get_current_line():sub(col, col):match('%s')) and true
 end
 
+function  is_quit_file(filetype)
+  local type_list = { 'dashboard', 'vista', 'qf', 'help' ,nil}
+  for k,v in ipairs(type_list) do
+    if filetype == v then
+      return true
+    end
+  end
+  return false
+end
+
 
 function QuitOrClose()
-  if vim.bo.filetype == "dashboard" or string.len(vim.bo.filetype) == 0 or vim.bo.filetype == "vista" or vim.bo.filetype == nil  or vim.bo.filetype == "help" then
+  if string.len(vim.bo.filetype) == 0 or is_quit_file(vim.bo.filetype) then
     vim.cmd(":q")
   else
     if string.len(vim.bo.filetype) > 0 then

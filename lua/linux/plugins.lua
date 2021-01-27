@@ -92,15 +92,6 @@ return require('packer').startup(function()
     end,
     requires = {'kyazdani42/nvim-web-devicons', opt=true}
   }
-  use {
-    'preservim/nerdcommenter',
-    config = function()
-      vim.api.nvim_set_keymap("n", ",cc", "<leader>cc", {noremap=false, silent=true})
-      vim.api.nvim_set_keymap("v", ",cc", "<leader>cc", {noremap=false, silent=true})
-      vim.api.nvim_set_keymap("n", ",cu", "<leader>cu", {noremap=false, silent=true})
-      vim.api.nvim_set_keymap("v", ",cu", "<leader>cu", {noremap=false, silent=true})
-    end
-  }
   use {'gcmt/wildfire.vim'}
   use {
     'francoiscabrol/ranger.vim',
@@ -308,6 +299,15 @@ return require('packer').startup(function()
         vim.api.nvim_set_keymap("n", '<leader>tf',':Telescope find_files<CR>', {noremap=true, silent=true})
         vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope live_grep<CR>', {noremap=true, silent=true})
         vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope help_tags<CR>', {noremap=true, silent=true})
+      end
+    }
+    use {
+      'glepnir/prodoc.nvim',
+      config = function() 
+      vim.api.nvim_set_keymap("n", ",cc", ":ProComment<CR>", {noremap=false, silent=true})
+      vim.api.nvim_set_keymap("v", ",cc", ":ProComment<CR>", {noremap=false, silent=true})
+      vim.api.nvim_set_keymap("n", ",cu", ":ProDoc<CR>", {noremap=false, silent=true})
+      vim.api.nvim_set_keymap("v", ",cu", ":ProDoc<CR>", {noremap=false, silent=true})
       end
     }
   end)
