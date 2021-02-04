@@ -8,18 +8,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 vim.cmd [[packadd packer.nvim]]
 require('packer').init({
-    clone_timeout = 30,
-  })
+  clone_timeout = 30,
+})
 return require('packer').startup(function()
   use {'wbthomason/packer.nvim', opt = true}
   use {'lilydjwg/fcitx.vim'}
-  use {'vimwiki/vimwiki', opt=true}
-  use {
-    'glepnir/galaxyline.nvim',
-    branch = 'main',
-    config = function() require'linux/eviline' end,
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
   use {'tpope/vim-surround'}
   use {
     'hardcoreplayers/dashboard-nvim',
@@ -36,7 +29,7 @@ return require('packer').startup(function()
       vim.api.nvim_set_keymap("n", "<C-f>h", ":DashboardFindHistory<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>f", ":DashboardFindFile<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>c", ":DashboardChangeColorscheme<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardJumpMark<CR>", {noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardFindWord<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>b", ":DashboardJumpMark<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>n", ":DashboardNewFile<CR>", {noremap=true, silent=true})
       vim.g.dashboard_custom_shortcut = {
@@ -48,26 +41,11 @@ return require('packer').startup(function()
         find_word="<Ctrl-f>w",
         book_marks="<Ctrl-f>b"
       }
-      -- vim.g.dashboard_custom_shortcut['last_session'] = "<Ctrl-f>l"
-      --\ 'last_session'       : '<Ctrl-f>l',
-      --\ 'find_history'       : '<Ctrl-f>h',
-      --\ 'find_file'          : '<Ctrl-f>f',
-      --\ 'new_file'           : '<Ctrl-f>n',
-      --\ 'change_colorscheme' : '<Ctrl-f>c',
-      --\ 'find_word'          : '<Ctrl-f>w',
-      --\ 'book_marks'         : '<Ctrl-f>b',
-      --\ }
     end,
   }
   use {
     'junegunn/fzf.vim',
     config = function()
-    end
-  }
-  use {
-    'rafi/awesome-vim-colorschemes',
-    config = function()
-      vim.cmd("colorscheme deus")
     end
   }
   use {
@@ -78,29 +56,20 @@ return require('packer').startup(function()
     end
   }
   use {
-    'romgrk/barbar.nvim',
+    'akinsho/nvim-bufferline.lua',
     config = function()
-      vim.api.nvim_set_keymap("n", "<leader>1", ":BufferGoto 1<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>2", ":BufferGoto 2<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>3", ":BufferGoto 3<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>4", ":BufferGoto 4<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>5", ":BufferGoto 5<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>6", ":BufferGoto 6<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>7", ":BufferGoto 7<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>8", ":BufferGoto 8<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<leader>9", ":BufferGoto 9<CR>", {noremap=true, silent=true})
+      require'bufferline'.setup{
+        options = {
+          modified_icon = '✥',
+          mappings = true,
+          buffer_close_icon = "",
+          always_show_bufferline = false,
+        }
+      }
     end,
     requires = {'kyazdani42/nvim-web-devicons', opt=true}
   }
   use {'gcmt/wildfire.vim'}
-  use {
-    'francoiscabrol/ranger.vim',
-    requires = {'rbgrouleff/bclose.vim', opt=true},
-    config = function()
-      vim.api.nvim_set_keymap("n", "<leader>f", ":Ranger<CR>", {noremap=false, silent=true})
-    end,
-  }
-  use {'sheerun/vim-polyglot'}
   use {
     'junegunn/vim-easy-align',
     config = function()
@@ -145,172 +114,186 @@ return require('packer').startup(function()
     'mg979/vim-visual-multi',
     config = function()
       vim.api.nvim_exec(
-        [[
-        let g:VM_maps                       = {}
-        let g:VM_maps['Find Under']         = '<C-d>'
-        let g:VM_maps['Find Subword Under'] = '<C-d>'
-        let g:VM_maps["Add Cursor Down"]    = '<C-Down>'
-        let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
-        ]], true)
-      end
-    }
-    use {
-      "glepnir/lspsaga.nvim"
-    }
-    use {
-      "norcalli/nvim-colorizer.lua",
-      config = function()
-        require'colorizer'.setup()
-      end
-    }
-    use {
-      'neoclide/coc.nvim',
-      branch = 'release',
-      config = function()
-        vim.wo.signcolumn = "yes"
-        vim.g.coc_global_extensions = {
-          'coc-json',
-          'coc-pairs',
-          'coc-highlight',
-          'coc-lists',
-          'coc-yank',
-          'coc-actions',
-          'coc-marketplace',
-          'coc-diagnostic',
-          'coc-vimlsp',
-          'coc-translator',
-          'coc-git',
-          'coc-snippets',
+      [[
+      let g:VM_maps                       = {}
+      let g:VM_maps['Find Under']         = '<C-d>'
+      let g:VM_maps['Find Subword Under'] = '<C-d>'
+      let g:VM_maps["Add Cursor Down"]    = '<C-Down>'
+      let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
+      ]], true)
+    end
+  }
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require'colorizer'.setup()
+    end
+  }
+  use {
+    'neoclide/coc.nvim',
+    branch = 'release',
+    config = function()
+      vim.wo.signcolumn = "yes"
+      vim.g.coc_global_extensions = {
+        'coc-json',
+        'coc-pairs',
+        'coc-highlight',
+        'coc-lists',
+        'coc-yank',
+        'coc-actions',
+        'coc-marketplace',
+        'coc-diagnostic',
+        'coc-vimlsp',
+        'coc-translator',
+        'coc-git',
+        'coc-snippets',
 
-          'coc-emmet',
-          'coc-html',
-          'coc-css',
-          'coc-tsserver',
-          'coc-yaml',
-          'coc-xml',
-          'coc-sql',
-          'coc-cmake',
-          'coc-clangd',
-          'coc-vetur',
-          'coc-flutter-tools',
-          'coc-template',
-          'coc-sh',
-          'coc-todolist',
-          'coc-markdownlint',
-          'coc-python',
-          'coc-rainbow-fart'
-        }
-        vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
-        vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
-        vim.api.nvim_set_keymap("v", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
-        vim.api.nvim_set_keymap("i", "<TAB>", "v:lua.Coc_tab()", {noremap=true, silent=true, expr=true})
-        vim.api.nvim_set_keymap("i", "<S-TAB>", "v:lua.Coc_shift_tab()", {noremap=true, silent=true, expr=true})
-        vim.api.nvim_set_keymap("i", "<CR>", "v:lua.Coc_enter()", {noremap=true, silent=true, expr=true})
-        if vim.fn.glob("~/.local/share/nvim/size/pack/packer/start/coc.nvim") ~= nil then
-          vim.cmd("autocmd CursorHold * silent call CocActionAsync('highlight')")
-          vim.cmd("augroup mygroup")
-          vim.cmd("autocmd!")
-          vim.cmd("autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')")
-          vim.cmd("autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')")
-          vim.cmd("augroup end")
-        end
+        'coc-emmet',
+        'coc-html',
+        'coc-css',
+        'coc-tsserver',
+        'coc-yaml',
+        'coc-xml',
+        'coc-sql',
+        'coc-cmake',
+        'coc-clangd',
+        'coc-vetur',
+        'coc-flutter-tools',
+        'coc-sh',
+        'coc-todolist',
+        'coc-markdownlint',
+        'coc-python',
+        'coc-rainbow-fart'
+      }
+      vim.api.nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", {noremap=false,silent=true})
+      vim.api.nvim_set_keymap("n", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
+      vim.api.nvim_set_keymap("v", "<leader>rn", "<Plug>(coc-rename)", {noremap=false, silent=true})
+      vim.api.nvim_set_keymap("i", "<TAB>", "v:lua.Coc_tab()", {noremap=true, silent=true, expr=true})
+      vim.api.nvim_set_keymap("i", "<S-TAB>", "v:lua.Coc_shift_tab()", {noremap=true, silent=true, expr=true})
+      vim.api.nvim_set_keymap("i", "<CR>", "v:lua.Coc_enter()", {noremap=true, silent=true, expr=true})
+      if vim.fn.glob("~/.local/share/nvim/size/pack/packer/start/coc.nvim") ~= nil then
+        vim.cmd("autocmd CursorHold * silent call CocActionAsync('highlight')")
+        vim.cmd("augroup mygroup")
+        vim.cmd("autocmd!")
+        vim.cmd("autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')")
+        vim.cmd("autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')")
+        vim.cmd("augroup end")
+      end
 
-      end
-    }
-    use {
-      'antoinemadec/coc-fzf',
-      config = function()
-        vim.g.coc_fzf_preview_toggle_key = '?'
-        vim.g.coc_fzf_preview = ''
-        vim.g.fzf_lazyout = {
-          window = {
-            width = 0.9,
-            height = 0.6
-          }
+    end
+  }
+  use {
+    'antoinemadec/coc-fzf',
+    config = function()
+      vim.g.coc_fzf_preview_toggle_key = '?'
+      vim.g.coc_fzf_preview = ''
+      vim.g.fzf_lazyout = {
+        window = {
+          width = 0.9,
+          height = 0.6
         }
-      end
-    }
-    use {
-      'fatih/vim-go',
-      config = function()
-        vim.g.go_version_warning = 0
-        vim.g.go_echo_go_info = 0
-        vim.g.go_fmt_autosave = 0
-        vim.g.go_doc_popup_window = 1
-        vim.g.go_def_mapping_enabled = 0
-        vim.g.go_template_autocreate = 0
-        vim.g.go_textobj_enabled = 0
-        vim.g.go_auto_type_info = 1
-        vim.g.go_def_mapping_enabled = 0
-        vim.g.go_doc_keywordprg_enabled = 0
-        vim.g.go_statusline_duration = 0
-      end
-    }
-    use {
-      'Shougo/defx.nvim',
-      opt=true,
-      requires = {'kristijanhusak/defx-icons', opt=true},
-      cmd = {"Defx"}
-    }
-    use {
-      'jreybert/vimagit',
-      opt=true,
-      cmd = {"Magit", "MagitOnly"}
-    }
-    use {
-      'dense-analysis/ale',
-      config = function ()
-        vim.g.ale_sign_error = '✗'
-        vim.g.ale_sign_warning = '⚡'
-        vim.g.ale_linters = {
-          c={'clang'},
-          python={'pylint', 'flake8', 'mypy', 'pyright'},
-          go={'gofmt', 'golint', 'go vet'},
-          lua={'all'}
-        }
-        vim.cmd("let g:ale_linters['c++'] = 'clangd'")
-        vim.g.ale_echo_msg_error_str = 'Error'
-        vim.g.ale_echo_msg_warning_str = 'Warning'
-        vim.g.ale_echo_msg_format = '%s [%severity%]'
-        vim.api.nvim_set_keymap('n', 'g[', '<Plug>(ale_previous_wrap)', {noremap=false, silent=true})
-        vim.api.nvim_set_keymap('n', 'g]', '<Plug>(ale_next_wrap)', {noremap=false, silent=true})
-      end
-    }
-    use {
-      'delphinus/vim-auto-cursorline'
-    }
-    use {
-      'npxbr/glow.nvim'
-    }
-    use {
-      'rafcamlet/coc-nvim-lua'
-    }
-    use {
-      'liuchengxu/vista.vim',
-      config = function ()
-        vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
-        vim.cmd("let g:vista#renderer#enable_icon = 1")
-      end
-    }
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-      config = function ()
-        vim.api.nvim_set_keymap("n", '<leader>tf',':Telescope find_files<CR>', {noremap=true, silent=true})
-        vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope live_grep<CR>', {noremap=true, silent=true})
-        vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope help_tags<CR>', {noremap=true, silent=true})
-      end
-    }
-    use {
-      'glepnir/prodoc.nvim',
-      config = function() 
-      vim.api.nvim_set_keymap("n", ",cc", ":ProComment<CR>", {noremap=false, silent=true})
-      vim.api.nvim_set_keymap("v", ",cc", ":ProComment<CR>", {noremap=false, silent=true})
-      vim.api.nvim_set_keymap("n", ",cu", ":ProDoc<CR>", {noremap=false, silent=true})
-      vim.api.nvim_set_keymap("v", ",cu", ":ProDoc<CR>", {noremap=false, silent=true})
-      end
-    }
-  end)
+      }
+    end
+  }
+  use {
+    'fatih/vim-go',
+    config = function()
+      vim.g.go_version_warning = 0
+      vim.g.go_echo_go_info = 0
+      vim.g.go_fmt_autosave = 0
+      vim.g.go_doc_popup_window = 1
+      vim.g.go_def_mapping_enabled = 0
+      vim.g.go_template_autocreate = 0
+      vim.g.go_textobj_enabled = 0
+      vim.g.go_auto_type_info = 1
+      vim.g.go_def_mapping_enabled = 0
+      vim.g.go_doc_keywordprg_enabled = 0
+      vim.g.go_statusline_duration = 0
+    end
+  }
+  use {
+    'jreybert/vimagit',
+    opt=true,
+    cmd = {"Magit", "MagitOnly"}
+  }
+  use {
+    'npxbr/glow.nvim'
+  }
+  use {
+    'rafcamlet/coc-nvim-lua'
+  }
+  use {
+    'liuchengxu/vista.vim',
+    config = function ()
+      vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
+      vim.cmd("let g:vista#renderer#enable_icon = 1")
+    end
+  }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    config = function ()
+      vim.api.nvim_set_keymap("n", '<leader>tf',':Telescope find_files<CR>', {noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope live_grep<CR>', {noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope help_tags<CR>', {noremap=true, silent=true})
+    end
+  }
+  use {
+    'PHSix/nvim-hybrid',
+    config = function ()
+      vim.cmd('colorscheme nvim-hybrid')
+    end
+  }
+  use {
+    'glepnir/spaceline.vim'
+  }
+  use {
+    'kyazdani42/nvim-tree.lua',
+    key={{'n', '<C-n>'}},
+    config = function()
+      local vim = vim
+      vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap=true, silent=true})
+      vim.g.nvim_tree_indet_markers = 1
+      vim.g.nvim_tree_auto_close = 1
+      vim.g.nvim_tree_git_hl     = 1
+      vim.g.nvim_tree_follow     = 1
+      vim.g.nvim_tree_bindings   = {
+        edit={'o', '<CR>'},
+        rename={'r'},
+        remove={'dD'},
+        cut={'dd'},
+        close={'q'},
+        paste={'p'},
+        dir_up={'u'},
+        preview={'<TAB>'},
+        copy={'copy'},
+        create={'cn'},
+      }
+    end,
+    requires = {'kyazdani42/nvim-web-devicons', opt=true}
+  }
+  use{
+    'tyru/caw.vim',
+    keys = {',c'},
+    config = function()
+      local vim = vim
+      vim.api.nvim_set_keymap('n', ',c', '<Plug>(caw:prefix)', {noremap=false, silent=true})
+      vim.api.nvim_set_keymap('x', ',c', '<Plug>(caw:prefix)', {noremap=false, silent=true})
+    end,
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = 'TSUpdate',
+    config = function()
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        highlight = {
+          enable = true,              -- false will disable the whole extension
+        },
+      }
+    end
+  }
+end)
 
 
 
