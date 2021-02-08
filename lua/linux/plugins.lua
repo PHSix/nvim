@@ -1,15 +1,37 @@
 local execute = vim.api.nvim_command
-local fn = vim.fn
-vim.g.github_mirror = "fastgit"
+local fn = vim.fn local http_prefix = "https://github.com.cnpmjs.org/"
+local execu_install = false
 local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com.cnpmjs.org/PHSix/packer.nvim '..install_path)
+  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
+  execu_install = true
 end
 vim.cmd [[packadd packer.nvim]]
+local use = require('packer').use
+local useb = function(list)
+  if type(list) == 'string' then
+    list = http_prefix .. list
+    return usep(list)
+  elseif type(list) == 'table' then
+    list[1] = http_prefix .. list[1]
+    if type(list['requires']) == 'string' then
+      list['requires'] = http_prefix .. list['requires']
+    elseif type(list['requires']) == 'table' then
+      if type(list['requires'][1]) == 'string' then
+        list['requires'][1] = http_prefix .. list['requires'][1]
+      elseif list['requires'][1] == 'table' then
+        for k,_ in pairs(list['requires']) do
+          list['requires'][k][1] = http_prefix .. list['requires'][k][1]
+        end
+      end
+    end
+    return usep(list)
+  end
+end
 require('packer').init({
   clone_timeout = 30,
 })
-return require('packer').startup(function()
+require('packer').startup(function()
   use {
     'PHSix/packer.nvim',
     opt = true
@@ -42,19 +64,19 @@ return require('packer').startup(function()
     'hardcoreplayers/dashboard-nvim',
     setup = function()
       local vim = vim
-      vim.g.dashboard_default_executive = 'fzf'
+      vim.g.dashboard_default_executive = 'telescope'
       vim.g.dashboard_preview_command = 'cat'
       vim.g.dashboard_preview_pipeline = "lolcat"
       vim.g.dashboard_preview_file = vim.fn['getenv']('HOME') .. '/.config/nvim/static/neovim.txt'
       vim.g.dashboard_preview_file_height = 8
       vim.g.dashboard_preview_file_width = 50
-      vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
+      -- vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
       vim.api.nvim_set_keymap("n", "<C-f>s", ":<C-u>SessionSave<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>h", ":DashboardFindHistory<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>f", ":DashboardFindFile<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>c", ":DashboardChangeColorscheme<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", "<C-f>b", ":DashboardJumpMark<CR>", {noremap=true, silent=true})
+      vim.api.nvim_set_keymap("n", "<C-f>m", ":DashboardJumpMark<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardFindWord<CR>", {noremap=true, silent=true})
       vim.api.nvim_set_keymap("n", "<C-f>n", ":DashboardNewFile<CR>", {noremap=true, silent=true})
       vim.g.dashboard_custom_shortcut = {
@@ -126,16 +148,14 @@ return require('packer').startup(function()
     ft={'markdown'}
   }
   use {
-    'kien/rainbow_parentheses.vim',
+    'p00f/nvim-ts-rainbow',
     event='BufReadPost *',
     config = function()
-      local vim = vim
-      vim.g.rbpt_max = 16
-      vim.g.rbpt_loadcmd_toggle = 0
-      vim.cmd("au VimEnter * RainbowParenthesesToggle")
-      vim.cmd("au Syntax * RainbowParenthesesLoadRound")
-      vim.cmd("au Syntax * RainbowParenthesesLoadSquare")
-      vim.cmd("au Syntax * RainbowParenthesesLoadBraces")
+      require'nvim-treesitter.configs'.setup {
+        rainbow = {
+          enable = true
+        }
+      }
     end
   }
 
@@ -184,42 +204,10 @@ return require('packer').startup(function()
   }
   use {
     'nvim-telescope/telescope.nvim',
-    keys = {'<leader>tf', '<leader>tg', '<leader>tl'},
-    requires = {{'nvim-lua/popup.nvim', opt=true}, {'nvim-lua/plenary.nvim', opt=true}},
+    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function ()
       local vim = vim
-      vim.api.nvim_set_keymap("n", '<leader>tf',':Telescope find_files<CR>', {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", '<leader>tl',':Telescope live_grep<CR>', {noremap=true, silent=true})
-      vim.api.nvim_set_keymap("n", '<leader>tg',':Telescope help_tags<CR>', {noremap=true, silent=true})
-    end
-  }
-  use {
-    'akinsho/nvim-bufferline.lua',
-    requires = {'kyazdani42/nvim-web-devicons', opt=true},
-    config = function ()
-      require'bufferline'.setup{
-        options = {
-          modified_icon = '✥',
-          mappings = true,
-          buffer_close_icon = "",
-          always_show_bufferline = false,
-        }
-      }
-    end
-  }
-  use {
-    "glepnir/lspsaga.nvim",
-    config = function()
-      local vim = vim
-      vim.api.nvim_set_keymap('n', "K",          ":lua vim.lsp.buf.hover()<CR>",                                    {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('n', "<leader>rn", ":lua require('lspsaga.rename').rename()<CR>",                     {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('v', "<leader>rn", ":lua require('lspsaga.rename').rename()<CR>",                     {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('n', "gp",         ":lua require'lspsaga.provider'.preview_definition()<CR>",         {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('n', "[g",         ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('n', "]g",         ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('n', "<leader>gf", ":lua require'lspsaga.provider'.lsp_finder()<CR>",                 {noremap=true, silent=true})
-      vim.api.nvim_set_keymap('n', "<leader>ca", ":lua require('lspsaga.codeaction').code_action()<CR>",                {noremap=true, silent=true})
-
+      vim.api.nvim_set_keymap('n', '<A-d>j', ':Buffers<CR>', {noremap=true, silent=true})
     end
   }
   use {
@@ -232,7 +220,10 @@ return require('packer').startup(function()
     end
   }
   use {
-    'jiangmiao/auto-pairs'
+    'windwp/nvim-autopairs',
+    config = function ()
+      require('nvim-autopairs').setup()
+    end
   }
   use {
     'airblade/vim-gitgutter',
@@ -266,86 +257,6 @@ return require('packer').startup(function()
     requires = {'kyazdani42/nvim-web-devicons', opt=true}
   }
   use{
-    'neovim/nvim-lspconfig',
-    config = function()
-      local vim = vim
-      vim.fn['sign_define']('LspDiagnosticsSignError',{
-        text=' ▊',
-        texthl='LspDiagnosticsSignError',
-        numhl='LspDiagnosticsSignError',
-      })
-      vim.fn['sign_define']('LspDiagnosticsSignWarning', {
-        text=' ▊',
-        texthl='LspDiagnosticsSignWarning',
-        numhl='LspDiagnosticsSignWarning',
-      })
-      vim.fn['sign_define']('LspDiagnosticsSignHint', {
-        text=' ▊',
-        texthl='LspDiagnosticsSignHint',
-        numhl='LspDiagnosticsSignHint',
-      })
-      vim.fn['sign_define']('LspDiagnosticsSignInformation', {
-        text=' ▊',
-        texthl='LspDiagnosticsSignInformation',
-        numhl='LspDiagnosticsSignInformation',
-      })
-    end
-  }
-  use {
-    'nvim-lua/completion-nvim',
-    config = function()
-      local vim = vim
-      vim.o.completeopt = "menu,menuone,noselect"
-      vim.g.updatetime = 100
-      vim.g.completion_timer_cycle = 150
-      vim.g.completion_enable_auto_signature = 0
-      vim.g.completion_enable_snippet = "vim-vsnip"
-      vim.g.vsnip_snippet_dir = "/home/ph/.config/nvim/vsnip"
-      vim.cmd("autocmd BufEnter * lua require'completion'.on_attach()")
-      vim.api.nvim_set_keymap('i', "<Tab>", "v:lua.Com_Tab()" , {noremap=true, silent=true, expr=true})
-      vim.api.nvim_set_keymap('i', "<S-Tab>", "v:lua.Com_STab()" , {noremap=true, silent=true, expr=true})
-      local lspconfig = require'lspconfig'
-      require'lspconfig'.clangd.setup{
-        on_attach = require'completion'.on_attach,
-      }
-      require'lspconfig'.gopls.setup{
-        cmd = {"gopls","--remote=auto"},
-        on_attach = require'completion'.on_attach,
-        filetypes = { "go", "gomod" },
-        root_dir = lspconfig.util.root_pattern("go.mod", ".git")
-      }
-      require'lspconfig'.sumneko_lua.setup{
-        cmd = {"lua-language-server", "-E", "/home/ph/.cache/yay/lua-language-server-git/src/lua-language-server-git/main.lua"},
-        on_attach = require'completion'.on_attach
-      }
-      require'lspconfig'.pyls.setup{
-        on_attach=require'completion'.on_attach
-      }
-      require'lspconfig'.cssls.setup{
-        on_attach=require'completion'.on_attach
-      }
-      require'lspconfig'.tsserver.setup{
-        on_attach=require'completion'.on_attach,
-        root_dir = vim.loop.cwd
-      }
-      require'lspconfig'.vimls.setup{
-        on_attach=require'completion'.on_attach,
-      }
-      vim.g.completion_chain_complete_list = {
-        default ={
-          {complete_items={'snippet',  'path', 'lsp', 'buffers'}},
-          {mode='<c-p>'},
-          {mode='<c-n>'}
-        }
-      }
-    end,
-    requires = {
-      {'steelsojka/completion-buffers', opt=true},
-      {'hrsh7th/vim-vsnip', opt=true,requires = {'hrsh7th/vim-vsnip-integ', opt=true}}
-    },
-  }
-
-  use{
     'tyru/caw.vim',
     keys = {',c'},
     config = function()
@@ -370,12 +281,6 @@ return require('packer').startup(function()
     end,
   }
   use {
-    '/home/ph/Github/nvim-hybrid',
-    config = function()
-      vim.cmd('colorscheme nvim-hybrid')
-    end
-  }
-  use {
     'glepnir/galaxyline.nvim',
     branch = 'main',
     -- your statusline
@@ -388,4 +293,117 @@ return require('packer').startup(function()
   use {
     '/home/ph/Github/rim.nvim',
   }
+  use {
+    '/home/ph/Github/nvim-hybrid',
+    config = function()
+      vim.cmd('colorscheme nvim-hybrid')
+    end
+  }
+  use {
+    'yamatsum/nvim-cursorline',
+    config = function ()
+    end
+  }
+  use {
+    "glepnir/lspsaga.nvim",
+    config = function()
+      local vim = vim
+      vim.api.nvim_set_keymap('n', "K",          ":lua vim.lsp.buf.hover()<CR>",                                    {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('n', "<leader>rn", ":lua require('lspsaga.rename').rename()<CR>",                     {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('n', "gp",         ":lua require'lspsaga.provider'.preview_definition()<CR>",         {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('n', "[g",         ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('n', "]g",         ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('n', "gd", ":lua require'lspsaga.provider'.lsp_finder()<CR>",                 {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('n', "<leader>ca", ":lua require('lspsaga.codeaction').code_action()<CR>",                {noremap=true, silent=true})
+
+    end
+  }
+  use{
+    'neovim/nvim-lspconfig',
+    config = function()
+      local vim = vim
+      vim.fn['sign_define']('LspDiagnosticsSignError',{
+        text=' ▊',
+        texthl='LspDiagnosticsSignError',
+        numhl='LspDiagnosticsSignError',
+      })
+      vim.fn['sign_define']('LspDiagnosticsSignWarning', {
+        text=' ▊',
+        texthl='LspDiagnosticsSignWarning',
+        numhl='LspDiagnosticsSignWarning',
+      })
+      vim.fn['sign_define']('LspDiagnosticsSignHint', {
+        text=' ▊',
+        texthl='LspDiagnosticsSignHint',
+        numhl='LspDiagnosticsSignHint',
+      })
+      vim.fn['sign_define']('LspDiagnosticsSignInformation', {
+        text=' ▊',
+        texthl='LspDiagnosticsSignInformation',
+        numhl='LspDiagnosticsSignInformation',
+      })
+      require('linux.lspconfig')
+    end
+  }
+  use{
+    'hrsh7th/nvim-compe',
+    require = {'SirVer/ultisnips', opt=true},
+    config = function()
+      local vim = vim
+      vim.o.completeopt = "menu,menuone,noselect"
+      require'compe'.setup {
+        enabled = true;
+        debug = false;
+        min_length = 1;
+        -- preselect = 'always';
+        allow_prefix_unmatch = false;
+        source = {
+          path = true;
+          buffer = true;
+          calc = true;
+          nvim_lsp = true;
+          nvim_lua = true;
+          spell = true;
+          tags = true;
+          snippets_nvim = true;
+        };
+      }
+      local t = function(str)
+        return vim.api.nvim_replace_termcodes(str, true, true, true)
+      end
+
+      -- Use (s-)tab to:
+      --- move to prev/next item in completion menuone
+      --- jump to prev/next snippet's placeholder
+      _G.tab_complete = function()
+        if vim.fn.pumvisible() == 1 then
+          return t "<C-n>"
+        else
+          return t "<Tab>"
+        end
+      end
+      _G.s_tab_complete = function()
+        if vim.fn.pumvisible() == 1 then
+          return t "<C-p>"
+        else
+          return t "<S-Tab>"
+        end
+      end
+
+      vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+      vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+      vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+      vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+      vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true, noremap=true})
+      -- inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+    end
+  }
+  use {
+    'glacambre/firenvim', 
+      run = 'call firenvim#install(0)'
+  }
 end)
+
+if execu_install == true then
+  vim.cmd(":PackerInstall")
+end

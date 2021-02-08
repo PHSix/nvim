@@ -7,6 +7,37 @@ function StartR()
   end
 end
 
+
+function Coc_tab()
+  if vim.fn.pumvisible() ~= 0 then
+    return vim.api.nvim_replace_termcodes('<C-n>', true, true,true)
+  elseif (Check_back_space()) then
+    return vim.api.nvim_replace_termcodes('<TAB>', true, true,true)
+  end
+  return vim.fn['coc#refresh']()
+end
+
+function Coc_shift_tab()
+  if vim.fn.pumvisible() ~= 0 then
+    return vim.api.nvim_replace_termcodes('<C-p>', true, true, true)
+  else
+    return vim.api.nvim_replace_termcodes('<C-h>', true, true, true)
+  end
+end
+
+function Coc_enter()
+  if vim.fn['complete_info']({"selected"})["selected"] ~= -1 then
+    return vim.api.nvim_replace_termcodes('<C-y>', true, true, true)
+  else
+    return vim.api.nvim_replace_termcodes('<CR>', true, true, true)
+  end
+end
+
+function Check_back_space()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  return (col == 0 or vim.api.nvim_get_current_line():sub(col, col):match('%s')) and true
+end
+
 function Com_Tab()
   if vim.fn.pumvisible() ~= 0 then
     return vim.api.nvim_replace_termcodes('<C-n>', true, true,true)
