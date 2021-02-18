@@ -47,3 +47,8 @@ vim.cmd("autocmd!")
 vim.cmd("autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif")
 vim.cmd("augroup END")
 
+vim.cmd [[augroup cusorline_set]]
+vim.cmd [[autocmd!]]
+vim.cmd [[autocmd CursorMoved <buffer> set cursorline]]
+vim.cmd [[augroup END]]
+

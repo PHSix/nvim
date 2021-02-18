@@ -104,3 +104,5 @@ function QuitSearch()
   local work = vim.fn['expand']('<cword>')
   vim.cmd("/" .. work)
 end
+
+

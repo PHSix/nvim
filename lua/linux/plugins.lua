@@ -1,60 +1,41 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
-local http_prefix = "https://github.com.cnpmjs.org/"
-local execu_install = false
-local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+local execu_install = false local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
   execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
   execu_install = true
 end
 vim.cmd [[packadd packer.nvim]]
 local use = require("packer").use
-local useb = function(list)
-  if type(list) == "string" then
-    list = http_prefix .. list
-    return usep(list)
-  elseif type(list) == "table" then
-    list[1] = http_prefix .. list[1]
-    if type(list["requires"]) == "string" then
-      list["requires"] = http_prefix .. list["requires"]
-    elseif type(list["requires"]) == "table" then
-      if type(list["requires"][1]) == "string" then
-        list["requires"][1] = http_prefix .. list["requires"][1]
-      elseif list["requires"][1] == "table" then
-        for k, _ in pairs(list["requires"]) do
-          list["requires"][k][1] = http_prefix .. list["requires"][k][1]
-        end
-      end
-    end
-    return usep(list)
-  end
-end
 require("packer").init(
 {
-  clone_timeout = 30
-}
-)
+  clone_timeout = 30,
+  transitive_opt = true,
+})
 require("packer").startup(
 function()
   use {
-    "PHSix/packer.nvim",
+    "wbthomason/packer.nvim",
     opt = true
   }
   use {
-    "lilydjwg/fcitx.vim"
+    "lilydjwg/fcitx.vim",
+    event= {"InsertEnter *"}
   }
   use {
-    "tpope/vim-surround"
+    "tpope/vim-surround",
+    keys = {'c', 'd', 'y'}
   }
   use {
     "nvim-treesitter/nvim-treesitter",
+    event = {"BufRead *"},
     run = "TSUpdate",
     config = function()
       require "nvim-treesitter.configs".setup {
-        ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        ensure_installed = "maintained",
         highlight = {
-          enable = true, -- false will disable the whole extension
-          disable = {"rust"} -- list of language that will be disabled
+          enable = true,
+          disable = {"rust"}
         }
       }
     end
@@ -74,12 +55,7 @@ function()
       vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>h", ":DashboardFindHistory<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>f", ":DashboardFindFile<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap(
-      "n",
-      "<C-f>c",
-      ":DashboardChangeColorscheme<CR>",
-      {noremap = true, silent = true}
-      )
+      vim.api.nvim_set_keymap("n","<C-f>c",":DashboardChangeColorscheme<CR>",{noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>m", ":DashboardJumpMark<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardFindWord<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>n", ":DashboardNewFile<CR>", {noremap = true, silent = true})
@@ -99,18 +75,8 @@ function()
     keys = {{"n", "j"}, {"n", "k"}},
     config = function()
       local vim = vim
-      vim.api.nvim_set_keymap(
-      "n",
-      "j",
-      "<Plug>(accelerated_jk_gj_position)",
-      {noremap = false, silent = true}
-      )
-      vim.api.nvim_set_keymap(
-      "n",
-      "k",
-      "<Plug>(accelerated_jk_gk_position)",
-      {noremap = false, silent = true}
-      )
+      vim.api.nvim_set_keymap("n","j","<Plug>(accelerated_jk_gj_position)",{noremap = false, silent = true})
+      vim.api.nvim_set_keymap("n","k","<Plug>(accelerated_jk_gk_position)",{noremap = false, silent = true})
     end
   }
   use {
@@ -128,7 +94,8 @@ function()
   }
   use {
     "skywind3000/asynctasks.vim",
-    requires = {"skywind3000/asyncrun.vim", opt = true},
+    requires = {"skywind3000/asyncrun.vim", keys={"R"}},
+    opt=true,
     keys = {"R"},
     config = function()
       local vim = vim
@@ -186,10 +153,17 @@ function()
   }
   use {
     "nvim-telescope/telescope.nvim",
-    requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
+    cmd = {"Telescope"},
+    requires = {{"nvim-lua/popup.nvim", opt=true}, {"nvim-lua/plenary.nvim", opt=true}},
     config = function()
-      local vim = vim
-      vim.api.nvim_set_keymap("n", "<A-d>j", ":Buffers<CR>", {noremap = true, silent = true})
+      vim.cmd [[packadd popup.nvim]]
+      vim.cmd [[packadd plenary.nvim]]
+      require('telescope').setup{
+        defaults = {
+          prompt_position = "top",
+          prompt_prefix = " 🍭",
+        }
+      }
     end
   }
   use {
@@ -209,22 +183,26 @@ function()
   }
   use {
     "lewis6991/gitsigns.nvim",
-    requires = {
-      "nvim-lua/plenary.nvim"
-    },
+    event = {"BufReadPre *"},
+    requires = {'nvim-lua/plenary.nvim', opt=true},
     config = function()
+      vim.cmd [[packadd plenary.nvim]]
       require("gitsigns").setup {
         signs = {
-          delete = {hl = "DiffDelete", text = "│"},
-          topdelete = {hl = "DiffDelete", text = "│"},
-          changedelete = {hl = "DiffDelete", text = "│"}
+          add = {hl = "DiffAdd", text = "▊"},
+          change = {hl = "DiffChange", text = "▊"},
+          delete = {hl = "DiffDelete", text = "▊"},
+          topdelete = {hl = "DiffDelete", text = "▊"},
+          changedelete = {hl = "DiffDelete", text = "▊"}
         }
       }
     end
   }
   use {
     "kyazdani42/nvim-tree.lua",
-    key = {{"<C-n>"}},
+    opt=true,
+    keys = {"<C-n>"},
+    requires = {"kyazdani42/nvim-web-devicons"},
     config = function()
       local vim = vim
       vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
@@ -245,7 +223,6 @@ function()
         create = {"cn"}
       }
     end,
-    requires = {"kyazdani42/nvim-web-devicons", opt = true}
   }
   use {
     "tyru/caw.vim",
@@ -257,112 +234,37 @@ function()
     end
   }
   use {
-    "mg979/vim-visual-multi",
-    keys = {"<C-d>", "<C-d>", "<C-Down>", "<C-Up>"},
-    config = function()
-      vim.api.nvim_exec(
-      [[
-      let g:VM_maps                       = {}
-      let g:VM_maps['Find Under']         = '<C-d>'
-      let g:VM_maps['Find Subword Under'] = '<C-d>'
-      let g:VM_maps["Add Cursor Down"]    = '<C-Down>'
-      let g:VM_maps["Add Cursor Up"]      = '<C-Up>'
-      ]],
-      true
-      )
-    end
-  }
-  use {
     "/home/ph/Github/nvim-hybrid",
+    requires = {'ms-jpq/neovim-async-tutorial'},
     config = function()
       vim.cmd("colorscheme nvim-hybrid")
     end
   }
   use {
     "glepnir/lspsaga.nvim",
+    keys = {'K', "<leader>ca", "<leader>rn", "[g", "]g", "gd", "gp"},
     config = function()
       local vim = vim
       vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap(
-      "n",
-      "<leader>rn",
-      ":lua require('lspsaga.rename').rename()<CR>",
-      {noremap = true, silent = true}
-      )
-      vim.api.nvim_set_keymap(
-      "n",
-      "gp",
-      ":lua require'lspsaga.provider'.preview_definition()<CR>",
-      {noremap = true, silent = true}
-      )
-      vim.api.nvim_set_keymap(
-      "n",
-      "[g",
-      ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>",
-      {noremap = true, silent = true}
-      )
-      vim.api.nvim_set_keymap(
-      "n",
-      "]g",
-      ":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>",
-      {noremap = true, silent = true}
-      )
-      vim.api.nvim_set_keymap(
-      "n",
-      "gd",
-      ":lua require'lspsaga.provider'.lsp_finder()<CR>",
-      {noremap = true, silent = true}
-      )
-      vim.api.nvim_set_keymap(
-      "n",
-      "<leader>ca",
-      ":lua require('lspsaga.codeaction').code_action()<CR>",
-      {noremap = true, silent = true}
-      )
+      vim.api.nvim_set_keymap("n","<leader>rn",":lua require('lspsaga.rename').rename()<CR>",{noremap = true, silent = true})
+      vim.api.nvim_set_keymap("n","gp",":lua require'lspsaga.provider'.preview_definition()<CR>",{noremap = true, silent = true})
+      vim.api.nvim_set_keymap("n","[g",":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>",{noremap = true, silent = true})
+      vim.api.nvim_set_keymap("n","]g",":lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>",{noremap = true, silent = true})
+      vim.api.nvim_set_keymap("n","gd",":lua require'lspsaga.provider'.lsp_finder()<CR>",{noremap = true, silent = true}) 
+      vim.api.nvim_set_keymap("n","<leader>ca",":lua require('lspsaga.codeaction').code_action()<CR>",{noremap = true, silent = true})
     end
   }
   use {
     "neovim/nvim-lspconfig",
     config = function()
-      local vim = vim
-      vim.fn["sign_define"](
-      "LspDiagnosticsSignError",
-      {
-        text = " ▊",
-        texthl = "LspDiagnosticsSignError",
-        numhl = "LspDiagnosticsSignError"
-      }
-      )
-      vim.fn["sign_define"](
-      "LspDiagnosticsSignWarning",
-      {
-        text = " ▊",
-        texthl = "LspDiagnosticsSignWarning",
-        numhl = "LspDiagnosticsSignWarning"
-      }
-      )
-      vim.fn["sign_define"](
-      "LspDiagnosticsSignHint",
-      {
-        text = " ▊",
-        texthl = "LspDiagnosticsSignHint",
-        numhl = "LspDiagnosticsSignHint"
-      }
-      )
-      vim.fn["sign_define"](
-      "LspDiagnosticsSignInformation",
-      {
-        text = " ▊",
-        texthl = "LspDiagnosticsSignInformation",
-        numhl = "LspDiagnosticsSignInformation"
-      }
-      )
       require("linux.lspconfig")
     end
   }
   use {
     "hrsh7th/nvim-compe",
-    requires = {{"SirVer/ultisnips", opt = true}, {"hrsh7th/vim-vsnip-integ"}, {"hrsh7th/vim-vsnip"}},
+    opt = true,
+    event={"InsertEnter *"},
+    requires = {{"hrsh7th/vim-vsnip-integ", opt=true}, {"hrsh7th/vim-vsnip", event={"BufReadPre *"}}},
     config = function()
       local vim = vim
       vim.o.completeopt = "menu,menuone,noselect"
@@ -370,18 +272,17 @@ function()
         enabled = true,
         debug = false,
         min_length = 1,
-        -- preselect = 'always';
+        preselect = 'disable',
         allow_prefix_unmatch = false,
         source = {
           path = true,
           buffer = true,
-          calc = true,
           vsnip = true,
           nvim_lsp = true,
           nvim_lua = true,
           spell = true,
           tags = true,
-          snippets_nvim = true
+          treesitter = true
         }
       }
       local t = function(str)
@@ -410,11 +311,8 @@ function()
     end
   }
   use {
-    "glacambre/firenvim",
-    run = "call firenvim#install(0)"
-  }
-  use {
     "ojroques/nvim-hardline",
+    event = {'VimEnter *'},
     config = function()
       require("hardline").setup {
         bufferline = false,
@@ -433,10 +331,56 @@ function()
     end
   }
   use {
-    "/home/ph/Desktop/Project/simple-tabline"
+    'akinsho/flutter-tools.nvim',
+    ft={"dart"},
+    config = function ()
+    require("flutter-tools").setup {
+      closing_tags = {
+        highlight = "ErrorMsg",
+        prefix = ">"
+      },
+      dev_log = {
+        open_cmd = "tabedit",
+      },
+      outline = {
+        open_cmd = "30vnew",
+      },
+    }
+    end
+  }
+  use {
+    'akinsho/nvim-bufferline.lua',
+    event = {'VimEnter *'},
+    requires = {'kyazdani42/nvim-web-devicons'},
+    config = function ()
+    require'bufferline'.setup{
+      options = {
+        numbers="ordinal",
+        number_style="",
+        mappings=true,
+        buffer_close_icon = " ",
+        separator_style = 'slant',
+        always_show_bufferline=false
+      }
+    }
+    end
+  }
+  use {
+    'itchyny/vim-cursorword',
+    event = {'BufReadPost *'}
+  }
+  use {
+    'skywind3000/vim-rt-format',
+    event = {'InsertEnter *'},
+    config = function ()
+      vim.g.rtf_on_insert_leave = 1
+    end
+  }
+  use {
+    'ttys3/nvim-blamer.lua'
   }
 end)
 
 if execu_install == true then
-  vim.cmd(":PackerInstall")
+  vim.cmd(":PackerSync")
 end
