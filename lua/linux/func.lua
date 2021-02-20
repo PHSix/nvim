@@ -106,3 +106,19 @@ function QuitSearch()
 end
 
 
+function Select_buf(num)
+  local buffers = api.nvim_list_bufs()
+  local buf = {}
+  for _, v in pairs(buffers) do
+    if api.nvim_buf_is_loaded(v) and  api.nvim_buf_get_option(v,'modifiable') and api.nvim_buf_get_option(v, 'filetype') ~= "" then
+      table.insert(buf, v)
+    end
+  end
+  if num > #buf then
+    return
+  end
+  vim.cmd('buffer ' .. buf[num])
+end
+
+
+

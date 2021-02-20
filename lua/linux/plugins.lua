@@ -29,7 +29,7 @@ function()
   use {
     "nvim-treesitter/nvim-treesitter",
     event = {"BufRead *"},
-    run = "TSUpdate",
+    run = ":TSUpdate<CR>",
     config = function()
       require "nvim-treesitter.configs".setup {
         ensure_installed = "maintained",
@@ -162,7 +162,10 @@ function()
         defaults = {
           prompt_position = "top",
           prompt_prefix = " 🍭",
-        }
+        },
+        file_previewer = require'telescope.previewers'.cat.new,
+        grep_previewer = require'telescope.previewers'.vimgrep.new,
+         qflist_previewer = require'telescope.previewers'.qflist.new,
       }
     end
   }
@@ -202,11 +205,12 @@ function()
     "kyazdani42/nvim-tree.lua",
     opt=true,
     keys = {"<C-n>"},
-    requires = {"kyazdani42/nvim-web-devicons"},
     config = function()
       local vim = vim
       vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
-      vim.g.nvim_tree_indet_markers = 1
+      vim.g.nvim_tree_follow = 1
+      vim.g.nvim_tree_hide_dotfiles = 1
+      vim.g.nvim_tree_indent_markers = 1
       vim.g.nvim_tree_auto_close = 1
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_follow = 1
@@ -264,7 +268,7 @@ function()
     "hrsh7th/nvim-compe",
     opt = true,
     event={"InsertEnter *"},
-    requires = {{"hrsh7th/vim-vsnip-integ", opt=true}, {"hrsh7th/vim-vsnip", event={"BufReadPre *"}}},
+    requires = {{"hrsh7th/vim-vsnip-integ", opt=true}, {"hrsh7th/vim-vsnip", event={"BufReadPre *"}}, {'tzachar/compe-tabnine', run="./install.sh"},},
     config = function()
       local vim = vim
       vim.o.completeopt = "menu,menuone,noselect"
@@ -282,7 +286,8 @@ function()
           nvim_lua = true,
           spell = true,
           tags = true,
-          treesitter = true
+          treesitter = true,
+          tabnine = true
         }
       }
       local t = function(str)
@@ -315,7 +320,6 @@ function()
     event = {'VimEnter *'},
     config = function()
       require("hardline").setup {
-        bufferline = false,
         theme = "nord",
         sections = {
           {class = "mode", item = require("hardline.parts.mode").get_item},
@@ -348,23 +352,23 @@ function()
     }
     end
   }
-  use {
-    'akinsho/nvim-bufferline.lua',
-    event = {'VimEnter *'},
-    requires = {'kyazdani42/nvim-web-devicons'},
-    config = function ()
-    require'bufferline'.setup{
-      options = {
-        numbers="ordinal",
-        number_style="",
-        mappings=true,
-        buffer_close_icon = " ",
-        separator_style = 'slant',
-        always_show_bufferline=false
-      }
-    }
-    end
-  }
+  -- use {
+  --   'akinsho/nvim-bufferline.lua',
+  --   event = {'VimEnter *'},
+  --   requires = {'kyazdani42/nvim-web-devicons'},
+  --   config = function ()
+  --   require'bufferline'.setup{
+  --     options = {
+  --       numbers="ordinal",
+  --       number_style="",
+  --       mappings=true,
+  --       buffer_close_icon = " ",
+  --       separator_style = 'slant',
+  --       always_show_bufferline=false
+  --     }
+  --   }
+  --   end
+  -- }
   use {
     'itchyny/vim-cursorword',
     event = {'BufReadPost *'}
@@ -377,7 +381,86 @@ function()
     end
   }
   use {
-    'ttys3/nvim-blamer.lua'
+    'numtostr/FTerm.nvim',
+    keys = {{'n', '<A-f>'}},
+    config = function ()
+      require'FTerm'.setup({
+        dimensions  = {
+          height = 0.5,
+          width  = 0.4,
+          row    = 0.5,
+          col    = 0.98
+        },
+        border = {
+          horizontal  = '─',
+          vertical    = '|',
+          topLeft     = '┌',
+          topRight    = '┐',
+          bottomRight = '┘',
+          bottomLeft  = '└'
+        }
+      })
+      vim.api.nvim_set_keymap('n', '<A-f>', ':FTermOpen<CR>', {noremap=true, silent=true})
+      vim.api.nvim_set_keymap('t', '<A-f>', '<C-\\><C-n><CMD>lua require"FTerm".toggle()<CR>', {noremap=true, silent=true})
+    end
+  }
+  use {
+    'tkmpypy/chowcho.nvim',
+    keys = {{'n', ';'}},
+    config = function ()
+      require('chowcho').setup {
+        text_color = '#ffeaa7',
+        bg_color = '#213039',
+        active_border_color = '#D4BFFF',
+        border_style = 'rounded' -- 'default', 'rounded',
+      }
+      vim.api.nvim_set_keymap('n', ';', ":lua require('chowcho').run()<CR>", {noremap=true, silent=true})
+    end
+  }
+  use {
+    'APZelos/blamer.nvim',
+    keys = {'n', '<leader>a'},
+    config = function ()
+      vim.g.blamer_enabled = 0
+      vim.g.blamer_delay = 500
+      vim.g.blamer_prefix = ' 🐛 :'
+      vim.api.nvim_set_keymap('n', '<leader>a', ":BlamerToggle<CR>", {noremap=true, silent=true})
+    end
+  }
+  use {
+    'glacambre/firenvim',
+    opt = true
+  }
+  use {
+    'Yggdroot/indentLine',
+    event = {"BufEnter *", "BufReadPre *"},
+    config = function ()
+      vim.g.indentLine_char = "|"
+      vim.g.indentLine_fileTypeExclude = {'help', 'dashboard'}
+    end
+  }
+  use {
+    'kyazdani42/nvim-web-devicons'
+  }
+  use {
+    'romgrk/barbar.nvim',
+    config = function ()
+      local vim = vim
+      local buf = {}
+      buf['animation'] = false
+      buf['icons'] = true
+      buf['auto_hide'] = true
+      buf['closable'] = false
+      buf['maximum_padding'] = 2
+      vim.g.bufferline = buf
+      vim.api.nvim_set_keymap('n','<leader>1',':BufferGoto 1<CR>', {noremap=true, silent = true})
+      vim.api.nvim_set_keymap('n','<leader>2',':BufferGoto 2<CR>', {noremap=true, silent = true})
+      vim.api.nvim_set_keymap('n','<leader>3',':BufferGoto 3<CR>', {noremap=true, silent = true})
+      vim.api.nvim_set_keymap('n','<leader>4',':BufferGoto 4<CR>', {noremap=true, silent = true})
+      vim.api.nvim_set_keymap('n','<leader>5',':BufferGoto 5<CR>', {noremap=true, silent = true})
+      vim.api.nvim_set_keymap('n','<leader>6',':BufferGoto 6<CR>', {noremap=true, silent = true})
+      vim.api.nvim_set_keymap('n','<leader>7',':BufferGoto 7<CR>', {noremap=true, silent = true})
+    end
   }
 end)
 

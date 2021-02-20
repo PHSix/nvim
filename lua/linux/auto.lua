@@ -52,3 +52,6 @@ vim.cmd [[autocmd!]]
 vim.cmd [[autocmd CursorMoved <buffer> set cursorline]]
 vim.cmd [[augroup END]]
 
+
+vim.cmd [[autocmd InsertEnter * ++once set showmode]]
+
