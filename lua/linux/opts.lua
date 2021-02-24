@@ -1,4 +1,5 @@
-local vim = vim vim.wo.number = true
+local vim = vim 
+vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.scrolloff = 5
 vim.wo.signcolumn = "yes"

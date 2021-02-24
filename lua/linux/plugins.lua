@@ -29,7 +29,7 @@ function()
   use {
     "nvim-treesitter/nvim-treesitter",
     event = {"BufRead *"},
-    run = ":TSUpdate<CR>",
+    run = ":TSUpdate",
     config = function()
       require "nvim-treesitter.configs".setup {
         ensure_installed = "maintained",
@@ -50,7 +50,7 @@ function()
       vim.g.dashboard_preview_file = vim.fn["getenv"]("HOME") .. "/.config/nvim/static/neovim.txt"
       vim.g.dashboard_preview_file_height = 8
       vim.g.dashboard_preview_file_width = 50
-      -- vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
+      vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
       vim.api.nvim_set_keymap("n", "<C-f>s", ":<C-u>SessionSave<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>h", ":DashboardFindHistory<CR>", {noremap = true, silent = true})
@@ -107,7 +107,7 @@ function()
   }
   use {
     "dart-lang/dart-vim-plugin",
-    opt = true
+    ft = {'dart'}
   }
   use {
     "dhruvasagar/vim-table-mode",
@@ -130,13 +130,22 @@ function()
     "norcalli/nvim-colorizer.lua",
     config = function()
       vim.o.termguicolors = true
-      require "colorizer".setup()
+      require "colorizer".setup({
+        css = { rgb_fn = true; };
+        scss = { rgb_fn = true; };
+        sass = { rgb_fn = true; };
+        stylus = { rgb_fn = true; };
+        vim = { names = true; };
+        tmux = { names = false; };
+        'javascript';
+        'javascriptreact';
+        'typescript';
+        'typescriptreact';
+        html = {
+          mode = 'foreground';
+        }
+      })
     end
-  }
-  use {
-    "jreybert/vimagit",
-    opt = true,
-    cmd = {"Magit", "MagitOnly"}
   }
   use {
     "npxbr/glow.nvim",
@@ -154,24 +163,32 @@ function()
   use {
     "nvim-telescope/telescope.nvim",
     cmd = {"Telescope"},
-    requires = {{"nvim-lua/popup.nvim", opt=true}, {"nvim-lua/plenary.nvim", opt=true}},
+    requires = {{"nvim-lua/popup.nvim", opt=true}, {"nvim-lua/plenary.nvim", opt=true}, {'nvim-telescope/telescope-packer.nvim', opt=true}},
     config = function()
       vim.cmd [[packadd popup.nvim]]
       vim.cmd [[packadd plenary.nvim]]
+      vim.cmd [[packadd telescope-packer.nvim]]
+      vim.api.nvim_set_keymap('n', '<C-f>p', ":lua require('telescope').extensions.packer.plugins(opts)<CR>", {noremap=true, silent=true})
       require('telescope').setup{
         defaults = {
           prompt_position = "top",
           prompt_prefix = " 🍭",
+          file_preview = require'telescope.previewers'.vim_buffer_cat.new,
+          grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+          qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+          mappings = {
+            i = {
+              ["<C-j>"] = require("telescope.actions").move_selection_next,
+              ["<C-k>"] = require("telescope.actions").move_selection_previous
+            }
+          },
         },
-        file_previewer = require'telescope.previewers'.cat.new,
-        grep_previewer = require'telescope.previewers'.vimgrep.new,
-         qflist_previewer = require'telescope.previewers'.qflist.new,
       }
     end
   }
   use {
     "voldikss/vim-translator",
-    keys = {{"v", "<leader>tt"}, {"n", "<leader>tt"}},
+    keys = {"<leader>tt"},
     config = function()
       local vim = vim
       vim.api.nvim_set_keymap("n", "<leader>tt", "<Plug>TranslateW", {noremap = false, silent = true})
@@ -180,6 +197,7 @@ function()
   }
   use {
     "windwp/nvim-autopairs",
+    event = {"BufEnter *"},
     config = function()
       require("nvim-autopairs").setup()
     end
@@ -190,43 +208,8 @@ function()
     requires = {'nvim-lua/plenary.nvim', opt=true},
     config = function()
       vim.cmd [[packadd plenary.nvim]]
-      require("gitsigns").setup {
-        signs = {
-          add = {hl = "DiffAdd", text = "▊"},
-          change = {hl = "DiffChange", text = "▊"},
-          delete = {hl = "DiffDelete", text = "▊"},
-          topdelete = {hl = "DiffDelete", text = "▊"},
-          changedelete = {hl = "DiffDelete", text = "▊"}
-        }
-      }
+      require("gitsigns").setup {}
     end
-  }
-  use {
-    "kyazdani42/nvim-tree.lua",
-    opt=true,
-    keys = {"<C-n>"},
-    config = function()
-      local vim = vim
-      vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
-      vim.g.nvim_tree_follow = 1
-      vim.g.nvim_tree_hide_dotfiles = 1
-      vim.g.nvim_tree_indent_markers = 1
-      vim.g.nvim_tree_auto_close = 1
-      vim.g.nvim_tree_git_hl = 1
-      vim.g.nvim_tree_follow = 1
-      vim.g.nvim_tree_bindings = {
-        edit = {"o", "<CR>"},
-        rename = {"r"},
-        remove = {"dD"},
-        cut = {"dd"},
-        close = {"q"},
-        paste = {"p"},
-        dir_up = {"u"},
-        preview = {"<TAB>"},
-        copy = {"copy"},
-        create = {"cn"}
-      }
-    end,
   }
   use {
     "tyru/caw.vim",
@@ -268,9 +251,36 @@ function()
     "hrsh7th/nvim-compe",
     opt = true,
     event={"InsertEnter *"},
-    requires = {{"hrsh7th/vim-vsnip-integ", opt=true}, {"hrsh7th/vim-vsnip", event={"BufReadPre *"}}, {'tzachar/compe-tabnine', run="./install.sh"},},
+    requires = {{"hrsh7th/vim-vsnip-integ", opt=true}, {"hrsh7th/vim-vsnip", event={"BufReadPre *"}}, {'tzachar/compe-tabnine', run="./install.sh"}, 'onsails/lspkind-nvim', opt=true},
     config = function()
       local vim = vim
+      vim.cmd [[packadd lspkind-nvim]]
+      require('lspkind').init({
+        with_text = true,
+        symbol_map = {
+          TN = 'T',
+          Text = '',
+          Method = 'ƒ',
+          Function = '',
+          Constructor = '',
+          Variable = '',
+          Class = '',
+          Interface = 'ﰮ',
+          Module = '',
+          Property = '',
+          Unit = '',
+          Value = '',
+          Enum = '了',
+          Keyword = '',
+          Snippet = '﬌',
+          Color = '',
+          File = '',
+          Folder = '',
+          EnumMember = '',
+          Constant = '',
+          Struct = ''
+        },
+      })
       vim.o.completeopt = "menu,menuone,noselect"
       require "compe".setup {
         enabled = true,
@@ -287,7 +297,6 @@ function()
           spell = true,
           tags = true,
           treesitter = true,
-          tabnine = true
         }
       }
       local t = function(str)
@@ -338,37 +347,20 @@ function()
     'akinsho/flutter-tools.nvim',
     ft={"dart"},
     config = function ()
-    require("flutter-tools").setup {
-      closing_tags = {
-        highlight = "ErrorMsg",
-        prefix = ">"
-      },
-      dev_log = {
-        open_cmd = "tabedit",
-      },
-      outline = {
-        open_cmd = "30vnew",
-      },
-    }
+      require("flutter-tools").setup {
+        closing_tags = {
+          highlight = "ErrorMsg",
+          prefix = ">"
+        },
+        dev_log = {
+          open_cmd = "tabedit",
+        },
+        outline = {
+          open_cmd = "30vnew",
+        }
+      }
     end
   }
-  -- use {
-  --   'akinsho/nvim-bufferline.lua',
-  --   event = {'VimEnter *'},
-  --   requires = {'kyazdani42/nvim-web-devicons'},
-  --   config = function ()
-  --   require'bufferline'.setup{
-  --     options = {
-  --       numbers="ordinal",
-  --       number_style="",
-  --       mappings=true,
-  --       buffer_close_icon = " ",
-  --       separator_style = 'slant',
-  --       always_show_bufferline=false
-  --     }
-  --   }
-  --   end
-  -- }
   use {
     'itchyny/vim-cursorword',
     event = {'BufReadPost *'}
@@ -435,6 +427,7 @@ function()
     'Yggdroot/indentLine',
     event = {"BufEnter *", "BufReadPre *"},
     config = function ()
+      local vim = vim
       vim.g.indentLine_char = "|"
       vim.g.indentLine_fileTypeExclude = {'help', 'dashboard'}
     end
@@ -462,8 +455,56 @@ function()
       vim.api.nvim_set_keymap('n','<leader>7',':BufferGoto 7<CR>', {noremap=true, silent = true})
     end
   }
+  use {
+    'prettier/vim-prettier',
+    ft = {'javascript'},
+    config = function ()
+      local vim = vim
+      vim.cmd [[let g:prettier#autoformat = 1]]
+      vim.cmd [[autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync]]
+    end
+  }
+  use {
+    'TimUntersberger/neogit',
+    keys = {"<leader>mg"},
+    config = function ()
+      -- local neogit = require('neogit')
+      -- neogit.status.create("floating")
+      
+    end
+  }
+  use {
+    "kyazdani42/nvim-tree.lua",
+    opt=true,
+    commit = "58a5e4ab48f201a80d58af965cbaa8468ad64144",
+    keys = {"<C-n>"},
+    config = function()
+      local vim = vim
+      vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
+      vim.g.nvim_tree_follow = 1
+      vim.g.nvim_tree_hide_dotfiles = 1
+      vim.g.nvim_tree_indent_markers = 1
+      vim.g.nvim_tree_auto_close = 1
+      vim.g.nvim_tree_git_hl = 1
+      vim.g.nvim_tree_follow = 1
+      vim.g.nvim_tree_bindings = {
+        edit = {"o", "<CR>"},
+        rename = {"r"},
+        remove = {"dD"},
+        cut = {"dd"},
+        close = {"q"},
+        paste = {"p"},
+        dir_up = {"u"},
+        preview = {"<TAB>"},
+        copy = {"copy"},
+        create = {"cn"}
+      }
+    end,
+  }
 end)
+
 
 if execu_install == true then
   vim.cmd(":PackerSync")
 end
+

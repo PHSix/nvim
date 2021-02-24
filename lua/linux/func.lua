@@ -68,7 +68,7 @@ local win_list_length = function ()
 end
 
 local buf_is_empty = function ()
-  local bufname = vim.fn['bufname']()
+  local bufname = api.nvim_buf_get_option(0, 'filetype')
   if bufname == "" then
     vim.cmd('q')
   end
@@ -85,6 +85,10 @@ local nvim_tree_exist = function ()
 end
 
 function QuitOrClose()
+  if vim.fn['bufname']() == 'qf' then
+    vim.cmd [[q]]
+    return
+  end
   buf_is_empty()
   local len = win_list_length()
   if len == 1 then
@@ -121,4 +125,7 @@ function Select_buf(num)
 end
 
 
-
+function SetqfBind()
+  api.nvim_buf_set_keymap('n', 'q', ':q<CR>', {noremap=true, silent=true})
+  api.nvim_buf_set_keymap('n', 'Q', ':q<CR>', {noremap=true, silent=true})
+end

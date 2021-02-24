@@ -54,4 +54,3 @@ vim.cmd [[augroup END]]
 
 
 vim.cmd [[autocmd InsertEnter * ++once set showmode]]
-
