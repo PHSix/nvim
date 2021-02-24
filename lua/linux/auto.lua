@@ -1,9 +1,9 @@
 local vim = vim
-vim.cmd("autocmd filetype help execute('on')")
 
 vim.cmd("augroup cursorline_display")
 vim.cmd("autocmd!")
 vim.cmd("autocmd WinLeave * setlocal nocursorline")
+vim.cmd("autocmd WinEnter * setlocal cursorline")
 vim.cmd("augroup END")
 
 
@@ -42,10 +42,15 @@ vim.cmd("autocmd filetype cpp inoremap <buffer> <silent>  <C-t> // TODO:")
 vim.cmd("autocmd filetype lua inoremap <buffer> <silent>  <C-t> -- TODO:")
 vim.cmd("augroup END")
 
-
-vim.cmd("augroup WinOpen")
-vim.cmd("autocmd filetype help execute('on')")
+vim.cmd("augroup vimrc_help")
+vim.cmd("autocmd!")
+vim.cmd("autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif")
 vim.cmd("augroup END")
 
---vim.cmd("au BufReadPre * execute('`.')")
+vim.cmd [[augroup cusorline_set]]
+vim.cmd [[autocmd!]]
+vim.cmd [[autocmd CursorMoved <buffer> set cursorline]]
+vim.cmd [[augroup END]]
 
+
+vim.cmd [[autocmd InsertEnter * ++once set showmode]]

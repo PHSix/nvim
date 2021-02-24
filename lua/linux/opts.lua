@@ -1,3 +1,4 @@
+local vim = vim 
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.scrolloff = 5
@@ -32,5 +33,6 @@ vim.o.encoding = "utf-8"
 vim.o.syntax = "on"
 vim.o.hidden = true
 vim.o.writebackup = true
+vim.o.showtabline = 0
+-- vim.cmd('set shortmess=-c')
 --vim.cmd("set undodir=~/.config/nvim/undodir")
-
