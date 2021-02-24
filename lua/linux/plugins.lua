@@ -51,6 +51,7 @@ function()
       vim.g.dashboard_preview_file_height = 8
       vim.g.dashboard_preview_file_width = 50
       vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
+
       vim.api.nvim_set_keymap("n", "<C-f>s", ":<C-u>SessionSave<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>h", ":DashboardFindHistory<CR>", {noremap = true, silent = true})
@@ -59,6 +60,7 @@ function()
       vim.api.nvim_set_keymap("n", "<C-f>m", ":DashboardJumpMark<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardFindWord<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap("n", "<C-f>n", ":DashboardNewFile<CR>", {noremap = true, silent = true})
+
       vim.g.dashboard_custom_shortcut = {
         last_session = "<Ctrl-f>l",
         find_history = "<Ctrl-f>h",
@@ -80,6 +82,7 @@ function()
     end
   }
   use {
+
     "gcmt/wildfire.vim",
     keys = {"n", "<CR>"}
   }
@@ -362,6 +365,7 @@ function()
     end
   }
   use {
+
     'itchyny/vim-cursorword',
     event = {'BufReadPost *'}
   }
