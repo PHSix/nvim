@@ -6,8 +6,6 @@ vim.cmd("autocmd WinLeave * setlocal nocursorline")
 vim.cmd("autocmd WinEnter * setlocal cursorline")
 vim.cmd("augroup END")
 
-
-
 vim.cmd("augroup markdown_snippets")
 vim.cmd("autocmd!")
 vim.cmd("autocmd filetype markdown inoremap <buffer> <silent> ,, <++>")
@@ -32,7 +30,6 @@ vim.cmd("autocmd filetype markdown inoremap <buffer> <silent> ,g {% web  <++> %}
 vim.cmd("autocmd filetype markdown inoremap <buffer> <silent> ,d {% download  <++> %} <++><esc>fd2li")
 vim.cmd("augroup END")
 
-
 vim.cmd("augroup todo_comments")
 vim.cmd('autocmd filetype vim inoremap <buffer> <silent>  <C-t> " TODO:')
 vim.cmd("autocmd filetype go inoremap <buffer> <silent>  <C-t> // TODO:")
@@ -51,6 +48,5 @@ vim.cmd [[augroup cusorline_set]]
 vim.cmd [[autocmd!]]
 vim.cmd [[autocmd CursorMoved <buffer> set cursorline]]
 vim.cmd [[augroup END]]
-
 
 vim.cmd [[autocmd InsertEnter * ++once set showmode]]
