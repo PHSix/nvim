@@ -1,22 +1,22 @@
 local vim = vim
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-local lspconfig = require "lspconfig"
+local lsp = require "lspconfig"
 --
 -- c family
 --
-require "lspconfig".clangd.setup {
+lsp.clangd.setup {
   capabilities = capabilities
 }
 
-require "lspconfig".cmake.setup {
+lsp.cmake.setup {
   capabilities = capabilities
 }
 
 --
 -- golang
 --
-require "lspconfig".gopls.setup {
+lsp.gopls.setup {
   cmd = {"gopls", "--remote=auto"},
   capabilities = capabilities,
   init_options = {
@@ -30,7 +30,7 @@ require "lspconfig".gopls.setup {
 -- lua
 --
 local nvim_lua_cache_path = vim.fn["getenv"]("HOME") .. "/.cache/nvim/lua-language-server"
-require "lspconfig".sumneko_lua.setup {
+lsp.sumneko_lua.setup {
   cmd = {nvim_lua_cache_path .. "/bin/Linux/lua-language-server", "-E", nvim_lua_cache_path .. "/main.lua"},
   settings = {
     Lua = {
@@ -49,21 +49,21 @@ require "lspconfig".sumneko_lua.setup {
 --
 -- python
 --
-require "lspconfig".pyright.setup {
+lsp.pyright.setup {
   capabilities = capabilities
 }
 
 --
 -- web developer
 --
-require "lspconfig".cssls.setup {
+lsp.cssls.setup {
   capabilities = capabilities
 }
-require "lspconfig".tsserver.setup {
+lsp.tsserver.setup {
   capabilities = capabilities,
   root_dir = vim.loop.cwd
 }
-require "lspconfig".jsonls.setup {
+lsp.jsonls.setup {
   capabilities = capabilities,
   commands = {
     Format = {
@@ -73,7 +73,7 @@ require "lspconfig".jsonls.setup {
     }
   }
 }
-require "lspconfig".html.setup {
+lsp.html.setup {
   capabilities = capabilities
 }
 
@@ -90,36 +90,36 @@ configs.emmet_ls = {
   }
 }
 
-lspconfig.emmet_ls.setup {
+lsp.emmet_ls.setup {
   capabilities = capabilities
 }
-require "lspconfig".vuels.setup {}
+lsp.vuels.setup {}
 
 --
 -- vimL
 --
-require "lspconfig".vimls.setup {
+lsp.vimls.setup {
   capabilities = capabilities
 }
 
 --
 -- bash shell
 --
-require "lspconfig".bashls.setup {
+lsp.bashls.setup {
   capabilities = capabilities
 }
 
 --
 -- rust
 --
-require "lspconfig".rust_analyzer.setup {}
+lsp.rust_analyzer.setup {}
 
 --
 -- dart  flutter
 --
-require "lspconfig".dartls.setup {
-  cmd = {"dart", "/opt/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp"},
-  closingLabels = true,
-  outline = true,
-  flutterOutline = true
-}
+-- lsp.dartls.setup {
+--   cmd = {"dart", "/opt/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp"},
+--   closingLabels = true,
+--   outline = true,
+--   flutterOutline = true
+-- }

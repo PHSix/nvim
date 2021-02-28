@@ -46,14 +46,16 @@ require("packer").startup(
       "hardcoreplayers/dashboard-nvim",
       setup = function()
         local vim = vim
+        vim.cmd [[augroup dashboard_autocmd]]
         vim.cmd [[autocmd FileType dashboard lua vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q<CR>', {noremap=true, silent=true})]]
+        vim.cmd [[autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2]]
+        vim.cmd [[augroup END]]
         vim.g.dashboard_default_executive = "telescope"
         vim.g.dashboard_preview_command = "cat"
         vim.g.dashboard_preview_pipeline = "lolcat"
         vim.g.dashboard_preview_file = vim.fn["getenv"]("HOME") .. "/.config/nvim/static/neovim.txt"
         vim.g.dashboard_preview_file_height = 8
         vim.g.dashboard_preview_file_width = 50
-        vim.cmd("autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2")
 
         vim.api.nvim_set_keymap("n", "<C-f>s", ":<C-u>SessionSave<CR>", {noremap = true, silent = true})
         vim.api.nvim_set_keymap("n", "<C-f>l", ":<C-u>SessionLoad<CR>", {noremap = true, silent = true})
@@ -63,7 +65,6 @@ require("packer").startup(
         vim.api.nvim_set_keymap("n", "<C-f>m", ":DashboardJumpMark<CR>", {noremap = true, silent = true})
         vim.api.nvim_set_keymap("n", "<C-f>w", ":DashboardFindWord<CR>", {noremap = true, silent = true})
         vim.api.nvim_set_keymap("n", "<C-f>n", ":DashboardNewFile<CR>", {noremap = true, silent = true})
-
         vim.g.dashboard_custom_shortcut = {
           last_session = "<Ctrl-f>l",
           find_history = "<Ctrl-f>o",
@@ -112,10 +113,6 @@ require("packer").startup(
       end
     }
     use {
-      "dart-lang/dart-vim-plugin",
-      ft = {"dart"}
-    }
-    use {
       "dhruvasagar/vim-table-mode",
       opt = true,
       ft = {"markdown"}
@@ -134,10 +131,12 @@ require("packer").startup(
 
     use {
       "norcalli/nvim-colorizer.lua",
+      ft = {"lua", "vim", "css", "html", "javascript", "typescript"},
       config = function()
         vim.o.termguicolors = true
         require "colorizer".setup(
           {
+            lua = {rgb_fn = true},
             css = {rgb_fn = true},
             scss = {rgb_fn = true},
             sass = {rgb_fn = true},
@@ -166,7 +165,9 @@ require("packer").startup(
         local vim = vim
         vim.g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
         vim.cmd("let g:vista#renderer#enable_icon = 1")
+        vim.cmd [[augroup vista_key_bind]]
         vim.cmd [[autocmd FileType vista,vista_kind nnoremap <buffer> <silent> o :<c-u>call vista#cursor#FoldOrJump()<CR>]]
+        vim.cmd [[augroup END]]
       end
     }
     use {
@@ -174,19 +175,12 @@ require("packer").startup(
       cmd = {"Telescope"},
       requires = {
         {"nvim-lua/popup.nvim", opt = true},
-        {"nvim-lua/plenary.nvim", opt = true},
-        {"nvim-telescope/telescope-packer.nvim", opt = true}
+        {"nvim-lua/plenary.nvim", opt = true}
       },
       config = function()
         vim.cmd [[packadd popup.nvim]]
         vim.cmd [[packadd plenary.nvim]]
         vim.cmd [[packadd telescope-packer.nvim]]
-        vim.api.nvim_set_keymap(
-          "n",
-          "<C-f>p",
-          ":lua require('telescope').extensions.packer.plugins(opts)<CR>",
-          {noremap = true, silent = true}
-        )
         require("telescope").setup {
           defaults = {
             prompt_position = "top",
@@ -245,9 +239,9 @@ require("packer").startup(
     }
     use {
       "/home/ph/Github/nvim-hybrid",
-      requires = {"ms-jpq/neovim-async-tutorial"},
       config = function()
-        vim.cmd("colorscheme nvim-hybrid")
+        -- vim.cmd("colorscheme nvim-hybrid")
+        require("hybrid").config()
       end
     }
     use {
@@ -410,6 +404,9 @@ require("packer").startup(
       "ojroques/nvim-hardline",
       event = {"VimEnter *"},
       config = function()
+        vim.cmd [[augroup hardline_showmode]]
+        vim.cmd [[autocmd InsertEnter * ++once set showmode]]
+        vim.cmd [[augroup END]]
         require("hardline").setup {
           theme = "nord",
           sections = {
@@ -432,15 +429,16 @@ require("packer").startup(
       config = function()
         require("flutter-tools").setup {
           closing_tags = {
-            highlight = "ErrorMsg",
-            prefix = ">"
+            highlight = "FlutterCloseTag",
+            prefix = "// "
           },
           dev_log = {
-            open_cmd = "tabedit"
+            open_cmd = "30vnew"
           },
           outline = {
-            open_cmd = "30vnew"
-          }
+            open_cmd = "botright 45vnew"
+          },
+          lsp = {}
         }
       end
     }
@@ -519,7 +517,7 @@ require("packer").startup(
       config = function()
         local vim = vim
         vim.g.indentLine_char = "|"
-        vim.g.indentLine_fileTypeExclude = {"help", "dashboard"}
+        vim.g.indentLine_fileTypeExclude = {"help", "dashboard", "flutterToolsOutline"}
       end
     }
     use {
@@ -548,10 +546,14 @@ require("packer").startup(
     use {
       "TimUntersberger/neogit",
       keys = {"<leader>mg"},
-      disable = true,
       config = function()
-        -- local neogit = require('neogit')
-        -- neogit.status.create("floating")
+        vim.cmd [[autocmd FileType NeogitStatus set rnu]]
+        vim.api.nvim_set_keymap(
+          "n",
+          "<leader>mg",
+          ":lua require('neogit').status.create('vsplit')<CR>",
+          {noremap = true, silent = true}
+        )
       end
     }
     use {
