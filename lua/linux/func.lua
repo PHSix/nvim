@@ -1,5 +1,7 @@
 local vim = vim
 local api = vim.api
+local fn = vim.fn
+local execute = vim.api.nvim_command
 function _G.StartR()
   if vim.bo.filetype == "markdown" or vim.bo.filetype == "vimwiki" then
     vim.cmd [[Glow]]
@@ -11,11 +13,11 @@ function _G.StartR()
 end
 
 local get_name = function()
-  return vim.fn["bufname"]()
+  return fn["bufname"]()
 end
 
 local win_get_list = function()
-  local M = vim.fn["win_findbuf"](vim.fn["bufnr"](get_name()))
+  local M = fn["win_findbuf"](vim.fn["bufnr"](get_name()))
   return M
 end
 
@@ -83,6 +85,7 @@ function _G.Select_buf(num)
 end
 
 function _G.SetqfBind()
-  api.nvim_buf_set_keymap("n", "q", ":q<CR>", {noremap = true, silent = true})
-  api.nvim_buf_set_keymap("n", "Q", ":q<CR>", {noremap = true, silent = true})
+  api.nvim_buf_set_keymap(0, "n", "q", ":q<CR>", {noremap = true, silent = true})
+  api.nvim_buf_set_keymap(0, "n", "Q", ":q<CR>", {noremap = true, silent = true})
 end
+
