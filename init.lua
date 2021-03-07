@@ -1,2 +1,2 @@
-require('linux/main')
+require('main')
 

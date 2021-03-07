@@ -1,5 +1,0 @@
-require("linux.opts")
-require("linux.binds")
-require("linux.plugins")
-require("linux.func")
-require("linux.auto")
