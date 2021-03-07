@@ -4,12 +4,12 @@ git["TimUntersberger/neogit"] = {
   opt = true
 }
 git["lewis6991/gitsigns.nvim"] = {
-    event = {"BufReadPre *"},
+  event = {"BufReadPre *"},
   requires = {"nvim-lua/plenary.nvim", opt = true},
   config = conf.gitsigns
 }
 git["APZelos/blamer.nvim"] = {
-opt=true
+  opt = true
 }
 
 git["APZelos/blamer.nvim"] = {
