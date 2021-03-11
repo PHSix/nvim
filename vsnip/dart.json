@@ -1,0 +1,12 @@
+{
+  "Class":{
+    "prefix": ["build"],
+    "body": [
+      "@override",
+      "Widget build(BuildContext context){",
+        "${0}",
+        "}",
+    ],
+    "description": "override build function in default"
+  }
+}

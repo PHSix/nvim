@@ -1,10 +1,11 @@
 local conf = require("plugins.operator-tools.config")
+local new = require("main.global").new
 local tools = {}
-tools["~/Github/faster.nvim"] = {
+tools["PHSix/faster.nvim"] = {
   opt = true
 }
 tools["lilydjwg/fcitx.vim"] = {
-  event = {"InsertEnter *"}
+  event = {"InsertEnter"}
 }
 tools["tpope/vim-surround"] = {
   keys = {"c", "d", "y"}
@@ -18,12 +19,13 @@ tools["junegunn/vim-easy-align"] = {
 tools["nvim-telescope/telescope.nvim"] = {
   cmd = {"Telescope"},
   requires = {
-    {"nvim-lua/popup.nvim"},
-    {"nvim-lua/plenary.nvim", opt = true}
+    new {"nvim-lua/plenary.nvim", opt=true},
+    new {"nvim-lua/popup.nvim", opt=true},
   },
   config = conf.telescope
 }
 tools["kyazdani42/nvim-tree.lua"] = {
+  -- commit = "58e44d29d7fbdb33241978138081f01e596e4b09",
   cmd = {"NvimTreeToggle"},
   config = conf.nvim_tree
 }
@@ -32,7 +34,7 @@ tools["tkmpypy/chowcho.nvim"] = {
 }
 
 tools["windwp/nvim-autopairs"] = {
-  event = {"BufEnter *"},
+  event = {"BufEnter"},
   config = conf.autopairs
 }
 tools["tyru/caw.vim"] = {
@@ -61,5 +63,19 @@ tools["voldikss/vim-translator"] = {
 tools["mg979/vim-visual-multi"] = {
   keys = {"<C-d>"},
   config = conf.multi_cursor
+}
+tools["smolck/nvim-todoist.lua"] = {
+  opt = true
+}
+tools["ekickx/clipboard-image.nvim"] = {
+  cmd = {"PasteImg"},
+  config = conf.clipboard
+}
+tools["gennaro-tedesco/nvim-peekup"] = {
+  event = {"BufReadPost", "InsertEnter"},
+  config = conf.peekup
+}
+tools["monaqa/dial.nvim"] = {
+  opt = true,
 }
 return tools

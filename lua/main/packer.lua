@@ -18,9 +18,9 @@ function Packer:add_repos()
   for _, filename in pairs(plugins_list) do
     local packs = require("plugins." .. filename)
     for repo, conf in pairs(packs) do
-      -- if string.sub(repo, 1, 1) ~= "~" then
-      --   repo = "https://github.com.cnpmjs.org//" .. repo
-      -- end
+      if string.sub(repo, 1, 1) ~= "~" then
+        repo = "https://hub.fastgit.org/" .. repo
+      end
       self.repos[#self.repos + 1] = vim.tbl_extend("force", {repo}, conf)
     end
   end
@@ -59,7 +59,7 @@ local function init()
   Packer:add_repos()
   Packer:load_plugins()
   if to_do_install == true then
-    vim.cmd [[PackerInstall]]
+    vim.cmd [[PackerSync]]
   end
 end
 

@@ -15,7 +15,6 @@
 - rust
 - rust-analyzer
 - jdtls
-- ranger
 - lua-language-server
 ```bash
 pacman -S nodejs gopls nodejs gopls xsel yarn npm rust rust-analyzer clangd ranger

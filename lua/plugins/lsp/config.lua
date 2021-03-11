@@ -1,10 +1,7 @@
 local config = {}
-
 function config.compe()
   vim.cmd [[packadd lspkind-nvim]]
   vim.cmd [[packadd compe-tabnine]]
-  vim.g.compe_tabnine_max_line = 1000
-  vim.g.compe_tabnine_max_num_results = 2
   require("lspkind").init(
     {
       with_text = true,
@@ -49,14 +46,16 @@ function config.compe()
       spell = true,
       tags = true,
       treesitter = true,
-      tabnine = true
+      tabnine = {
+        priority = 99,
+        max_num_results = 2
+      },
+      zsh = true
     }
   }
 end
 
-config.flutter = function()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
+function config.flutter()
   require("flutter-tools").setup {
     closing_tags = {
       highlight = "FlutterCloseTag",
@@ -69,9 +68,25 @@ config.flutter = function()
       open_cmd = "botright 45vnew"
     },
     lsp = {
-      capabilities = capabilities
     }
   }
 end
 
+function config.vsnip()
+  vim.g.vsnip_snippet_dir = os.getenv("HOME") .. "/.config/nvim/vsnip"
+end
+function config.lspsaga()
+  -- ▊
+  local lspsaga = require 'lspsaga'
+  lspsaga.init_lsp_saga({
+    error_sign = "▊",
+    warn_sign = "▊",
+    hint_sign = "▊",
+    infor_sign = "▊",
+    code_action_keys = { quit = "<ESC>",exec = "<CR>" },
+    rename_action_keys = {quit = "<ESC>", exec = "<CR>"},
+  })
+end
 return config
+
+

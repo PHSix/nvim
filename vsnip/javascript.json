@@ -1,0 +1,27 @@
+{
+  "Class": {
+    "prefix": ["class"],
+    "body": [
+      "/**",
+      " * @author ${VIM:\\$USER}",
+      " */",
+      "class $1 ${2:extends ${3:Parent} }{",
+      "\tconstructor() {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "Class definition template."
+  },
+  "Conlog": {
+    "prefix": ["clg"],
+    "body": ["console.log(${Console_content})"],
+    "description": "console log value"
+  },
+  "Function":{
+    "prefix": ["func"],
+    "body": ["function ${func_name}(){","","}"],
+     "description" : "definition a function"
+  }
+}
+

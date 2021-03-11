@@ -1,4 +1,5 @@
-local config = require("plugins.lsp.config")
+local conf = require("plugins.lsp.config")
+local new = require("main.global").new
 local lsp = {}
 lsp["neovim/nvim-lspconfig"] = {
 	config = function ()
@@ -6,24 +7,34 @@ require("plugins.lsp.lspc")
 	end
 }
 
+-- lsp["ms-jpq/kok.nvim"] = {
+--   branch = "kok",
+--   run = ":UpdateRemotePlugins",
+--   config = conf.kok
+-- }
+
 lsp["hrsh7th/nvim-compe"] = {
-  event = {"InsertEnter *"},
+  event = {"InsertEnter"},
   requires = {
-    {"hrsh7th/vim-vsnip-integ", opt = true},
-    {"hrsh7th/vim-vsnip", event = {"BufReadPre *"}},
-    {"PHSix/compe-tabnine", run = "./install.sh", opt=true},
-    {"onsails/lspkind-nvim", opt = true}
+    new {"tzachar/compe-tabnine", run = "./install.sh", opt=true},
+    new {"onsails/lspkind-nvim", opt = true},
+    new {"tamago324/compe-zsh", ft={"zsh"}}
   },
-  config = config.compe
+  config = conf.compe
+}
+lsp["hrsh7th/vim-vsnip"] = {
+  event = "InsertCharPre",
+  config = conf.vsnip
 }
 
 lsp["glepnir/lspsaga.nvim"] = {
-  cmd = "Lspsaga"
+  cmd = "Lspsaga",
+  config = conf.lspsaga
 }
 
 lsp["akinsho/flutter-tools.nvim"] = {
   ft = {"dart"},
-  config = config.flutter
+  config = conf.flutter
 }
 
 return lsp

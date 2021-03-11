@@ -1,6 +1,7 @@
 local load_comple = function()
 	require("main.opts")
   require("main.event")
+  require("main.dart")
   require("main.packer").init()
   require("mappings")
   vim.cmd [[command! PackerCompile lua require('packer').compile()]]

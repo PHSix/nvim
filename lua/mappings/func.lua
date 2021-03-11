@@ -81,3 +81,46 @@ _G.s_tab_complete = function()
     return t "<S-Tab>"
   end
 end
+function _G.neuron_leader()
+  plugin_complie("neuron.nvim")
+  require("plugins.operator-tools.config").neuron()
+end
+
+function _G.switch_NvimTree()
+  local win_list = api.nvim_list_wins()
+  for _, win_id in pairs(win_list) do
+    local buf_id = api.nvim_win_get_buf(win_id)
+    local buf_filetype = api.nvim_buf_get_option(buf_id, "filetype")
+    if buf_filetype == "NvimTree" then
+      -- api.nvim_win_set_cursor(win_id, api.nvim_win_get_cursor(win_id))
+      api.nvim_set_current_win(win_id)
+      return
+    end
+  end
+end
+
+function _G.open_tagbar()
+  local buf_type = api.nvim_buf_get_option(0, "filetype")
+  local filetype = ""
+  local wins_list = api.nvim_list_wins()
+  local tagbar = ""
+  if buf_type == "dart" then
+    tagbar = "FlutterOutline"
+    filetype = "flutterToolsOutline"
+  else
+    tagbar = "Vista nvim_lsp"
+    filetype = "vista"
+  end
+  if buf_type == filetype then
+    vim.cmd [[q]]
+    return
+  end
+  for _, win in pairs(wins_list) do
+    local buf = api.nvim_win_get_buf(win)
+    if api.nvim_buf_get_option(buf, "filetype") == filetype then
+      api.nvim_set_current_win(win)
+      return
+    end
+  end
+  vim.cmd(tagbar)
+end

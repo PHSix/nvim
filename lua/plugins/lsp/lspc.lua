@@ -92,7 +92,9 @@
   lspconfig.emmet_ls.setup {
     capabilities = capabilities
   }
-  lspconfig.vuels.setup {}
+  lspconfig.vuels.setup {
+    capabilities = capabilities
+  }
 
   --
   -- vimL

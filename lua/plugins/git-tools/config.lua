@@ -1,6 +1,5 @@
 local config = {}
 function config.gitsigns()
-      vim.cmd [[packadd plenary.nvim]]
     require("gitsigns").setup {
       keymaps = {
         noremap = false,

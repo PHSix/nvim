@@ -1,8 +1,9 @@
 local conf = require("plugins.dap.config")
+local new = require("main.global").new
 local dap = {}
 
 dap["skywind3000/asynctasks.vim"] = {
-   requires = {"skywind3000/asyncrun.vim", opt= true},
+   requires = new {"skywind3000/asyncrun.vim", opt= true},
    opt = true
 }
 

@@ -66,4 +66,50 @@ function config.rainbow()
   }
 end
 
+function config.nvim_bufferline()
+  require("bufferline").setup {
+    options = {
+      numbers = "ordinal",
+      show_buffer_close_icons = false,
+      number_style = "",
+      modified_icon = "✥",
+      buffer_close_icon = "",
+      mappings = true,
+      always_show_bufferline = false
+    },
+    highlights = {
+      buffer_visible = {
+        guifg = "#d2dae2",
+        guibg = "#1e272e"
+      },
+      pick_visible = {
+        guifg = "#d2dae2",
+        guibg = "#1e272e"
+      }
+    }
+  }
+end
+
+function config.indent_guides()
+  require("indent_guides").setup({})
+end
+function config.blankline()
+  vim.g.indentLine_char = "|"
+  vim.g.indent_blankline_filetype_exclude = {"help", "dashboard", "flutterToolsOutline", "peek", "packer", "vista", ""}
+  vim.g.indent_blankline_char_highlight = "GitChange"
+end
+
+function config.statusline()
+  local statusline = require("statusline")
+  statusline.tabline = false
+end
+
+function config.galaxyline()
+  vim.cmd [[packadd nvim-web-devicons]]
+  require("plugins.ui.evil")
+end
+function config.goyo()
+  vim.g.goyo_width = 120
+end
+
 return config

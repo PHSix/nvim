@@ -29,11 +29,16 @@ Mappings = {
   ["n|<leader>sh"] = map_cmd("set nosplitright<CR>:vsplit"):silent(),
   ["n|<leader>sk"] = map_cmd("set nosplitbelow<CR>:split"):silent(),
   ["n|<leader>sj"] = map_cmd("set splitbelow<CR>:split"):silent(),
-  -- edit operations
+  ["n|<leader>o"] = map_cmd("call v:lua.switch_NvimTree()"):silent():noremap(),
+  -- noremal operations
   ["v|fy"] = map_key("\"+y"),
   ["n|S"] = map_cmd("w"):noremap():silent(),
+  ["n|<leader>nl"] = map_cmd("nohlsearch"):noremap():silent(),
   -- terminal operations
   ["t|<C-p>"] = map_key("<C-\\><C-n>"):noremap():silent(),
+  -- command mode operations
+  ["c|<C-h>"] = map_key("<left>"),
+  ["c|<C-l>"] = map_key("<right>"),
   --
   -- Plugins
   --
@@ -79,21 +84,26 @@ Mappings = {
   ["s|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
   ["i|<CR>"] = map_key("compe#confirm('<CR>')"):expr():noremap(),
   -- barbar.nvim
-  ["n|<leader>1"] = map_cmd("BufferGoto 1"):noremap():silent(),
-  ["n|<leader>2"] = map_cmd("BufferGoto 2"):noremap():silent(),
-  ["n|<leader>3"] = map_cmd("BufferGoto 3"):noremap():silent(),
-  ["n|<leader>4"] = map_cmd("BufferGoto 4"):noremap():silent(),
-  ["n|<leader>5"] = map_cmd("BufferGoto 5"):noremap():silent(),
-  ["n|<leader>6"] = map_cmd("BufferGoto 6"):noremap():silent(),
-  ["n|<leader>7"] = map_cmd("BufferGoto 7"):noremap():silent(),
-  ["n|<leader>8"] = map_cmd("BufferGoto 8"):noremap():silent(),
-  ["n|<leader>9"] = map_cmd("BufferGoto 9"):noremap():silent(),
+  -- ["n|<leader>1"] = map_cmd("BufferGoto 1"):noremap():silent(),
+  -- ["n|<leader>2"] = map_cmd("BufferGoto 2"):noremap():silent(),
+  -- ["n|<leader>3"] = map_cmd("BufferGoto 3"):noremap():silent(),
+  -- ["n|<leader>4"] = map_cmd("BufferGoto 4"):noremap():silent(),
+  -- ["n|<leader>5"] = map_cmd("BufferGoto 5"):noremap():silent(),
+  -- ["n|<leader>6"] = map_cmd("BufferGoto 6"):noremap():silent(),
+  -- ["n|<leader>7"] = map_cmd("BufferGoto 7"):noremap():silent(),
+  -- ["n|<leader>8"] = map_cmd("BufferGoto 8"):noremap():silent(),
+  -- ["n|<leader>9"] = map_cmd("BufferGoto 9"):noremap():silent(),
   -- vim-translator
   ["n|<leader>tt"] = map_cmd("TranslateW"):noremap():silent(),
   ["v|<leader>tt"] = map_cmd("TranslateW"):noremap():silent(),
   -- FTerm
   ["n|<A-f>"] = map_cmd("FTermOpen"):noremap():silent(),
   ["t|<A-f>"] = map_key("<C-\\><C-n><CMD>lua require'FTerm'.toggle()<CR>"):noremap():silent(),
+  -- nvim-peekup
+  ["n|<leader>p"] = map_cmd("lua require('nvim-peekup').peekup_open('p')"):noremap():silent(),
+  ["n|<leader>P"] = map_cmd("lua require('nvim-peekup').peekup_open('P')"):noremap():silent(),
+  -- Vista
+  ["n|<C-v>"] = map_cmd("call v:lua.open_tagbar()"):noremap():silent(),
 }
 
 
@@ -107,6 +117,5 @@ end
 
 
 load_mappings()
-
 
 
