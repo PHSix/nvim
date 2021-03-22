@@ -2,9 +2,9 @@ local conf = require("plugins.lsp.config")
 local new = require("main.global").new
 local lsp = {}
 lsp["neovim/nvim-lspconfig"] = {
-	config = function ()
-require("plugins.lsp.lspc")
-	end
+  config = function()
+    require("plugins.lsp.lspc")
+  end
 }
 
 -- lsp["ms-jpq/kok.nvim"] = {
@@ -16,9 +16,9 @@ require("plugins.lsp.lspc")
 lsp["hrsh7th/nvim-compe"] = {
   event = {"InsertEnter"},
   requires = {
-    new {"tzachar/compe-tabnine", run = "./install.sh", opt=true},
+    new {"tzachar/compe-tabnine", run = "./install.sh"},
     new {"onsails/lspkind-nvim", opt = true},
-    new {"tamago324/compe-zsh", ft={"zsh"}}
+    new {"tamago324/compe-zsh", ft = {"zsh"}}
   },
   config = conf.compe
 }

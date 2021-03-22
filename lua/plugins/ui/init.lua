@@ -43,11 +43,15 @@ ui["akinsho/nvim-bufferline.lua"] = {
 }
 
 ui["p00f/nvim-ts-rainbow"] = {
-  event = {"BufReadPost"},
+  event = {"BufReadPre"},
   config = conf.rainbow
 }
-ui["unegunn/goyo.vim"] = {
+ui["junegunn/goyo.vim"] = {
   cmd = "Goyo",
   config = conf.goyo
 }
+-- ui["beauwilliams/focus.nvim"] = {
+--   -- event = "WinLeave",
+--   config = conf.focus
+-- }
 return ui

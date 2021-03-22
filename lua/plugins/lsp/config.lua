@@ -12,7 +12,7 @@ function config.compe()
         Function = "",
         Constructor = "",
         Variable = "",
-        Class = "",
+        Class = "",
         Interface = "ﰮ",
         Module = "",
         Property = "",
@@ -38,24 +38,36 @@ function config.compe()
     preselect = "disable",
     allow_prefix_unmatch = false,
     source = {
-      path = true,
-      buffer = true,
-      vsnip = true,
-      nvim_lsp = true,
-      nvim_lua = true,
-      spell = true,
-      tags = true,
-      treesitter = true,
-      tabnine = {
-        priority = 99,
-        max_num_results = 2
+      path = {
+        priority = 7,
       },
+      vsnip = {
+        priority = 6,
+      },
+      nvim_lsp = {
+        priority = 5,
+      },
+      buffer = {
+        priority = 2,
+      },
+      nvim_lua = {
+        priority = 3,
+      },
+      spell = {
+        priority = 2,
+      },
+      treesitter = {
+        priority = 1,
+      },
+      tabnine = true,
       zsh = true
     }
   }
 end
 
 function config.flutter()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
   require("flutter-tools").setup {
     closing_tags = {
       highlight = "FlutterCloseTag",
@@ -68,6 +80,8 @@ function config.flutter()
       open_cmd = "botright 45vnew"
     },
     lsp = {
+      capabilities = capabilities,
+      enableSdkFormatter = true
     }
   }
 end
@@ -77,16 +91,16 @@ function config.vsnip()
 end
 function config.lspsaga()
   -- ▊
-  local lspsaga = require 'lspsaga'
-  lspsaga.init_lsp_saga({
-    error_sign = "▊",
-    warn_sign = "▊",
-    hint_sign = "▊",
-    infor_sign = "▊",
-    code_action_keys = { quit = "<ESC>",exec = "<CR>" },
-    rename_action_keys = {quit = "<ESC>", exec = "<CR>"},
-  })
+  local lspsaga = require "lspsaga"
+  lspsaga.init_lsp_saga(
+    {
+      error_sign = "▊",
+      warn_sign = "▊",
+      hint_sign = "▊",
+      infor_sign = "▊",
+      code_action_keys = {quit = "<ESC>", exec = "o"},
+      rename_action_keys = {quit = "<ESC>", exec = "<CR>"}
+    }
+  )
 end
 return config
-
-

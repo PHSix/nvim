@@ -95,7 +95,7 @@ function config.indent_guides()
 end
 function config.blankline()
   vim.g.indentLine_char = "|"
-  vim.g.indent_blankline_filetype_exclude = {"help", "dashboard", "flutterToolsOutline", "peek", "packer", "vista", ""}
+  vim.g.indent_blankline_filetype_exclude = {"help", "dashboard", "flutterToolsOutline", "peek", "packer", "vista", "vista_kind"}
   vim.g.indent_blankline_char_highlight = "GitChange"
 end
 
@@ -110,6 +110,12 @@ function config.galaxyline()
 end
 function config.goyo()
   vim.g.goyo_width = 120
+end
+function config.focus()
+  local focus = require('focus')
+  focus.enable = false
+  focus.signcolumn = false
+  focus.width = 120
 end
 
 return config

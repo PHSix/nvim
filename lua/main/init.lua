@@ -1,9 +1,19 @@
+local async
 local load_comple = function()
-	require("main.opts")
-  require("main.event")
-  require("main.dart")
+  require("main.opts")
   require("main.packer").init()
-  require("mappings")
+  async =
+    vim.loop.new_async(
+    vim.schedule_wrap(
+      function()
+        require("main.event")
+        require("main.dart")
+        require("mappings")
+        async:close()
+      end
+    )
+  )
+  async:send()
   vim.cmd [[command! PackerCompile lua require('packer').compile()]]
   vim.cmd [[command! PackerInstall lua require('packer').install()]]
   vim.cmd [[command! PackerUpdate lua require('packer').update()]]
@@ -12,4 +22,3 @@ local load_comple = function()
 end
 
 load_comple()
-

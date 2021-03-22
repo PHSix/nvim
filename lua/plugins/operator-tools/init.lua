@@ -49,7 +49,7 @@ tools["numtostr/FTerm.nvim"] = {
 }
 
 tools["norcalli/nvim-colorizer.lua"] = {
-  ft = {"lua", "vim", "css", "html", "javascript", "typescript"},
+  ft = {"lua", "vim", "css", "html", "javascript", "typescript", "c", "cpp"},
   config = conf.colorizer
 }
 
@@ -77,5 +77,18 @@ tools["gennaro-tedesco/nvim-peekup"] = {
 }
 tools["monaqa/dial.nvim"] = {
   opt = true,
+}
+tools["glepnir/smartinput.nvim"] = {
+  event = {"InsertEnter"},
+  config = conf.smartinput
+
+}
+tools["hrsh7th/vim-eft"] = {
+  opt = true
+}
+tools["easymotion/vim-easymotion"] = {
+  opt = true
+}
+tools["Asheq/close-buffers.vim"] = {
 }
 return tools

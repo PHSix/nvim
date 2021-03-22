@@ -1,4 +1,3 @@
-
 local M = {
   ["global"] = {
     mouse = "a",

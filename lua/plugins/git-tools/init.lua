@@ -5,7 +5,7 @@ git["TimUntersberger/neogit"] = {
   opt = true
 }
 git["lewis6991/gitsigns.nvim"] = {
-  event = {"BufReadPre"},
+  event = {"BufRead", "BufNewFile"},
   requires = {new {"nvim-lua/plenary.nvim", opt = true}},
   config = conf.gitsigns
 }

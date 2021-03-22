@@ -82,6 +82,8 @@ function config.colorizer()
   vim.o.termguicolors = true
   require "colorizer".setup(
     {
+      cpp = {rgb_fn = true},
+      c = {rgb_fn = true},
       lua = {rgb_fn = true},
       css = {rgb_fn = true},
       scss = {rgb_fn = true},
@@ -143,6 +145,17 @@ end
 function config.peekup()
   require('nvim-peekup.config').on_keystroke["delay"] = "50ms"
   require('nvim-peekup.config').on_keystroke["delay"] = '50ms'
+end
+
+function config.smartinput()
+  require('smartinput').setup {
+  ['go'] = { ';',':=',';'},
+  ['javascript'] = {'.', '.', '+'},
+}
+end
+
+function config.vim_eft()
+      vim.g.eft_ignorecase = true
 end
 
 return config

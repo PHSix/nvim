@@ -69,7 +69,8 @@ _G.tab_complete = function()
   elseif check_back_space() then
     return t "<Tab>"
   else
-    return vim.fn["compe#complete"]()
+    vim.fn["compe#complete"]()
+    return t "<C-n>"
   end
 end
 _G.s_tab_complete = function()
@@ -101,15 +102,16 @@ end
 
 function _G.open_tagbar()
   local buf_type = api.nvim_buf_get_option(0, "filetype")
-  local filetype = ""
   local wins_list = api.nvim_list_wins()
+  local filetype = ""
   local tagbar = ""
+  -- set variables
   if buf_type == "dart" then
     tagbar = "FlutterOutline"
     filetype = "flutterToolsOutline"
   else
     tagbar = "Vista nvim_lsp"
-    filetype = "vista"
+    filetype = "vista_kind"
   end
   if buf_type == filetype then
     vim.cmd [[q]]
@@ -123,4 +125,31 @@ function _G.open_tagbar()
     end
   end
   vim.cmd(tagbar)
+end
+
+function _G.format()
+  local buf_type = vim.bo.filetype
+  if buf_type == "dart" then
+    vim.cmd [[DartFmt]]
+  else
+    vim.cmd [[Format]]
+  end
+end
+
+function _G.vim_eft(opertion)
+  plugin_complie("vim-eft")
+  require("plugins.operator-tools.config").vim_eft()
+  local map = {
+    f = "<Plug>(eft-f)",
+    t = "<Plug>(eft-F)",
+    ["'"] = "<Plug>(eft-repeat)"
+  }
+  return t(map[opertion])
+end
+
+function _G.easymotion()
+  plugin_complie("vim-easymotion")
+  vim.g.EasyMotion_do_mapping = 0
+  vim.g.EasyMotion_smartcase = 1
+  return t("<Plug>(easymotion-s2)")
 end

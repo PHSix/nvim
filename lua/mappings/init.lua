@@ -16,7 +16,7 @@ Mappings = {
   ["v|gh"] = map_key("^"),
   ["n|gl"] = map_key("$"),
   ["v|gl"] = map_key("$h"),
-  ["n|gk"] = map_key("%"),
+  ["n|gp"] = map_key("%"),
   -- leader key
   ["n|<space>"] = map_key("<leader>"),
   ["v|<space>"] = map_key("<leader>"),
@@ -25,15 +25,20 @@ Mappings = {
   ["n|<leader>h"] = map_key("<C-w>h"),
   ["n|<leader>k"] = map_key("<C-w>k"),
   ["n|<leader>j"] = map_key("<C-w>j"),
-  ["n|<leader>sl"] = map_cmd("set splitright<CR>:vsplit"),
-  ["n|<leader>sh"] = map_cmd("set nosplitright<CR>:vsplit"):silent(),
-  ["n|<leader>sk"] = map_cmd("set nosplitbelow<CR>:split"):silent(),
-  ["n|<leader>sj"] = map_cmd("set splitbelow<CR>:split"):silent(),
+  ["n|<leader>sl"] = map_cmd("lua require('main.buftools').show_buf_list('rvsplit')"):silent(),
+  ["n|<leader>sh"] = map_cmd("lua require('main.buftools').show_buf_list('lvsplit')"):silent(),
+  ["n|<leader>sk"] = map_cmd("lua require('main.buftools').show_buf_list('tsplit')"):silent(),
+  ["n|<leader>sj"] = map_cmd("lua require('main.buftools').show_buf_list('bsplit')"):silent(),
+  -- ["n|<leader>sl"] = map_cmd("set splitright<CR>:vsplit"):silent(),
+  -- ["n|<leader>sh"] = map_cmd("set nosplitright<CR>:vsplit"):silent(),
+  -- ["n|<leader>sk"] = map_cmd("set nosplitbelow<CR>:split"):silent(),
+  -- ["n|<leader>sj"] = map_cmd("set splitbelow<CR>:split"):silent(),
   ["n|<leader>o"] = map_cmd("call v:lua.switch_NvimTree()"):silent():noremap(),
   -- noremal operations
   ["v|fy"] = map_key("\"+y"),
   ["n|S"] = map_cmd("w"):noremap():silent(),
   ["n|<leader>nl"] = map_cmd("nohlsearch"):noremap():silent(),
+  ["n|<TAB>"] = map_cmd("bn"):silent(),
   -- terminal operations
   ["t|<C-p>"] = map_key("<C-\\><C-n>"):noremap():silent(),
   -- command mode operations
@@ -68,8 +73,8 @@ Mappings = {
   ["v|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
   -- lspsaga
   ["n|K"] = map_cmd("Lspsaga hover_doc"):noremap():silent(),
-  ["n|]g"] = map_cmd("Lspsaga diagnostic_jump_next"):noremap():silent(),
-  ["n|[g"] = map_cmd("Lspsaga diagnostic_jump_prev"):noremap():silent(),
+  ["n|gj"] = map_cmd("Lspsaga diagnostic_jump_next"):noremap():silent(),
+  ["n|gk"] = map_cmd("Lspsaga diagnostic_jump_prev"):noremap():silent(),
   ["n|<leader>ca"] = map_cmd("Lspsaga code_action"):noremap():silent(),
   ["v|<leader>ca"] = map_cmd("Lspsaga range_code_action"):noremap():silent(),
   ["n|gf"] = map_cmd("Lspsaga lsp_finder"):noremap():silent(),
@@ -103,7 +108,24 @@ Mappings = {
   ["n|<leader>p"] = map_cmd("lua require('nvim-peekup').peekup_open('p')"):noremap():silent(),
   ["n|<leader>P"] = map_cmd("lua require('nvim-peekup').peekup_open('P')"):noremap():silent(),
   -- Vista
-  ["n|<C-v>"] = map_cmd("call v:lua.open_tagbar()"):noremap():silent(),
+  ["n|<C-,>"] = map_cmd("call v:lua.open_tagbar()"):noremap():silent(),
+  -- Format
+  ["n|F"] = map_cmd("call v:lua.format()"):noremap():silent(),
+  -- vim-eft
+  ["n|f"] = map_key("v:lua.vim_eft('f')"):expr():silent(),
+  ["n|t"] = map_key("v:lua.vim_eft('t')"):expr():silent(),
+  ["n|'"] = map_key([[v:lua.vim_eft("'")]]):expr():silent(),
+  -- easymotion
+  ["n|s"] = map_key("v:lua.easymotion()"):expr():silent(),
+  -- bufferline.nvim
+  ["n|<C-s>u"] = map_cmd("lua require('bufferline').go_to_buffer(1)"):silent(),
+  ["n|<C-s>i"] = map_cmd("lua require('bufferline').go_to_buffer(2)"):silent(),
+  ["n|<C-s>o"] = map_cmd("lua require('bufferline').go_to_buffer(3)"):silent(),
+  ["n|<C-s>p"] = map_cmd("lua require('bufferline').go_to_buffer(4)"):silent(),
+  ["n|<C-s>h"] = map_cmd("lua require('bufferline').go_to_buffer(5)"):silent(),
+  ["n|<C-s>j"] = map_cmd("lua require('bufferline').go_to_buffer(6)"):silent(),
+  ["n|<C-s>k"] = map_cmd("lua require('bufferline').go_to_buffer(7)"):silent(),
+  ["n|<C-s>l"] = map_cmd("lua require('bufferline').go_to_buffer(8)"):silent(),
 }
 
 
