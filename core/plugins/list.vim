@@ -35,3 +35,8 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'bling/vim-bufferline'
 call plug#end()
+if empty(stdpath("config") .. "/plugged")
+  execute(":PlugInstall")
+else
+  source ~/.config/nvim/core/plugins/setting.vim
+endif
