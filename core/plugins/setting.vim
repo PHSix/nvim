@@ -1,7 +1,7 @@
 "
 " ---  vim-autoformat  ---
 "
-noremap F :Autoformat<CR>
+noremap <silent> F :Autoformat<CR>
 
 
 "
@@ -19,14 +19,9 @@ nmap j <Plug>(accelerated_jk_gj_position)
 nmap k <Plug>(accelerated_jk_gk_position)
 
 
+" caw.vim
 
-"
-" ---  nerdcommenter  ---
-"
-let g:NERDSpaceDelims = 1
-map ,cc <leader>cc
-map ,cu <leader>cu
-
+map ,c <Plug>(caw:prefix)
 
 
 
@@ -38,23 +33,23 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_colorpairs = [
-            \ ['brown',       'RoyalBlue3'],
-            \ ['Darkblue',    'SeaGreen3'],
-            \ ['darkgray',    'DarkOrchid3'],
-            \ ['darkgreen',   'firebrick3'],
-            \ ['darkcyan',    'RoyalBlue3'],
-            \ ['darkred',     'SeaGreen3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['brown',       'firebrick3'],
-            \ ['gray',        'RoyalBlue3'],
-            \ ['black',       'SeaGreen3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['Darkblue',    'firebrick3'],
-            \ ['darkgreen',   'RoyalBlue3'],
-            \ ['darkcyan',    'SeaGreen3'],
-            \ ['darkred',     'DarkOrchid3'],
-            \ ['red',         'firebrick3'],
-            \ ]
+                  \ ['brown',       'RoyalBlue3'],
+                  \ ['Darkblue',    'SeaGreen3'],
+                  \ ['darkgray',    'DarkOrchid3'],
+                  \ ['darkgreen',   'firebrick3'],
+                  \ ['darkcyan',    'RoyalBlue3'],
+                  \ ['darkred',     'SeaGreen3'],
+                  \ ['darkmagenta', 'DarkOrchid3'],
+                  \ ['brown',       'firebrick3'],
+                  \ ['gray',        'RoyalBlue3'],
+                  \ ['black',       'SeaGreen3'],
+                  \ ['darkmagenta', 'DarkOrchid3'],
+                  \ ['Darkblue',    'firebrick3'],
+                  \ ['darkgreen',   'RoyalBlue3'],
+                  \ ['darkcyan',    'SeaGreen3'],
+                  \ ['darkred',     'DarkOrchid3'],
+                  \ ['red',         'firebrick3'],
+                  \ ]
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 
@@ -91,14 +86,14 @@ nnoremap <silent> <c-f>b :DashboardJumpMark<CR>
 nnoremap <silent> <c-f>n :DashboardNewFile<CR>
 
 let g:dashboard_custom_shortcut={
-            \ 'last_session'       : '<Ctrl-f>l',
-            \ 'find_history'       : '<Ctrl-f>h',
-            \ 'find_file'          : '<Ctrl-f>f',
-            \ 'new_file'           : '<Ctrl-f>n',
-            \ 'change_colorscheme' : '<Ctrl-f>c',
-            \ 'find_word'          : '<Ctrl-f>w',
-            \ 'book_marks'         : '<Ctrl-f>b',
-            \ }
+                  \ 'last_session'       : '<Ctrl-f>l',
+                  \ 'find_history'       : '<Ctrl-f>h',
+                  \ 'find_file'          : '<Ctrl-f>f',
+                  \ 'new_file'           : '<Ctrl-f>n',
+                  \ 'change_colorscheme' : '<Ctrl-f>c',
+                  \ 'find_word'          : '<Ctrl-f>w',
+                  \ 'book_marks'         : '<Ctrl-f>b',
+                  \ }
 
 "
 " ---  vim-easy-aligen
@@ -109,21 +104,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-
-
-
-"
-" ---  vim-mundo  ---
-"
-nnoremap <leader>uu :MundoToggle<CR>
-nnoremap <leader>uh :MundoHide<CR>
-nnoremap <leader>us :MundoShow<CR>
-
-
-"
-"  ---  spaceline  ---
-"
-let g:spaceline_seperate_style= 'arrow'
 
 
 "
@@ -180,22 +160,31 @@ set nowritebackup
 set shortmess+=c
 autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+      autocmd!
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 set signcolumn=yes
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+                  \ pumvisible() ? "\<C-n>" :
+                  \ <SID>check_back_space() ? "\<TAB>" :
+                  \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+      elseif (coc#rpc#ready())
+            call CocActionAsync('doHover')
+      else
+            execute '!' . &keywordprg . " " . expand('<cword>')
+      endif
+endfunction
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 let g:coc_snippet_next = '<C-n>'
 let g:coc_snippet_prev=  '<C-p>'
@@ -214,11 +203,11 @@ autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd FileType vimwiki let b:coc_suggest_disable = 1
 autocmd FileType gomod let b:coc_suggest_disable = 1
 let g:markdown_fenced_languages = [
-            \ 'vim',
-            \ 'help'
-            \]
+                  \ 'vim',
+                  \ 'help'
+                  \]
 function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
+      execute 'CocCommand actions.open ' . a:type
 endfunction
 xmap <silent> <leader>x :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>x :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
@@ -230,30 +219,31 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ca  <Plug>(coc-codeaction)
 let g:coc_global_extensions = [
-            \"coc-pairs",
-            \"coc-css",
-            \"coc-html",
-            \"coc-json",
-            \"coc-snippets",
-            \"coc-vimlsp",
-            \"coc-lists",
-            \"coc-tsserver",
-            \"coc-translator",
-            \"coc-rls",
-            \"coc-git",
-            \"coc-emmet",
-            \"coc-diagnostic",
-            \"coc-sh",
-            \"coc-flutter-tools",
-            \"coc-yank",
-            \"coc-actions",
-            \"coc-html",
-            \"coc-cmake",
-            \"coc-clangd",
-            \"coc-vetur",
-            \"coc-marketplace",
-            \"coc-explorer"
-            \]
+                  \"coc-pairs",
+                  \"coc-css",
+                  \"coc-html",
+                  \"coc-json",
+                  \"coc-snippets",
+                  \"coc-vimlsp",
+                  \"coc-lists",
+                  \"coc-tsserver",
+                  \"coc-translator",
+                  \"coc-rls",
+                  \"coc-git",
+                  \"coc-emmet",
+                  \"coc-diagnostic",
+                  \"coc-sh",
+                  \"coc-flutter-tools",
+                  \"coc-yank",
+                  \"coc-actions",
+                  \"coc-html",
+                  \"coc-cmake",
+                  \"coc-clangd",
+                  \"coc-vetur",
+                  \"coc-marketplace",
+                  \"coc-explorer",
+                  \"coc-vetur"
+                  \]
 
 nmap <leader>o <Plug>(coc-refactor)
 let g:coc_fzf_preview_toggle_key = '?'
@@ -261,5 +251,78 @@ let g:coc_fzf_preview = ''
 let g:coc_fzf_opts = []
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 call coc_fzf#common#add_list_source('fzf-buffers', 'display open buffers', 'Buffers')
+nmap <silent> <C-n> :CocCommand explorer<CR>
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+command! -nargs=0 Format :call CocAction('format')
 
 
+"
+" easymotion
+"
+nmap s <Plug>(easymotion-overwin-f2)
+
+
+"
+" lightline
+"
+
+set showtabline=2
+let g:lightline#bufferline#show_number = 2
+let g:lightline#bufferline#enable_devicons= 1
+nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+nmap <Leader>0 <Plug>lightline#bufferline#go(10)
+let g:lightline#bufferline#min_buffer_count = 2
+let g:lightline = {
+                  \ 'colorscheme': 'one',
+                  \'active': {
+                  \   'left': [ [ 'mode', 'paste' ],
+                  \             [ 'ctrlpmark', 'diagnostic', 'cocstatus', 'filename', 'method'],],
+                  \ 'right' : [["lineinfo"],
+                  \[ 'percent' ],
+                  \]},
+                  \ 'tabline': {
+                  \   'left': [ ['buffers'] ],
+                  \   'right': []
+                  \ },
+                  \ 'component_expand': {
+                  \   'buffers': 'lightline#bufferline#buffers'
+                  \ },
+                  \ 'component_type': {
+                  \   'buffers': 'tabsel'
+                  \ },
+                  \ 'component_function': {
+                  \   'cocstatus': 'StatusDiagnostic'
+                  \ }
+                  \ }
+function! LightlineGitBlame() abort
+      let blame = get(b:, 'coc_git_blame', '')
+      return winwidth(0) > 120 ? blame : ''
+endfunction
+
+function! StatusDiagnostic() abort
+      let info = get(b:, 'coc_diagnostic_info', {})
+      if empty(info) | return '' | endif
+      let msgs = []
+      if get(info, 'error', 0)
+            call add(msgs, 'X' . info['error'])
+      endif
+      if get(info, 'warning', 0)
+            call add(msgs, 'W' . info['warning'])
+      endif
+      return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+endfunction

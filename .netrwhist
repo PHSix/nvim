@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =0
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/ph/.config/fontconfig'
 let g:netrw_dirhist_0='/home/ph/.config/fcitx5/conf'
 let g:netrw_dirhist_9='/home/ph/.config/fcitx5'
 let g:netrw_dirhist_8='/home/ph/.config/nvim/plugged/chadtree'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_5='/home/ph/.config/nvim/core'
 let g:netrw_dirhist_4='/home/ph/.config/JetBrains/CLion2020.2'
 let g:netrw_dirhist_3='/home/ph/.config/JetBrains'
 let g:netrw_dirhist_2='/home/ph/.config'
-let g:netrw_dirhist_1='/home/ph/.config/JetBrains'

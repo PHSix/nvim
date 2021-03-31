@@ -1,10 +1,9 @@
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hardcoreplayers/dashboard-nvim'
-Plug 'preservim/nerdcommenter'
+Plug 'tyru/caw.vim'
 Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
-Plug 'liuchengxu/vista.vim'
 Plug 'rhysd/accelerated-jk'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kien/rainbow_parentheses.vim'
@@ -33,10 +32,14 @@ Plug 'antoinemadec/coc-fzf'
 Plug 'sakshamgupta05/vim-todo-highlight'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'bling/vim-bufferline'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'itchyny/lightline.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'lilydjwg/colorizer'
+Plug 'gcmt/wildfire.vim'
 call plug#end()
-if empty(stdpath("config") .. "/plugged")
-  execute(":PlugInstall")
+if empty(glob('~/.config/nvim/plugged'))
+  execute("PlugInstall")
 else
   source ~/.config/nvim/core/plugins/setting.vim
 endif

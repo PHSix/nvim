@@ -5,6 +5,7 @@ autocmd BufReadPost *
 augroup cursorline_display
   autocmd!
   autocmd WinLeave * setlocal nocursorline
+  autocmd WinEnter * setlocal cursorline
 augroup END
 augroup fold_config
   autocmd!
@@ -18,24 +19,6 @@ augroup touch_less
 augroup END
 augroup tab_space_length
   autocmd!
-  autocmd BufNewFile,BufRead *.html set tabstop=2
-  autocmd BufNewFile,BufRead *.html set softtabstop=2
-  autocmd BufNewFile,BufRead *.html set shiftwidth=2
-  autocmd BufNewFile,BufRead *.js set tabstop=2
-  autocmd BufNewFile,BufRead *.js set softtabstop=2
-  autocmd BufNewFile,BufRead *.js set shiftwidth=2
-  autocmd BufNewFile,BufRead *.css set tabstop=2
-  autocmd BufNewFile,BufRead *.css set softtabstop=2
-  autocmd BufNewFile,BufRead *.css set shiftwidth=2
-  autocmd BufNewFile,BufRead *.dart set tabstop=2
-  autocmd BufNewFile,BufRead *.dart set softtabstop=2
-  autocmd BufNewFile,BufRead *.dart set shiftwidth=2
-  autocmd BufNewFile,BufRead *.go set tabstop=2
-  autocmd BufNewFile,BufRead *.go set softtabstop=2
-  autocmd BufNewFile,BufRead *.go set shiftwidth=2
-  autocmd BufNewFile,BufRead *.vim set tabstop=2
-  autocmd BufNewFile,BufRead *.vim set softtabstop=2
-  autocmd BufNewFile,BufRead *.vim set shiftwidth=2
   autocmd BufNewFile,BufRead *.cpp set tabstop=4
   autocmd BufNewFile,BufRead *.cpp set softtabstop=4
   autocmd BufNewFile,BufRead *.cpp set shiftwidth=4
@@ -73,27 +56,9 @@ augroup todo_comments
 augroup END
 
 
-let g:BufL = []
-
-autocmd BufAdd,BufDelete,BufCreate * :call Bufchange()
-function Bufchange()
-  let buflist = split(execute("ls"), "\n")
-  let buf_list_number = []
-  let count_i = 0
-  for b:v in buflist
-    call add(buf_list_number, split(b:v, " ")[0])
-  endfor
-  let g:BufL = buf_list_number
-endfunction
-call Bufchange()
-
-function! MyBufSwitch(num)
-  if a:num > len(g:BufL) - 1
-    echom "You input is "..a:num..".Buffer list length is " .. len(g:BufL) .. " don't use oversize!"
-    return
-  endif
-  execute(':'.g:BufL[a:num].'b')
-endfunction
+augroup vimrc_help
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+augroup END
 
 
 

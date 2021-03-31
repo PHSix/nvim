@@ -1,62 +1,85 @@
 {
-    "coc.preferences.extensionUpdateCheck": "daily",
-    "git.addedSign.text": "|",
-    "git.removedSign.text": "|",
-    "git.changeRemovedSign.text": "|",
-    "git.topRemovedSign.text": "|",
-    "git.changedSign.text": "|",
-    "git.addedSign.hlGroup": "DiffAdd",
-    "git.changedSign.hlGroup": "DiffChange",
-    "git.removedSign.hlGroup": "DiffDelete",
-    "git.topRemovedSign.hlGroup": "DiffDelete",
-    "git.changeRemovedSign.hlGroup": "DiffChange",
-    "suggest.noselect": true,
-    "suggest.enablePreselect": false,
-    "diagnostic.refreshOnInsertMode": false,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "json",
-        "dart"
-    ],
-    "rainbow-fart.ffplay": "/usr/bin/ffplay",
-    "rainbow-fart.enabled": false,
-    "rainbow-fart.locale": [
-        "zh"
-    ],
-    "rainbow-fart.voice-packages": [
-        "/home/ph/.config/nvim/voice/jiuweiyaohu",
-        "/home/ph/.config/nvim/voice/马保国语音包"
-    ],
-    "tsserver.npm": "/usr/bin/npm",
-    "python.linting.pylintArgs": [
-        "--extension-pkg-whitelist=cv2"
-    ],
-    "cmake.cmakePath": "/usr/bin/cmake",
-    "clangd.semanticHighlighting": true,
-    "clangd.arguments": [
-        "--compile-commands-dir=${workspaceFolder}/build"
-    ],
-    "rust-analyzer.serverPath": "/usr/bin/rust-analyzer",
-    "emmet.includeLanguages": {
-        "vue": "html",
-        "vue-html": "html",
-        "wxml": "html"
-    },
-    "languageserver": {
-        "lua": {
-            "command": "lua-lsp",
-            "filetypes": [
-                "lua"
-            ]
-        },
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod"
-            ],
-            "disableWorkspaceFolders": true,
-            "filetypes": [
-                "go"
-            ]
-        }
-    }
+   // explorer
+   "explorer.sources": [
+      {
+         "name": "file",
+         "expand": true
+      }
+   ],
+   "explorer.keyMappingMode": "none",
+   "explorer.quitOnOpen": false,
+   "explorer.file.column.indent.indentLine": true,
+   "explorer.git.enable": false,
+   "explorer.width": 30,
+   "explorer.icon.enableNerdfont": true,
+   "explorer.keyMappings.global": {
+      "o": ["wait", "expanded?", "collapse", ["wait", "expandable?", "expand", "open"]],
+      "dd": "delete",
+      "yy": "copyFile",
+      "cn": "addFile",
+      "mk": "addDirectory",
+      "a": "rename",
+      "zh": "toggleHidden",
+      "q": "quit",
+      "<esc>": "esc",
+      "/": "search",
+      "u": ["wait", "gotoParent"]
+   },
+   // coc-git
+   "git.addedSign.text": "|",
+   "git.removedSign.text": "|",
+   "git.changeRemovedSign.text": "|",
+   "git.topRemovedSign.text": "|",
+   "git.changedSign.text": "|",
+   "git.addedSign.hlGroup": "DiffAdd",
+   "git.changedSign.hlGroup": "DiffChange",
+   "git.removedSign.hlGroup": "DiffDelete",
+   "git.topRemovedSign.hlGroup": "DiffDelete",
+   "git.changeRemovedSign.hlGroup": "DiffChange",
+   "suggest.noselect": true,
+   "suggest.enablePreselect": false,
+   // diagnostic
+   "diagnostic.refreshOnInsertMode": false,
+   "diagnostic.virtualText": true,
+   "diagnostic.virtualTextCurrentLineOnly": false,
+   "diagnostic.virtualTextPrefix": "# ",
+   "diagnostic.errorSign": "|",
+   "diagnostic.infoSign": "|",
+   "diagnostic.hintSign": "|",
+   // custom settings
+   "coc.preferences.formatOnSaveFiletypes": [
+      "json",
+      "dart",
+      "vim"
+   ],
+   // languageserver
+   "tsserver.npm": "/usr/bin/npm",
+   "cmake.cmakePath": "/usr/bin/cmake",
+   "clangd.semanticHighlighting": true,
+   "clangd.arguments": [
+      "--compile-commands-dir=${workspaceFolder}/build"
+   ],
+   "emmet.includeLanguages": {
+      "vue": "html",
+      "vue-html": "html",
+      "wxml": "html"
+   },
+   "languageserver": {
+      "lua": {
+         "command": "lua-lsp",
+         "filetypes": [
+            "lua"
+         ]
+      },
+      "golang": {
+         "command": "gopls",
+         "rootPatterns": [
+            "go.mod"
+         ],
+         "disableWorkspaceFolders": true,
+         "filetypes": [
+            "go"
+         ]
+      }
+   }
 }

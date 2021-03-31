@@ -21,7 +21,7 @@ set smartcase     "
 set nobackup
 set noswapfile                         " 关闭生成swap文件
 set undofile                           " 记录vim的历史操作
-set undodir=~/.config/nvim/undodir     " 指定一个文件来保存vim的历史操作
+" set undodir=~/.config/nvim/undodir     " 指定一个文件来保存vim的历史操作
 set autowrite
 set fdm=manual                         " 代码折叠的模式
 set list                               " 使你的vim的空格显示更加好看
