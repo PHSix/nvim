@@ -153,3 +153,12 @@ function _G.easymotion()
   vim.g.EasyMotion_smartcase = 1
   return t("<Plug>(easymotion-s2)")
 end
+
+function _G.switch_buf(index)
+  if packer_plugins["nvim-bufferline.lua"] then
+    require("bufferline").go_to_buffer(index)
+  elseif packer_plugins["barbar.nvim"] then
+    vim.cmd("BufferGoto " .. index)
+  else
+  end
+end

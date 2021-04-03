@@ -11,18 +11,19 @@ function config.dashboard()
   vim.g.dashboard_preview_file_height = 8
   vim.g.dashboard_preview_file_width = 50
   vim.g.dashboard_custom_shortcut = {
-    last_session = "<Ctrl-f>l",
+    last_session = "         ",
     find_history = "<Ctrl-f>o",
     find_file = "<Ctrl-f>f",
     new_file = "<Ctrl-f>n",
     change_colorscheme = "<Ctrl-f>c",
     find_word = "<Ctrl-f>w",
-    book_marks = "<Ctrl-f>b"
+    book_marks = "         "
   }
 end
 
 function config.hybrid()
-  require("hybrid").config()
+  -- require("hybrid").config()
+  require("hybrid")
 end
 
 function config.hardline()
@@ -73,6 +74,7 @@ function config.nvim_bufferline()
       show_buffer_close_icons = false,
       number_style = "",
       modified_icon = "✥",
+      show_close_icon = true,
       buffer_close_icon = "",
       mappings = true,
       always_show_bufferline = false
@@ -91,11 +93,28 @@ function config.nvim_bufferline()
 end
 
 function config.indent_guides()
-  require("indent_guides").setup({})
+  require("indent_guides").setup(
+    {
+      indent_space_guides = true,
+      indent_tab_guides = false,
+      exclude_filetypes = {"help", "dashboard", "dashpreview", "NvimTree", "vista", "sagahover", "vista_kind"},
+      -- indent_pretty_mode = true,
+      even_colors = {fg = "#2a3834", bg = "#213049"},
+      odd_colors = {fg = "#34495e", bg = "#213049"}
+    }
+  )
 end
 function config.blankline()
   vim.g.indentLine_char = "|"
-  vim.g.indent_blankline_filetype_exclude = {"help", "dashboard", "flutterToolsOutline", "peek", "packer", "vista", "vista_kind"}
+  vim.g.indent_blankline_filetype_exclude = {
+    "help",
+    "dashboard",
+    "flutterToolsOutline",
+    "peek",
+    "packer",
+    "vista",
+    "vista_kind"
+  }
   vim.g.indent_blankline_char_highlight = "GitChange"
 end
 
@@ -112,7 +131,7 @@ function config.goyo()
   vim.g.goyo_width = 120
 end
 function config.focus()
-  local focus = require('focus')
+  local focus = require("focus")
   focus.enable = false
   focus.signcolumn = false
   focus.width = 120

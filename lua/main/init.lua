@@ -1,6 +1,7 @@
 local async
 local load_comple = function()
   require("main.opts")
+  -- require("main.theme")
   require("main.packer").init()
   async =
     vim.loop.new_async(

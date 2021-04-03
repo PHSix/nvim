@@ -1,7 +1,6 @@
 local config = {}
 function config.compe()
   vim.cmd [[packadd lspkind-nvim]]
-  vim.cmd [[packadd compe-tabnine]]
   require("lspkind").init(
     {
       with_text = true,
@@ -18,7 +17,7 @@ function config.compe()
         Property = "",
         Unit = "",
         Value = "",
-        Enum = "了",
+        Enum = "E",
         Keyword = "",
         Snippet = "﬌",
         Color = "",
@@ -59,7 +58,6 @@ function config.compe()
       treesitter = {
         priority = 1,
       },
-      tabnine = true,
       zsh = true
     }
   }
@@ -103,4 +101,25 @@ function config.lspsaga()
     }
   )
 end
+-- function config.lsputils()
+--   vim.cmd [[packadd popfix]]
+--   vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+--   vim.g.lsp_utils_symbols_opts = {
+-- 	height = 24,
+-- 	mode = 'editor',
+-- 	preview = {
+-- 		title = 'Symbols Preview',
+-- 		border = true,
+--     border_chars = {
+--  	TOP_LEFT = '┌',
+--  	TOP_RIGHT = '┐',
+--  	MID_HORIZONTAL = '─',
+--  	MID_VERTICAL = '│',
+--  	BOTTOM_LEFT = '└',
+--  	BOTTOM_RIGHT = '┘',
+--  }
+-- 	},
+-- 	prompt = {},
+-- }
+-- end
 return config

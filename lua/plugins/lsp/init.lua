@@ -16,7 +16,6 @@ lsp["neovim/nvim-lspconfig"] = {
 lsp["hrsh7th/nvim-compe"] = {
   event = {"InsertEnter"},
   requires = {
-    new {"tzachar/compe-tabnine", run = "./install.sh"},
     new {"onsails/lspkind-nvim", opt = true},
     new {"tamago324/compe-zsh", ft = {"zsh"}}
   },
@@ -36,5 +35,9 @@ lsp["akinsho/flutter-tools.nvim"] = {
   ft = {"dart"},
   config = conf.flutter
 }
+-- lsp["RishabhRD/nvim-lsputils"] = {
+--   requires = {{"RishabhRD/popfix", opt = true}},
+--   config = conf.lsputils
+-- }
 
 return lsp

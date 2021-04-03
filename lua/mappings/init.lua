@@ -25,10 +25,10 @@ Mappings = {
   ["n|<leader>h"] = map_key("<C-w>h"),
   ["n|<leader>k"] = map_key("<C-w>k"),
   ["n|<leader>j"] = map_key("<C-w>j"),
-  ["n|<leader>sl"] = map_cmd("lua require('main.buftools').show_buf_list('rvsplit')"):silent(),
-  ["n|<leader>sh"] = map_cmd("lua require('main.buftools').show_buf_list('lvsplit')"):silent(),
-  ["n|<leader>sk"] = map_cmd("lua require('main.buftools').show_buf_list('tsplit')"):silent(),
-  ["n|<leader>sj"] = map_cmd("lua require('main.buftools').show_buf_list('bsplit')"):silent(),
+  ["n|<leader>sl"] = map_cmd("lua require('main.buftools').show_bufs_list('rvsplit')"):silent(),
+  ["n|<leader>sh"] = map_cmd("lua require('main.buftools').show_bufs_list('lvsplit')"):silent(),
+  ["n|<leader>sk"] = map_cmd("lua require('main.buftools').show_bufs_list('tsplit')"):silent(),
+  ["n|<leader>sj"] = map_cmd("lua require('main.buftools').show_bufs_list('bsplit')"):silent(),
   -- ["n|<leader>sl"] = map_cmd("set splitright<CR>:vsplit"):silent(),
   -- ["n|<leader>sh"] = map_cmd("set nosplitright<CR>:vsplit"):silent(),
   -- ["n|<leader>sk"] = map_cmd("set nosplitbelow<CR>:split"):silent(),
@@ -39,6 +39,7 @@ Mappings = {
   ["n|S"] = map_cmd("w"):noremap():silent(),
   ["n|<leader>nl"] = map_cmd("nohlsearch"):noremap():silent(),
   ["n|<TAB>"] = map_cmd("bn"):silent(),
+  ["n|;"] = map_key(":"),
   -- terminal operations
   ["t|<C-p>"] = map_key("<C-\\><C-n>"):noremap():silent(),
   -- command mode operations
@@ -47,15 +48,19 @@ Mappings = {
   --
   -- Plugins
   --
+  -- lsp
+  -- ["n|<leader>ds"] = map_cmd("lua vim.lsp.buf.document_symbol()"):silent():noremap(),
   -- dashboard
-  ["n|<C-f>s"] = map_cmd("<C-u>SessionSave"):noremap():silent(),
-  ["n|<C-f>l"] = map_cmd("<C-u>SessionLoad"):noremap():silent(),
+  -- ["n|<C-f>s"] = map_cmd("<C-u>SessionSave"):noremap():silent(),
+  -- ["n|<C-f>l"] = map_cmd("<C-u>SessionLoad"):noremap():silent(),
   ["n|<C-f>u"] = map_cmd("DashboardFindHistory"):noremap():silent(),
   ["n|<C-f>f"] = map_cmd("DashboardFindFile"):noremap():silent(),
-  ["n|<C-f>m"] = map_cmd("DashboardJumpMark"):noremap():silent(),
+  -- ["n|<C-f>m"] = map_cmd("DashboardJumpMark"):noremap():silent(),
   ["n|<C-f>w"] = map_cmd("DashboardFindWord"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
+  -- telescope
+  ["n|<c-f>b"] = map_cmd("Telescope grep_string"):silent():noremap(),
   -- easy align
   ["v|ga"] = map_cmd("<Plug>(EasyAlign)"):silent(),
   -- nvim-tree.lua
@@ -63,8 +68,6 @@ Mappings = {
   -- faster.nvim
   ["n|j"] = map_key("v:lua.faster_jk('j')"):expr():silent(),
   ["n|k"] = map_key("v:lua.faster_jk('k')"):expr():silent(),
-  -- chowcho.nvim
-  ["n|;"] = map_key("v:lua.chowcho()"):expr():silent(),
   -- asynctasks
   ["n|R"] = map_key("v:lua.asynctasks_run()"):expr():silent(),
   -- ["n|B"]
@@ -115,17 +118,25 @@ Mappings = {
   ["n|f"] = map_key("v:lua.vim_eft('f')"):expr():silent(),
   ["n|t"] = map_key("v:lua.vim_eft('t')"):expr():silent(),
   ["n|'"] = map_key([[v:lua.vim_eft("'")]]):expr():silent(),
-  -- easymotion
-  ["n|s"] = map_key("v:lua.easymotion()"):expr():silent(),
+  -- hop.nvim
+  ["n|s"] = map_cmd("HopChar2"):silent(),
   -- bufferline.nvim
-  ["n|<C-s>u"] = map_cmd("lua require('bufferline').go_to_buffer(1)"):silent(),
-  ["n|<C-s>i"] = map_cmd("lua require('bufferline').go_to_buffer(2)"):silent(),
-  ["n|<C-s>o"] = map_cmd("lua require('bufferline').go_to_buffer(3)"):silent(),
-  ["n|<C-s>p"] = map_cmd("lua require('bufferline').go_to_buffer(4)"):silent(),
-  ["n|<C-s>h"] = map_cmd("lua require('bufferline').go_to_buffer(5)"):silent(),
-  ["n|<C-s>j"] = map_cmd("lua require('bufferline').go_to_buffer(6)"):silent(),
-  ["n|<C-s>k"] = map_cmd("lua require('bufferline').go_to_buffer(7)"):silent(),
-  ["n|<C-s>l"] = map_cmd("lua require('bufferline').go_to_buffer(8)"):silent(),
+  ["n|<C-s>u"] = map_cmd("call v:lua.switch_buf(1)"):silent(),
+  ["n|<C-s>i"] = map_cmd("call v:lua.switch_buf(2)"):silent(),
+  ["n|<C-s>o"] = map_cmd("call v:lua.switch_buf(3)"):silent(),
+  ["n|<C-s>p"] = map_cmd("call v:lua.switch_buf(4)"):silent(),
+  ["n|<C-s>h"] = map_cmd("call v:lua.switch_buf(5)"):silent(),
+  ["n|<C-s>j"] = map_cmd("call v:lua.switch_buf(6)"):silent(),
+  ["n|<C-s>k"] = map_cmd("call v:lua.switch_buf(7)"):silent(),
+  ["n|<C-s>l"] = map_cmd("call v:lua.switch_buf(8)"):silent(),
+  ["n|<leader>1"] = map_cmd("call v:lua.switch_buf(1)"):silent(),
+  ["n|<leader>2"] = map_cmd("call v:lua.switch_buf(2)"):silent(),
+  ["n|<leader>3"] = map_cmd("call v:lua.switch_buf(3)"):silent(),
+  ["n|<leader>4"] = map_cmd("call v:lua.switch_buf(4)"):silent(),
+  ["n|<leader>5"] = map_cmd("call v:lua.switch_buf(5)"):silent(),
+  ["n|<leader>6"] = map_cmd("call v:lua.switch_buf(6)"):silent(),
+  ["n|<leader>7"] = map_cmd("call v:lua.switch_buf(7)"):silent(),
+  ["n|<leader>8"] = map_cmd("call v:lua.switch_buf(8)"):silent(),
 }
 
 
