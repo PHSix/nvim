@@ -97,7 +97,8 @@ function config.colorizer()
       "typescriptreact",
       html = {
         mode = "foreground"
-      }
+      },
+      "*"
     }
   )
 end
@@ -156,6 +157,10 @@ end
 
 function config.vim_eft()
       vim.g.eft_ignorecase = true
+end
+
+function config.lir_nvim()
+  vim.cmd [[packadd plenary.nvim]]
 end
 
 return config

@@ -3,214 +3,397 @@ local gls = gl.section
 gl.short_line_list = {"LuaTree", "vista", "dbui", "NvimTree"}
 
 local colors = {
-  bg = "#282c34",
-  line_bg = "#21242b",
-  status_bg = "#5d4d7a",
-  fg = "#c0c0c0",
-  yellow = "#fabd2f",
-  cyan = "#008080",
-  darkblue = "#081633",
-  green = "#afd700",
-  orange = "#FF8800",
-  purple = "#5d4d7a",
-  magenta = "#c678dd",
-  blue = "#51afef",
-  red = "#ec5f67"
+  line_bg = "#213039",
+  bg0 = "#213039",
+  bg1 = "#242B48",
+  bg2 = "#343F4C",
+  dark0 = "#374D51",
+  dark1 = "#1e272e",
+  dark2 = "#34495e",
+  white = "#d2dae2",
+  clearwhite = "#ffffff",
+  lightred = "#ff7979",
+  red = "#ee5253",
+  darkred = "#b33939",
+  lightgreen = "#BBE67E",
+  green = "#78e08f",
+  darkgreen = "#218c74",
+  cyan = "#12CBC4",
+  darkcyan = "#38ada9",
+  purple = "#D4BFFF",
+  clearblue = "#40ffff",
+  lightblue = "#34ace0",
+  blue = "#227093",
+  darkblue = "#3B3B98",
+  orange = "#FEA47F",
+  darkorange = "#F97F51",
+  lightyellow = "#f9ca24",
+  yellow = "#ffeaa7",
+  darkyellow = "#ffb142",
+  darkgray = "#84817a",
+  gray = "#747d8c",
+  pink = "#f78fb3"
 }
-
 local buffer_not_empty = function()
   if vim.fn.empty(vim.fn.expand("%:t")) ~= 1 then
     return true
   end
   return false
 end
-
-gls.left[1] = {
-  FirstElement = {
-    provider = function()
-      return "▊ "
-    end,
-    highlight = {colors.line_bg, colors.line_bg}
-  }
-}
-gls.left[2] = {
-  ViMode = {
-    provider = function()
-      -- auto change color according the vim mode
-      local mode_color = {
-        n = colors.magenta,
-        i = colors.green,
-        v = colors.blue,
-        [""] = colors.blue,
-        V = colors.blue,
-        c = colors.red,
-        no = colors.magenta,
-        s = colors.orange,
-        S = colors.orange,
-        [""] = colors.orange,
-        ic = colors.yellow,
-        R = colors.purple,
-        Rv = colors.purple,
-        cv = colors.red,
-        ce = colors.red,
-        r = colors.cyan,
-        rm = colors.cyan,
-        ["r?"] = colors.cyan,
-        ["!"] = colors.red,
-        t = colors.red
-      }
-      vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim.fn.mode()])
-      -- return '  '
-      return "  "
-    end,
-    highlight = {colors.red, colors.line_bg, "bold"}
-  }
-}
-gls.left[3] = {
-  SecondElement = {
-    provider = function()
-      return "▊ "
-    end,
-    highlight = {colors.red, colors.line_bg}
-  }
-}
-gls.left[4] = {
-  FileIcon = {
-    provider = "FileIcon",
-    condition = buffer_not_empty,
-    highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.line_bg}
-  }
-}
-gls.left[5] = {
-  FileName = {
-    provider = {"FileName", "FileSize"},
-    condition = buffer_not_empty,
-    highlight = {colors.fg, colors.line_bg, "bold"}
-  }
-}
-
 local function find_git_root()
   local path = vim.fn.expand("%:p:h")
   local get_git_dir = require("galaxyline.provider_vcs").get_git_dir
   return get_git_dir(path)
 end
+gls.left = {
+  {
+    ViMode = {
+      provider = function()
+        local mode_color = {
+          n = colors.green,
+          i = colors.purple,
+          v = colors.pink,
+          [""] = colors.pink,
+          V = colors.pink,
+          c = colors.green,
+          no = colors.magenta,
+          s = colors.orange,
+          S = colors.orange,
+          [""] = colors.orange,
+          ic = colors.green,
+          R = colors.purple,
+          Rv = colors.purple,
+          cv = colors.red,
+          ce = colors.red,
+          r = colors.cyan,
+          rm = colors.cyan,
+          ["r?"] = colors.cyan,
+          ["!"] = colors.red,
+          t = colors.red
+        }
+        vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim.fn.mode()])
+        local mode = ""
+        if vim.fn.mode() == "n" then
+          mode = "Normal"
+        elseif vim.fn.mode() == "i" then
+          mode = "Insert"
+        elseif vim.fn.mode() == "v" then
+          mode = "Visual"
+        elseif vim.fn.mode() == "V" then
+          mode = "Visual"
+        elseif vim.fn.mode() == "^V" then
+          mode = "Visual"
+        elseif vim.fn.mode() == "c" then
+          mode = "Command"
+        elseif vim.fn.mode() == "cv" then
+          mode = "Command"
+        end
+        return "▊ " .. mode .. "   "
+      end,
+      highlight = {colors.red, colors.line_bg, "bold"}
+    }
+  },
+  {
+    FirstElement = {
+      provider = function()
+        return " "
+      end,
+      condition = buffer_not_empty,
+      highlight = {colors.line_bg, colors.bg2}
+    }
+  },
+  {
+    FileIcon = {
+      provider = "FileIcon",
+      condition = buffer_not_empty,
+      highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg2}
+    }
+  },
+  {
+    FileName = {
+      provider = {"FileName", "FileSize"},
+      condition = buffer_not_empty,
+      highlight = {colors.clearwhite, colors.bg2, "bold"},
+      separator = "",
+      separator_highlight = {colors.bg2, colors.line_bg}
+    }
+  },
+  {
+    GitIcon = {
+      provider = function()
+        return "  "
+      end,
+      condition = find_git_root,
+      highlight = {colors.orange, colors.line_bg}
+    }
+  },
+  {
+    GitBranch = {
+      provider = "GitBranch",
+      condition = find_git_root,
+      highlight = {colors.clearwhite, colors.line_bg, "bold"}
+    }
+  },
+  {
+    DiagnosticError = {
+      provider = "DiagnosticError",
+      icon = "  ",
+      highlight = {colors.red, colors.line_bg}
+    }
+  },
+  {
+    DiagnosticWarn = {
+      provider = "DiagnosticWarn",
+      icon = "  ",
+      highlight = {colors.blue, colors.line_bg}
+    }
+  }
+}
+gls.right = {
+  {
+    FileFormat = {
+      provider = function()
+        return vim.bo.filetype
+      end,
+      highlight = {colors.yellow, colors.bg2},
+      separator = "",
+      separator_highlight = {colors.bg2, colors.line_bg}
+    }
+  },
+  {
+    LineInfo = {
+      provider = "LineColumn",
+      highlight = {colors.clearwhite, colors.line_bg},
+      separator = "",
+      separator_highlight = {colors.bg2, colors.line_bg}
+    }
+  }
+}
 
-gls.left[6] = {
-  ThirdElement = {
-    provider = function()
-      return "▊ "
-    end,
-    highlight = {colors.yellow, colors.line_bg}
+--
+--
+-- gls.left[1] = {
+--   FirstElement = {
+--     provider = function()
+--       return "▊ "
+--     end,
+--     highlight = {colors.line_bg, colors.line_bg}
+--   }
+-- }
+-- gls.left[2] = {
+--   ViMode = {
+--     provider = function()
+--       -- auto change color according the vim mode
+--       local mode_color = {
+--         n = colors.magenta,
+--         i = colors.green,
+--         v = colors.blue,
+--         [""] = colors.blue,
+--         V = colors.blue,
+--         c = colors.red,
+--         no = colors.magenta,
+--         s = colors.orange,
+--         S = colors.orange,
+--         [""] = colors.orange,
+--         ic = colors.yellow,
+--         R = colors.purple,
+--         Rv = colors.purple,
+--         cv = colors.red,
+--         ce = colors.red,
+--         r = colors.cyan,
+--         rm = colors.cyan,
+--         ["r?"] = colors.cyan,
+--         ["!"] = colors.red,
+--         t = colors.red
+--       }
+--       vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim.fn.mode()])
+--       -- return '  '
+--       return "  "
+--     end,
+--     highlight = {colors.red, colors.line_bg, "bold"}
+--   }
+-- }
+-- gls.left[3] = {
+--   SecondElement = {
+--     provider = function()
+--       return "▊ "
+--     end,
+--     highlight = {colors.red, colors.line_bg}
+--   }
+-- }
+-- gls.left[4] = {
+--   FileIcon = {
+--     provider = "FileIcon",
+--     condition = buffer_not_empty,
+--     highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.line_bg}
+--   }
+-- }
+-- gls.left[5] = {
+--   FileName = {
+--     provider = {"FileName", "FileSize"},
+--     condition = buffer_not_empty,
+--     highlight = {colors.fg, colors.line_bg, "bold"}
+--   }
+-- }
+--
+-- local function find_git_root()
+--   local path = vim.fn.expand("%:p:h")
+--   local get_git_dir = require("galaxyline.provider_vcs").get_git_dir
+--   return get_git_dir(path)
+-- end
+--
+-- gls.left[6] = {
+--   ThirdElement = {
+--     provider = function()
+--       return "▊ "
+--     end,
+--     highlight = {colors.yellow, colors.line_bg}
+--   }
+-- }
+-- gls.left[7] = {
+--   GitIcon = {
+--     provider = function()
+--       return "  "
+--     end,
+--     condition = find_git_root,
+--     highlight = {colors.orange, colors.line_bg}
+--   }
+-- }
+-- gls.left[8] = {
+--   GitBranch = {
+--     provider = "GitBranch",
+--     condition = find_git_root,
+--     highlight = {colors.fg, colors.line_bg, "bold"}
+--   }
+-- }
+--
+-- local checkwidth = function()
+--   local squeeze_width = vim.fn.winwidth(0) / 2
+--   if squeeze_width > 40 then
+--     return true
+--   end
+--   return false
+-- end
+--
+-- gls.left[9] = {
+--   FinElement = {
+--     provider = function()
+--       return "▊ "
+--     end,
+--     highlight = {colors.purple, colors.line_bg}
+--   }
+-- }
+-- gls.left[10] = {
+--   DiffAdd = {
+--     provider = "DiffAdd",
+--     condition = checkwidth,
+--     icon = " ",
+--     highlight = {colors.green, colors.line_bg}
+--   }
+-- }
+-- gls.left[11] = {
+--   DiffModified = {
+--     provider = "DiffModified",
+--     condition = checkwidth,
+--     icon = " ",
+--     highlight = {colors.orange, colors.line_bg}
+--   }
+-- }
+-- gls.left[12] = {
+--   DiffRemove = {
+--     provider = "DiffRemove",
+--     condition = checkwidth,
+--     icon = " ",
+--     highlight = {colors.red, colors.line_bg}
+--   }
+-- }
+-- gls.left[14] = {
+--   DiagnosticError = {
+--     provider = "DiagnosticError",
+--     icon = "  ",
+--     highlight = {colors.red, colors.bg}
+--   }
+-- }
+-- gls.left[13] = {
+--   DiagnosticWarn = {
+--     provider = "DiagnosticWarn",
+--     icon = "  ",
+--     highlight = {colors.blue, colors.bg}
+--   }
+-- }
+-- gls.right[1] = {
+--   FileEncode = {
+--     provider = "FileEncode",
+--     highlight = {colors.fg, colors.line_bg}
+--   }
+-- }
+-- gls.right[2] = {
+--   LineInfo = {
+--     provider = "LineColumn",
+--     separator = " | ",
+--     separator_highlight = {colors.blue, colors.line_bg},
+--     highlight = {colors.fg, colors.line_bg}
+--   }
+-- }
+-- gls.right[3] = {
+--   PerCent = {
+--     provider = "LinePercent",
+--     separator = " ",
+--     separator_highlight = {colors.line_bg, colors.line_bg},
+--     highlight = {colors.fg, colors.darkblue}
+--   }
+-- }
+--
+-- gls.short_line_left[1] = {
+--   BufferType = {
+--     provider = "FileTypeName",
+--     -- separator = "|",
+--     separator_highlight = {colors.purple, colors.line_bg},
+--     highlight = {colors.blue, colors.line_bg}
+--   }
+-- }
+--
+-- gls.short_line_right[1] = {
+--   BufferIcon = {
+--     provider = "BufferIcon",
+--     -- separator = "|",
+--     separator_highlight = {colors.purple, colors.line_bg},
+--     highlight = {colors.green, colors.line_bg}
+--   }
+-- }
+gls.short_line_left = {
+  {
+    SecondElement = {
+      provider = function()
+        return "▊ "
+      end,
+      condition = buffer_not_empty,
+      highlight = {colors.clearblue, colors.line_bg}
+    }
+  },
+  {
+    BufferType = {
+      provider = "FileTypeName",
+      -- separator = "▊",
+      -- separator_highlight = {colors.clearblue, colors.line_bg},
+      highlight = {colors.clearblue, colors.line_bg}
+    }
   }
 }
-gls.left[7] = {
-  GitIcon = {
-    provider = function()
-      return "  "
-    end,
-    condition = find_git_root,
-    highlight = {colors.orange, colors.line_bg}
-  }
-}
-gls.left[8] = {
-  GitBranch = {
-    provider = "GitBranch",
-    condition = find_git_root,
-    highlight = {colors.fg, colors.line_bg, "bold"}
-  }
-}
-
-local checkwidth = function()
-  local squeeze_width = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
-end
-
-gls.left[9] = {
-  FinElement = {
-    provider = function()
-      return "▊ "
-    end,
-    highlight = {colors.purple, colors.line_bg}
-  }
-}
-gls.left[10] = {
-  DiffAdd = {
-    provider = "DiffAdd",
-    condition = checkwidth,
-    icon = " ",
-    highlight = {colors.green, colors.line_bg}
-  }
-}
-gls.left[11] = {
-  DiffModified = {
-    provider = "DiffModified",
-    condition = checkwidth,
-    icon = " ",
-    highlight = {colors.orange, colors.line_bg}
-  }
-}
-gls.left[12] = {
-  DiffRemove = {
-    provider = "DiffRemove",
-    condition = checkwidth,
-    icon = " ",
-    highlight = {colors.red, colors.line_bg}
-  }
-}
-gls.left[14] = {
-  DiagnosticError = {
-    provider = "DiagnosticError",
-    icon = "  ",
-    highlight = {colors.red, colors.bg}
-  }
-}
-gls.left[13] = {
-  DiagnosticWarn = {
-    provider = "DiagnosticWarn",
-    icon = "  ",
-    highlight = {colors.blue, colors.bg}
-  }
-}
-gls.right[1] = {
-  FileEncode = {
-    provider = "FileEncode",
-    highlight = {colors.fg, colors.line_bg}
-  }
-}
-gls.right[2] = {
-  LineInfo = {
-    provider = "LineColumn",
-    separator = " | ",
-    separator_highlight = {colors.blue, colors.line_bg},
-    highlight = {colors.fg, colors.line_bg}
-  }
-}
-gls.right[3] = {
-  PerCent = {
-    provider = "LinePercent",
-    separator = " ",
-    separator_highlight = {colors.line_bg, colors.line_bg},
-    highlight = {colors.fg, colors.darkblue}
-  }
-}
-
-gls.short_line_left[1] = {
-  BufferType = {
-    provider = "FileTypeName",
-    -- separator = "|",
-    separator_highlight = {colors.purple, colors.line_bg},
-    highlight = {colors.blue, colors.line_bg}
-  }
-}
-
-gls.short_line_right[1] = {
-  BufferIcon = {
-    provider = "BufferIcon",
-    -- separator = "|",
-    separator_highlight = {colors.purple, colors.line_bg},
-    highlight = {colors.green, colors.line_bg}
-  }
+gls.short_line_right = {
+  {
+    BufferIcon = {
+      provider = "BufferIcon",
+      highlight = {colors.clearblue, colors.line_bg}
+    }
+  },
+  {
+    ThridElement = {
+      provider = function()
+        return "▊ "
+      end,
+      condition = buffer_not_empty,
+      highlight = {colors.clearblue, colors.line_bg}
+    }
+  },
 }

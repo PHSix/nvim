@@ -1,38 +1,52 @@
 local M = {}
-local border_buf
-local c_buf
-local split_operator = ""
 local bufs_all
+local split_direc = ""
 local api = vim.api
 vim.cmd [[hi link NormalFloat Normal]]
 vim.cmd [[autocmd FileType,WinLeave Buftools,* hi! CursorLine gui=NONE]]
 
-function M.show_buf_list(operator)
-  split_operator = operator
-  local buf_win = M.create_window()
-  local bufs = M.get_buf_list()
-  api.nvim_buf_set_lines(buf_win["buf"], 0, -1, false, bufs)
-  vim.cmd [[hi! CursorLine gui=inverse]]
+-- map operator keymap to floating window
+local function map_buf(buf)
+  api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>:hi! CursorLine gui=NONE<CR>", {noremap = true, silent = true})
+  api.nvim_buf_set_keymap(buf, "n", "<ESC>", ":q<CR>:hi! CursorLine gui=NONE<CR>", {noremap = true, silent = true})
+  api.nvim_buf_set_keymap(buf, "n", "o", ":lua require('main.buftools').buftools()<CR>", {silent = true})
+  api.nvim_buf_set_keymap(buf, "n", "<C-m>", ":lua require('main.buftools').buftools()<cr>", {silent = true})
+  api.nvim_buf_set_keymap(buf, "n", "d", ":lua require('main.buftools').delete_buf()<cr>", {silent = true})
 end
 
-function M.get_buf_list()
-  bufs_all = {}
-  local bufs = api.nvim_list_bufs()
+-- get the all buffers
+local function get_buf_list() bufs_all = {}
+  local cur_bufs = api.nvim_list_bufs()
   local loaded_bufs = {}
-  for _, buf in pairs(bufs) do
+  for _, buf in pairs(cur_bufs) do
     if api.nvim_buf_is_loaded(buf) and api.nvim_buf_get_option(buf, "modifiable") then
-      table.insert(bufs_all, buf)
-      if api.nvim_buf_get_name(buf) ~= "" then
+      if api.nvim_buf_get_name(buf) ~= "" and api.nvim_buf_get_option(buf, "filetype") ~= "" then
+        table.insert(bufs_all, buf)
         table.insert(loaded_bufs, api.nvim_buf_get_name(buf))
       end
     end
   end
-  print(vim.inspect(loaded_bufs))
-  return loaded_bufs
+  return {
+    bufs_name = loaded_bufs,
+    bufs = cur_bufs
+  }
 end
 
+local function refresh()
+  
+end
+-- display all buf(loaded and modifiable) in a floating window
+function M.show_bufs_list(direction)
+  split_direc = direction
+  local floating_window = M.create_window()
+  map_buf(floating_window.buf)
+  local cur_bufs = get_buf_list()
+  api.nvim_buf_set_lines(floating_window["buf"], 0, -1, false, cur_bufs.bufs_name)
+  vim.cmd [[hi! CursorLine gui=inverse]]
+end
+
+-- create a floating window and has a border
 function M.create_window()
-  -- window size
   local width = api.nvim_get_option("columns")
   local height = api.nvim_get_option("lines")
   local win_height = math.ceil(height * 0.6 - 4)
@@ -40,7 +54,7 @@ function M.create_window()
   local row = math.ceil((height - win_height) / 2 - 1)
   local col = math.ceil((width - win_width) / 2)
   -- BORDERS
-  border_buf = api.nvim_create_buf(false, true)
+  local border_buf = api.nvim_create_buf(false, true)
   local title = "buftools"
   local border_opts = {
     style = "minimal",
@@ -70,64 +84,46 @@ function M.create_window()
     col = col
   }
   -- create preview buffer and set local options
-  c_buf = api.nvim_create_buf(false, true)
-  local win = api.nvim_open_win(c_buf, true, opts)
+  local buf = api.nvim_create_buf(false, true)
+  local win = api.nvim_open_win(buf, true, opts)
   api.nvim_win_set_option(win, "cursorline", true)
-  api.nvim_buf_set_option(c_buf, "filetype", "Buftools")
+  api.nvim_buf_set_option(buf, "filetype", "Buftools")
   api.nvim_command("au BufWipeout <buffer> exe 'silent bwipeout! '" .. border_buf)
-  api.nvim_buf_set_keymap(c_buf, "n", "q", ":q<CR>:hi! CursorLine gui=NONE<CR>", {noremap = true, silent = true})
-  api.nvim_buf_set_keymap(c_buf, "n", "<ESC>", ":q<CR>:hi! CursorLine gui=NONE<CR>", {noremap = true, silent = true})
-  api.nvim_buf_set_keymap(
-    c_buf,
-    "n",
-    "o",
-    ":lua require('main.buftools').split_window_enter()<CR>",
-    {noremap = true, silent = true}
-  )
-  api.nvim_buf_set_keymap(
-    c_buf,
-    "n",
-    "<C-m>",
-    ":lua require('main.buftools').split_window_enter()<CR>",
-    {noremap = true, silent = true}
-  )
   -- set local options
-  api.nvim_buf_set_option(c_buf, "bufhidden", "wipe")
+  api.nvim_buf_set_option(buf, "bufhidden", "wipe")
   api.nvim_win_set_option(win, "winblend", 0)
   return {
-    buf = c_buf,
+    buf = buf,
     win = win
   }
 end
 
-function M.split_window_enter()
+function M.buftools()
   local buf_id = bufs_all[vim.fn.line(".")]
   vim.cmd [[q]]
-  local prev_wins = api.nvim_list_wins()
   local win_id
-  if split_operator == "rvsplit" then
+  if split_direc == "rvsplit" then
     vim.cmd [[set splitright]]
     vim.cmd [[vsplit]]
-  elseif split_operator == "lvsplit" then
+  elseif split_direc == "lvsplit" then
     vim.cmd [[set nosplitright]]
     vim.cmd [[vsplit]]
-  elseif split_operator == "tsplit" then
+  elseif split_direc == "tsplit" then
     vim.cmd [[set nosplitbelow]]
     vim.cmd [[split]]
-  elseif split_operator == "bsplit" then
+  elseif split_direc == "bsplit" then
     vim.cmd [[set splitbelow]]
     vim.cmd [[split]]
   end
-  local pres_wins = api.nvim_list_wins()
-  for id, _ in pairs(pres_wins) do
-    if pres_wins[id] ~= prev_wins[id] then
-      win_id = pres_wins[id]
-      break
-    end
-  end
-  -- vim.cmd [[hi CursorLine gui=NONE]]
-  print(api.nvim_buf_get_name(buf_id))
+  win_id = api.nvim_get_current_win()
   api.nvim_win_set_buf(win_id, buf_id)
 end
+-- delete current line buffer
+
+function M.delete_buf()
+  local buf_id = bufs_all[vim.fn.line(".")]
+end
+
+
 
 return M

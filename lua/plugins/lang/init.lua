@@ -4,10 +4,6 @@ lang["mhartington/formatter.nvim"] = {
   ft = {"typescript", "lua", "javascript", "json"},
   config = conf.formatter
 }
-lang["liuchengxu/vista.vim"] = {
-  cmd = {"Vista"},
-  config = conf.vista
-}
 lang["dhruvasagar/vim-table-mode"] = {
   ft = {"markdown"}
 }
@@ -20,13 +16,6 @@ lang["nvim-treesitter/nvim-treesitter"] = {
 lang["skywind3000/vim-rt-format"] = {
   event = {"InsertEnter"},
   config = conf.rt_format
-}
-lang["crispgm/nvim-go"] = {
-  ft = {"go"},
-  config = conf.nvim_go
-}
-lang["TravonteD/luajob"] = {
-  opt = true
 }
 lang["alex-popov-tech/timer.nvim"] = {
   opt = true
@@ -43,6 +32,9 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   opt = true,
   config = conf.vim_dadbod_ui,
   requires = {{"tpope/vim-dadbod", opt = true}}
+}
+lang["posva/vim-vue"] = {
+  ft = {"vue"}
 }
 
 return lang

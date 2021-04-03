@@ -42,7 +42,7 @@ lspconfig.sumneko_lua.setup {
         -- library = vim.list_extend({[vim.fn.expand("$VIMRUNTIME/lua")] = true}, {})
         library = {
           ["/usr/share/awesome/lib"] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true
         }
       }
     }
@@ -52,7 +52,10 @@ lspconfig.sumneko_lua.setup {
 --
 -- python
 --
-lspconfig.pyright.setup {
+-- lspconfig.pyright.setup {
+--   capabilities = capabilities
+-- }
+lspconfig.jedi_language_server.setup{
   capabilities = capabilities
 }
 
@@ -128,4 +131,7 @@ lspconfig.rust_analyzer.setup {
 --   closingLabels = true,
 --   outline = true,
 --   flutterOutline = true
+
 -- }
+
+
