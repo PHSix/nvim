@@ -131,8 +131,17 @@ function _G.format()
   local buf_type = vim.bo.filetype
   if buf_type == "dart" then
     vim.cmd [[DartFmt]]
-  else
+  elseif packer_plugins["formatter.nvim"].loaded then
     vim.cmd [[Format]]
+  else
+    -- vim.cmd()
+    local cur_line = vim.fn.line(".")
+    local cur_col = vim.fn.col(".")
+    vim.cmd("normal!gg")
+    vim.cmd("normal!V")
+    vim.cmd("normal!G")
+    vim.cmd("normal!=")
+    api.nvim_win_set_cursor(0, {cur_line, cur_col})
   end
 end
 
@@ -161,4 +170,9 @@ function _G.switch_buf(index)
     vim.cmd("BufferGoto " .. index)
   else
   end
+end
+
+function _G.fzf_lsp_doc_symbols()
+  vim.cmd [[packadd fzf-lsp.nvim]]
+  require'fzf_lsp'.document_symbol_call()
 end

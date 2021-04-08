@@ -47,10 +47,10 @@ tools["voldikss/vim-translator"] = {
 tools["smolck/nvim-todoist.lua"] = {
   opt = true
 }
-tools["gennaro-tedesco/nvim-peekup"] = {
-  event = {"BufReadPost", "InsertEnter"},
-  config = conf.peekup
-}
+-- tools["gennaro-tedesco/nvim-peekup"] = {
+--   event = {"BufReadPost", "InsertEnter"},
+--   config = conf.peekup
+-- }
 tools["glepnir/smartinput.nvim"] = {
   event = {"InsertEnter"},
   config = conf.smartinput

@@ -37,20 +37,20 @@ function config.compe()
     preselect = "disable",
     allow_prefix_unmatch = false,
     source = {
-      path = {
-        priority = 7,
-      },
       vsnip = {
         priority = 6,
       },
       nvim_lsp = {
         priority = 5,
       },
-      buffer = {
-        priority = 2,
+      path = {
+        priority = 4,
       },
       nvim_lua = {
         priority = 3,
+      },
+      buffer = {
+        priority = 2,
       },
       spell = {
         priority = 2,

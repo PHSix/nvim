@@ -151,7 +151,7 @@ end
 function config.smartinput()
   require('smartinput').setup {
   ['go'] = { ';',':=',';'},
-  ['javascript'] = {'.', '.', '+'},
+  -- ['javascript'] = {'.', '.', '+'},
 }
 end
 

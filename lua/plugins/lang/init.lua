@@ -1,7 +1,7 @@
 local conf = require("plugins.lang.config")
 local lang = {}
 lang["mhartington/formatter.nvim"] = {
-  ft = {"typescript", "lua", "javascript", "json"},
+  ft = {"typescript", "lua", "javascript", "json", "vue"},
   config = conf.formatter
 }
 lang["dhruvasagar/vim-table-mode"] = {
@@ -32,9 +32,6 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   opt = true,
   config = conf.vim_dadbod_ui,
   requires = {{"tpope/vim-dadbod", opt = true}}
-}
-lang["posva/vim-vue"] = {
-  ft = {"vue"}
 }
 
 return lang

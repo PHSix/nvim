@@ -14,7 +14,7 @@
     "description": "Class definition template."
   },
   "Conlog": {
-    "prefix": ["clg"],
+    "prefix": ["clg", "cl"],
     "body": ["console.log(${Console_content})"],
     "description": "console log value"
   },

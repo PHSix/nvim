@@ -7,12 +7,6 @@ lsp["neovim/nvim-lspconfig"] = {
   end
 }
 
--- lsp["ms-jpq/kok.nvim"] = {
---   branch = "kok",
---   run = ":UpdateRemotePlugins",
---   config = conf.kok
--- }
-
 lsp["hrsh7th/nvim-compe"] = {
   event = {"InsertEnter"},
   requires = {
@@ -34,6 +28,9 @@ lsp["glepnir/lspsaga.nvim"] = {
 lsp["akinsho/flutter-tools.nvim"] = {
   ft = {"dart"},
   config = conf.flutter
+}
+lsp["gfanto/fzf-lsp.nvim"] = {
+  opt = true
 }
 -- lsp["RishabhRD/nvim-lsputils"] = {
 --   requires = {{"RishabhRD/popfix", opt = true}},

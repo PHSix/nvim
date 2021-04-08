@@ -136,5 +136,23 @@ function config.focus()
   focus.signcolumn = false
   focus.width = 120
 end
+function config.specs()
+  require('specs').setup{ 
+    popup = {
+	-- Simple constant blend effect
+        fader = function(blend, cnt)
+            if cnt > 100 then
+                return 80
+            else return nil end
+        end,
+	-- Growing effect from left to right
+        resizer = function(width, ccol, cnt)
+            if width-cnt > 0 then
+                return {width+cnt, ccol}
+            else return nil end
+        end,
+    }
+}
+end
 
 return config

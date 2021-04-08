@@ -54,6 +54,9 @@ ui["junegunn/goyo.vim"] = {
 ui["tveskag/nvim-blame-line"] = {
   cmd = {"EnableBlameLine"}
 }
+ui["edluffy/specs.nvim"] = {
+  config = conf.specs
+}
 -- ui["beauwilliams/focus.nvim"] = {
 --   -- event = "WinLeave",
 --   config = conf.focus
