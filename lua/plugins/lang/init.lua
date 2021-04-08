@@ -33,5 +33,8 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   config = conf.vim_dadbod_ui,
   requires = {{"tpope/vim-dadbod", opt = true}}
 }
+lang["posva/vim-vue"] = {
+  ft = {"vue"}
+}
 
 return lang

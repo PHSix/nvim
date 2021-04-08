@@ -29,9 +29,12 @@ lsp["akinsho/flutter-tools.nvim"] = {
   ft = {"dart"},
   config = conf.flutter
 }
+<<<<<<< HEAD
 lsp["gfanto/fzf-lsp.nvim"] = {
   opt = true
 }
+=======
+>>>>>>> b27cbe1622895a0383892bd33652ea8b5f34e031
 -- lsp["RishabhRD/nvim-lsputils"] = {
 --   requires = {{"RishabhRD/popfix", opt = true}},
 --   config = conf.lsputils

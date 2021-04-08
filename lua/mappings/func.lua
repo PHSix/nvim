@@ -171,8 +171,11 @@ function _G.switch_buf(index)
   else
   end
 end
+<<<<<<< HEAD
 
 function _G.fzf_lsp_doc_symbols()
   vim.cmd [[packadd fzf-lsp.nvim]]
   require'fzf_lsp'.document_symbol_call()
 end
+=======
+>>>>>>> b27cbe1622895a0383892bd33652ea8b5f34e031

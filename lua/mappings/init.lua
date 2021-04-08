@@ -137,8 +137,11 @@ Mappings = {
   ["n|<leader>6"] = map_cmd("call v:lua.switch_buf(6)"):silent(),
   ["n|<leader>7"] = map_cmd("call v:lua.switch_buf(7)"):silent(),
   ["n|<leader>8"] = map_cmd("call v:lua.switch_buf(8)"):silent(),
+<<<<<<< HEAD
   -- fzf-lsp
   ["n|<C-f>d"] = map_cmd("call v:lua.fzf_lsp_doc_symbols()"):silent(),
+=======
+>>>>>>> b27cbe1622895a0383892bd33652ea8b5f34e031
 }
 
 

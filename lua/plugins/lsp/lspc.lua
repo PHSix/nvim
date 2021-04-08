@@ -55,7 +55,11 @@ lspconfig.sumneko_lua.setup {
 -- lspconfig.pyright.setup {
 --   capabilities = capabilities
 -- }
+<<<<<<< HEAD
 lspconfig.jedi_language_server.setup {
+=======
+lspconfig.jedi_language_server.setup{
+>>>>>>> b27cbe1622895a0383892bd33652ea8b5f34e031
   capabilities = capabilities
 }
 
@@ -124,4 +128,18 @@ lspconfig.bashls.setup {
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities
 }
+<<<<<<< HEAD
+=======
+--
+-- dart  flutter
+--
+-- lsp.dartls.setup {
+--   cmd = {"dart", "/opt/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot", "--lsp"},
+--   closingLabels = true,
+--   outline = true,
+--   flutterOutline = true
+
+-- }
+
+>>>>>>> b27cbe1622895a0383892bd33652ea8b5f34e031
 
