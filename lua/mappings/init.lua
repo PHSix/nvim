@@ -74,6 +74,9 @@ Mappings = {
   -- caw.vim
   ["n|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
   ["v|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
+  -- tcomment
+  -- ["n|,cc"] = map_cmd("TComment"):silent(),
+  -- ["v|,cc"] = map_cmd("TComment"):silent(),
   -- lspsaga
   ["n|K"] = map_cmd("Lspsaga hover_doc"):noremap():silent(),
   ["n|gj"] = map_cmd("Lspsaga diagnostic_jump_next"):noremap():silent(),

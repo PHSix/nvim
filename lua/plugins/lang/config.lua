@@ -106,4 +106,20 @@ end
 function config.vim_dadbod_ui()
 end
 
+function config.vue()
+  vim.cmd [[
+  function! OnChangeVueSubtype(subtype)
+  echom 'Subtype is '.a:subtype
+  if a:subtype == 'html'
+    setlocal commentstring=<!--%s-->
+    setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+  elseif a:subtype =~ 'css'
+    setlocal comments=s1:/*,mb:*,ex:*/ commentstring&
+  else
+    setlocal commentstring=//%s
+    setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+  endif
+endfunction
+  ]]
+end
 return config

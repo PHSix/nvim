@@ -5,7 +5,7 @@ tools["PHSix/faster.nvim"] = {
   opt = true
 }
 tools["lilydjwg/fcitx.vim"] = {
-  event = {"InsertEnter"}
+    event = {"InsertEnter"}
 }
 tools["tpope/vim-surround"] = {
   keys = {"c", "d", "y"}
@@ -32,6 +32,9 @@ tools["windwp/nvim-autopairs"] = {
 tools["tyru/caw.vim"] = {
   opt = true
 }
+-- tools["tomtom/tcomment_vim"] = {
+--
+-- }
 tools["npxbr/glow.nvim"] = {
   cmd = {"Glow"}
 }

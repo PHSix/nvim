@@ -23,9 +23,9 @@ lang["alex-popov-tech/timer.nvim"] = {
 lang["dart-lang/dart-vim-plugin"] = {
   ft = {"dart"}
 }
-lang["kevinhwang91/nvim-bqf"] = {
-  event = {"InsertEnter"}
-}
+-- lang["kevinhwang91/nvim-bqf"] = {
+--   event = {"InsertEnter"}
+-- }
 
 lang["kristijanhusak/vim-dadbod-ui"] = {
   -- cmd = {'DBUIToggle','DBUIAddConnection','DBUI','DBUIFindBuffer','DBUIRenameBuffer'},
@@ -34,7 +34,8 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   requires = {{"tpope/vim-dadbod", opt = true}}
 }
 lang["posva/vim-vue"] = {
-  ft = {"vue"}
+  requires = {{"Shougo/context_filetype.vim", ft={"vue"}}},
+  ft = {"vue"},
 }
 
 return lang

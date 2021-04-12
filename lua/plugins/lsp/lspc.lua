@@ -28,9 +28,11 @@ lspconfig.gopls.setup {
 --
 -- lua
 --
-local nvim_lua_cache_path = vim.fn["getenv"]("HOME") .. "/.cache/nvim/lua-language-server"
+-- local nvim_lua_cache_path = vim.fn["getenv"]("HOME") .. "/.cache/nvim/lua-language-server"
+-- local nvim_lua_cache_path = vim.fn["getenv"]("HOME") .. "/.cache/nvim/lua-language-server"
 lspconfig.sumneko_lua.setup {
-  cmd = {nvim_lua_cache_path .. "/bin/Linux/lua-language-server", "-E", nvim_lua_cache_path .. "/main.lua"},
+  -- cmd = {nvim_lua_cache_path .. "/bin/Linux/lua-language-server", "-E", nvim_lua_cache_path .. "/main.lua"},
+  cmd = {"lua-language-server", "-E", "/usr/share/lua-language-server/main.lua"},
   settings = {
     Lua = {
       diagnostics = {
