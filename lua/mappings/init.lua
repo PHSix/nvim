@@ -25,10 +25,10 @@ Mappings = {
   ["n|<leader>h"] = map_key("<C-w>h"),
   ["n|<leader>k"] = map_key("<C-w>k"),
   ["n|<leader>j"] = map_key("<C-w>j"),
-  ["n|<leader>sl"] = map_cmd("lua require('main.buftools').show_bufs_list('rvsplit')"):silent(),
-  ["n|<leader>sh"] = map_cmd("lua require('main.buftools').show_bufs_list('lvsplit')"):silent(),
-  ["n|<leader>sk"] = map_cmd("lua require('main.buftools').show_bufs_list('tsplit')"):silent(),
-  ["n|<leader>sj"] = map_cmd("lua require('main.buftools').show_bufs_list('bsplit')"):silent(),
+  ["n|<leader>sl"] = map_cmd("lua require('main.buftools').bufs_ui('rvsplit')"):silent(),
+  ["n|<leader>sh"] = map_cmd("lua require('main.buftools').bufs_ui('lvsplit')"):silent(),
+  ["n|<leader>sk"] = map_cmd("lua require('main.buftools').bufs_ui('tsplit')"):silent(),
+  ["n|<leader>sj"] = map_cmd("lua require('main.buftools').bufs_ui('bsplit')"):silent(),
   -- ["n|<leader>sl"] = map_cmd("set splitright<CR>:vsplit"):silent(),
   -- ["n|<leader>sh"] = map_cmd("set nosplitright<CR>:vsplit"):silent(),
   -- ["n|<leader>sk"] = map_cmd("set nosplitbelow<CR>:split"):silent(),
@@ -56,11 +56,15 @@ Mappings = {
   ["n|<C-f>u"] = map_cmd("DashboardFindHistory"):noremap():silent(),
   ["n|<C-f>f"] = map_cmd("DashboardFindFile"):noremap():silent(),
   -- ["n|<C-f>m"] = map_cmd("DashboardJumpMark"):noremap():silent(),
-  ["n|<C-f>w"] = map_cmd("DashboardFindWord"):noremap():silent(),
+  ["n|<C-f>g"] = map_cmd("DashboardFindWord"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
   -- telescope
-  ["n|<c-f>b"] = map_cmd("Telescope grep_string"):silent():noremap(),
+  ["n|<c-f>w"] = map_cmd("Telescope grep_string"):silent():noremap(),
+  -- ["n|<c-f>o"] = map_cmd("Telescope commands"):silent():noremap(),
+  -- fzf.vim
+  ["n|<c-f>b"] = map_cmd(""):silent():noremap(),
+  ["n|<c-f>o"] = map_cmd("Commands"):silent():noremap(),
   -- easy align
   ["v|ga"] = map_cmd("<Plug>(EasyAlign)"):silent(),
   -- nvim-tree.lua

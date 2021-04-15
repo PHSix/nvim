@@ -33,9 +33,11 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   config = conf.vim_dadbod_ui,
   requires = {{"tpope/vim-dadbod", opt = true}}
 }
-lang["posva/vim-vue"] = {
-  requires = {{"Shougo/context_filetype.vim", ft={"vue"}}},
+lang["leafOfTree/vim-vue-plugin"] = {
   ft = {"vue"},
+}
+lang["othree/html5.vim"] = {
+  ft = {"html"}
 }
 
 return lang

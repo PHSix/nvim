@@ -7,18 +7,58 @@ end
 function config.telescope()
   vim.cmd [[packadd plenary.nvim]]
   vim.cmd [[packadd popup.nvim]]
+  vim.cmd [[packadd telescope-fzy-native.nvim]]
   require("telescope").setup {
     defaults = {
-      prompt_position = "top",
+      vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case"
+      },
+      prompt_position = "bottom",
       prompt_prefix = " 🍭",
-      file_preview = require "telescope.previewers".vim_buffer_cat.new,
+      selection_caret = "> ",
+      entry_prefix = "  ",
+      initial_mode = "insert",
+      selection_strategy = "reset",
+      sorting_strategy = "descending",
+      layout_strategy = "horizontal",
+      layout_defaults = {
+        horizontal = {
+          mirror = false
+        },
+        vertical = {
+          mirror = false
+        }
+      },
+      file_sorter = require "telescope.sorters".get_fuzzy_file,
+      file_ignore_patterns = {},
+      generic_sorter = require "telescope.sorters".get_generic_fuzzy_sorter,
+      shorten_path = true,
+      winblend = 0,
+      width = 0.65,
+      preview_cutoff = 120,
+      results_height = 1,
+      results_width = 0.5,
+      border = {},
+      borderchars = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+      color_devicons = true,
+      use_less = true,
+      set_env = {["COLORTERM"] = "truecolor"}, -- default = nil,
+      file_previewer = require "telescope.previewers".vim_buffer_cat.new,
       grep_previewer = require "telescope.previewers".vim_buffer_vimgrep.new,
       qflist_previewer = require "telescope.previewers".vim_buffer_qflist.new,
-      mappings = {
-        i = {
-          ["<C-j>"] = require("telescope.actions").move_selection_next,
-          ["<C-k>"] = require("telescope.actions").move_selection_previous
-        }
+      -- Developer configurations: Not meant for general override
+      buffer_previewer_maker = require "telescope.previewers".buffer_previewer_maker
+    },
+    extensions = {
+      fzy_native = {
+        override_generic_sorter = false,
+        override_file_sorter = true
       }
     }
   }
@@ -30,13 +70,14 @@ function config.nvim_tree()
   vim.g.nvim_tree_indent_markers = 1
   vim.g.nvim_tree_auto_close = 1
   vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_auto_open = 1
+  vim.g.nvim_tree_auto_open = 0
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_bindings = {
     ["o"] = ":lua require'nvim-tree'.on_keypress('edit')<CR>",
     ["<CR>"] = ":lua require'nvim-tree'.on_keypress('edit')<CR>",
     ["r"] = ":lua require'nvim-tree'.on_keypress('rename')<CR>",
+    ["a"] = ":lua require'nvim-tree'.on_keypress('rename')<CR>",
     ["dd"] = ":lua require'nvim-tree'.on_keypress('cut')<CR>",
     ["q"] = ":lua require'nvim-tree'.on_keypress('close')<CR>",
     ["p"] = ":lua require'nvim-tree'.on_keypress('paste')<CR>",
@@ -88,6 +129,7 @@ function config.colorizer()
       lua = {rgb_fn = true},
       css = {rgb_fn = true},
       scss = {rgb_fn = true},
+      vue = {rgb_fn = true},
       sass = {rgb_fn = true},
       stylus = {rgb_fn = true},
       vim = {names = true},
@@ -96,6 +138,7 @@ function config.colorizer()
       "javascriptreact",
       "typescript",
       "typescriptreact",
+      "json",
       html = {
         mode = "foreground"
       },
@@ -145,23 +188,31 @@ function config.clipboard()
 end
 
 function config.peekup()
-  require('nvim-peekup.config').on_keystroke["delay"] = "50ms"
-  require('nvim-peekup.config').on_keystroke["delay"] = '50ms'
+  require("nvim-peekup.config").on_keystroke["delay"] = "50ms"
+  require("nvim-peekup.config").on_keystroke["delay"] = "50ms"
 end
 
 function config.smartinput()
-  require('smartinput').setup {
-  ['go'] = { ';',':=',';'},
-  -- ['javascript'] = {'.', '.', '+'},
-}
+  require("smartinput").setup {
+    ["go"] = {";", ":=", ";"}
+    -- ['javascript'] = {'.', '.', '+'},
+  }
 end
 
 function config.vim_eft()
-      vim.g.eft_ignorecase = true
+  vim.g.eft_ignorecase = true
 end
 
 function config.lir_nvim()
   vim.cmd [[packadd plenary.nvim]]
 end
+function config.kommentary()
+  vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
+  vim.api.nvim_set_keymap("n", ",cu", "<Plug>kommentary_motion_default", {})
+  vim.api.nvim_set_keymap("v", ",cc", "<Plug>kommentary_visual_default", {})
+end
 
+function config.fzf()
+  -- vim.g.fzf_command_prefix = "Fzf"
+end
 return config

@@ -17,12 +17,16 @@ tools["nvim-telescope/telescope.nvim"] = {
   cmd = {"Telescope"},
   requires = {
     new {"nvim-lua/plenary.nvim", opt = true},
-    new {"nvim-lua/popup.nvim", opt = true}
+    new {"nvim-lua/popup.nvim", opt = true},
+    new {'nvim-telescope/telescope-fzy-native.nvim',opt = true},
   },
   config = conf.telescope
 }
+tools["junegunn/fzf.vim"] = {
+  config = conf.fzf
+}
 tools["kyazdani42/nvim-tree.lua"] = {
-  cmd = {"NvimTreeToggle"},
+  -- cmd = {"NvimTreeToggle"},
   config = conf.nvim_tree
 }
 tools["windwp/nvim-autopairs"] = {
@@ -32,9 +36,6 @@ tools["windwp/nvim-autopairs"] = {
 tools["tyru/caw.vim"] = {
   opt = true
 }
--- tools["tomtom/tcomment_vim"] = {
---
--- }
 tools["npxbr/glow.nvim"] = {
   cmd = {"Glow"}
 }
@@ -47,17 +48,11 @@ tools["norcalli/nvim-colorizer.lua"] = {
 tools["voldikss/vim-translator"] = {
   cmd = "TranslateW"
 }
-tools["smolck/nvim-todoist.lua"] = {
-  opt = true
-}
 tools["glepnir/smartinput.nvim"] = {
   event = {"InsertEnter"},
   config = conf.smartinput
 }
 tools["hrsh7th/vim-eft"] = {
-  opt = true
-}
-tools["easymotion/vim-easymotion"] = {
   opt = true
 }
 tools["mbbill/undotree"] = {

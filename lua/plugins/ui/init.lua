@@ -23,7 +23,7 @@ ui["romgrk/barbar.nvim"] = {
 --   config = conf.hardline
 -- }
 ui["itchyny/vim-cursorword"] = {
-  event = {"BufReadPre", "BufNewFile"}
+  event = {"CursorMoved"}
 }
 -- ui["Yggdroot/indentLine"] = {
 --   event = {"BufEnter", "BufReadPre"},

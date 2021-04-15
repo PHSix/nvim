@@ -34,29 +34,29 @@ function config.compe()
     enabled = true,
     debug = false,
     min_length = 1,
-    preselect = "disable",
+    preselect = "always",
     allow_prefix_unmatch = false,
     source = {
       vsnip = {
-        priority = 6,
+        priority = 6
       },
       nvim_lsp = {
-        priority = 5,
+        priority = 5
       },
       path = {
-        priority = 4,
+        priority = 4
       },
       nvim_lua = {
-        priority = 3,
+        priority = 3
       },
       buffer = {
-        priority = 2,
+        priority = 2
       },
       spell = {
-        priority = 2,
+        priority = 2
       },
       treesitter = {
-        priority = 1,
+        priority = 1
       },
       zsh = true
     }
@@ -67,13 +67,16 @@ function config.flutter()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   require("flutter-tools").setup {
+    experimental = {
+      -- map of feature flags
+      lsp_derive_paths = false -- experimental: Attempt to find the user's flutter SDK
+    },
+    flutter_path = "/opt/flutter",
     closing_tags = {
       highlight = "FlutterCloseTag",
       prefix = "// "
     },
-    dev_log = {
-      open_cmd = "30vnew"
-    },
+    dev_log = {},
     outline = {
       open_cmd = "botright 45vnew"
     },

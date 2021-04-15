@@ -103,6 +103,9 @@ lspconfig.emmet_ls.setup {
 }
 lspconfig.vuels.setup {
   capabilities = capabilities,
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = true
+  end
   -- root_dir = vim.loop.cwd,
 }
 

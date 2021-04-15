@@ -19,4 +19,10 @@ function t.new(req)
   return r
 end
 
+function _G.get_comment()
+  local stack = fn.synstack(fn.line('.'), fn.col('.'))
+  print("working")
+  print(vim.inspect(fn.map(stack, 'synIDattr(v:val, "name")')))
+end
+vim.api.nvim_set_keymap("n", "<C-t>", ":lua get_comment()<CR>", {})
 return t
