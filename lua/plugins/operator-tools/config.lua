@@ -8,8 +8,16 @@ function config.telescope()
   vim.cmd [[packadd plenary.nvim]]
   vim.cmd [[packadd popup.nvim]]
   vim.cmd [[packadd telescope-fzy-native.nvim]]
+  local actions = require("telescope.actions")
   require("telescope").setup {
     defaults = {
+      mappings = {
+        i = {
+        ["<esc>"] = actions.close,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous
+        }
+      },
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -40,7 +48,7 @@ function config.telescope()
       generic_sorter = require "telescope.sorters".get_generic_fuzzy_sorter,
       shorten_path = true,
       winblend = 0,
-      width = 0.65,
+      width = 0.3,
       preview_cutoff = 120,
       results_height = 1,
       results_width = 0.5,
@@ -65,6 +73,7 @@ function config.telescope()
 end
 
 function config.nvim_tree()
+	local tree_cb = require'nvim-tree.config'.nvim_tree_callback
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
@@ -74,16 +83,18 @@ function config.nvim_tree()
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_bindings = {
-    ["o"] = ":lua require'nvim-tree'.on_keypress('edit')<CR>",
-    ["<CR>"] = ":lua require'nvim-tree'.on_keypress('edit')<CR>",
-    ["r"] = ":lua require'nvim-tree'.on_keypress('rename')<CR>",
-    ["a"] = ":lua require'nvim-tree'.on_keypress('rename')<CR>",
-    ["dd"] = ":lua require'nvim-tree'.on_keypress('cut')<CR>",
-    ["q"] = ":lua require'nvim-tree'.on_keypress('close')<CR>",
-    ["p"] = ":lua require'nvim-tree'.on_keypress('paste')<CR>",
-    ["u"] = ":lua require'nvim-tree'.on_keypress('dir_up')<CR>",
-    ["<TAB>"] = ":lua require'nvim-tree'.on_keypress('preview')<CR>",
-    ["n"] = ":lua require'nvim-tree'.on_keypress('create')<CR>"
+    ["o"] = tree_cb("edit"),
+    ["<CR>"] = tree_cb("edit"),
+    ["R"] = tree_cb("refresh"),
+    ["r"] = tree_cb("rename"),
+    ["a"] = tree_cb("rename"),
+    ["d"] = tree_cb("delete"),
+    ["q"] = tree_cb("close"),
+    ["p"] = tree_cb("paste"),
+    ["u"] = tree_cb("dir_up"),
+    ["<TAB>"] = tree_cb("preview"),
+    ["cn"] = tree_cb("create"),
+    ["zh"] = tree_cb("toggle_dotfiles")
   }
 end
 function config.chowcho()

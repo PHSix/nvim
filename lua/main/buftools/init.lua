@@ -5,6 +5,7 @@ local fn = vim.fn
 local bufs_cacahe
 -- update bufs_cacahe table
 local refresh = function(id)
+  -- print(vim.inspect(bufs_cacahe))
   api.nvim_buf_set_lines(id, 0, -1, false, bufs_cacahe["value"])
 end
 
@@ -38,8 +39,6 @@ local function bufs_ui(split)
   end
   local float = require("main.buftools.floatbuf")()
   require("main.buftools.bufmap")(float["buf"])
-  -- bufs_cacahe = require("main.buftools.bufs")()
-  -- api.nvim_buf_set_lines(float["buf"], 0, -1, false, bufs_cacahe["value"])
   refresh(float["buf"])
   vim.cmd [[hi! CursorLine gui=inverse]]
 end
@@ -49,7 +48,7 @@ local function open()
   if _G.do_split_dict == nil then
     return
   end
-  local buf_id = fn.line(".")
+  local buf_id = bufs_cacahe.keys[fn.line(".")]
   vim.cmd [[q]]
   if _G.do_split_dict == "rvsplit" then
     vim.cmd [[set splitright]]

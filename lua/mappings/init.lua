@@ -60,7 +60,7 @@ Mappings = {
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
   -- telescope
-  ["n|<c-f>w"] = map_cmd("Telescope grep_string"):silent():noremap(),
+  ["n|<c-f>w"] = map_cmd("Telescope grep_string theme=get_dropdown"):silent():noremap(),
   -- ["n|<c-f>o"] = map_cmd("Telescope commands"):silent():noremap(),
   -- fzf.vim
   ["n|<c-f>b"] = map_cmd(""):silent():noremap(),

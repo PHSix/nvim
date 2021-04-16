@@ -1,4 +1,5 @@
 local conf = require("plugins.lang.config")
+local new = require("main.global").new
 local lang = {}
 lang["mhartington/formatter.nvim"] = {
   ft = {"typescript", "lua", "javascript", "json", "vue"},
@@ -31,7 +32,7 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   -- cmd = {'DBUIToggle','DBUIAddConnection','DBUI','DBUIFindBuffer','DBUIRenameBuffer'},
   opt = true,
   config = conf.vim_dadbod_ui,
-  requires = {{"tpope/vim-dadbod", opt = true}}
+  requires = {new {"tpope/vim-dadbod", opt = true}}
 }
 lang["leafOfTree/vim-vue-plugin"] = {
   ft = {"vue"},

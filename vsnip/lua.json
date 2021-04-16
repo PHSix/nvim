@@ -32,13 +32,13 @@
     "scope": "source.lua"
   },
   "fun": {
-    "body": "function ${1:function_name}(${2})\n\t${0}\nend",
+    "body": "function ${0:function_name}()\n\t\nend",
     "description": "function",
     "prefix": "fun",
     "scope": "source.lua"
   },
   "function": {
-    "body": "function ${1:function_name}(${2})\n\t${0}\nend",
+    "body": "function ${0:function_name}()\n\t\nend",
     "description": "function",
     "prefix": "function",
     "scope": "source.lua"
