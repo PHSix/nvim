@@ -13,9 +13,9 @@ function config.telescope()
     defaults = {
       mappings = {
         i = {
-        ["<esc>"] = actions.close,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous
+          ["<esc>"] = actions.close,
+          ["<C-j>"] = actions.move_selection_next,
+          ["<C-k>"] = actions.move_selection_previous
         }
       },
       vimgrep_arguments = {
@@ -73,7 +73,7 @@ function config.telescope()
 end
 
 function config.nvim_tree()
-	local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+  local tree_cb = require "nvim-tree.config".nvim_tree_callback
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_hide_dotfiles = 1
   vim.g.nvim_tree_indent_markers = 1
@@ -171,30 +171,25 @@ end
 
 function config.clipboard()
   require "clipboard-image".setup {
-    img_dir = function()
-      return "src/assets/img"
-    end,
-    img_dir_txt = function()
-      return "/assets/img"
-    end,
-    img_name = function()
-      local img_dir = require "clipboard-image".get_config().img_dir()
-      local index = 1
-      for output in io.popen("ls " .. img_dir):lines() do
-        if output == "image" .. index .. ".png" then
-          index = index + 1
-        else
-          break
+    default = {
+      img_name = function()
+        local img_dir = require "clipboard-image.config".get_config().img_dir()
+        local index = 1
+        for output in io.popen("ls " .. img_dir):lines() do
+          if output == "image" .. index .. ".png" then
+            index = index + 1
+          else
+            break
+          end
         end
+        return "image" .. index
       end
-      return "image" .. index
-    end,
-    prefix = function()
-      return "![]("
-    end,
-    suffix = function()
-      return ")"
-    end
+    },
+    markdown = {
+      img_dir = "img",
+      img_dir_txt = "./img",
+      affix = "![](%s)"
+    }
   }
 end
 

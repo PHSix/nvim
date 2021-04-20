@@ -1,11 +1,10 @@
 local conf = require("plugins.operator-tools.config")
-local new = require("main.global").new
 local tools = {}
 tools["PHSix/faster.nvim"] = {
   opt = true
 }
 tools["lilydjwg/fcitx.vim"] = {
-    event = {"InsertEnter"}
+  event = {"InsertEnter"}
 }
 tools["tpope/vim-surround"] = {
   keys = {"c", "d", "y"}
@@ -16,9 +15,9 @@ tools["gcmt/wildfire.vim"] = {
 tools["nvim-telescope/telescope.nvim"] = {
   cmd = {"Telescope"},
   requires = {
-    new {"nvim-lua/plenary.nvim", opt = true},
-    new {"nvim-lua/popup.nvim", opt = true},
-    new {'nvim-telescope/telescope-fzy-native.nvim',opt = true},
+    {"nvim-lua/plenary.nvim", opt = true},
+    {"nvim-lua/popup.nvim", opt = true},
+    {"nvim-telescope/telescope-fzy-native.nvim", opt = true}
   },
   config = conf.telescope
 }
@@ -60,5 +59,9 @@ tools["mbbill/undotree"] = {
 }
 tools["phaazon/hop.nvim"] = {
   cmd = "HopChar2"
+}
+tools["ekickx/clipboard-image.nvim"] = {
+  ft = {"markdown"},
+  config = conf.clipboard
 }
 return tools

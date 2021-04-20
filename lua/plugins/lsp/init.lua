@@ -1,5 +1,4 @@
 local conf = require("plugins.lsp.config")
-local new = require("main.global").new
 local lsp = {}
 lsp["neovim/nvim-lspconfig"] = {
   config = function()
@@ -10,8 +9,8 @@ lsp["neovim/nvim-lspconfig"] = {
 lsp["hrsh7th/nvim-compe"] = {
   event = {"InsertEnter"},
   requires = {
-    new {"onsails/lspkind-nvim", opt = true},
-    new {"tamago324/compe-zsh", ft = {"zsh"}}
+    {"onsails/lspkind-nvim", opt = true},
+    {"tamago324/compe-zsh", ft = {"zsh"}}
   },
   config = conf.compe
 }

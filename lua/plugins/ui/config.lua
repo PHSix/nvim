@@ -22,7 +22,6 @@ function config.dashboard()
 end
 
 function config.hybrid()
-  -- require("hybrid").config()
   require("hybrid")
 end
 

@@ -32,13 +32,13 @@ local function bufs_ui(split)
   if split ~= nil then
     _G.do_split_dict = split
   end
-  bufs_cacahe = require("main.buftools.bufs")()
+  bufs_cacahe = require("utils.buftools.bufs")()
   if #bufs_cacahe.keys == 1 then
     open_in_normal()
     return
   end
-  local float = require("main.buftools.floatbuf")()
-  require("main.buftools.bufmap")(float["buf"])
+  local float = require("utils.buftools.floatbuf")()
+  require("utils.buftools.bufmap")(float["buf"])
   refresh(float["buf"])
   vim.cmd [[hi! CursorLine gui=inverse]]
 end
@@ -71,7 +71,7 @@ end
 local function delete()
   local cur_line = fn.line(".")
   api.nvim_buf_delete(bufs_cacahe.keys[cur_line], {force = true})
-  bufs_cacahe = require("main.buftools.bufs")()
+  bufs_cacahe = require("uti.buftools.bufs")()
   refresh()
 end
 

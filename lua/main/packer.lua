@@ -18,9 +18,9 @@ function Packer:add_repos()
   for _, filename in pairs(plugins_list) do
     local packs = require("plugins." .. filename)
     for repo, conf in pairs(packs) do
-      if string.sub(repo, 1, 1) ~= "~" then
-        repo = "https://hub.fastgit.org/" .. repo
-      end
+--      if string.sub(repo, 1, 1) ~= "~" then
+--        repo = "https://hub.fastgit.org/" .. repo
+--      end
       self.repos[#self.repos + 1] = vim.tbl_extend("force", {repo}, conf)
     end
   end
@@ -33,7 +33,10 @@ function Packer:load_plugins()
   end
   packer.init {
     clone_timeout = 30,
-    transitive_opt = true
+    transitive_opt = true,
+    git = {
+      cmd = "fgit"
+    }
   }
   packer.reset() -- clean plugin manages
   local use = packer.use
@@ -47,7 +50,7 @@ function Packer:load_plugins()
 end
 
 local function install(path)
-  execute("!git clone https://hub.fastgit.org/wbthomason/packer.nvim " .. path)
+  execute("!fgit clone https://github.com/wbthomason/packer.nvim " .. path)
 end
 
 local function init()
@@ -63,4 +66,21 @@ local function init()
   end
 end
 
-return {init = init}
+local async
+async =
+  vim.loop.new_async(
+  vim.schedule_wrap(
+    function()
+      init()
+      vim.cmd [[command! PackerCompile lua require('packer').compile()]]
+      vim.cmd [[command! PackerInstall lua require('packer').install()]]
+      vim.cmd [[command! PackerUpdate lua require('packer').update()]]
+      vim.cmd [[command! PackerSync lua require('packer').sync()]]
+      vim.cmd [[command! PackerClean lua require('packer').clean()]]
+      async:close()
+    end
+  )
+)
+async:send()
+
+-- return {init = init}

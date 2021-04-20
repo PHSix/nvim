@@ -1,5 +1,4 @@
 local conf = require("plugins.lang.config")
-local new = require("main.global").new
 local lang = {}
 lang["mhartington/formatter.nvim"] = {
   ft = {"typescript", "lua", "javascript", "json", "vue"},
@@ -18,11 +17,9 @@ lang["skywind3000/vim-rt-format"] = {
   event = {"InsertEnter"},
   config = conf.rt_format
 }
-lang["alex-popov-tech/timer.nvim"] = {
-  opt = true
-}
 lang["dart-lang/dart-vim-plugin"] = {
-  ft = {"dart"}
+  -- ft = {"dart"}
+  opt = true
 }
 -- lang["kevinhwang91/nvim-bqf"] = {
 --   event = {"InsertEnter"}
@@ -32,10 +29,11 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   -- cmd = {'DBUIToggle','DBUIAddConnection','DBUI','DBUIFindBuffer','DBUIRenameBuffer'},
   opt = true,
   config = conf.vim_dadbod_ui,
-  requires = {new {"tpope/vim-dadbod", opt = true}}
+  requires = {{"tpope/vim-dadbod", opt = true}}
 }
 lang["leafOfTree/vim-vue-plugin"] = {
-  ft = {"vue"},
+  -- ft = {"vue"},
+  opt = true
 }
 lang["othree/html5.vim"] = {
   ft = {"html"}

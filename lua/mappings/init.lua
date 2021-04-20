@@ -25,17 +25,17 @@ Mappings = {
   ["n|<leader>h"] = map_key("<C-w>h"),
   ["n|<leader>k"] = map_key("<C-w>k"),
   ["n|<leader>j"] = map_key("<C-w>j"),
-  ["n|<leader>sl"] = map_cmd("lua require('main.buftools').bufs_ui('rvsplit')"):silent(),
-  ["n|<leader>sh"] = map_cmd("lua require('main.buftools').bufs_ui('lvsplit')"):silent(),
-  ["n|<leader>sk"] = map_cmd("lua require('main.buftools').bufs_ui('tsplit')"):silent(),
-  ["n|<leader>sj"] = map_cmd("lua require('main.buftools').bufs_ui('bsplit')"):silent(),
+  ["n|<leader>sl"] = map_cmd("lua require('utils.buftools').bufs_ui('rvsplit')"):silent(),
+  ["n|<leader>sh"] = map_cmd("lua require('utils.buftools').bufs_ui('lvsplit')"):silent(),
+  ["n|<leader>sk"] = map_cmd("lua require('utils.buftools').bufs_ui('tsplit')"):silent(),
+  ["n|<leader>sj"] = map_cmd("lua require('utils.buftools').bufs_ui('bsplit')"):silent(),
   -- ["n|<leader>sl"] = map_cmd("set splitright<CR>:vsplit"):silent(),
   -- ["n|<leader>sh"] = map_cmd("set nosplitright<CR>:vsplit"):silent(),
   -- ["n|<leader>sk"] = map_cmd("set nosplitbelow<CR>:split"):silent(),
   -- ["n|<leader>sj"] = map_cmd("set splitbelow<CR>:split"):silent(),
   ["n|<leader>o"] = map_cmd("call v:lua.switch_NvimTree()"):silent():noremap(),
   -- noremal operations
-  ["v|fy"] = map_key("\"+y"),
+  ["v|fy"] = map_key('"+y'),
   ["n|S"] = map_cmd("w"):noremap():silent(),
   ["n|<leader>nl"] = map_cmd("nohlsearch"):noremap():silent(),
   ["n|<TAB>"] = map_cmd("bn"):silent(),
@@ -45,6 +45,12 @@ Mappings = {
   -- command mode operations
   ["c|<C-h>"] = map_key("<left>"),
   ["c|<C-l>"] = map_key("<right>"),
+  -- registers
+  ["n|1y"] = map_key([["1yy]]),
+  ["n|2y"] = map_key([["2yy]]),
+  ["n|3y"] = map_key([["3yy]]),
+  ["n|4y"] = map_key([["4yy]]),
+  ["n|5y"] = map_key([["5yy]]),
   --
   -- Plugins
   --
@@ -56,14 +62,14 @@ Mappings = {
   ["n|<C-f>u"] = map_cmd("DashboardFindHistory"):noremap():silent(),
   ["n|<C-f>f"] = map_cmd("DashboardFindFile"):noremap():silent(),
   -- ["n|<C-f>m"] = map_cmd("DashboardJumpMark"):noremap():silent(),
-  ["n|<C-f>g"] = map_cmd("DashboardFindWord"):noremap():silent(),
+  ["n|<C-f>h"] = map_cmd("DashboardFindWord"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
   -- telescope
   ["n|<c-f>w"] = map_cmd("Telescope grep_string theme=get_dropdown"):silent():noremap(),
   -- ["n|<c-f>o"] = map_cmd("Telescope commands"):silent():noremap(),
   -- fzf.vim
-  ["n|<c-f>b"] = map_cmd(""):silent():noremap(),
+  -- ["n|<c-f>b"] = map_cmd(""):silent():noremap(),
   ["n|<c-f>o"] = map_cmd("Commands"):silent():noremap(),
   -- easy align
   ["v|ga"] = map_cmd("<Plug>(EasyAlign)"):silent(),
@@ -115,8 +121,8 @@ Mappings = {
   ["n|<A-f>"] = map_cmd("FTermOpen"):noremap():silent(),
   ["t|<A-f>"] = map_key("<C-\\><C-n><CMD>lua require'FTerm'.toggle()<CR>"):noremap():silent(),
   -- nvim-peekup
-  ["n|<leader>p"] = map_cmd("lua require('nvim-peekup').peekup_open('p')"):noremap():silent(),
-  ["n|<leader>P"] = map_cmd("lua require('nvim-peekup').peekup_open('P')"):noremap():silent(),
+  -- ["n|<leader>p"] = map_cmd("lua require('nvim-peekup').peekup_open('p')"):noremap():silent(),
+  -- ["n|<leader>P"] = map_cmd("lua require('nvim-peekup').peekup_open('P')"):noremap():silent(),
   -- Vista
   ["n|<C-,>"] = map_cmd("call v:lua.open_tagbar()"):noremap():silent(),
   -- Format
@@ -145,9 +151,8 @@ Mappings = {
   ["n|<leader>7"] = map_cmd("call v:lua.switch_buf(7)"):silent(),
   ["n|<leader>8"] = map_cmd("call v:lua.switch_buf(8)"):silent(),
   -- fzf-lsp
-  ["n|<C-f>d"] = map_cmd("call v:lua.fzf_lsp_doc_symbols()"):silent(),
+  ["n|<C-f>d"] = map_cmd("call v:lua.fzf_lsp_doc_symbols()"):silent()
 }
-
 
 local function load_mappings()
   for key, cmd in pairs(Mappings) do
@@ -157,7 +162,15 @@ local function load_mappings()
   end
 end
 
-
-load_mappings()
-
-
+-- load_mappings()
+local async
+async =
+  vim.loop.new_async(
+  vim.schedule_wrap(
+    function()
+      load_mappings()
+      async:close()
+    end
+  )
+)
+async:send()

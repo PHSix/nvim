@@ -4,18 +4,31 @@ local events = {
     {"WinEnter", "*", "setlocal cursorline"}
   },
   ["vimrc_help"] = {
-    {"BufEnter", "*.txt","if &buftype == 'help' | wincmd L | endif"}
+    {"BufEnter", "*.txt", "if &buftype == 'help' | wincmd L | endif"}
   },
   ["cursorline_set"] = {
     {"CursorMoved", "<buffer>", "set cursorline"}
   },
   ["todo_file"] = {
-    {"filetype", "vim", "inoremap", '<buffer> <silent>  <C-t> " TODO:' },
-    {"filetype", "go", "inoremap", "<buffer> <silent>  <C-t> // TODO:" },
-    {"filetype", "python","inoremap", "<buffer> <silent>  <C-t> # TODO:"},
-    {"filetype", "c","inoremap", "<buffer> <silent>  <C-t> // TODO:"},
-    {"filetype", "cpp","inoremap", "<buffer> <silent>  <C-t> // TODO:"},
-    {"filetype", "lua","inoremap", "<buffer> <silent>  <C-t> -- TODO:"},
+    {"filetype", "vim", "inoremap", '<buffer> <silent>  <C-t> " TODO:'},
+    {"filetype", "go", "inoremap", "<buffer> <silent>  <C-t> // TODO:"},
+    {"filetype", "python", "inoremap", "<buffer> <silent>  <C-t> # TODO:"},
+    {"filetype", "c", "inoremap", "<buffer> <silent>  <C-t> // TODO:"},
+    {"filetype", "cpp", "inoremap", "<buffer> <silent>  <C-t> // TODO:"},
+    {"filetype", "lua", "inoremap", "<buffer> <silent>  <C-t> -- TODO:"}
+  },
+  ["markdown_snippets"] = {
+    {"filetype", "markdown", "inoremap", '<buffer> ,e <Esc>/<++><CR>:nohlsearch<CR>"_c4l'},
+    {"filetype", "markdown", "inoremap", "<buffer> ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA"},
+    {"filetype", "markdown", "inoremap", "<buffer> ,i ![](<++>) <++><Esc>F[a"},
+    {"filetype", "markdown", "inoremap", "<buffer> ,l [](<++>) <++><Esc>F[a"},
+    {"filetype", "markdown", "inoremap", "<buffer> ,s `` <++><Esc>F`i"}
+    -- {"filetype", "markdown", "inoremap", "<buffer> ,"},
+    -- {"filetype", "markdown", "inoremap", "<buffer> ,"}
+  },
+  ["lang"] = {
+    {"filetype", "dart", "packadd", "dart-vim-plugin"},
+    {"filetype", "vue", "packadd", "vim-vue-plugin"},
   }
 }
 
@@ -31,4 +44,14 @@ local function load_event()
   end
 end
 
-load_event()
+local async
+async =
+  vim.loop.new_async(
+  vim.schedule_wrap(
+    function()
+      load_event()
+      async:close()
+    end
+  )
+)
+async:send()
