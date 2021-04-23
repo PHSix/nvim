@@ -18,9 +18,9 @@ function Packer:add_repos()
   for _, filename in pairs(plugins_list) do
     local packs = require("plugins." .. filename)
     for repo, conf in pairs(packs) do
---      if string.sub(repo, 1, 1) ~= "~" then
---        repo = "https://hub.fastgit.org/" .. repo
---      end
+      --      if string.sub(repo, 1, 1) ~= "~" then
+      --        repo = "https://hub.fastgit.org/" .. repo
+      --      end
       self.repos[#self.repos + 1] = vim.tbl_extend("force", {repo}, conf)
     end
   end
@@ -51,6 +51,11 @@ end
 
 local function install(path)
   execute("!fgit clone https://github.com/wbthomason/packer.nvim " .. path)
+  local plugin_path = fn.stdpath("config") .. "/plugin"
+  if fn.empty(fn.glob(plugin_path)) ~= 0 then
+    execute("!rm -rf ~/.config/nvim/plugin")
+    vim.cmd [[q!]]
+  end
 end
 
 local function init()

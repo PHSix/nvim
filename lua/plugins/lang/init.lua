@@ -18,8 +18,8 @@ lang["skywind3000/vim-rt-format"] = {
   config = conf.rt_format
 }
 lang["dart-lang/dart-vim-plugin"] = {
-  -- ft = {"dart"}
-  opt = true
+  ft = {"dart"}
+  -- opt = true
 }
 -- lang["kevinhwang91/nvim-bqf"] = {
 --   event = {"InsertEnter"}

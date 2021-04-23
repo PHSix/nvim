@@ -64,25 +64,32 @@ function config.compe()
 end
 
 function config.flutter()
+  vim.cmd [[packadd plenary.nvim]]
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   require("flutter-tools").setup {
     experimental = {
       -- map of feature flags
-      lsp_derive_paths = false -- experimental: Attempt to find the user's flutter SDK
+      lsp_derive_paths = true -- experimental: Attempt to find the user's flutter SDK
     },
-    flutter_path = "/opt/flutter",
+    flutter_path = "/opt/flutter/bin/flutter",
+    flutter_lookup_cmd = "dirname $(which flutter)",
     closing_tags = {
       highlight = "FlutterCloseTag",
       prefix = "// "
     },
-    dev_log = {},
+    dev_log = {
+      open_cmd = "tabedit"
+    },
     outline = {
       open_cmd = "botright 45vnew"
     },
     lsp = {
       capabilities = capabilities,
       enableSdkFormatter = true
+    },
+    widget_guides = {
+      enabled = true
     }
   }
 end
@@ -125,4 +132,7 @@ end
 -- 	prompt = {},
 -- }
 -- end
+function config.lsp_trouble()
+  require("trouble").setup {}
+end
 return config
