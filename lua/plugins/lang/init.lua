@@ -8,7 +8,7 @@ lang["dhruvasagar/vim-table-mode"] = {
   ft = {"markdown"}
 }
 lang["nvim-treesitter/nvim-treesitter"] = {
-  event = {"BufRead"},
+--  event = {"BufRead"},
   run = ":TSUpdate",
   config = conf.treesitter
 }

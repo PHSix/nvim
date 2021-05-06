@@ -35,7 +35,7 @@ function Packer:load_plugins()
     clone_timeout = 30,
     transitive_opt = true,
     git = {
-      cmd = "fgit"
+      cmd = "git"
     }
   }
   packer.reset() -- clean plugin manages
@@ -50,11 +50,10 @@ function Packer:load_plugins()
 end
 
 local function install(path)
-  execute("!fgit clone https://github.com/wbthomason/packer.nvim " .. path)
+  execute("!git clone https://github.com/wbthomason/packer.nvim " .. path)
   local plugin_path = fn.stdpath("config") .. "/plugin"
   if fn.empty(fn.glob(plugin_path)) ~= 0 then
     execute("!rm -rf ~/.config/nvim/plugin")
-    vim.cmd [[q!]]
   end
 end
 

@@ -93,10 +93,12 @@ Mappings = {
   ["n|gk"] = map_cmd("Lspsaga diagnostic_jump_prev"):noremap():silent(),
   ["n|<leader>ca"] = map_cmd("Lspsaga code_action"):noremap():silent(),
   ["v|<leader>ca"] = map_cmd("Lspsaga range_code_action"):noremap():silent(),
-  ["n|gf"] = map_cmd("Lspsaga lsp_finder"):noremap():silent(),
+  ["n|gd"] = map_cmd("Lspsaga lsp_finder"):noremap():silent(),
+  -- ["n|<A-d>"] = map_cmd("lua require('utils.term')()"):noremap():silent(),
+  -- ["t|<A-d>"] = map_key("<C-\\><C-n>:lua require('utils.term')()<CR>"):noremap():silent(),
   ["n|<A-d>"] = map_cmd("Lspsaga open_floaterm"):noremap():silent(),
   ["t|<A-d>"] = map_key("<C-\\><C-n>:Lspsaga close_floaterm<CR>"):noremap():silent(),
-  ["n|gd"] = map_cmd("Lspsaga preview_definition"):noremap():silent(),
+  ["n|gf"] = map_cmd("Lspsaga preview_definition"):noremap():silent(),
   ["n|<leader>rn"] = map_cmd("Lspsaga rename"):noremap():silent(),
   -- nvim-compe
   ["i|<Tab>"] = map_key("v:lua.tab_complete()"):expr(),
@@ -118,8 +120,8 @@ Mappings = {
   ["n|<leader>tt"] = map_cmd("TranslateW"):noremap():silent(),
   ["v|<leader>tt"] = map_cmd("TranslateW"):noremap():silent(),
   -- FTerm
-  ["n|<A-f>"] = map_cmd("FTermOpen"):noremap():silent(),
-  ["t|<A-f>"] = map_key("<C-\\><C-n><CMD>lua require'FTerm'.toggle()<CR>"):noremap():silent(),
+  -- ["n|<A-f>"] = map_cmd("FTermOpen"):noremap():silent(),
+  -- ["t|<A-f>"] = map_key("<C-\\><C-n><CMD>lua require'FTerm'.toggle()<CR>"):noremap():silent(),
   -- nvim-peekup
   -- ["n|<leader>p"] = map_cmd("lua require('nvim-peekup').peekup_open('p')"):noremap():silent(),
   -- ["n|<leader>P"] = map_cmd("lua require('nvim-peekup').peekup_open('P')"):noremap():silent(),

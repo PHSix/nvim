@@ -65,8 +65,8 @@ end
 
 function config.flutter()
   vim.cmd [[packadd plenary.nvim]]
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- capabilities.textDocument.completion.completionItem.snippetSupport = true
   require("flutter-tools").setup {
     experimental = {
       -- map of feature flags
@@ -78,14 +78,14 @@ function config.flutter()
       highlight = "FlutterCloseTag",
       prefix = "// "
     },
-    dev_log = {
-      open_cmd = "tabedit"
-    },
+    -- dev_log = {
+    --   open_cmd = "30vnew"
+    -- },
     outline = {
       open_cmd = "botright 45vnew"
     },
     lsp = {
-      capabilities = capabilities,
+      capabilities = {},
       enableSdkFormatter = true
     },
     widget_guides = {
@@ -106,7 +106,7 @@ function config.lspsaga()
       warn_sign = "▊",
       hint_sign = "▊",
       infor_sign = "▊",
-      code_action_keys = {quit = "<ESC>", exec = "o"},
+      code_action_keys = {quit = "<ESC>", exec = "<CR>"},
       rename_action_keys = {quit = "<ESC>", exec = "<CR>"}
     }
   )
