@@ -4,9 +4,9 @@ local ui = {}
 ui["glepnir/dashboard-nvim"] = {
   config = conf.dashboard
 }
-ui["PHSix/nvim-hybrid"] = {
-  config = conf.hybrid
-}
+-- ui["PHSix/nvim-hybrid"] = {
+--   config = conf.hybrid
+-- }
 ui["glepnir/galaxyline.nvim"] = {
   branch = "main",
   config = conf.galaxyline,
@@ -32,4 +32,10 @@ ui["junegunn/goyo.vim"] = {
 ui["tveskag/nvim-blame-line"] = {
   cmd = {"EnableBlameLine"}
 }
+-- ui["glepnir/zephyr-nvim"] = {
+  -- config = function ()
+  --   vim.cmd [[colorscheme zephyr]]
+  -- end
+-- }
+
 return ui

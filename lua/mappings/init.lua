@@ -62,11 +62,11 @@ Mappings = {
   ["n|<C-f>u"] = map_cmd("DashboardFindHistory"):noremap():silent(),
   ["n|<C-f>f"] = map_cmd("DashboardFindFile"):noremap():silent(),
   -- ["n|<C-f>m"] = map_cmd("DashboardJumpMark"):noremap():silent(),
-  ["n|<C-f>h"] = map_cmd("DashboardFindWord"):noremap():silent(),
+  ["n|<C-f>w"] = map_cmd("DashboardFindWord"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
   -- telescope
-  ["n|<c-f>w"] = map_cmd("Telescope grep_string theme=get_dropdown"):silent():noremap(),
+  ["n|<c-f>b"] = map_cmd("Telescope file_browser"):silent():noremap(),
   -- ["n|<c-f>o"] = map_cmd("Telescope commands"):silent():noremap(),
   -- fzf.vim
   -- ["n|<c-f>b"] = map_cmd(""):silent():noremap(),

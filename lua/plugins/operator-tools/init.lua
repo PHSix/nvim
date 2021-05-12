@@ -3,9 +3,6 @@ local tools = {}
 tools["PHSix/faster.nvim"] = {
   opt = true
 }
-tools["lilydjwg/fcitx.vim"] = {
-  event = {"InsertEnter"}
-}
 tools["tpope/vim-surround"] = {
   keys = {"c", "d", "y"}
 }
@@ -33,6 +30,7 @@ tools["windwp/nvim-autopairs"] = {
   config = conf.autopairs
 }
 tools["tyru/caw.vim"] = {
+  requires = {{"Shougo/context_filetype.vim", ft={"html", "vue"}}},
   opt = true
 }
 tools["npxbr/glow.nvim"] = {
@@ -63,5 +61,11 @@ tools["phaazon/hop.nvim"] = {
 tools["ekickx/clipboard-image.nvim"] = {
   ft = {"markdown"},
   config = conf.clipboard
+}
+tools["lambdalisue/fern.vim"] = {
+  cmd = "Fern"
+}
+tools["simrat39/symbols-outline.nvim"] = {
+  cmd = "SymbolsOutline"
 }
 return tools

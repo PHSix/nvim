@@ -10,7 +10,10 @@ local load_comple = function()
   -- function()
   require("main.event")
   require("mappings")
+  require("utils.fcitx5")
+  require("main.theme")
   -- async:close()
+  --
   -- end
   --   )
   -- )
