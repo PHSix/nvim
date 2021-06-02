@@ -32,10 +32,10 @@ ui["junegunn/goyo.vim"] = {
 ui["tveskag/nvim-blame-line"] = {
   cmd = {"EnableBlameLine"}
 }
--- ui["glepnir/zephyr-nvim"] = {
-  -- config = function ()
-  --   vim.cmd [[colorscheme zephyr]]
-  -- end
--- }
+ui["glepnir/zephyr-nvim"] = {
+  config = function ()
+    vim.cmd [[colorscheme zephyr]]
+  end
+}
 
 return ui

@@ -20,7 +20,6 @@ lsp["hrsh7th/vim-vsnip"] = {
 }
 
 lsp["glepnir/lspsaga.nvim"] = {
-  cmd = "Lspsaga",
   config = conf.lspsaga
 }
 
@@ -32,9 +31,14 @@ lsp["gfanto/fzf-lsp.nvim"] = {
   opt = true
 }
 -- Lua
-lsp["folke/lsp-trouble.nvim"]={
-  requires = {{"kyazdani42/nvim-web-devicons", opt=true}},
+lsp["folke/lsp-trouble.nvim"] = {
+  requires = {{"kyazdani42/nvim-web-devicons", opt = true}},
   cmd = "LspTroubleToggle",
-  config = conf.lsp_trouble,
+  config = conf.lsp_trouble
 }
+lsp["ray-x/lsp_signature.nvim"] = {
+  config = conf.lsp_signature
+}
+
+lsp["nanotee/sqls.nvim"] = {}
 return lsp

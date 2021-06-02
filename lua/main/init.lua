@@ -2,7 +2,6 @@
 local load_comple = function()
   -- vim.cmd [[set guifont=FiraCode\ Nerd\ Font:h20]]
   require("main.opts")
-  -- require("main.theme")
   require("main.packer")
   -- async =
   --   vim.loop.new_async(
@@ -11,7 +10,8 @@ local load_comple = function()
   require("main.event")
   require("mappings")
   require("utils.fcitx5")
-  require("main.theme")
+  -- require("main.theme")
+  require("utils.smart_query")
   -- async:close()
   --
   -- end

@@ -34,6 +34,7 @@ local M = {
     syntax = "on"
   },
   ["win"] = {
+    wrap = false,
     cursorline = true,
     number = true,
     relativenumber = true,

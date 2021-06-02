@@ -40,6 +40,7 @@ Mappings = {
   ["n|<leader>nl"] = map_cmd("nohlsearch"):noremap():silent(),
   ["n|<TAB>"] = map_cmd("bn"):silent(),
   ["n|;"] = map_key(":"),
+  ["n|<A-x>"] = map_cmd("Telescope commands"):silent():noremap(),
   -- terminal operations
   ["t|<C-p>"] = map_key("<C-\\><C-n>"):noremap():silent(),
   -- command mode operations
@@ -101,10 +102,10 @@ Mappings = {
   ["n|gf"] = map_cmd("Lspsaga preview_definition"):noremap():silent(),
   ["n|<leader>rn"] = map_cmd("Lspsaga rename"):noremap():silent(),
   -- nvim-compe
-  ["i|<Tab>"] = map_key("v:lua.tab_complete()"):expr(),
-  ["s|<Tab>"] = map_key("v:lua.tab_complete()"):expr(),
-  ["i|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
-  ["s|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
+  -- ["i|<Tab>"] = map_key("v:lua.tab_complete()"):expr(),
+  -- ["s|<Tab>"] = map_key("v:lua.tab_complete()"):expr(),
+  -- ["i|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
+  -- ["s|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
   ["i|<CR>"] = map_key("compe#confirm('<CR>')"):expr():noremap(),
   -- barbar.nvim
   -- ["n|<leader>1"] = map_cmd("BufferGoto 1"):noremap():silent(),

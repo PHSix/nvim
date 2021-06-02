@@ -30,7 +30,7 @@ tools["windwp/nvim-autopairs"] = {
   config = conf.autopairs
 }
 tools["tyru/caw.vim"] = {
-  requires = {{"Shougo/context_filetype.vim", ft={"html", "vue"}}},
+  requires = {{"Shougo/context_filetype.vim", ft = {"html", "vue"}}},
   opt = true
 }
 tools["npxbr/glow.nvim"] = {
@@ -38,7 +38,7 @@ tools["npxbr/glow.nvim"] = {
 }
 
 tools["norcalli/nvim-colorizer.lua"] = {
-  ft = {"lua", "vim", "css", "html", "javascript", "typescript", "c", "cpp"},
+  ft = {"lua", "vim", "css", "html", "javascript", "typescript", "c", "cpp", "vue"},
   config = conf.colorizer
 }
 
@@ -68,4 +68,10 @@ tools["lambdalisue/fern.vim"] = {
 tools["simrat39/symbols-outline.nvim"] = {
   cmd = "SymbolsOutline"
 }
+tools["NTBBloodbath/rest.nvim"] = {
+  requires = {{"nvim-lua/plenary.nvim", opt = true}},
+  config = conf.rest,
+  opt = true
+}
+tools["nanotee/luv-vimdocs"] = {}
 return tools

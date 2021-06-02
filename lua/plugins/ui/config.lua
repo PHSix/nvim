@@ -4,12 +4,13 @@ function config.dashboard()
   vim.cmd [[autocmd FileType dashboard lua vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q<CR>', {noremap=true, silent=true})]]
   vim.cmd [[autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2]]
   vim.cmd [[augroup END]]
-  vim.g.dashboard_default_executive = "fzf"
-  vim.g.dashboard_preview_command = "cat"
-  vim.g.dashboard_preview_pipeline = "lolcat"
-  vim.g.dashboard_preview_file = vim.fn["getenv"]("HOME") .. "/.config/nvim/static/neovim.txt"
-  vim.g.dashboard_preview_file_height = 8
-  vim.g.dashboard_preview_file_width = 50
+  vim.g.dashboard_default_executive = "telescope"
+  -- vim.g.dashboard_default_executive = "fzf"
+  -- vim.g.dashboard_preview_command = "cat"
+  -- vim.g.dashboard_preview_pipeline = "lolcat"
+  -- vim.g.dashboard_preview_file = vim.fn["getenv"]("HOME") .. "/.config/nvim/static/neovim.txt"
+  -- vim.g.dashboard_preview_file_height = 8
+  -- vim.g.dashboard_preview_file_width = 50
   vim.g.dashboard_custom_shortcut = {
     last_session = "         ",
     find_history = "<Ctrl-f>o",

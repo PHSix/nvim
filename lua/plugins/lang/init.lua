@@ -32,8 +32,8 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   requires = {{"tpope/vim-dadbod", opt = true}}
 }
 lang["leafOfTree/vim-vue-plugin"] = {
-  -- ft = {"vue"},
-  opt = true
+  ft = {"vue"},
+  -- opt = true
 }
 lang["othree/html5.vim"] = {
   ft = {"html"}

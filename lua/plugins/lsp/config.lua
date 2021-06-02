@@ -132,6 +132,8 @@ end
 -- 	prompt = {},
 -- }
 -- end
+function config.lsp_signature()
+end
 function config.lsp_trouble()
   require("trouble").setup {}
 end
