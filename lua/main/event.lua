@@ -4,7 +4,8 @@ local events = {
     {"WinEnter", "*", "setlocal cursorline"}
   },
   ["vimrc_help"] = {
-    {"BufEnter", "*.txt", "if &buftype == 'help' | wincmd L | endif"}
+    {"BufEnter", "*.txt", "if &buftype == 'help' | wincmd L | endif"},
+    {"FileType", "help", "lua vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q<CR>', {noremap=true, silent=true})"}
   },
   ["cursorline_set"] = {
     {"CursorMoved", "<buffer>", "set cursorline"}

@@ -30,8 +30,7 @@ lsp["akinsho/flutter-tools.nvim"] = {
 lsp["gfanto/fzf-lsp.nvim"] = {
   opt = true
 }
--- Lua
-lsp["folke/lsp-trouble.nvim"] = {
+lsp["folke/trouble.nvim"] = {
   requires = {{"kyazdani42/nvim-web-devicons", opt = true}},
   cmd = "LspTroubleToggle",
   config = conf.lsp_trouble

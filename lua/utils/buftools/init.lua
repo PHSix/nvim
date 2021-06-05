@@ -5,7 +5,6 @@ local fn = vim.fn
 local bufs_cacahe
 -- update bufs_cacahe table
 local refresh = function(id)
-  -- print(vim.inspect(bufs_cacahe))
   api.nvim_buf_set_lines(id, 0, -1, false, bufs_cacahe["value"])
 end
 

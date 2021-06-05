@@ -11,14 +11,23 @@ function config.dashboard()
   -- vim.g.dashboard_preview_file = vim.fn["getenv"]("HOME") .. "/.config/nvim/static/neovim.txt"
   -- vim.g.dashboard_preview_file_height = 8
   -- vim.g.dashboard_preview_file_width = 50
-  vim.g.dashboard_custom_shortcut = {
-    last_session = "         ",
-    find_history = "<Ctrl-f>o",
-    find_file = "<Ctrl-f>f",
-    new_file = "<Ctrl-f>n",
-    change_colorscheme = "<Ctrl-f>c",
-    find_word = "<Ctrl-f>w",
-    book_marks = "         "
+  -- vim.g.dashboard_custom_shortcut = {
+  --   last_session = "         ",
+  --   find_history = "<Ctrl-f>o",
+  --   find_file = "<Ctrl-f>f",
+  --   new_file = "<Ctrl-f>n",
+  --   change_colorscheme = "<Ctrl-f>c",
+  --   find_word = "<Ctrl-f>w",
+  --   book_marks = "         "
+  -- }
+  vim.g.dashboard_custom_section = {
+    a = {description = {"  Recently Files         <C-f> u"}, command = "Telescope oldfiles"},
+    b = {description = {"  Find File              <C-f> f"}, command = "Telescope find_files"},
+    d = {description = {"  Find Word              <C-f> w"}, command = "Telescope live_grep"},
+    e = {description = {"  Marks                  <C-f> m"}, command = "Telescope marks"},
+    f = {description = {"  New File               <C-f> n"}, command = "DashboardNewFile"},
+    h = {description = {"  Compile Configure         <F2>"}, command = "PackerCompile"},
+    i = {description = {"  Settings                  <F1>"}, command = ":e ~/.config/nvim/lua/main/init.lua"},
   }
 end
 
@@ -137,22 +146,26 @@ function config.focus()
   focus.width = 120
 end
 function config.specs()
-  require('specs').setup{ 
+  require("specs").setup {
     popup = {
-	-- Simple constant blend effect
-        fader = function(blend, cnt)
-            if cnt > 100 then
-                return 80
-            else return nil end
-        end,
-	-- Growing effect from left to right
-        resizer = function(width, ccol, cnt)
-            if width-cnt > 0 then
-                return {width+cnt, ccol}
-            else return nil end
-        end,
+      -- Simple constant blend effect
+      fader = function(blend, cnt)
+        if cnt > 100 then
+          return 80
+        else
+          return nil
+        end
+      end,
+      -- Growing effect from left to right
+      resizer = function(width, ccol, cnt)
+        if width - cnt > 0 then
+          return {width + cnt, ccol}
+        else
+          return nil
+        end
+      end
     }
-}
+  }
 end
 
 return config

@@ -9,8 +9,6 @@ end
 
 function _G.leave_insert()
   status = vim.fn.system("fcitx5-remote")
-  vim.cmd [[echom "leave"]]
-  vim.cmd("echom " .. status)
   if status == "1\n" then
     return
   end
@@ -19,8 +17,6 @@ function _G.leave_insert()
 end
 
 function _G.enter_insert()
-  vim.cmd [[echom "enter"]]
-  vim.cmd("echom " .. status)
   if status == "1\n" then
     return
   end

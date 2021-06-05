@@ -36,7 +36,11 @@ function Packer:load_plugins()
     transitive_opt = true,
     git = {
       cmd = "git"
-    }
+    },
+    profile = {
+    enable = false,
+    threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+  }
   }
   packer.reset() -- clean plugin manages
   local use = packer.use

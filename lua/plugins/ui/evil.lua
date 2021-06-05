@@ -114,8 +114,10 @@ gls.left = {
       provider = {"FileName", "FileSize"},
       condition = buffer_not_empty,
       highlight = {colors.clearwhite, colors.bg2, "bold"},
-      separator = "",
+      separator = "",
       separator_highlight = {colors.bg2, colors.line_bg}
+      -- separator = "",
+      -- separator_highlight = {colors.bg2, colors.line_bg}
     }
   },
   {

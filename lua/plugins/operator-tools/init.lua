@@ -18,9 +18,6 @@ tools["nvim-telescope/telescope.nvim"] = {
   },
   config = conf.telescope
 }
-tools["junegunn/fzf.vim"] = {
-  config = conf.fzf
-}
 tools["kyazdani42/nvim-tree.lua"] = {
   -- cmd = {"NvimTreeToggle"},
   config = conf.nvim_tree
@@ -74,4 +71,7 @@ tools["NTBBloodbath/rest.nvim"] = {
   opt = true
 }
 tools["nanotee/luv-vimdocs"] = {}
+tools["matbme/JABS.nvim"] = {
+  opt = true,
+}
 return tools

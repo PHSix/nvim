@@ -58,20 +58,16 @@ Mappings = {
   -- lsp
   -- ["n|<leader>ds"] = map_cmd("lua vim.lsp.buf.document_symbol()"):silent():noremap(),
   -- dashboard
-  -- ["n|<C-f>s"] = map_cmd("<C-u>SessionSave"):noremap():silent(),
-  -- ["n|<C-f>l"] = map_cmd("<C-u>SessionLoad"):noremap():silent(),
-  ["n|<C-f>u"] = map_cmd("DashboardFindHistory"):noremap():silent(),
-  ["n|<C-f>f"] = map_cmd("DashboardFindFile"):noremap():silent(),
-  -- ["n|<C-f>m"] = map_cmd("DashboardJumpMark"):noremap():silent(),
-  ["n|<C-f>w"] = map_cmd("DashboardFindWord"):noremap():silent(),
+  ["n|<C-f>u"] = map_cmd("Telescope oldfiles"):noremap():silent(),
+  ["n|<C-f>f"] = map_cmd("Telescope find_file"):noremap():silent(),
+  ["n|<C-f>w"] = map_cmd("Telescope live_grep"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
+  ["n|<F1>"] = map_cmd("e ~/.config/nvim/lua/main/init.lua"):noremap():silent(),
+  ["n|<F2>"] = map_cmd("PackerCompile"):noremap():silent(),
   -- telescope
   ["n|<c-f>b"] = map_cmd("Telescope file_browser"):silent():noremap(),
   -- ["n|<c-f>o"] = map_cmd("Telescope commands"):silent():noremap(),
-  -- fzf.vim
-  -- ["n|<c-f>b"] = map_cmd(""):silent():noremap(),
-  ["n|<c-f>o"] = map_cmd("Commands"):silent():noremap(),
   -- easy align
   ["v|ga"] = map_cmd("<Plug>(EasyAlign)"):silent(),
   -- nvim-tree.lua
@@ -92,6 +88,7 @@ Mappings = {
   ["n|K"] = map_cmd("Lspsaga hover_doc"):noremap():silent(),
   ["n|gj"] = map_cmd("Lspsaga diagnostic_jump_next"):noremap():silent(),
   ["n|gk"] = map_cmd("Lspsaga diagnostic_jump_prev"):noremap():silent(),
+  ["n|J"] = map_cmd("Lspsaga show_cursor_diagnostics"):noremap():silent(),
   ["n|<leader>ca"] = map_cmd("Lspsaga code_action"):noremap():silent(),
   ["v|<leader>ca"] = map_cmd("Lspsaga range_code_action"):noremap():silent(),
   ["n|gd"] = map_cmd("Lspsaga lsp_finder"):noremap():silent(),
