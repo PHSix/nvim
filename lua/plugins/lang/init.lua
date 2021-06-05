@@ -38,5 +38,11 @@ lang["leafOfTree/vim-vue-plugin"] = {
 lang["othree/html5.vim"] = {
   ft = {"html"}
 }
+lang["ajorgensen/vim-markdown-toc"] = {
+  ft = {"markdown"}
+}
+lang["dkarter/bullets.vim"] = {
+  ft = {"markdown"}
+}
 
 return lang

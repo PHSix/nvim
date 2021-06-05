@@ -30,7 +30,7 @@ function config.compe()
     }
   )
   vim.o.completeopt = "menu,menuone,noselect"
-  require "compe".setup {
+  local compe_config = {
     enabled = true,
     debug = false,
     min_length = 1,
@@ -61,6 +61,16 @@ function config.compe()
       zsh = true
     }
   }
+  require "compe".setup(compe_config)
+  function _G.Compe_toggle()
+    local compe = require("compe")
+    if require("compe.config")._config.enabled then
+      compe.setup({enabled = false})
+    else
+      compe.setup(compe_config)
+    end
+  end
+  vim.cmd([[command! CompeToggle lua Compe_toggle()]])
 end
 
 function config.flutter()

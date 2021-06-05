@@ -36,7 +36,8 @@ lsp["folke/trouble.nvim"] = {
   config = conf.lsp_trouble
 }
 lsp["ray-x/lsp_signature.nvim"] = {
-  config = conf.lsp_signature
+  config = conf.lsp_signature,
+  event = {"InsertEnter"},
 }
 
 lsp["nanotee/sqls.nvim"] = {}
