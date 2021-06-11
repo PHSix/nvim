@@ -10,5 +10,8 @@ dap["mfussenegger/nvim-dap"] = {
   opt=true,
   config = conf.dap
 }
+dap["rcarriga/nvim-dap-ui"] = {
+  opt = true
+}
 
 return dap

@@ -74,4 +74,12 @@ tools["nanotee/luv-vimdocs"] = {}
 tools["matbme/JABS.nvim"] = {
   opt = true,
 }
+tools["akinsho/nvim-toggleterm.lua"] = {
+  opt = true,
+  config = conf.toggle_term
+}
+tools["sudormrfbin/cheatsheet.nvim"] = {
+  cmd = "Cheatsheet",
+  config = conf.cheatsheet
+}
 return tools

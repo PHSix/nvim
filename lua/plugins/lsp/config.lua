@@ -1,6 +1,8 @@
 local config = {}
 function config.compe()
   vim.cmd [[packadd lspkind-nvim]]
+  vim.cmd [[PackerLoad emmet-vim]]
+  vim.cmd [[PackerLoad emmet-compe]]
   require("lspkind").init(
     {
       with_text = true,
@@ -40,6 +42,13 @@ function config.compe()
       vsnip = {
         priority = 6
       },
+      emmet = true,
+      -- emmet = {
+      --   priority = 1000,
+      --   dup = 1,
+      --   menu = "[Em]",
+      --   filetypes = {"html", "htmldjango", "vue"}
+      -- },
       nvim_lsp = {
         priority = 5
       },

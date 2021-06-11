@@ -1,6 +1,6 @@
 local M = {
   ["global"] = {
-    guifont = "FiraCode Nerd Font:h20",
+    guifont = "FiraCode NF, FiraCode Nerd Font, Operator Mono Medium:h18",
     mouse = "a",
     undofile = true,
     tabstop = 2,
@@ -39,21 +39,20 @@ local M = {
     number = true,
     relativenumber = true,
     scrolloff = 5,
-    signcolumn = "yes",
+    signcolumn = "yes"
   }
 }
 
 local function load_opts()
-	for opt, value in pairs(M['buffer']) do
-		vim.bo[opt] = value
-	end
-	for opt, value in pairs(M['win']) do
-		vim.wo[opt] = value
-	end
-	for opt, value in pairs(M['global']) do
-		vim.o[opt] = value
-	end
+  for opt, value in pairs(M["buffer"]) do
+    vim.bo[opt] = value
+  end
+  for opt, value in pairs(M["win"]) do
+    vim.wo[opt] = value
+  end
+  for opt, value in pairs(M["global"]) do
+    vim.o[opt] = value
+  end
 end
 
 load_opts()
-

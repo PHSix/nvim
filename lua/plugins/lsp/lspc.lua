@@ -2,7 +2,7 @@ local api = vim.api
 local lspconfig = require 'lspconfig'
 
 if not packer_plugins['lspsaga.nvim'].loaded then
-  vim.cmd [[packadd lspsaga.nvim]]
+  vim.cmd [[PackerLoad lspsaga.nvim]]
 end
 
 local saga = require 'lspsaga'
@@ -45,6 +45,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 
 local enhance_attach = function(client,bufnr)
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.cmd [[packadd lsp_signature.nvim]]
   require "lsp_signature".on_attach()
 end
 

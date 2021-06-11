@@ -59,17 +59,15 @@ Mappings = {
   -- ["n|<leader>ds"] = map_cmd("lua vim.lsp.buf.document_symbol()"):silent():noremap(),
   -- dashboard
   ["n|<C-f>u"] = map_cmd("Telescope oldfiles"):noremap():silent(),
-  ["n|<C-f>f"] = map_cmd("Telescope find_file"):noremap():silent(),
-  ["n|<C-f>w"] = map_cmd("Telescope live_grep"):noremap():silent(),
+  ["n|<C-f>f"] = map_cmd("Telescope find_files"):noremap():silent(),
+  -- ["n|<C-f>w"] = map_cmd("Telescope live_grep"):noremap():silent(),
+  ["n|<C-f>w"] = map_cmd("Telescope current_buffer_fuzzy_find"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
   ["n|<F1>"] = map_cmd("e ~/.config/nvim/lua/main/init.lua"):noremap():silent(),
   ["n|<F2>"] = map_cmd("PackerCompile"):noremap():silent(),
   -- telescope
   ["n|<c-f>b"] = map_cmd("Telescope file_browser"):silent():noremap(),
-  -- ["n|<c-f>o"] = map_cmd("Telescope commands"):silent():noremap(),
-  -- easy align
-  ["v|ga"] = map_cmd("<Plug>(EasyAlign)"):silent(),
   -- nvim-tree.lua
   ["n|<C-n>"] = map_cmd("NvimTreeToggle"):noremap():silent(),
   -- faster.nvim
@@ -151,7 +149,10 @@ Mappings = {
   ["n|<leader>7"] = map_cmd("call v:lua.switch_buf(7)"):silent(),
   ["n|<leader>8"] = map_cmd("call v:lua.switch_buf(8)"):silent(),
   -- fzf-lsp
-  ["n|<C-f>d"] = map_cmd("call v:lua.fzf_lsp_doc_symbols()"):silent()
+  ["n|<C-f>d"] = map_cmd("call v:lua.fzf_lsp_doc_symbols()"):silent(),
+  -- toggle_term
+  ["n|<C-t>"] = map_cmd("call v:lua.toggle_term()"):silent(),
+  ["t|<C-t>"] = map_key("<C-p>:call v:lua.toggle_term()<CR>"):silent()
 }
 
 local function load_mappings()

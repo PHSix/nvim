@@ -176,3 +176,9 @@ function _G.fzf_lsp_doc_symbols()
   vim.cmd [[packadd fzf-lsp.nvim]]
   require'fzf_lsp'.document_symbol_call()
 end
+
+function _G.toggle_term()
+  require("packer").loader("nvim-toggleterm.lua")
+  vim.cmd [[ToggleTerm]]
+end
+

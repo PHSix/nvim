@@ -5,7 +5,7 @@ ui["glepnir/dashboard-nvim"] = {
   config = conf.dashboard
 }
 -- ui["PHSix/nvim-hybrid"] = {
---   config = conf.hybrid
+  -- config = conf.hybrid
 -- }
 ui["glepnir/galaxyline.nvim"] = {
   branch = "main",
@@ -32,9 +32,13 @@ ui["junegunn/goyo.vim"] = {
 ui["tveskag/nvim-blame-line"] = {
   cmd = {"EnableBlameLine"}
 }
-ui["glepnir/zephyr-nvim"] = {
+ui["mhartington/oceanic-next"] = {
   config = function ()
-    vim.cmd [[colorscheme zephyr]]
+    vim.cmd [[set termguicolors]]
+    vim.cmd [[syntax on]]
+    vim.g.oceanic_next_terminal_bold = 1
+    vim.g.oceanic_next_terminal_italic = 1
+    vim.cmd [[colorscheme OceanicNext]]
   end
 }
 

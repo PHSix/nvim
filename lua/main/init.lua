@@ -11,7 +11,6 @@ local load_comple = function()
   require("mappings")
   require("utils.fcitx5")
   -- require("main.theme")
-  require("utils.smart_query")
   -- async:close()
   --
   -- end
