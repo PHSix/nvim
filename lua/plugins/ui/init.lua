@@ -5,18 +5,18 @@ ui["glepnir/dashboard-nvim"] = {
   config = conf.dashboard
 }
 -- ui["PHSix/nvim-hybrid"] = {
-  -- config = conf.hybrid
+-- config = conf.hybrid
 -- }
-ui["glepnir/galaxyline.nvim"] = {
-  branch = "main",
-  config = conf.galaxyline,
+ui["hoob3rt/lualine.nvim"] = {
+  config = conf.lualine,
   requires = {{"kyazdani42/nvim-web-devicons", opt = true}}
 }
 
-ui["romgrk/barbar.nvim"] = {
-  config = conf.barbar,
-  requires = {{"kyazdani42/nvim-web-devicons", opt=true}}
-}
+-- ui["romgrk/barbar.nvim"] = {
+--   opt = true,
+--   config = conf.barbar,
+--   requires = {{"kyazdani42/nvim-web-devicons", opt=true}}
+-- }
 ui["itchyny/vim-cursorword"] = {
   event = {"CursorMoved"}
 }
@@ -32,14 +32,21 @@ ui["junegunn/goyo.vim"] = {
 ui["tveskag/nvim-blame-line"] = {
   cmd = {"EnableBlameLine"}
 }
-ui["mhartington/oceanic-next"] = {
-  config = function ()
-    vim.cmd [[set termguicolors]]
-    vim.cmd [[syntax on]]
-    vim.g.oceanic_next_terminal_bold = 1
-    vim.g.oceanic_next_terminal_italic = 1
-    vim.cmd [[colorscheme OceanicNext]]
+ui["folke/tokyonight.nvim"] = {
+  config = function()
+    vim.g.tokyonight_style = "night"
+    vim.cmd [[colorscheme tokyonight]]
   end
+}
+ui["marko-cerovac/material.nvim"] = {
+  opt = true,
+  config = function()
+    vim.g.material_style = "deep ocean"
+    require("material").set()
+  end
+}
+ui["akinsho/nvim-bufferline.lua"] = {
+  config = conf.nvim_bufferline()
 }
 
 return ui

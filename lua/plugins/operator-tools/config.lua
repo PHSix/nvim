@@ -82,6 +82,10 @@ function config.nvim_tree()
   vim.g.nvim_tree_auto_open = 0
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_follow = 1
+  vim.g.nvim_tree_tab_open = 1
+  vim.g.nvim_tree_add_trailing = 1
+  vim.g.nvim_tree_disable_netrw=0
+  vim.g.nvim_tree_hijack_netrw = 0
   vim.g.nvim_tree_bindings = {
     ["o"] = tree_cb("edit"),
     ["<CR>"] = tree_cb("edit"),

@@ -2,7 +2,6 @@ local config = {}
 function config.dashboard()
   vim.cmd [[augroup dashboard_autocmd]]
   vim.cmd [[autocmd FileType dashboard lua vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q<CR>', {noremap=true, silent=true})]]
-  vim.cmd [[autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2]]
   vim.cmd [[augroup END]]
   vim.g.dashboard_default_executive = "telescope"
   -- vim.g.dashboard_default_executive = "fzf"
@@ -27,7 +26,7 @@ function config.dashboard()
     e = {description = {"  Marks                  <C-f> m"}, command = "Telescope marks"},
     f = {description = {"  New File               <C-f> n"}, command = "DashboardNewFile"},
     h = {description = {"  Compile Configure         <F2>"}, command = "PackerCompile"},
-    i = {description = {"  Settings                  <F1>"}, command = ":e ~/.config/nvim/lua/main/init.lua"},
+    i = {description = {"  Settings                  <F1>"}, command = ":e ~/.config/nvim/lua/main/init.lua"}
   }
 end
 
@@ -77,28 +76,24 @@ function config.rainbow()
 end
 
 function config.nvim_bufferline()
-  require("bufferline").setup {
-    options = {
-      numbers = "ordinal",
-      show_buffer_close_icons = false,
-      number_style = "",
-      modified_icon = "✥",
-      show_close_icon = true,
-      buffer_close_icon = "",
-      mappings = true,
-      always_show_bufferline = false
-    },
-    highlights = {
-      buffer_visible = {
-        guifg = "#d2dae2",
-        guibg = "#1e272e"
-      },
-      pick_visible = {
-        guifg = "#d2dae2",
-        guibg = "#1e272e"
+  vim.cmd [[packadd nvim-web-devicons]]
+  if packer_plugins["nvim-bufferline.lua"].loaded then
+    require("bufferline").setup {
+      options = {
+        numbers = "ordinal",
+        show_buffer_close_icons = false,
+        number_style = "",
+        modified_icon = "✥",
+        buffer_close_icon = "",
+        mappings = true,
+        always_show_bufferline = false,
+        show_close_icon = false,
+        show_tab_indicators = true,
+        enforce_regular_tabs = true,
+        offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}}
       }
     }
-  }
+  end
 end
 
 function config.indent_guides()
@@ -166,6 +161,9 @@ function config.specs()
       end
     }
   }
+end
+function config.lualine()
+  require("plugins.ui.evil")
 end
 
 return config
