@@ -32,12 +32,6 @@ ui["junegunn/goyo.vim"] = {
 ui["tveskag/nvim-blame-line"] = {
   cmd = {"EnableBlameLine"}
 }
-ui["folke/tokyonight.nvim"] = {
-  config = function()
-    vim.g.tokyonight_style = "night"
-    vim.cmd [[colorscheme tokyonight]]
-  end
-}
 ui["marko-cerovac/material.nvim"] = {
   opt = true,
   config = function()
@@ -47,6 +41,12 @@ ui["marko-cerovac/material.nvim"] = {
 }
 ui["akinsho/nvim-bufferline.lua"] = {
   config = conf.nvim_bufferline()
+}
+ui["folke/tokyonight.nvim"] = {
+  config = function ()
+    vim.g.tokyonight_style = "day"
+    vim.cmd[[colorscheme tokyonight]]
+  end
 }
 
 return ui

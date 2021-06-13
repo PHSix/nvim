@@ -77,7 +77,7 @@ end
 
 function config.nvim_bufferline()
   vim.cmd [[packadd nvim-web-devicons]]
-  if packer_plugins["nvim-bufferline.lua"].loaded then
+  if packer_plugins and packer_plugins["nvim-bufferline.lua"].loaded then
     require("bufferline").setup {
       options = {
         numbers = "ordinal",
@@ -86,7 +86,7 @@ function config.nvim_bufferline()
         modified_icon = "✥",
         buffer_close_icon = "",
         mappings = true,
-        always_show_bufferline = false,
+        always_show_bufferline = true,
         show_close_icon = false,
         show_tab_indicators = true,
         enforce_regular_tabs = true,

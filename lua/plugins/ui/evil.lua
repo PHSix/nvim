@@ -34,7 +34,7 @@ local config = {
     -- Disable sections and component separators
     component_separators = "",
     section_separators = "",
-    theme = 'tokyonight',
+    theme = 'ayu_light',
     -- theme = {
     --   -- We are going to use lualine_c an lualine_x as left and
     --   -- right section. Both are highlighted by c theme .  So we
@@ -107,8 +107,7 @@ ins_left {
       t = colors.red
     }
     vim.api.nvim_command(
-        'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
-            colors.bg)
+        'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()])
     return ''
   end,
   color = "LualineMode",
