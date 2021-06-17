@@ -98,4 +98,7 @@ tools["sunjon/Shade.nvim"]  = {
   opt = true,
   config = conf.shade
 }
+tools["monaqa/dial.nvim"] = {
+  event = {"CursorMoved"}
+}
 return tools

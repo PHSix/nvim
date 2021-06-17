@@ -71,6 +71,7 @@ Mappings = {
   ["n|<c-f>b"] = map_cmd("Telescope file_browser"):silent():noremap(),
   -- nvim-tree.lua
   -- ["n|<C-n>"] = map_cmd("NvimTreeToggle"):noremap():silent(),
+  -- chadtree
   ["n|<C-n>"] = map_cmd("CHADopen"):silent(),
   -- faster.nvim
   ["n|j"] = map_key("v:lua.faster_jk('j')"):expr():silent(),
@@ -81,9 +82,6 @@ Mappings = {
   -- caw.vim
   ["n|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
   ["v|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
-  -- tcomment
-  -- ["n|,cc"] = map_cmd("TComment"):silent(),
-  -- ["v|,cc"] = map_cmd("TComment"):silent(),
   -- lspsaga
   ["n|K"] = map_cmd("Lspsaga hover_doc"):noremap():silent(),
   ["n|gj"] = map_cmd("Lspsaga diagnostic_jump_next"):noremap():silent(),
@@ -92,8 +90,6 @@ Mappings = {
   ["n|<leader>ca"] = map_cmd("Lspsaga code_action"):noremap():silent(),
   ["v|<leader>ca"] = map_cmd("Lspsaga range_code_action"):noremap():silent(),
   ["n|gd"] = map_cmd("Lspsaga lsp_finder"):noremap():silent(),
-  -- ["n|<A-d>"] = map_cmd("lua require('utils.term')()"):noremap():silent(),
-  -- ["t|<A-d>"] = map_key("<C-\\><C-n>:lua require('utils.term')()<CR>"):noremap():silent(),
   ["n|<A-d>"] = map_cmd("Lspsaga open_floaterm"):noremap():silent(),
   ["t|<A-d>"] = map_key("<C-\\><C-n>:Lspsaga close_floaterm<CR>"):noremap():silent(),
   ["n|gf"] = map_cmd("Lspsaga preview_definition"):noremap():silent(),
@@ -104,25 +100,9 @@ Mappings = {
   -- ["i|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
   -- ["s|<S-Tab>"] = map_key("v:lua.s_tab_complete()"):expr(),
   ["i|<CR>"] = map_key("compe#confirm('<CR>')"):expr():noremap(),
-  -- barbar.nvim
-  -- ["n|<leader>1"] = map_cmd("BufferGoto 1"):noremap():silent(),
-  -- ["n|<leader>2"] = map_cmd("BufferGoto 2"):noremap():silent(),
-  -- ["n|<leader>3"] = map_cmd("BufferGoto 3"):noremap():silent(),
-  -- ["n|<leader>4"] = map_cmd("BufferGoto 4"):noremap():silent(),
-  -- ["n|<leader>5"] = map_cmd("BufferGoto 5"):noremap():silent(),
-  -- ["n|<leader>6"] = map_cmd("BufferGoto 6"):noremap():silent(),
-  -- ["n|<leader>7"] = map_cmd("BufferGoto 7"):noremap():silent(),
-  -- ["n|<leader>8"] = map_cmd("BufferGoto 8"):noremap():silent(),
-  -- ["n|<leader>9"] = map_cmd("BufferGoto 9"):noremap():silent(),
   -- vim-translator
   ["n|<leader>tt"] = map_cmd("TranslateW"):noremap():silent(),
   ["v|<leader>tt"] = map_cmd("TranslateW"):noremap():silent(),
-  -- FTerm
-  -- ["n|<A-f>"] = map_cmd("FTermOpen"):noremap():silent(),
-  -- ["t|<A-f>"] = map_key("<C-\\><C-n><CMD>lua require'FTerm'.toggle()<CR>"):noremap():silent(),
-  -- nvim-peekup
-  -- ["n|<leader>p"] = map_cmd("lua require('nvim-peekup').peekup_open('p')"):noremap():silent(),
-  -- ["n|<leader>P"] = map_cmd("lua require('nvim-peekup').peekup_open('P')"):noremap():silent(),
   -- Vista
   ["n|<C-,>"] = map_cmd("call v:lua.open_tagbar()"):noremap():silent(),
   -- Format
@@ -154,7 +134,12 @@ Mappings = {
   ["n|<C-f>d"] = map_cmd("call v:lua.fzf_lsp_doc_symbols()"):silent(),
   -- toggle_term
   ["n|<C-t>"] = map_cmd("ToggleTerm"):silent(),
-  ["t|<C-t>"] = map_key("<C-p>:ToggleTerm<CR>"):silent()
+  ["t|<C-t>"] = map_key("<C-p>:ToggleTerm<CR>"):silent(),
+  -- dial
+  ["n|<C-a>"] = map_key("<Plug>(dial-increment)"):silent(),
+  ["n|<C-x>"] = map_key("<Plug>(dial-decrement)"):silent(),
+  ["v|<C-a>"] = map_key("<Plug>(dial-increment)"):silent(),
+  ["v|<C-x>"] = map_key("<Plug>(dial-decrement)"):silent()
 }
 
 local function load_mappings()
