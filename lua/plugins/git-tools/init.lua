@@ -5,5 +5,19 @@ git["lewis6991/gitsigns.nvim"] = {
   requires = {{"nvim-lua/plenary.nvim", opt = true}},
   config = conf.gitsigns
 }
+git["tveskag/nvim-blame-line"] = {
+  cmd = {"EnableBlameLine"}
+}
+git["TimUntersberger/neogit"] = {
+  cmd = {"Neogit"},
+  requires = {{'nvim-lua/plenary.nvim', opt=true}}
+}
+git["sindrets/diffview.nvim"] = {
+  cmd = {"DiffviewOpen"},
+  config = conf.diffview
+}
+git["kdheepak/lazygit.nvim"] = {
+  cmd = "LazyGit",
+}
 
 return git

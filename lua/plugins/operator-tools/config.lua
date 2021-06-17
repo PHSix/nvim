@@ -84,8 +84,9 @@ function config.nvim_tree()
   vim.g.nvim_tree_follow = 1
   vim.g.nvim_tree_tab_open = 1
   vim.g.nvim_tree_add_trailing = 1
-  vim.g.nvim_tree_disable_netrw=0
+  vim.g.nvim_tree_disable_netrw = 0
   vim.g.nvim_tree_hijack_netrw = 0
+  vim.g.nvim_tree_update_cwd = 1
   vim.g.nvim_tree_bindings = {
     ["o"] = tree_cb("edit"),
     ["<CR>"] = tree_cb("edit"),
@@ -101,38 +102,9 @@ function config.nvim_tree()
     ["zh"] = tree_cb("toggle_dotfiles")
   }
 end
-function config.chowcho()
-  require("chowcho").setup {
-    text_color = "#ffeaa7",
-    bg_color = "#213039",
-    active_border_color = "#D4BFFF",
-    border_style = "rounded" -- 'default', 'rounded',
-  }
-end
 
 function config.autopairs()
   require("nvim-autopairs").setup()
-end
-
-function config.fterm()
-  require "FTerm".setup(
-    {
-      dimensions = {
-        height = 0.5,
-        width = 0.4,
-        row = 0.5,
-        col = 0.98
-      },
-      border = {
-        horizontal = "─",
-        vertical = "|",
-        topLeft = "┌",
-        topRight = "┐",
-        bottomRight = "┘",
-        bottomLeft = "└"
-      }
-    }
-  )
 end
 
 function config.colorizer()
@@ -162,17 +134,6 @@ function config.colorizer()
   )
 end
 
-function config.multi_cursor()
-  vim.g.VM_maps = {
-    ["Select Operator"] = "gs",
-    ["Find Under"] = "<C-d>",
-    ["Undo"] = "u",
-    ["Redo"] = "<C-r>",
-    ["Increase"] = "+",
-    ["Decrease"] = "-"
-  }
-end
-
 function config.clipboard()
   require "clipboard-image".setup {
     default = {
@@ -197,11 +158,6 @@ function config.clipboard()
   }
 end
 
-function config.peekup()
-  require("nvim-peekup.config").on_keystroke["delay"] = "50ms"
-  require("nvim-peekup.config").on_keystroke["delay"] = "50ms"
-end
-
 function config.smartinput()
   require("smartinput").setup {
     ["go"] = {";", ":=", ";"}
@@ -212,16 +168,6 @@ end
 function config.vim_eft()
   vim.g.eft_ignorecase = true
 end
-
-function config.lir_nvim()
-  vim.cmd [[packadd plenary.nvim]]
-end
-function config.kommentary()
-  vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
-  vim.api.nvim_set_keymap("n", ",cu", "<Plug>kommentary_motion_default", {})
-  vim.api.nvim_set_keymap("v", ",cc", "<Plug>kommentary_visual_default", {})
-end
-
 function config.fzf()
   -- vim.g.fzf_command_prefix = "Fzf"
 end
@@ -231,43 +177,54 @@ function config.rest()
 end
 
 function config.toggle_term()
-  require("toggleterm").setup{
-  -- size can be a number or function which is passed the current terminal
-  size = function(term)
-    if term.direction == "horizontal" then
+  require("toggleterm").setup {
+    -- size can be a number or function which is passed the current terminal
+    size = function(term)
+      if term.direction == "horizontal" then
         return 15
-    elseif term.direction == "vertical" then
-      return vim.o.columns * 0.4
-    end
-  end,
-  open_mapping = [[<c-\>]],
-  hide_numbers = true, -- hide the number column in toggleterm buffers
-  shade_filetypes = {},
-  shade_terminals = true,
-  shading_factor = '<number>', -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-  start_in_insert = true,
-  insert_mappings = true, -- whether or not the open mapping applies in insert mode
-  persist_size = true,
-  direction = 'vertical',
-  close_on_exit = true, -- close the terminal window when the process exits
-  shell = vim.o.shell, -- change the default shell
-  -- This field is only relevant if direction is set to 'float'
-  float_opts = {
-    -- The border key is *almost* the same as 'nvim_win_open'
-    -- see :h nvim_win_open for details on borders however
-    -- the 'curved' border is a custom border type
-    -- not natively supported but implemented in this plugin.
-    border = 'single',
-    width = 30,
-    winblend = 3,
-    highlights = {
-      border = "Normal",
-      background = "Normal",
+      elseif term.direction == "vertical" then
+        return vim.o.columns * 0.70
+      end
+    end,
+    open_mapping = [[<c-\>]],
+    hide_numbers = true, -- hide the number column in toggleterm buffers
+    shade_filetypes = {},
+    shade_terminals = true,
+    shading_factor = 3, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+    start_in_insert = true,
+    insert_mappings = true, -- whether or not the open mapping applies in insert mode
+    persist_size = true,
+    direction = "float",
+    close_on_exit = true, -- close the terminal window when the process exits
+    shell = vim.o.shell, -- change the default shell
+    -- This field is only relevant if direction is set to 'float'
+    float_opts = {
+      -- The border key is *almost* the same as 'nvim_win_open'
+      -- see :h nvim_win_open for details on borders however
+      -- the 'curved' border is a custom border type
+      -- not natively supported but implemented in this plugin.
+      border = "single",
+      width = 110,
+      winblend = 3,
+      highlights = {
+        border = "Normal",
+        background = "Normal"
+      }
     }
   }
-}
-
+end
 function config.cheatsheet()
 end
+function config.findr()
+  function _G.Findr_auto_func(sign)
+    if packer_plugins["nvim-compe"] and packer_plugins["nvim-compe"].loaded then
+      Compe_toggle(sign)
+    end
+  end
+  vim.cmd [[autocmd FileType findr-files call v:lua.Findr_auto_func(0) | autocmd BufWipeout <buffer> call v:lua.Findr_auto_func(1)]]
 end
+function config.spectre()
+  vim.cmd [[command Spectre lua require('spectre').open()]]
+end
+
 return config

@@ -1,14 +1,16 @@
 local api = vim.api
-local lspconfig = require 'lspconfig'
+local lspconfig = require "lspconfig"
 
-if not packer_plugins['lspsaga.nvim'].loaded then
+if not packer_plugins["lspsaga.nvim"].loaded then
   vim.cmd [[PackerLoad lspsaga.nvim]]
 end
 
-local saga = require 'lspsaga'
-saga.init_lsp_saga({
-  code_action_icon = '💡'
-})
+local saga = require "lspsaga"
+saga.init_lsp_saga(
+  {
+    code_action_icon = "💡"
+  }
+)
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -22,17 +24,19 @@ function _G.open_lsp_log()
   local path = vim.lsp.get_log_path()
   vim.cmd("edit " .. path)
 end
-vim.cmd('command! -nargs=0 LspLog call v:lua.open_lsp_log()')
-vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
+vim.cmd("command! -nargs=0 LspLog call v:lua.open_lsp_log()")
+vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
     -- Enable underline, use default values
     underline = true,
     -- Enable virtual text, override spacing to 4
     virtual_text = {
       spacing = 2,
-      severity_limit = 'Warning',
+      severity_limit = "Warning"
       -- prefix = "<<",
     },
     signs = {
@@ -40,25 +44,25 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
       priority = 20
     },
     -- Disable a feature
-    update_in_insert = false,
-})
+    update_in_insert = false
+  }
+)
 
-local enhance_attach = function(client,bufnr)
+local enhance_attach = function(client, bufnr)
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   vim.cmd [[packadd lsp_signature.nvim]]
   require "lsp_signature".on_attach()
 end
 
 lspconfig.gopls.setup {
-  cmd = {"gopls","--remote=auto"},
+  cmd = {"gopls", "--remote=auto"},
   on_attach = enhance_attach,
   capabilities = capabilities,
   init_options = {
-    usePlaceholders=true,
-    completeUnimported=true,
+    usePlaceholders = true,
+    completeUnimported = true
   }
 }
-
 
 lspconfig.tsserver.setup {
   on_attach = function(client)
@@ -73,19 +77,21 @@ lspconfig.clangd.setup {
     "--background-index",
     "--suggest-missing-includes",
     "--clang-tidy",
-    "--header-insertion=iwyu",
-  },
+    "--header-insertion=iwyu"
+  }
 }
 
 lspconfig.rust_analyzer.setup {
-  capabilities = capabilities,
+  capabilities = capabilities
 }
 
 local servers = {
-  'dockerls','bashls','pyright'
+  "dockerls",
+  "bashls",
+  "pyright"
 }
 
-for _,server in ipairs(servers) do
+for _, server in ipairs(servers) do
   lspconfig[server].setup {
     on_attach = enhance_attach
   }
@@ -130,11 +136,10 @@ lspconfig.bashls.setup {
   capabilities = capabilities
 }
 
-lspconfig.sqls.setup{
-    on_attach = function(client)
-        client.resolved_capabilities.execute_command = true
+lspconfig.sqls.setup {
+  on_attach = function(client)
+    client.resolved_capabilities.execute_command = true
 
-        require'sqls'.setup{}
-    end
+    require "sqls".setup {}
+  end
 }
-

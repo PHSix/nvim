@@ -8,7 +8,7 @@ lang["dhruvasagar/vim-table-mode"] = {
   ft = {"markdown"}
 }
 lang["nvim-treesitter/nvim-treesitter"] = {
---  event = {"BufRead"},
+  --  event = {"BufRead"},
   run = ":TSUpdate",
   config = conf.treesitter
 }
@@ -32,7 +32,7 @@ lang["kristijanhusak/vim-dadbod-ui"] = {
   requires = {{"tpope/vim-dadbod", opt = true}}
 }
 lang["leafOfTree/vim-vue-plugin"] = {
-  ft = {"vue"},
+  ft = {"vue"}
   -- opt = true
 }
 lang["othree/html5.vim"] = {
@@ -44,5 +44,13 @@ lang["ajorgensen/vim-markdown-toc"] = {
 lang["dkarter/bullets.vim"] = {
   ft = {"markdown"}
 }
+lang["rafcamlet/nvim-luapad"] = {
+  cmd = "Luapad",
+  config = conf.luapad
+}
+lang["windwp/nvim-ts-autotag"] = {
+  ft ={"vue", "html", "xml"}
+}
+
 
 return lang

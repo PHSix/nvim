@@ -37,12 +37,12 @@ lsp["folke/trouble.nvim"] = {
 }
 lsp["ray-x/lsp_signature.nvim"] = {
   config = conf.lsp_signature,
-  event = {"InsertEnter"},
+  event = {"InsertEnter"}
 }
 
 lsp["nanotee/sqls.nvim"] = {}
 lsp["FateXii/emmet-compe"] = {
   opt = true,
-  requires = {{"mattn/emmet-vim", opt=true}}
+  requires = {{"mattn/emmet-vim", opt = true}}
 }
 return lsp

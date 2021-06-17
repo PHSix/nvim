@@ -71,8 +71,15 @@ function config.compe()
     }
   }
   require "compe".setup(compe_config)
-  function _G.Compe_toggle()
+  function _G.Compe_toggle(sign)
     local compe = require("compe")
+    if sign and sign == 0 then
+      compe.setup({enabled = false})
+      return
+    else
+      compe.setup(compe_config)
+      return
+    end
     if require("compe.config")._config.enabled then
       compe.setup({enabled = false})
     else

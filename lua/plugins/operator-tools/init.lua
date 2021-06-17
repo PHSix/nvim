@@ -59,9 +59,6 @@ tools["ekickx/clipboard-image.nvim"] = {
   ft = {"markdown"},
   config = conf.clipboard
 }
-tools["lambdalisue/fern.vim"] = {
-  cmd = "Fern"
-}
 tools["simrat39/symbols-outline.nvim"] = {
   cmd = "SymbolsOutline"
 }
@@ -72,14 +69,22 @@ tools["NTBBloodbath/rest.nvim"] = {
 }
 tools["nanotee/luv-vimdocs"] = {}
 tools["matbme/JABS.nvim"] = {
-  opt = true,
+  opt = true
 }
 tools["akinsho/nvim-toggleterm.lua"] = {
-  opt = true,
+  cmd = "ToggleTerm",
   config = conf.toggle_term
 }
 tools["sudormrfbin/cheatsheet.nvim"] = {
   cmd = "Cheatsheet",
   config = conf.cheatsheet
+}
+tools["conweller/findr.vim"] = {
+  cmd = "Findr",
+  config = conf.findr
+}
+tools["windwp/nvim-spectre"] = {
+  cmd = "Spectre",
+  config = conf.spectre
 }
 return tools

@@ -164,7 +164,7 @@ function _G.easymotion()
 end
 
 function _G.switch_buf(index)
-  if packer_plugins["nvim-bufferline.lua"] then
+  if packer_plugins["nvim-bufferline.lua"] and packer_plugins["nvim-bufferline.lua"].loaded then
     require("bufferline").go_to_buffer(index)
   elseif packer_plugins["barbar.nvim"] then
     vim.cmd("BufferGoto " .. index)
@@ -177,8 +177,5 @@ function _G.fzf_lsp_doc_symbols()
   require'fzf_lsp'.document_symbol_call()
 end
 
-function _G.toggle_term()
-  require("packer").loader("nvim-toggleterm.lua")
-  vim.cmd [[ToggleTerm]]
-end
+
 
