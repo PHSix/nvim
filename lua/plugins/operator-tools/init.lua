@@ -20,6 +20,7 @@ tools["nvim-telescope/telescope.nvim"] = {
 }
 tools["kyazdani42/nvim-tree.lua"] = {
   -- cmd = {"NvimTreeToggle"},
+  opt = true,
   config = conf.nvim_tree
 }
 tools["windwp/nvim-autopairs"] = {
@@ -86,5 +87,15 @@ tools["conweller/findr.vim"] = {
 tools["windwp/nvim-spectre"] = {
   cmd = "Spectre",
   config = conf.spectre
+}
+tools["ms-jpq/chadtree"] = {
+  cmd = "CHADopen",
+  run = "python3 -m chadtree deps",
+  config = conf.chadtree
+}
+
+tools["sunjon/Shade.nvim"]  = {
+  opt = true,
+  config = conf.shade
 }
 return tools

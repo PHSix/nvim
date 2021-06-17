@@ -226,5 +226,47 @@ end
 function config.spectre()
   vim.cmd [[command Spectre lua require('spectre').open()]]
 end
+function config.chadtree()
+  local opts = {}
+  local function callback(value)
+  end
+  local function toTable(opts)
+    local result = {}
+    for k, v in pairs(opts) do
+      if type(v) == "table" then
+        local tbl = callback(v)
+        vim.tbl_extend("keep")
+      end
+    end
+    return result
+  end
+  vim.g.chadtree_settings = {
+    ["keymap"] = {
+      ["quit"] = {"q"},
+      ["change_focus_up"] = {"u"},
+      ["change_focus"] = {"c"},
+      ["primary"] = {"o", "<enter>"},
+      ["new"] = {"cn"},
+      ["rename"] = {"rn"}
+    },
+    ["view"] = {
+      ["width"] = 30
+    }
+  }
+end
+
+function config.shade()
+  require "shade".setup(
+    {
+      overlay_opacity = 50,
+      opacity_step = 1,
+      keys = {
+        brightness_up = "<C-Up>",
+        brightness_down = "<C-Down>",
+        toggle = "<Leader>s"
+      }
+    }
+  )
+end
 
 return config

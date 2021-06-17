@@ -52,5 +52,9 @@ lang["windwp/nvim-ts-autotag"] = {
   ft ={"vue", "html", "xml"}
 }
 
+lang["davidgranstrom/nvim-markdown-preview"] = {
+  ft = {"markdown"}
+}
+
 
 return lang
