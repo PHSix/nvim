@@ -1,8 +1,7 @@
 local config = {}
+
 function config.compe()
   vim.cmd [[packadd lspkind-nvim]]
-  vim.cmd [[PackerLoad emmet-vim]]
-  vim.cmd [[PackerLoad emmet-compe]]
   require("lspkind").init(
     {
       with_text = true,
@@ -42,13 +41,6 @@ function config.compe()
       vsnip = {
         priority = 6
       },
-      emmet = true,
-      -- emmet = {
-      --   priority = 1000,
-      --   dup = 1,
-      --   menu = "[Em]",
-      --   filetypes = {"html", "htmldjango", "vue"}
-      -- },
       nvim_lsp = {
         priority = 5
       },
@@ -73,10 +65,10 @@ function config.compe()
   require "compe".setup(compe_config)
   function _G.Compe_toggle(sign)
     local compe = require("compe")
-    if sign and sign == 0 then
+    if sign == 0 then
       compe.setup({enabled = false})
       return
-    else
+    elseif sign == 1 then
       compe.setup(compe_config)
       return
     end

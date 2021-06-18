@@ -269,4 +269,12 @@ function config.shade()
   )
 end
 
+function config.nvim_finder()
+  vim.cmd [[PackerLoad popfix]]
+  function _G.finder_command()
+    require'finder'.commands{}
+  end
+  vim.cmd [[command FinderCommand lua finder_command()]]
+end
+
 return config

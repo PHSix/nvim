@@ -40,7 +40,7 @@ Mappings = {
   ["n|<leader>nl"] = map_cmd("nohlsearch"):noremap():silent(),
   ["n|<TAB>"] = map_cmd("bn"):silent(),
   ["n|;"] = map_key(":"),
-  ["n|<A-x>"] = map_cmd("Telescope commands"):silent():noremap(),
+  ["n|<A-x>"] = map_cmd("FinderCommand"):silent():noremap(),
   -- terminal operations
   ["t|<C-p>"] = map_key("<C-\\><C-n>"):noremap():silent(),
   -- command mode operations

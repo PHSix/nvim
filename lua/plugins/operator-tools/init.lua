@@ -94,11 +94,16 @@ tools["ms-jpq/chadtree"] = {
   config = conf.chadtree
 }
 
-tools["sunjon/Shade.nvim"]  = {
+tools["sunjon/Shade.nvim"] = {
   opt = true,
   config = conf.shade
 }
 tools["monaqa/dial.nvim"] = {
   event = {"CursorMoved"}
+}
+tools["RishabhRD/nvim-finder"] = {
+  cmd = "FinderCommand",
+  requires = {{"RishabhRD/popfix", opt = true}},
+  config = conf.nvim_finder
 }
 return tools

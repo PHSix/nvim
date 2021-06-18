@@ -82,6 +82,9 @@ end
 
 function config.treesitter()
   require "nvim-treesitter.configs".setup {
+    autotag = {
+      enable = true
+    },
     ensure_installed = "maintained",
     highlight = {
       enable = true,
@@ -150,7 +153,7 @@ function config.luapad()
   }
 end
 function config.autotag()
-  require('nvim-ts-autotag').setup()
+  require("nvim-ts-autotag").setup()
 end
 
 return config
