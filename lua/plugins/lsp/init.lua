@@ -2,7 +2,7 @@ local conf = require("plugins.lsp.config")
 local lsp = {}
 lsp["neovim/nvim-lspconfig"] = {
   config = function()
-    require("plugins.lsp.lspc")
+    require("plugins.lsp.lspconfig")
   end
 }
 

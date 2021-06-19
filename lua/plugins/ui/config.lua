@@ -9,10 +9,10 @@ function config.dashboard()
     a = {description = {"  Recently Files         <C-f> u"}, command = "Telescope oldfiles"},
     b = {description = {"  Find File              <C-f> f"}, command = "Findr"},
     d = {description = {"  Find Word              <C-f> w"}, command = "Telescope live_grep"},
-    e = {description = {"  Marks                  <C-f> m"}, command = "Telescope marks"},
-    f = {description = {"  New File               <C-f> n"}, command = "DashboardNewFile"},
-    h = {description = {"  Compile Configure         <F2>"}, command = "PackerCompile"},
-    i = {description = {"  Settings                  <F1>"}, command = ":e ~/.config/nvim/lua/main/init.lua"}
+    -- e = {description = {"  Marks                  <C-f> m"}, command = "Telescope marks"},
+    e = {description = {"  New File               <C-f> n"}, command = "DashboardNewFile"},
+    f = {description = {"  Compile Configure         <F2>"}, command = "PackerCompile"},
+    h = {description = {"  Settings                  <F1>"}, command = ":e ~/.config/nvim/lua/main/init.lua"}
   }
 end
 
