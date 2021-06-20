@@ -61,6 +61,7 @@ ui["glepnir/zephyr-nvim"] = {
 }
 -- indent line plugin, but it can not work.
 ui["lukas-reineke/indent-blankline.nvim"] = {
+  branch = "lua",
   config = conf.indentLine
 }
 

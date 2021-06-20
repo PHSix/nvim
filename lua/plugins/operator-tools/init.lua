@@ -90,7 +90,7 @@ tools["windwp/nvim-spectre"] = {
 }
 tools["ms-jpq/chadtree"] = {
   cmd = "CHADopen",
-  run = "python3 -m chadtree deps",
+  -- run = "python3 -m chadtree deps",
   config = conf.chadtree
 }
 
@@ -105,5 +105,9 @@ tools["RishabhRD/nvim-finder"] = {
   cmd = "FinderCommand",
   requires = {{"RishabhRD/popfix", opt = true}},
   config = conf.nvim_finder
+}
+tools["rmagatti/auto-session"] = {
+  opt = true,
+  config = conf.auto_session
 }
 return tools
