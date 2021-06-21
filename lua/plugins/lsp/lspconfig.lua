@@ -120,10 +120,18 @@ lspconfig.pyright.setup {
   capabilities = capabilities,
   settings = {
     python = {
+      disableLanguageServices = false,
+      disableOrganizeImports = false,
       analysis = {
+        autoImportCompletions = true,
         autoSearchPaths = true,
-        diagnosticMode = "workspace",
-        useLibraryCodeForTypes = true
+        diagnosticMode = "openFilesOnly",
+        stubPath = "typings",
+        typeshedPaths = {},
+        diagnosticSeverityOverrides = vim.empty_dict(),
+        typeCheckingMode = "basic",
+        useLibraryCodeForTypes = true,
+        pythonPath = "python3"
       }
     }
   }

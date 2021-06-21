@@ -2,7 +2,7 @@ local config = {}
 function config.dashboard()
   vim.cmd [[augroup dashboard_autocmd]]
   vim.cmd [[autocmd FileType dashboard lua vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q<CR>', {noremap=true, silent=true})]]
-  vim.cmd [[autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2]]
+  -- vim.cmd [[autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2]]
   vim.cmd [[augroup END]]
   vim.g.dashboard_default_executive = "telescope"
   vim.g.dashboard_session_directory = "~/.cache/vim/session"
