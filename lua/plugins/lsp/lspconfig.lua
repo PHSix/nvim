@@ -87,8 +87,7 @@ lspconfig.rust_analyzer.setup {
 
 local servers = {
   "dockerls",
-  "bashls",
-  "pyright"
+  "bashls"
 }
 
 for _, server in ipairs(servers) do
@@ -117,8 +116,17 @@ lspconfig.sumneko_lua.setup {
     }
   }
 }
-lspconfig.jedi_language_server.setup {
-  capabilities = capabilities
+lspconfig.pyright.setup {
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "workspace",
+        useLibraryCodeForTypes = true
+      }
+    }
+  }
 }
 lspconfig.vuels.setup {
   capabilities = capabilities,
