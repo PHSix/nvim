@@ -6,11 +6,7 @@ if not packer_plugins["lspsaga.nvim"].loaded then
 end
 
 local saga = require "lspsaga"
-saga.init_lsp_saga(
-  {
-    code_action_icon = "💡"
-  }
-)
+saga.init_lsp_saga {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -48,7 +44,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
   }
 )
 
-local enhance_attach = function(client, bufnr)
+local enhance_attach = function(_, bufnr)
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   vim.cmd [[packadd lsp_signature.nvim]]
   require "lsp_signature".on_attach()
@@ -85,16 +81,6 @@ lspconfig.rust_analyzer.setup {
   capabilities = capabilities
 }
 
-local servers = {
-  "dockerls",
-  "bashls"
-}
-
-for _, server in ipairs(servers) do
-  lspconfig[server].setup {
-    on_attach = enhance_attach
-  }
-end
 lspconfig.sumneko_lua.setup {
   -- cmd = {nvim_lua_cache_path .. "/bin/Linux/lua-language-server", "-E", nvim_lua_cache_path .. "/main.lua"},
   cmd = {"lua-language-server", "-E", "/usr/share/lua-language-server/main.lua"},

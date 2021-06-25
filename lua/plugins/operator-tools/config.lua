@@ -246,8 +246,8 @@ function config.chadtree()
       ["change_focus_up"] = {"u"},
       ["change_focus"] = {"c"},
       ["primary"] = {"o", "<enter>"},
-      ["new"] = {"cn"},
-      ["rename"] = {"rn"}
+      ["new"] = {"n"},
+      ["rename"] = {"r"}
     },
     ["view"] = {
       ["width"] = 30

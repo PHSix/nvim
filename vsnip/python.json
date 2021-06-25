@@ -1,0 +1,9 @@
+{
+  "main": {
+      "prefix": "main",
+      "body": [
+        "if __name__ == \"__main__\"",
+        "\t${0:pass}"
+      ]
+  },
+}

@@ -91,7 +91,7 @@ function config.flutter()
       lsp_derive_paths = true -- experimental: Attempt to find the user's flutter SDK
     },
     flutter_path = "/opt/flutter/bin/flutter",
-    flutter_lookup_cmd = "dirname $(which flutter)",
+    -- flutter_lookup_cmd = "dirname $(which flutter)",
     closing_tags = {
       highlight = "FlutterCloseTag",
       prefix = "// "
