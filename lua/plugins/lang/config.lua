@@ -89,6 +89,9 @@ function config.treesitter()
     highlight = {
       enable = true,
       disable = {"rust"}
+    },
+    indent = {
+      enable = true
     }
   }
 end
