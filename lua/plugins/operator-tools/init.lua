@@ -60,9 +60,6 @@ tools["ekickx/clipboard-image.nvim"] = {
   ft = {"markdown"},
   config = conf.clipboard
 }
-tools["simrat39/symbols-outline.nvim"] = {
-  cmd = "SymbolsOutline"
-}
 tools["NTBBloodbath/rest.nvim"] = {
   requires = {{"nvim-lua/plenary.nvim", opt = true}},
   config = conf.rest,

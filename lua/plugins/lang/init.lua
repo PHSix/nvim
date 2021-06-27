@@ -56,5 +56,8 @@ lang["davidgranstrom/nvim-markdown-preview"] = {
   ft = {"markdown"}
 }
 
+lang["mattn/emmet-vim"] = {
+  ft = {"html"}
+}
 
 return lang

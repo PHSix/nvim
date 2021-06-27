@@ -1,5 +1,6 @@
 local conf = require("plugins.lsp.config")
 local lsp = {}
+
 lsp["neovim/nvim-lspconfig"] = {
   config = function()
     require("plugins.lsp.lspconfig")
@@ -10,7 +11,8 @@ lsp["hrsh7th/nvim-compe"] = {
   event = {"InsertEnter"},
   requires = {
     {"onsails/lspkind-nvim", opt = true},
-    {"tamago324/compe-zsh", ft = {"zsh"}}
+    {"tamago324/compe-zsh", ft = {"zsh"}},
+    {"FateXii/emmet-compe", ft = {"html"}}
   },
   config = conf.compe
 }
@@ -38,6 +40,9 @@ lsp["folke/trouble.nvim"] = {
 lsp["ray-x/lsp_signature.nvim"] = {
   config = conf.lsp_signature,
   event = {"InsertEnter"}
+}
+lsp["simrat39/symbols-outline.nvim"] = {
+  cmd = "SymbolsOutline"
 }
 
 lsp["nanotee/sqls.nvim"] = {}

@@ -41,6 +41,9 @@ function config.compe()
       vsnip = {
         priority = 6
       },
+      emmet = {
+        priority = 6
+      },
       nvim_lsp = {
         priority = 5
       },
@@ -153,6 +156,9 @@ end
 function config.lsp_signature()
 end
 function config.lsp_trouble()
-  require("trouble").setup {}
+  require("trouble").setup {
+    auto_open = true,
+    auto_close = true
+  }
 end
 return config
