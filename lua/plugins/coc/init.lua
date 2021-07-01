@@ -17,5 +17,6 @@ vim.g.coc_global_extensions = {
 	"coc-flutter-tools";
 	"coc-emmet";
 	"coc-actions";
+  "coc-vetur";
 }
 

@@ -14,14 +14,16 @@ end
 
 local normal_maps = {
 	{"<space>", "<leader>"};
-	{"<C-j>", "5j", {}};
-	{"<C-k>", "5k", {}};
-	{"<C-h>", "5h", {}};
-	{"<C-l>", "5l", {}};
-	{"<leader>l", "<C-w>l", {}};
-	{"<leader>k", "<C-w>k", {}};
-	{"<leader>j", "<C-w>j", {}};
-	{"<leader>h", "<C-w>h", {}};
+	{"<C-j>", "5j"};
+	{"<C-k>", "5k"};
+	{"<C-h>", "5h"};
+	{"<C-l>", "5l"};
+	{"<leader>l", "<C-w>l"};
+	{"<leader>k", "<C-w>k"};
+	{"<leader>j", "<C-w>j"};
+	{"<leader>h", "<C-w>h"};
+  {"S", ":w<CR>"};
+  {"<leader>nl", ":nohlsearch<CR>"};
 }
 local visual_maps = {
 	{"<space>", "<leader>"};

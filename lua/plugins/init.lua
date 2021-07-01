@@ -13,7 +13,6 @@ execute "packadd packer.nvim"
 local packer = require("packer")
 local use = packer.use
 
-
 packer.init(
   {
     git = {
@@ -21,6 +20,8 @@ packer.init(
     }
   }
 )
+
+vim.api.nvim_set_keymap("n", "<F2>", ":PackerCompile<CR>", {noremap=true})
 
 --
 -- completion
@@ -49,7 +50,7 @@ use {
 use {
   "glepnir/dashboard-nvim";
   config = function ()
-    require("plugins.dashboard")
+    require("plugins.dashboard")()
   end
 }
 use {
@@ -221,6 +222,6 @@ use {
     {"nvim-telescope/telescope-fzy-native.nvim", opt = true}
   };
   config = function ()
-    require("plugins.telescope")
+    require("plugins.telescope")()
   end
 }
