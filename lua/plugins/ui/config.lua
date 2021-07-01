@@ -57,6 +57,7 @@ function config.indentLine()
     "TelescopePrompt",
     "undotree",
     "flutterToolsOutline",
+    "dart",
     "" -- for all buffers without a file type
   }
   vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}

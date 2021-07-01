@@ -90,9 +90,6 @@ function config.treesitter()
       enable = true,
       disable = {"rust"}
     },
-    indent = {
-      enable = true
-    }
   }
 end
 

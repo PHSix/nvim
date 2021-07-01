@@ -56,9 +56,6 @@ function config.compe()
       buffer = {
         priority = 2
       },
-      spell = {
-        priority = 2
-      },
       treesitter = {
         priority = 1
       },

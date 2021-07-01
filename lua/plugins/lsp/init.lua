@@ -22,7 +22,7 @@ lsp["hrsh7th/vim-vsnip"] = {
 }
 
 lsp["glepnir/lspsaga.nvim"] = {
-  config = conf.lspsaga
+  -- config = conf.lspsaga
 }
 
 lsp["akinsho/flutter-tools.nvim"] = {

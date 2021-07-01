@@ -15,7 +15,7 @@
   },
   "Conlog": {
     "prefix": ["clg", "cl"],
-    "body": ["console.log(${Console_content})"],
+    "body": ["console.log(${0})"],
     "description": "console log value"
   },
   "Function":{
