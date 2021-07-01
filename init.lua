@@ -1,2 +1,2 @@
-require('main')
-
+require("general")
+require("plugins")

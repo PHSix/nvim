@@ -1,0 +1,15 @@
+{
+	"suggest.noselect": false,
+	"suggest.floatEnable": true,
+	"diagnostic.checkCurrentLine": true,
+	"diagnostic.virtualTextLines": 1,
+	"diagnostic.virtualText": true,
+	"npm.binPath": "yarn",
+
+
+
+	"Lua.diagnostics.globals": [
+		"vim",
+    "packer_plugins"
+	]
+}
