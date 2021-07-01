@@ -1,4 +1,5 @@
 local function formatter()
+  vim.api.nvim_set_keymap("n", "F", ":Format<CR>", {})
   require("formatter").setup(
     {
       logging = false,

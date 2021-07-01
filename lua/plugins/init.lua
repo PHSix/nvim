@@ -21,7 +21,7 @@ packer.init(
   }
 )
 
-vim.api.nvim_set_keymap("n", "<F2>", ":PackerCompile<CR>", {noremap=true})
+vim.api.nvim_set_keymap("n", "<F2>", ":PackerCompile<CR>", {noremap = true})
 
 --
 -- completion
@@ -48,8 +48,8 @@ use {
   end
 }
 use {
-  "glepnir/dashboard-nvim";
-  config = function ()
+  "glepnir/dashboard-nvim",
+  config = function()
     require("plugins.dashboard")()
   end
 }
@@ -72,7 +72,7 @@ use {
     buf["closable"] = false
     buf["maximum_padding"] = 2
     vim.g.bufferline = buf
-    for i=1,9,1 do
+    for i = 1, 9, 1 do
       if i ~= nil or i ~= "" or i ~= " " then
         vim.api.nvim_set_keymap("n", "<leader>" .. i, ":BufferGoto " .. i .. "<CR>", {})
       end
@@ -80,30 +80,30 @@ use {
   end
 }
 use {
-  "hoob3rt/lualine.nvim";
+  "hoob3rt/lualine.nvim",
   config = function()
     require("plugins.evil")
-  end;
+  end
 }
 
 --
 -- edit
 --
 use {
-  "windwp/nvim-autopairs";
-  event = {"BufEnter"};
+  "windwp/nvim-autopairs",
+  event = {"BufEnter"},
   config = function()
     require("nvim-autopairs").setup()
   end
 }
 
 use {
-  "tyru/caw.vim";
-  requires = {{"Shougo/context_filetype.vim", ft = {"html", "vue"}}};
-  keys = {",c"};
+  "tyru/caw.vim",
+  requires = {{"Shougo/context_filetype.vim", ft = {"html", "vue"}}},
+  keys = {",c"},
   config = function()
     vim.api.nvim_set_keymap("n", ",c", "<Plug>(caw:prefix)", {})
-  end;
+  end
 }
 
 use {
@@ -147,6 +147,11 @@ use {
       }
     )
   end
+}
+
+use {
+  "gcmt/wildfire.vim",
+  keys = {"<CR>"}
 }
 
 use {
@@ -215,13 +220,26 @@ use {
 -- finder
 --
 use {
-  "nvim-telescope/telescope.nvim";
+  "nvim-telescope/telescope.nvim",
   requires = {
     {"nvim-lua/plenary.nvim", opt = true},
     {"nvim-lua/popup.nvim", opt = true},
     {"nvim-telescope/telescope-fzy-native.nvim", opt = true}
-  };
-  config = function ()
+  },
+  config = function()
     require("plugins.telescope")()
+  end
+}
+
+use {
+  "RishabhRD/nvim-finder",
+  requires = {{"RishabhRD/popfix", opt = true}},
+  config = function()
+    vim.api.nvim_set_keymap("n", "<C-f>f", ":FinderCommand<CR>", {})
+    vim.cmd [[PackerLoad popfix]]
+    function _G.finder_command()
+      require "finder".commands {}
+    end
+    vim.cmd [[command FinderCommand lua finder_command()]]
   end
 }
