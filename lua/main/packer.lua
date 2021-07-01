@@ -45,8 +45,7 @@ function Packer:load_plugins()
   packer.reset() -- clean plugin manages
   local use = packer.use
   use {
-    "wbthomason/packer.nvim",
-    opt = true
+    "wbthomason/packer.nvim"
   }
   for _, repo in pairs(self.repos) do
     use(repo)
@@ -62,7 +61,7 @@ local function install(path)
 end
 
 local function init()
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
     to_do_install = true
     install(install_path)
