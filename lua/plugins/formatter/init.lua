@@ -1,5 +1,12 @@
 local function formatter()
-  vim.api.nvim_set_keymap("n", "F", ":Format<CR>", {})
+  function _G.file_format()
+    if vim.bo.filetype == "dart" then
+      vim.cmd [[DartFmt]]
+    else
+      vim.cmd [[Format]]
+    end
+  end
+  vim.api.nvim_set_keymap("n", "F", ":lua file_format()<CR>", {silent = true})
   require("formatter").setup(
     {
       logging = false,

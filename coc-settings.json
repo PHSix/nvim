@@ -1,12 +1,12 @@
 {
 	"suggest.noselect": false,
 	"suggest.floatEnable": true,
-  "diagnostic.enableMessage": "never",
+  "diagnostic.enableMessage": "always",
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualTextLines": 1,
 	"diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": true,
-  "diagnostic.virtualTextPrefix": "<<",
+  "diagnostic.virtualTextPrefix": "<< ",
 	"npm.binPath": "yarn",
 
 

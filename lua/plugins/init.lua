@@ -103,6 +103,7 @@ use {
   keys = {",c"},
   config = function()
     vim.api.nvim_set_keymap("n", ",c", "<Plug>(caw:prefix)", {})
+    vim.api.nvim_set_keymap("v", ",c", "<Plug>(caw:prefix)", {})
   end
 }
 
@@ -171,7 +172,7 @@ use {
 }
 use {
   "mhartington/formatter.nvim",
-  ft = {"typescript", "lua", "javascript", "json", "vue"},
+  ft = {"typescript", "lua", "javascript", "json", "vue", 'dart'},
   config = function()
     require("plugins.formatter")()
   end
@@ -189,7 +190,12 @@ use {
 }
 use {
   "dart-lang/dart-vim-plugin",
-  ft = {"dart"}
+  ft = {"dart"},
+  config = function ()
+    vim.cmd [[command FlutterRun :CocCommand flutter.run]]
+    vim.cmd [[command FlutterEmulators :CocCommand flutter.emulators]]
+    vim.cmd [[command FlutterDevices :CocCommand flutter.devices]]
+  end
 }
 use {
   "leafOfTree/vim-vue-plugin",
@@ -220,6 +226,7 @@ use {
 -- finder
 --
 use {
+  commit = "e5bd4963da81b5d044749ee4507061801aeb0f78",
   "nvim-telescope/telescope.nvim",
   requires = {
     {"nvim-lua/plenary.nvim", opt = true},
@@ -232,14 +239,8 @@ use {
 }
 
 use {
-  "RishabhRD/nvim-finder",
-  requires = {{"RishabhRD/popfix", opt = true}},
+  "conweller/findr.vim",
   config = function()
-    vim.api.nvim_set_keymap("n", "<C-f>f", ":FinderCommand<CR>", {})
-    vim.cmd [[PackerLoad popfix]]
-    function _G.finder_command()
-      require "finder".commands {}
-    end
-    vim.cmd [[command FinderCommand lua finder_command()]]
+    vim.api.nvim_set_keymap("n", "<C-f>f", ":Findr<CR>", {})
   end
 }
