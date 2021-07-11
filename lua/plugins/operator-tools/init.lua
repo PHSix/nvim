@@ -20,8 +20,8 @@ tools["nvim-telescope/telescope.nvim"] = {
 }
 tools["kyazdani42/nvim-tree.lua"] = {
   -- cmd = {"NvimTreeToggle"},
-  opt = true,
-  config = conf.nvim_tree
+  -- opt = true,
+  -- config = conf.nvim_tree
 }
 tools["windwp/nvim-autopairs"] = {
   event = {"BufEnter"},
@@ -106,5 +106,10 @@ tools["RishabhRD/nvim-finder"] = {
 tools["rmagatti/auto-session"] = {
   opt = true,
   config = conf.auto_session
+}
+tools["PHSix/light-tree.nvim"] = {
+  config = function ()
+    vim.api.nvim_set_keymap("n", "<C-n>",":LToggle<CR>", {silent=true})
+  end
 }
 return tools

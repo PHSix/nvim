@@ -49,7 +49,7 @@ lang["rafcamlet/nvim-luapad"] = {
   config = conf.luapad
 }
 lang["windwp/nvim-ts-autotag"] = {
-  ft ={"vue", "html", "xml"}
+  ft ={"vue", "html", "xml", }
 }
 
 lang["davidgranstrom/nvim-markdown-preview"] = {

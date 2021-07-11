@@ -62,7 +62,7 @@ Mappings = {
   ["n|<C-f>f"] = map_cmd("Findr"):noremap():silent(),
   -- ["n|<C-f>f"] = map_cmd("Telescope find_files"):noremap():silent(),
   -- ["n|<C-f>w"] = map_cmd("Telescope live_grep"):noremap():silent(),
-  ["n|<C-f>w"] = map_cmd("Telescope current_buffer_fuzzy_find"):noremap():silent(),
+  ["n|<C-f>w"] = map_cmd("Telescope live_grep"):noremap():silent(),
   ["n|<C-f>n"] = map_cmd("DashboardNewFile"):noremap():silent(),
   ["n|<C-f>c"] = map_cmd("DashboardChangeColorscheme"):noremap():silent(),
   ["n|<F1>"] = map_cmd("e ~/.config/nvim/lua/main/init.lua"):noremap():silent(),
@@ -72,7 +72,7 @@ Mappings = {
   -- nvim-tree.lua
   -- ["n|<C-n>"] = map_cmd("NvimTreeToggle"):noremap():silent(),
   -- chadtree
-  ["n|<C-n>"] = map_cmd("CHADopen"):silent(),
+  -- ["n|<C-n>"] = map_cmd("CHADopen"):silent(),
   -- faster.nvim
   ["n|j"] = map_key("v:lua.faster_jk('j')"):expr():silent(),
   ["n|k"] = map_key("v:lua.faster_jk('k')"):expr():silent(),

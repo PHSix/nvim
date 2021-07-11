@@ -37,6 +37,14 @@ function config.compe()
     min_length = 1,
     preselect = "always",
     allow_prefix_unmatch = false,
+    documentation = {
+      border = "single",
+      winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+      max_width = 120,
+      min_width = 60,
+      max_height = math.floor(vim.o.lines * 0.3),
+      min_height = 1
+    },
     source = {
       vsnip = {
         priority = 6
@@ -129,27 +137,6 @@ function config.lspsaga()
     }
   )
 end
--- function config.lsputils()
---   vim.cmd [[packadd popfix]]
---   vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
---   vim.g.lsp_utils_symbols_opts = {
--- 	height = 24,
--- 	mode = 'editor',
--- 	preview = {
--- 		title = 'Symbols Preview',
--- 		border = true,
---     border_chars = {
---  	TOP_LEFT = '┌',
---  	TOP_RIGHT = '┐',
---  	MID_HORIZONTAL = '─',
---  	MID_VERTICAL = '│',
---  	BOTTOM_LEFT = '└',
---  	BOTTOM_RIGHT = '┘',
---  }
--- 	},
--- 	prompt = {},
--- }
--- end
 function config.lsp_signature()
 end
 function config.lsp_trouble()

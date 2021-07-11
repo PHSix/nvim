@@ -1,6 +1,5 @@
 local config = {}
 function config.dashboard()
-
   function _G.dashboardEnter()
     vim.api.nvim_win_set_option(0, "cursorline", true)
   end
