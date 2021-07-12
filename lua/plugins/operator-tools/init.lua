@@ -107,9 +107,4 @@ tools["rmagatti/auto-session"] = {
   opt = true,
   config = conf.auto_session
 }
-tools["PHSix/light-tree.nvim"] = {
-  config = function ()
-    vim.api.nvim_set_keymap("n", "<C-n>",":LToggle<CR>", {silent=true})
-  end
-}
 return tools

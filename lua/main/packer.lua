@@ -38,9 +38,14 @@ function Packer:load_plugins()
       cmd = "git"
     },
     profile = {
-    enable = false,
-    threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
-  }
+      enable = false,
+      threshold = 1 -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+    },
+    display = {
+      open_fn = function()
+        return require("packer.util").float({border = "single"})
+      end
+    }
   }
   packer.reset() -- clean plugin manages
   local use = packer.use

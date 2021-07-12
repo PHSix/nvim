@@ -65,9 +65,5 @@ ui["lukas-reineke/indent-blankline.nvim"] = {
   config = conf.indentLine
 }
 
--- highlight search
-ui["kevinhwang91/nvim-hlslens"] = {
-  event = {"CursorMoved"}
-}
 
 return ui
