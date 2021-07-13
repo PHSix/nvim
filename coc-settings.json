@@ -1,14 +1,16 @@
 {
 	"suggest.noselect": false,
 	"suggest.floatEnable": true,
-  "diagnostic.enableMessage": "always",
+  "diagnostic.enableMessage": "jump",
 	"diagnostic.checkCurrentLine": true,
-	"diagnostic.virtualTextLines": 1,
+	"diagnostic.virtualTextLines": 3,
 	"diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": true,
   "diagnostic.virtualTextPrefix": "<< ",
 	"npm.binPath": "yarn",
-
+  
+  "hover.target": "float",
+  "hover.autoHide": true,
 
   "flutter.lsp.initialization.closingLabels": true,
 	"Lua.diagnostics.globals": [

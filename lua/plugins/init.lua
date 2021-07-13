@@ -55,7 +55,7 @@ use {
 }
 use {
   "lukas-reineke/indent-blankline.nvim",
-  branch = "lua",
+  branch = "master",
   config = function()
     require("plugins.indentLine")()
   end
