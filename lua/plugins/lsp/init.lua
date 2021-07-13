@@ -22,6 +22,7 @@ lsp["hrsh7th/vim-vsnip"] = {
 }
 
 lsp["glepnir/lspsaga.nvim"] = {
+  opt= true
   -- config = conf.lspsaga
 }
 
@@ -46,4 +47,12 @@ lsp["simrat39/symbols-outline.nvim"] = {
 }
 
 lsp["nanotee/sqls.nvim"] = {}
+
+lsp["jose-elias-alvarez/nvim-lsp-ts-utils"] = {
+}
+lsp["RishabhRD/nvim-lsputils"] = {
+  requires = {"RishabhRD/popfix"},
+  config = conf.lsputils
+}
 return lsp
+

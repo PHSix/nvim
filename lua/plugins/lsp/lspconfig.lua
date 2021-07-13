@@ -1,12 +1,6 @@
 local api = vim.api
 local lspconfig = require "lspconfig"
 
-if not packer_plugins["lspsaga.nvim"].loaded then
-  vim.cmd [[PackerLoad lspsaga.nvim]]
-end
-
-local saga = require "lspsaga"
-saga.init_lsp_saga {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
