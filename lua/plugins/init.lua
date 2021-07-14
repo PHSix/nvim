@@ -163,6 +163,10 @@ use {
   end
 }
 
+use {
+  "PHSix/light-tree.nvim"
+}
+
 --
 -- language
 --
@@ -244,3 +248,4 @@ use {
     vim.api.nvim_set_keymap("n", "<C-f>f", ":Findr<CR>", {})
   end
 }
+
