@@ -13,15 +13,15 @@ function config.formatter()
     {
       logging = false,
       filetype = {
-        -- cpp = {
-        --   function()
-        --     return {
-        --       exe = "prettier",
-        --       args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
-        --       stdin = true
-        --     }
-        --   end
-        -- },
+        go = {
+          function()
+            return {
+              exe = "gofmt",
+              args = {vim.api.nvim_buf_get_name(0)},
+              stdin = true
+            }
+          end
+        },
         vue = {
           function()
             return {
@@ -74,7 +74,43 @@ function config.formatter()
               args = {"--indent", 2}
             }
           end
-        }
+        },
+        dart = {
+          function()
+            return {
+              exe = "dartfmt",
+              args = {vim.api.nvim_buf_get_name(0)},
+              stdin = true,
+            }
+          end
+        },
+        c = {
+          function()
+            return {
+              exe = "clang-format",
+              args = {vim.api.nvim_buf_get_name(0)},
+              stdin = true,
+            }
+          end
+        },
+        cpp = {
+          function()
+            return {
+              exe = "clang-format",
+              args = {vim.api.nvim_buf_get_name(0)},
+              stdin = true,
+            }
+          end
+        },
+        rust = {
+          function()
+            return {
+              exe = "rustfmt",
+              args = {vim.api.nvim_buf_get_name(0)},
+              stdin = false,
+            }
+          end
+        },
       }
     }
   )
@@ -89,7 +125,7 @@ function config.treesitter()
     highlight = {
       enable = true,
       disable = {"rust"}
-    },
+    }
   }
 end
 

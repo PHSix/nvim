@@ -70,7 +70,7 @@ Mappings = {
   -- telescope
   ["n|<c-f>b"] = map_cmd("Telescope file_browser"):silent():noremap(),
   -- nvim-tree.lua
-  ["n|<C-n>"] = map_cmd("NvimTreeToggle"):noremap():silent(),
+  -- ["n|<C-n>"] = map_cmd("NvimTreeToggle"):noremap():silent(),
   -- chadtree
   -- ["n|<C-n>"] = map_cmd("CHADopen"):silent(),
   -- faster.nvim

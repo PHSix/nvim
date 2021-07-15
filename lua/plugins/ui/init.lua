@@ -17,7 +17,7 @@ ui["hoob3rt/lualine.nvim"] = {
 
 -- useful tabline
 ui["romgrk/barbar.nvim"] = {
-  -- opt = true,
+  opt = true,
   config = conf.barbar,
   requires = {{"kyazdani42/nvim-web-devicons", opt = true}}
 }
@@ -41,7 +41,6 @@ ui["marko-cerovac/material.nvim"] = {
 }
 -- tabline, but it has a problem with dashboard
 ui["akinsho/nvim-bufferline.lua"] = {
-  opt = true,
   config = conf.nvim_bufferline()
 }
 -- theme

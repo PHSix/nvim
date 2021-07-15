@@ -21,7 +21,7 @@ local M = {
     syntax = "on",
     hidden = true,
     writebackup = true,
-    showtabline = 0
+    showtabline = 2
   },
   ["buffer"] = {
     undofile = true,
@@ -34,7 +34,7 @@ local M = {
     syntax = "on"
   },
   ["win"] = {
-    wrap = false,
+    wrap = true,
     cursorline = true,
     number = true,
     relativenumber = true,

@@ -54,5 +54,9 @@ lsp["RishabhRD/nvim-lsputils"] = {
   requires = {"RishabhRD/popfix"},
   config = conf.lsputils
 }
+lsp["simrat39/rust-tools.nvim"] = {
+  ft = {"rust"},
+  config = conf.rust
+}
 return lsp
 

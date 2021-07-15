@@ -1,14 +1,26 @@
 local conf = require("plugins.lang.config")
 local lang = {}
 lang["mhartington/formatter.nvim"] = {
-  ft = {"typescript", "lua", "javascript", "json", "vue"},
+  ft = {
+    "typescript",
+    "lua",
+    "javascript",
+    "json",
+    "vue",
+    "typescriptreact",
+    "javascriptreact",
+    "go",
+    "dart",
+    "c",
+    "cpp",
+    "rust"
+  },
   config = conf.formatter
 }
 lang["dhruvasagar/vim-table-mode"] = {
   ft = {"markdown"}
 }
 lang["nvim-treesitter/nvim-treesitter"] = {
-  --  event = {"BufRead"},
   run = ":TSUpdate",
   config = conf.treesitter
 }
@@ -19,11 +31,7 @@ lang["skywind3000/vim-rt-format"] = {
 }
 lang["dart-lang/dart-vim-plugin"] = {
   ft = {"dart"}
-  -- opt = true
 }
--- lang["kevinhwang91/nvim-bqf"] = {
---   event = {"InsertEnter"}
--- }
 
 lang["kristijanhusak/vim-dadbod-ui"] = {
   -- cmd = {'DBUIToggle','DBUIAddConnection','DBUI','DBUIFindBuffer','DBUIRenameBuffer'},
@@ -49,7 +57,7 @@ lang["rafcamlet/nvim-luapad"] = {
   config = conf.luapad
 }
 lang["windwp/nvim-ts-autotag"] = {
-  ft ={"vue", "html", "xml", }
+  ft = {"vue", "html", "xml"}
 }
 
 lang["davidgranstrom/nvim-markdown-preview"] = {
