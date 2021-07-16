@@ -11,8 +11,7 @@ lsp["hrsh7th/nvim-compe"] = {
   event = {"InsertEnter"},
   requires = {
     {"onsails/lspkind-nvim", opt = true},
-    {"tamago324/compe-zsh", ft = {"zsh"}},
-    {"FateXii/emmet-compe", ft = {"html"}}
+    {"tamago324/compe-zsh", ft = {"zsh"}}
   },
   config = conf.compe
 }
@@ -22,7 +21,7 @@ lsp["hrsh7th/vim-vsnip"] = {
 }
 
 lsp["glepnir/lspsaga.nvim"] = {
-  opt= true
+  opt = true
   -- config = conf.lspsaga
 }
 
@@ -30,12 +29,10 @@ lsp["akinsho/flutter-tools.nvim"] = {
   ft = {"dart"},
   config = conf.flutter
 }
-lsp["gfanto/fzf-lsp.nvim"] = {
-  opt = true
-}
 lsp["folke/trouble.nvim"] = {
   requires = {{"kyazdani42/nvim-web-devicons", opt = true}},
-  cmd = "LspTroubleToggle",
+  -- cmd = "LspTroubleToggle",
+  event = {"InsertEnter"},
   config = conf.lsp_trouble
 }
 lsp["ray-x/lsp_signature.nvim"] = {
@@ -46,12 +43,16 @@ lsp["simrat39/symbols-outline.nvim"] = {
   cmd = "SymbolsOutline"
 }
 
-lsp["nanotee/sqls.nvim"] = {}
+lsp["nanotee/sqls.nvim"] = {
+  ft = {"sql"}
+}
 
 lsp["jose-elias-alvarez/nvim-lsp-ts-utils"] = {
+  ft = {"typescript", "typescriptreact"}
 }
 lsp["RishabhRD/nvim-lsputils"] = {
-  requires = {"RishabhRD/popfix"},
+  requires = {{"RishabhRD/popfix", opt = true}},
+  event = {"BufEnter"},
   config = conf.lsputils
 }
 lsp["simrat39/rust-tools.nvim"] = {
@@ -59,4 +60,3 @@ lsp["simrat39/rust-tools.nvim"] = {
   config = conf.rust
 }
 return lsp
-

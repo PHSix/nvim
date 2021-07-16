@@ -72,7 +72,7 @@ Mappings = {
   -- nvim-tree.lua
   -- ["n|<C-n>"] = map_cmd("NvimTreeToggle"):noremap():silent(),
   -- chadtree
-  -- ["n|<C-n>"] = map_cmd("CHADopen"):silent(),
+  ["n|<C-n>"] = map_cmd("CHADopen"):silent(),
   -- faster.nvim
   ["n|j"] = map_key("v:lua.faster_jk('j')"):expr():silent(),
   ["n|k"] = map_key("v:lua.faster_jk('k')"):expr():silent(),

@@ -13,5 +13,8 @@ dap["mfussenegger/nvim-dap"] = {
 dap["rcarriga/nvim-dap-ui"] = {
   opt = true
 }
+dap["Pocco81/DAPInstall.nvim"] = {
+  opt = false
+}
 
 return dap

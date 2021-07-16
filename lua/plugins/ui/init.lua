@@ -31,34 +31,11 @@ ui["p00f/nvim-ts-rainbow"] = {
   event = {"BufReadPre"},
   config = conf.rainbow
 }
--- theme
-ui["marko-cerovac/material.nvim"] = {
-  opt = true,
-  config = function()
-    vim.g.material_style = "deep ocean"
-    require("material").set()
-  end
-}
--- tabline, but it has a problem with dashboard
+-- tabline
 ui["akinsho/nvim-bufferline.lua"] = {
   config = conf.nvim_bufferline()
 }
--- theme
-ui["folke/tokyonight.nvim"] = {
-  opt = true,
-  config = function()
-    vim.g.tokyonight_style = "storm"
-    vim.cmd [[colorscheme tokyonight]]
-  end
-}
--- theme
-ui["glepnir/zephyr-nvim"] = {
-  opt = true,
-  config = function()
-    require("zephyr")
-  end
-}
--- indent line plugin, but it can not work.
+-- indent line plugin
 ui["lukas-reineke/indent-blankline.nvim"] = {
   branch = "master",
   config = conf.indentLine

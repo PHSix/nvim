@@ -25,10 +25,6 @@ lang["nvim-treesitter/nvim-treesitter"] = {
   config = conf.treesitter
 }
 
-lang["skywind3000/vim-rt-format"] = {
-  event = {"InsertEnter"},
-  config = conf.rt_format
-}
 lang["dart-lang/dart-vim-plugin"] = {
   ft = {"dart"}
 }
@@ -63,9 +59,9 @@ lang["windwp/nvim-ts-autotag"] = {
 lang["davidgranstrom/nvim-markdown-preview"] = {
   ft = {"markdown"}
 }
-
-lang["mattn/emmet-vim"] = {
-  ft = {"html"}
+lang["lewis6991/spellsitter.nvim"] = {
+  opt = true
 }
+vim.cmd [[command! Spellsitter :PackerLoad spellsitter.nvim<CR>]]
 
 return lang

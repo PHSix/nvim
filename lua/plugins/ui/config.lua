@@ -80,7 +80,7 @@ function config.indentLine()
     "for"
   }
   -- because lazy load indent-blankline so need readd this autocmd
-  vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+  vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
 end
 function config.rainbow()
   require "nvim-treesitter.configs".setup {
@@ -92,7 +92,7 @@ end
 
 function config.nvim_bufferline()
   vim.cmd [[packadd nvim-web-devicons]]
-  if packer_plugins and packer_plugins["nvim-bufferline.lua"].loaded then
+  -- if packer_plugins and packer_plugins["nvim-bufferline.lua"].loaded then
     require("bufferline").setup {
       options = {
         numbers = "ordinal",
@@ -108,7 +108,7 @@ function config.nvim_bufferline()
         offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}}
       }
     }
-  end
+  -- end
 end
 
 function config.indent_guides()
