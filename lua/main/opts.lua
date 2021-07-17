@@ -1,6 +1,6 @@
 local M = {
   ["global"] = {
-    guifont = "FiraCode Nerd Font:h13",
+    guifont = "FiraCode Nerd Font:h16",
     mouse = "a",
     undofile = true,
     tabstop = 2,

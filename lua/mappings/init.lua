@@ -82,6 +82,8 @@ Mappings = {
   -- caw.vim
   ["n|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
   ["v|,c"] = map_key("v:lua.caw_prefix()"):expr():silent(),
+  -- lsp extensions
+  ["n|<leader>T"] = map_cmd("lua require'lsp_extensions'.inlay_hints()"):silent(),
   -- lspsaga
   -- ["n|K"] = map_cmd("Lspsaga hover_doc"):noremap():silent(),
   -- ["n|gj"] = map_cmd("Lspsaga diagnostic_jump_next"):noremap():silent(),

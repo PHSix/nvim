@@ -56,7 +56,7 @@ lsp["RishabhRD/nvim-lsputils"] = {
   config = conf.lsputils
 }
 lsp["simrat39/rust-tools.nvim"] = {
-  ft = {"rust"},
+  -- ft = {"rust"},
   config = conf.rust
 }
 return lsp

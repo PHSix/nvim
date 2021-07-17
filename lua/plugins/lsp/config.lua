@@ -269,4 +269,6 @@ function config.rust()
 
   require("rust-tools").setup(opts)
 end
+
+
 return config
