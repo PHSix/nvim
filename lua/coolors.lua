@@ -16,7 +16,7 @@ end
 -- @return {table}
 M.get_colors = function()
 	if tailwind == nil then
-		tailwind =  vim.json.decode(read_file_sync("/home/ph/.config/nvim/static/tailwind.json"))
+		tailwind = vim.json.decode(read_file_sync("/home/ph/.config/nvim/static/tailwind.json"))
 	end
 	return tailwind
 end
@@ -54,9 +54,25 @@ end
 -- highlight link api
 -- @param t {table}
 -- ]]
-M.link = function (t)
+M.link = function(t)
 	local cmd = string.format("hi link %s %s", t[1], t[2])
 	vim.cmd(cmd)
+end
+
+
+-- [[
+-- debug function
+-- ]]
+M.debug = function()
+	local fs = require("ludash").fs
+	vim.cmd([[hl clear]])
+	vim.cmd([[colorscheme coolors]])
+	fs.watchFile("~/.config/nvim/colors/coolors.lua", {
+		on_change = function()
+			vim.cmd([[luafile ~/.config/nvim/colors/coolors.lua]])
+		end,
+		["repeat"] = true,
+	})
 end
 
 return M
