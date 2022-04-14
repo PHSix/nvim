@@ -15,8 +15,9 @@ end
 -- colors from tailwindcss
 -- @return {table}
 M.get_colors = function()
+	local dotfile_path = vim.fn.stdpath("config")
 	if tailwind == nil then
-		tailwind = vim.json.decode(read_file_sync("/home/ph/.config/nvim/static/tailwind.json"))
+		tailwind = vim.json.decode(read_file_sync(dotfile_path .. "/static/tailwind.json"))
 	end
 	return tailwind
 end
