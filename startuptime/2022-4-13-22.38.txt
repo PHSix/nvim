@@ -1,0 +1,95 @@
+                                     ......            ph@localhost.localdomain 
+     .,cdxxxoc,.               .:kKMMMNWMMMNk:.        ------------------------ 
+    cKMMN0OOOKWMMXo. ;        ;0MWk:.      .:OMMk.     OS: openSUSE Tumbleweed x86_64 
+  ;WMK;.       .lKMMNM,     :NMK,             .OMW;    Host: A715-74G-52XP V1.29
+ cMW;            'WMMMN   ,XMK,                 oMM'   Kernel: 5.17.1-1-default 
+.MMc               ..;l. xMN:                    KM0   Uptime: 1 day, 12 hours, 51 mins 
+'MM.                   'NMO                      oMM   Packages: 2673 (rpm), 9 (flatpak) 
+.MM,                 .kMMl                       xMN   Shell: fish 3.4.1 
+ KM0               .kMM0. .dl:,..               .WMd   Resolution: 1920x1080 
+ .XM0.           ,OMMK,    OMMMK.              .XMK    DE: GNOME 42.0 
+   oWMO:.    .;xNMMk,       NNNMKl.          .xWMx     WM: Mutter 
+     :ONMMNXMMMKx;          .  ,xNMWKkxllox0NMWk,      WM Theme: Adwaita 
+         .....                    .:dOOXXKOxl,         Theme: Dracula-pink-accent [GTK2/3] 
+                                                       Icons: Adwaita [GTK2/3] 
+                                                       Terminal: tmux 
+                                                       CPU: Intel i5-9300H (8) @ 4.100GHz 
+                                                       GPU: Intel CoffeeLake-H GT2 [UHD Graphics 630] 
+                                                       GPU: NVIDIA GeForce GTX 1650 Mobile / Max-Q 
+                                                       Memory: 4792MiB / 15834MiB
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.008  000.008: --- NVIM STARTING ---
+000.395  000.387: locale set
+000.633  000.238: inits 1
+000.642  000.010: window checked
+000.645  000.002: parsing arguments
+002.278  001.633: expanding arguments
+002.298  000.020: inits 2
+002.606  000.308: init highlight
+002.607  000.001: waiting for UI
+003.276  000.669: done waiting for UI
+003.285  000.008: init screen for UI
+003.298  000.013: init default mappings
+003.321  000.022: init default autocommands
+004.014  000.041  000.041: sourcing /usr/local/share/nvim/runtime/ftplugin.vim
+004.124  000.021  000.021: sourcing /usr/local/share/nvim/runtime/indent.vim
+005.712  000.449  000.449: sourcing /home/ph/.config/nvim/colors/coolors.lua
+008.227  004.063  003.615: sourcing /home/ph/.config/nvim/init.lua
+008.233  000.787: sourcing vimrc file(s)
+008.324  000.018  000.018: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/filetype.nvim/filetype.vim
+008.488  000.035  000.035: sourcing /usr/local/share/nvim/runtime/filetype.lua
+008.512  000.010  000.010: sourcing /usr/local/share/nvim/runtime/filetype.vim
+008.693  000.056  000.056: sourcing /usr/local/share/nvim/runtime/syntax/synload.vim
+008.771  000.228  000.172: sourcing /usr/local/share/nvim/runtime/syntax/syntax.vim
+009.488  000.103  000.103: sourcing /usr/local/share/nvim/runtime/plugin/gzip.vim
+009.508  000.008  000.008: sourcing /usr/local/share/nvim/runtime/plugin/health.vim
+009.544  000.026  000.026: sourcing /usr/local/share/nvim/runtime/plugin/man.vim
+009.906  000.149  000.149: sourcing /usr/local/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+009.974  000.419  000.270: sourcing /usr/local/share/nvim/runtime/plugin/matchit.vim
+010.089  000.103  000.103: sourcing /usr/local/share/nvim/runtime/plugin/matchparen.vim
+010.332  000.229  000.229: sourcing /usr/local/share/nvim/runtime/plugin/netrwPlugin.vim
+011.425  000.116  000.116: sourcing /usr/local/share/nvim/runtime/autoload/remote/host.vim
+011.681  000.089  000.089: sourcing /usr/local/share/nvim/runtime/autoload/remote/define.vim
+012.325  001.888  001.683: sourcing /home/ph/.local/share/nvim/rplugin.vim
+012.330  001.980  000.093: sourcing /usr/local/share/nvim/runtime/plugin/rplugin.vim
+012.394  000.043  000.043: sourcing /usr/local/share/nvim/runtime/plugin/shada.vim
+012.433  000.018  000.018: sourcing /usr/local/share/nvim/runtime/plugin/spellfile.vim
+012.521  000.074  000.074: sourcing /usr/local/share/nvim/runtime/plugin/tarPlugin.vim
+012.593  000.056  000.056: sourcing /usr/local/share/nvim/runtime/plugin/tohtml.vim
+012.620  000.013  000.013: sourcing /usr/local/share/nvim/runtime/plugin/tutor.vim
+012.731  000.098  000.098: sourcing /usr/local/share/nvim/runtime/plugin/zipPlugin.vim
+034.764  000.036  000.036: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+057.921  000.016  000.016: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+063.235  050.438  050.387: sourcing /home/ph/.config/nvim/plugin/packer_compiled.lua
+063.400  001.267: loading rtp plugins
+063.743  000.023  000.023: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/highlight-current-n.nvim/plugin/highlight_current_n.vim
+063.979  000.157  000.157: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/hop.nvim/plugin/hop.vim
+064.315  000.231  000.231: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim/plugin/indent_blankline.vim
+064.516  000.107  000.107: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/lspsaga.nvim/plugin/lspsaga.vim
+064.636  000.015  000.015: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-bqf/plugin/bqf.vim
+064.756  000.023  000.023: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua/plugin/colorizer.vim
+064.922  000.070  000.070: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer/plugin/nvim-lsp-installer.vim
+065.086  000.064  000.064: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-lspconfig/plugin/lspconfig.vim
+065.955  000.560  000.560: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-treesitter/plugin/nvim-treesitter.vim
+066.134  000.070  000.070: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring/plugin/ts_context_commentstring.vim
+066.229  000.009  000.009: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+066.360  000.020  000.020: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/todo-comments.nvim/plugin/todo.vim
+066.543  000.106  000.106: sourcing /home/ph/.local/share/nvim/site/pack/packer/start/vim-commentary/plugin/commentary.vim
+066.686  001.831: loading packages
+066.725  000.038: loading after plugins
+066.734  000.010: inits 3
+068.280  001.545: reading ShaDa
+068.841  000.561: opening buffers
+068.859  000.018: BufEnter autocommands
+068.861  000.002: editing files in windows
+074.418  005.557: VimEnter autocommands
+074.421  000.003: UIEnter autocommands
+074.423  000.001: before starting main loop
+075.888  000.054  000.054: sourcing /home/ph/.local/share/nvim/site/pack/packer/opt/vim-cursorword/autoload/cursorword.vim
+075.949  001.046  000.992: sourcing /home/ph/.local/share/nvim/site/pack/packer/opt/vim-cursorword/plugin/cursorword.vim
+077.298  001.829: first screen update
+077.300  000.002: --- NVIM STARTED ---

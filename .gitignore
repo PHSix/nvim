@@ -1,0 +1,7 @@
+/undodir
+/plugin
+.netrwhist
+target/
+/node_modules/
+/.vscode/
+
