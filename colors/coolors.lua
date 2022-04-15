@@ -65,6 +65,21 @@ h({
 	{ "FoldColumn", bg = blue_gray["800"], fg = white },
 	{ "Whitespace", fg = gray["700"] },
 	{ "NonText", fg = gray["700"] },
+	{ "ModeMsg", fg = blue_gray["400"] },
+	{ "NormalNC", fg = gray["300"] },
+	{ "Search", bg = red["300"] },
+
+	{ "Identifier", fg = lime["200"] },
+	{ "Keyword", fg = pink["300"], bold },
+	{ "Type", fg = emerald["200"] },
+	{ "Function", fg = cyan["200"] },
+	{ "Statement", fg = light_blue["400"] },
+	{ "PreProc", fg = rose["400"] },
+	{ "String", fg = rose["400"] },
+	{ "Boolean", fg = orange["300"] },
+	{ "Character", fg = rose["400"] },
+	{ "Number", fg=green["300"] },
+	{ "Float" , fg=green["300"]},
 
 	-- diff
 	{ "DiffAdd", bg = bg, fg = green["300"] },
@@ -117,4 +132,8 @@ h({
 	{ "DashboardMenu", fg = fuchsia["200"] },
 })
 
-l({})
+l({
+	{ "Conceal", "Normal" },
+	{ "CursorColumn", "CursorLine" },
+	{ "DiffText", "NormalFloat" },
+})
