@@ -98,7 +98,7 @@ use({
 use({
 	"hrsh7th/nvim-cmp",
 	event = { "InsertEnter" },
-	commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
+	-- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
 	requires = {
 		{
 			"hrsh7th/cmp-nvim-lsp",
