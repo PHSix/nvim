@@ -66,11 +66,13 @@ end
 -- ]]
 M.debug = function()
 	local fs = require("ludash").fs
-	vim.cmd([[hl clear]])
+	vim.cmd([[hi clear]])
 	vim.cmd([[colorscheme coolors]])
 	fs.watchFile("~/.config/nvim/colors/coolors.lua", {
 		on_change = function()
+			vim.schedule(function ()
 			vim.cmd([[luafile ~/.config/nvim/colors/coolors.lua]])
+			end)
 		end,
 		["repeat"] = true,
 	})
