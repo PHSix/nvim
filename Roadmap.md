@@ -14,6 +14,7 @@
 	- [ ] prettier
 - [ ] coolors colorscheme (Its colors collection is come from tailwindss.)
 	- [ ] basic highlight complete
+		- [x] basic Indentify
 	- [ ] plugin highlight adjust
 		- [x] lspsaga
 	- [ ] treesitter support
