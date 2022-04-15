@@ -3,16 +3,8 @@ local packer = require(_G.p("core.packer"))
 local keymap = require(_G.p("core.keymap"))
 local autocmd = require(_G.p("core.autocmd"))
 local hack = require(_G.p("hack"))
--- local ludash = require("ludash")
 vim.g.python3_host_prog = "/bin/python3"
-vim.cmd([[hi clear]])
-vim.cmd([[colorscheme coolors]])
--- ludash.fs.watchFile("~/.config/nvim/colors/coolors.lua", {["repeat"]=true, on_change = function ()
--- 	vim.schedule(function ()
--- 		vim.cmd("luafile /home/ph/.config/nvim/colors/coolors.lua" )
--- 	end)
--- end})
-
+require("coolors").debug()
 
 opts.setup()
 keymap.setup()
