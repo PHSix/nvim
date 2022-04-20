@@ -1,5 +1,13 @@
 local api = vim.api
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+	if client.resolved_capabilities.document_formatting then
+		vim.cmd([[
+		augroup LspFormatting
+				autocmd! * <buffer>
+				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+		augroup END
+		]])
+	end
 	local function buf_set_keymap(...)
 		api.nvim_buf_set_keymap(bufnr, ...)
 	end
