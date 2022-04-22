@@ -58,7 +58,10 @@ M.setup = function()
 			completeUnimported = true,
 		},
 	})
-	initialize_server("tsserver")
+	-- initialize_server("tsserver")
+	require'lspconfig'.tsserver.setup{
+		cmd = { "/home/ph/.local/share/nvim/lsp_servers/tsserver/node_modules/.bin/typescript-language-server", "--tsserver-log-file=/home/ph/log/ts-logs.txt", "--stdio" }
+	}
 	initialize_server("clangd")
 	initialize_server("rust_analyzer", {
 		checkOnSave = {

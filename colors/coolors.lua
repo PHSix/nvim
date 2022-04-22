@@ -130,6 +130,17 @@ h({
 	-- dashboard
 	{ "DashboardHeader", fg = yellow["200"] },
 	{ "DashboardMenu", fg = fuchsia["200"] },
+
+
+	-- markdown
+	{"TSTitle", fg=lime["400"], bold},
+
+	-- cursor word
+	{"CursorWord0", bg=blue_gray["700"], none},
+	{"CursorWord1", bg=blue_gray["700"], none},
+
+	-- symbol outline
+	{"FocusedSymbol", bg=violet['500']},
 })
 
 l({

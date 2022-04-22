@@ -383,7 +383,10 @@ use({
 
 use({
 	"itchyny/vim-cursorword",
-	event = { "CursorMoved" },
+	-- event = { "CursorMoved" },
+	config = function ()
+		vim.g.cursorword_highlight = 0
+	end
 })
 
 use({
