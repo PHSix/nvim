@@ -11,7 +11,7 @@ local function get_typescript_server_path(root_dir)
 	local project_root = util.find_node_modules_ancestor(root_dir)
 
 	local local_tsserverlib = project_root ~= nil
-		and util.path.join(project_root, "node_modules", "typescript", "lib", "tsserverlibrary.js")
+			and util.path.join(project_root, "node_modules", "typescript", "lib", "tsserverlibrary.js")
 	local global_tsserverlib = vim.fn.stdpath("data") .. "lsp_servers/tsserver/typescript/lib/tsserverlibrary.js"
 
 	if local_tsserverlib and util.path.exists(local_tsserverlib) then
@@ -33,6 +33,7 @@ local function initialize_server(server_name, opts)
 		end
 	end
 end
+
 M.initialize_server = initialize_server
 M.setup = function()
 	initialize_server("sumneko_lua", {
@@ -58,10 +59,10 @@ M.setup = function()
 			completeUnimported = true,
 		},
 	})
-	-- initialize_server("tsserver")
-	require'lspconfig'.tsserver.setup{
-		cmd = { "/home/ph/.local/share/nvim/lsp_servers/tsserver/node_modules/.bin/typescript-language-server", "--tsserver-log-file=/home/ph/log/ts-logs.txt", "--stdio" }
-	}
+	initialize_server("tsserver")
+	-- require'lspconfig'.tsserver.setup{
+	-- 	cmd = { "/home/ph/.local/share/nvim/lsp_servers/tsserver/node_modules/.bin/typescript-language-server", "--tsserver-log-file=/home/ph/log/ts-logs.txt", "--stdio" }
+	-- }
 	initialize_server("clangd")
 	initialize_server("rust_analyzer", {
 		checkOnSave = {

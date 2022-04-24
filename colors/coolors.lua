@@ -78,8 +78,8 @@ h({
 	{ "String", fg = rose["400"] },
 	{ "Boolean", fg = orange["300"] },
 	{ "Character", fg = rose["400"] },
-	{ "Number", fg=green["300"] },
-	{ "Float" , fg=green["300"]},
+	{ "Number", fg = green["300"] },
+	{ "Float", fg = green["300"] },
 
 	-- diff
 	{ "DiffAdd", bg = bg, fg = green["300"] },
@@ -133,14 +133,18 @@ h({
 
 
 	-- markdown
-	{"TSTitle", fg=lime["400"], bold},
+	{ "Title", fg = lime["400"], bold },
+	{ "TSTitle", fg = lime["400"], bold },
 
 	-- cursor word
-	{"CursorWord0", bg=blue_gray["700"], none},
-	{"CursorWord1", bg=blue_gray["700"], none},
+	{ "CursorWord0", bg = blue_gray["700"], none },
+	{ "CursorWord1", bg = blue_gray["700"], none },
 
 	-- symbol outline
-	{"FocusedSymbol", bg=violet['500']},
+	{ "FocusedSymbol", bg = violet['500'] },
+
+	-- telescope
+	{ "TelescopeSelection", bg = cool_gray["800"] }
 })
 
 l({
