@@ -637,7 +637,6 @@ use({
 
 use({
 	"kdheepak/lazygit.nvim",
-	-- opt = true,
 	config = function()
 		vim.g.lazygit_floating_window_winblend = 0
 		vim.g.lazygit_floating_window_scaling_factor = 0.9
@@ -663,7 +662,13 @@ use({
 	end
 })
 
+use {
+	"beauwilliams/focus.nvim",
+	config = function()
+		require("focus").setup()
+	end
+}
+
 vim.defer_fn(function()
 	vim.cmd([[PackerLoad wilder.nvim]])
-	-- vim.cmd([[PackerLoad lazygit.nvim]])
 end, 300)
