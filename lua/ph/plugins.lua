@@ -342,6 +342,7 @@ use({
 				"bash",
 				"gomod",
 				"lua",
+				"tsx",
 			},
 			highlight = {
 				enable = true,
