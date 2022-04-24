@@ -52,19 +52,19 @@ use({
 -- ]]
 
 use({
-  "neovim/nvim-lspconfig",
-  requires = {
-    {
-      "weilbith/nvim-code-action-menu",
-      cmd = "CodeActionMenu",
-    },
-    { "b0o/schemastore.nvim" },
-    { "williamboman/nvim-lsp-installer" },
-    { "tami5/lspsaga.nvim", branch = "main" },
-  },
-  config = function()
-    require(_G.p("modules.lsp")).setup()
-  end,
+	"neovim/nvim-lspconfig",
+	requires = {
+		{
+			"weilbith/nvim-code-action-menu",
+			cmd = "CodeActionMenu",
+		},
+		{ "b0o/schemastore.nvim" },
+		{ "williamboman/nvim-lsp-installer" },
+		{ "tami5/lspsaga.nvim", branch = "main" },
+	},
+	config = function()
+		require(_G.p("modules.lsp")).setup()
+	end,
 })
 
 use({
@@ -105,8 +105,8 @@ use({
 			opt = true,
 		},
 		{
-		"hrsh7th/cmp-buffer",
-		opt = true,
+			"hrsh7th/cmp-buffer",
+			opt = true,
 		},
 		{
 			"hrsh7th/cmp-vsnip",
@@ -193,7 +193,7 @@ use({
 
 use({
 	"PHSix/faster.nvim",
-	keys = {"j", "k"},
+	keys = { "j", "k" },
 	config = function()
 		vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
 		vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
@@ -263,7 +263,7 @@ use({
 
 use({
 	"voldikss/vim-translator",
-	keys = {"<leader>tt"},
+	keys = { "<leader>tt" },
 	config = function()
 		vim.cmd([[
 			nmap <silent> <Leader>tt <Plug>TranslateW
@@ -384,7 +384,7 @@ use({
 use({
 	"itchyny/vim-cursorword",
 	-- event = { "CursorMoved" },
-	config = function ()
+	config = function()
 		vim.g.cursorword_highlight = 0
 	end
 })
@@ -399,14 +399,14 @@ use({
 })
 
 use {
-  "b3nj5m1n/kommentary",
-  disable = true,
-  keys = {",cc"},
-  config = function ()
-    vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
-    vim.api.nvim_set_keymap("n", ",c", "<Plug>kommentary_motion_default", {})
-    vim.api.nvim_set_keymap("v", ",c", "<Plug>kommentary_visual_default<C-c>", {})
-  end
+	"b3nj5m1n/kommentary",
+	disable = true,
+	keys = { ",cc" },
+	config = function()
+		vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
+		vim.api.nvim_set_keymap("n", ",c", "<Plug>kommentary_motion_default", {})
+		vim.api.nvim_set_keymap("v", ",c", "<Plug>kommentary_visual_default<C-c>", {})
+	end
 }
 
 use({
@@ -454,10 +454,10 @@ use({
 	end,
 })
 
-use {'ojroques/nvim-hardline',
-config = function()
-	require('hardline').setup {}
-end
+use { 'ojroques/nvim-hardline',
+	config = function()
+		require('hardline').setup {}
+	end
 }
 
 use({
@@ -613,20 +613,20 @@ use({
 
 use({
 	"rcarriga/nvim-notify",
-	config = function ()
+	config = function()
 		vim.notify = require("notify")
 	end
 })
 
 use({
 	"iamcco/markdown-preview.nvim",
-	ft = {"markdown"},
+	ft = { "markdown" },
 })
 
 use({
 	"junegunn/vim-easy-align",
-	keys = {"ga"},
-	config = function ()
+	keys = { "ga" },
+	config = function()
 		vim.cmd [[
 			nmap ga <Plug>(EasyAlign)
 			xmap ga <Plug>(EasyAlign)
@@ -634,7 +634,35 @@ use({
 	end
 })
 
+use({
+	"kdheepak/lazygit.nvim",
+	-- opt = true,
+	config = function()
+		vim.g.lazygit_floating_window_winblend = 0
+		vim.g.lazygit_floating_window_scaling_factor = 0.9
+		vim.g.lazygit_floating_window_corner_chars = { '╭', '╮', '╰', '╯' }
+		vim.g.lazygit_floating_window_use_plenary = 0
+		vim.g.lazygit_use_neovim_remote = 1
+	end
+})
+
+use({
+	"TimUntersberger/neogit",
+	cmd = { "Neogit" },
+	config = function()
+		require(_G.p("modules.neogit"))
+	end
+})
+
+use({
+	"sindrets/diffview.nvim",
+	requires = { { "nvim-lua/plenary.nvim", opt = true } },
+	config = function()
+		require(_G.p("modules.diffview"))
+	end
+})
 
 vim.defer_fn(function()
 	vim.cmd([[PackerLoad wilder.nvim]])
+	-- vim.cmd([[PackerLoad lazygit.nvim]])
 end, 300)
