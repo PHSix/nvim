@@ -1,10 +1,11 @@
 local api = vim.api
 local on_attach = function(client, bufnr)
+	client.resolved_capabilities.document_range_formatting = false
 	if client.resolved_capabilities.document_formatting then
 		vim.cmd([[
 		augroup LspFormatting
 				autocmd! * <buffer>
-				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+				autocmd BufWritePre <buffer> lua vim.lsp.buf.range_formatting()
 		augroup END
 		]])
 	end
