@@ -289,42 +289,6 @@ use({
 })
 
 use({
-	"jose-elias-alvarez/null-ls.nvim",
-	requires = { "PlatyPew/format-installer.nvim" },
-	config = function()
-		require("format-installer").setup({
-			installation_path = vim.fn.stdpath("data") .. "/formatters/",
-		})
-		local null_ls = require("null-ls")
-		local formatter_install = require("format-installer")
-
-		local sources = {}
-		for _, formatter in ipairs(formatter_install.get_installed_formatters()) do
-			local config = { command = formatter.cmd }
-			table.insert(sources, null_ls.builtins.formatting[formatter.name].with(config))
-		end
-
-		require("null-ls").setup({
-			sources = sources,
-			-- you can reuse a shared lspconfig on_attach callback here
-			on_attach = function(client, bufnr)
-				if client.resolved_capabilities.document_formatting then
-					local augroup_id = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
-					vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-						pattern = { "*" },
-						group = augroup_id,
-						callback = function()
-							local params = vim.lsp.util.make_formatting_params({})
-							client.request("textDocument/formatting", params, nil, bufnr)
-						end,
-					})
-				end
-			end,
-		})
-	end,
-})
-
-use({
 	"nvim-treesitter/nvim-treesitter",
 	requires = {
 		{ "windwp/nvim-ts-autotag", ft = { "vue", "html", "javascriptreact", "typescriptreact" } },
@@ -408,7 +372,7 @@ use({
 	"tpope/vim-commentary",
 	config = function()
 		vim.api.nvim_set_keymap("n", ",cc", "gcc", { noremap = false, silent = true })
-		vim.api.nvim_set_keymap("v", ",cc", "gc", { noremap = false, silent = true })
+		vim.api.nvim_set_keymap("v", ",c", "gc", { noremap = false, silent = true })
 		vim.api.nvim_set_keymap("x", ",cc", "gc", { noremap = false, silent = true })
 	end,
 })
@@ -673,7 +637,7 @@ use({
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v2.x",
 	cmd = { "Neotree", "NeoTreeRevealToggle" },
-	keys = {"<C-n>"},
+	keys = { "<C-n>" },
 	requires = {
 		{ opt = true, "nvim-lua/plenary.nvim" },
 		{ opt = true, "kyazdani42/nvim-web-devicons" },
@@ -684,6 +648,20 @@ use({
 	end,
 })
 
+use({
+	"sbdchd/neoformat",
+	config = function()
+		vim.cmd([[
+		augroup fmt
+			autocmd!
+			autocmd BufWritePre * undojoin | Neoformat
+		augroup END
+		]])
+		vim.api.nvim_set_keymap("n", "<leader>cf", "<CMD>Neoformat<CR>", { silent = true, noremap = true })
+	end,
+})
+
 vim.defer_fn(function()
 	vim.cmd([[PackerLoad wilder.nvim]])
+	vim.cmd([[PackerLoad neoformat]])
 end, 300)

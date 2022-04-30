@@ -1,20 +1,26 @@
 local api = vim.api
+-- local util = vim.lsp.util
+-- local t = { tsserver = true, sumneko_lua = true }
+
 local on_attach = function(client, bufnr)
 	client.resolved_capabilities.document_range_formatting = false
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd([[
-		augroup LspFormatting
-				autocmd! * <buffer>
-				autocmd BufWritePre <buffer> lua vim.lsp.buf.range_formatting()
-		augroup END
-		]])
-	end
+	-- if not t[client.name] and client.resolved_capabilities.document_formatting
+	-- then
+	-- 	vim.cmd([[
+	-- 	augroup LspFormatting
+	-- 			autocmd! * <buffer>
+	-- 			autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+	-- 	augroup END
+	-- 	]])
+	-- end
 	local function buf_set_keymap(...)
 		api.nvim_buf_set_keymap(bufnr, ...)
 	end
+
 	local function buf_set_option(...)
 		api.nvim_buf_set_option(bufnr, ...)
 	end
+
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 	local opts = { noremap = true, silent = true }
 	if packer_plugins["lspsaga.nvim"] then

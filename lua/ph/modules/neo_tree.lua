@@ -15,10 +15,10 @@ vim.g.neo_tree_remove_legacy_commands = 1
 -- in the form "LspDiagnosticsSignWarning"
 
 require("neo-tree").setup({
-	close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+	close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 	popup_border_style = "rounded",
 	enable_git_status = true,
-	enable_diagnostics = true,
+	enable_diagnostics = false,
 	default_component_configs = {
 		container = {
 			enable_character_fade = true,
@@ -73,7 +73,7 @@ require("neo-tree").setup({
 	},
 	window = {
 		position = "left",
-		width = 30,
+		width = 25,
 		mapping_options = {
 			noremap = true,
 			nowait = true,
@@ -140,7 +140,7 @@ require("neo-tree").setup({
 		-- "open_current",  -- netrw disabled, opening a directory opens within the
 		-- window like netrw would, regardless of window.position
 		-- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-		use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+		use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
 		-- instead of relying on nvim autocmd events.
 		window = {
 			mappings = {
