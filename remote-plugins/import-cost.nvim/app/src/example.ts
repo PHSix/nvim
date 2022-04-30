@@ -1,0 +1,1 @@
+import {Import} from 'import-cost';
