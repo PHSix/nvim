@@ -1,11 +1,12 @@
 local packer = require("packer")
 local use = packer.use
 
-use "wbthomason/packer.nvim"
+use("wbthomason/packer.nvim")
 
 use({
 	"goolord/alpha-nvim",
-	requires = { "kyazdani42/nvim-web-devicons" },
+	disable = true,
+	-- requires = { "kyazdani42/nvim-web-devicons" },
 	config = function()
 		require("alpha").setup(require(_G.p("modules.dashboard")).opts)
 	end,
@@ -77,7 +78,6 @@ use({
 		})
 	end,
 })
-
 
 use({
 	"simrat39/rust-tools.nvim",
@@ -304,8 +304,22 @@ use({
 			table.insert(sources, null_ls.builtins.formatting[formatter.name].with(config))
 		end
 
-		null_ls.setup({
+		require("null-ls").setup({
 			sources = sources,
+			-- you can reuse a shared lspconfig on_attach callback here
+			on_attach = function(client, bufnr)
+				if client.resolved_capabilities.document_formatting then
+					local augroup_id = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+					vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+						pattern = { "*" },
+						group = augroup_id,
+						callback = function()
+							local params = vim.lsp.util.make_formatting_params({})
+							client.request("textDocument/formatting", params, nil, bufnr)
+						end,
+					})
+				end
+			end,
 		})
 	end,
 })
@@ -387,7 +401,7 @@ use({
 	-- event = { "CursorMoved" },
 	config = function()
 		vim.g.cursorword_highlight = 0
-	end
+	end,
 })
 
 use({
@@ -399,7 +413,7 @@ use({
 	end,
 })
 
-use {
+use({
 	"b3nj5m1n/kommentary",
 	disable = true,
 	keys = { ",cc" },
@@ -407,8 +421,8 @@ use {
 		vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
 		vim.api.nvim_set_keymap("n", ",c", "<Plug>kommentary_motion_default", {})
 		vim.api.nvim_set_keymap("v", ",c", "<Plug>kommentary_visual_default<C-c>", {})
-	end
-}
+	end,
+})
 
 use({
 	"tpope/vim-surround",
@@ -437,7 +451,6 @@ use({
 	end,
 })
 
-
 use({
 	"hoob3rt/lualine.nvim",
 	disable = true,
@@ -451,15 +464,16 @@ use({
 	disable = true,
 	config = function()
 		-- require(_G.p("modules.windline"))
-		require('wlsample.evil_line')
+		require("wlsample.evil_line")
 	end,
 })
 
-use { 'ojroques/nvim-hardline',
+use({
+	"ojroques/nvim-hardline",
 	config = function()
-		require('hardline').setup {}
-	end
-}
+		require("hardline").setup({})
+	end,
+})
 
 use({
 	"rktjmp/highlight-current-n.nvim",
@@ -482,19 +496,12 @@ use({
 	end,
 })
 
-use "kevinhwang91/nvim-bqf"
+use("kevinhwang91/nvim-bqf")
 
 use({
 	"nathom/filetype.nvim",
 	config = function()
 		vim.g.did_load_filetypes = 1
-	end,
-})
-
-use({
-	"kyazdani42/nvim-tree.lua",
-	config = function()
-		require(_G.p("modules.nvim_tree"))
 	end,
 })
 
@@ -561,7 +568,6 @@ use({
 	end,
 })
 
-
 -- [[
 -- colorscheme setting
 -- ]]
@@ -614,9 +620,10 @@ use({
 
 use({
 	"rcarriga/nvim-notify",
+	disable = true,
 	config = function()
 		vim.notify = require("notify")
-	end
+	end,
 })
 
 use({
@@ -628,11 +635,11 @@ use({
 	"junegunn/vim-easy-align",
 	keys = { "ga" },
 	config = function()
-		vim.cmd [[
+		vim.cmd([[
 			nmap ga <Plug>(EasyAlign)
 			xmap ga <Plug>(EasyAlign)
-		]]
-	end
+		]])
+	end,
 })
 
 use({
@@ -640,10 +647,10 @@ use({
 	config = function()
 		vim.g.lazygit_floating_window_winblend = 0
 		vim.g.lazygit_floating_window_scaling_factor = 0.9
-		vim.g.lazygit_floating_window_corner_chars = { '╭', '╮', '╰', '╯' }
+		vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" }
 		vim.g.lazygit_floating_window_use_plenary = 0
 		vim.g.lazygit_use_neovim_remote = 1
-	end
+	end,
 })
 
 use({
@@ -651,7 +658,7 @@ use({
 	cmd = { "Neogit" },
 	config = function()
 		require(_G.p("modules.neogit"))
-	end
+	end,
 })
 
 use({
@@ -659,15 +666,23 @@ use({
 	requires = { { "nvim-lua/plenary.nvim", opt = true } },
 	config = function()
 		require(_G.p("modules.diffview"))
-	end
+	end,
 })
 
-use {
-	"beauwilliams/focus.nvim",
+use({
+	"nvim-neo-tree/neo-tree.nvim",
+	branch = "v2.x",
+	cmd = { "Neotree", "NeoTreeRevealToggle" },
+	keys = {"<C-n>"},
+	requires = {
+		{ opt = true, "nvim-lua/plenary.nvim" },
+		{ opt = true, "kyazdani42/nvim-web-devicons" },
+		{ opt = true, "MunifTanjim/nui.nvim" },
+	},
 	config = function()
-		require("focus").setup()
-	end
-}
+		require(_G.p("modules.neo_tree"))
+	end,
+})
 
 vim.defer_fn(function()
 	vim.cmd([[PackerLoad wilder.nvim]])
