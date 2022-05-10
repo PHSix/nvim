@@ -44,6 +44,12 @@ local M = {
 			"<leader>",
 		},
 	},
+	insert = {
+		{
+			"<C-V>",
+			"<ESC>\"+pa"
+		},
+	}
 }
 
 M.defult_opt = {
@@ -63,6 +69,13 @@ M.setup = function()
 			vim.api.nvim_set_keymap("v", map[1], map[2], map[3])
 		else
 			vim.api.nvim_set_keymap("v", map[1], map[2], M.defult_opt)
+		end
+	end
+	for _, map in pairs(M["insert"]) do
+		if map[3] then
+			vim.api.nvim_set_keymap("i", map[1], map[2], map[3])
+		else
+			vim.api.nvim_set_keymap("i", map[1], map[2], M.defult_opt)
 		end
 	end
 end
