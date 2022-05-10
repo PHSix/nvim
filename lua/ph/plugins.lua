@@ -3,6 +3,10 @@ local use = packer.use
 
 use("wbthomason/packer.nvim")
 
+
+--
+-- dashboard
+--
 use({
 	"goolord/alpha-nvim",
 	disable = true,
@@ -12,9 +16,9 @@ use({
 	end,
 })
 
--- [[
+--
 -- bufferline
--- ]]
+--
 
 use({
 	"akinsho/nvim-bufferline.lua",
@@ -41,16 +45,10 @@ use({
 	end,
 })
 
-use({
-	"lukas-reineke/indent-blankline.nvim",
-	config = function()
-		require(_G.p("modules.indentLine"))
-	end,
-})
 
--- [[
+--
 -- lsp
--- ]]
+--
 
 use({
 	"neovim/nvim-lspconfig",
@@ -80,14 +78,6 @@ use({
 })
 
 use({
-	"simrat39/rust-tools.nvim",
-	ft = { "rust" },
-	config = function()
-		require(_G.p("modules.rust"))
-	end,
-})
-
-use({
 	"simrat39/symbols-outline.nvim",
 	cmd = { "SymbolsOutline" },
 	config = function()
@@ -95,6 +85,146 @@ use({
 	end,
 })
 
+-- rust
+use({
+	"simrat39/rust-tools.nvim",
+	ft = { "rust" },
+	config = function()
+		require(_G.p("modules.rust"))
+	end,
+})
+
+
+
+
+--
+-- fuzzy finder engine
+--
+use({
+	"nvim-telescope/telescope.nvim",
+	keys = { "<C-f>", "<A-x>" },
+	cmd = { "Telescope" },
+	requires = {
+		{ "nvim-lua/popup.nvim", opt = true },
+		{ "nvim-lua/plenary.nvim" },
+		{ "AckslD/nvim-neoclip.lua" },
+		{ "ElPiloto/telescope-vimwiki.nvim", opt = true },
+	},
+	config = function()
+		require(_G.p("modules.telescope"))
+	end,
+})
+
+
+-- treesitter syntax
+use({
+	"nvim-treesitter/nvim-treesitter",
+	requires = {
+		{ "windwp/nvim-ts-autotag", ft = { "vue", "html", "javascriptreact", "typescriptreact" } },
+		{ "p00f/nvim-ts-rainbow", event = { "BufReadPre" } },
+		{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	},
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			autotag = {
+				enable = true,
+			},
+			ensure_installed = {
+				"c",
+				"cpp",
+				"rust",
+				"typescript",
+				"javascript",
+				"html",
+				"css",
+				"scss",
+				"go",
+				"yaml",
+				"dart",
+				"toml",
+				"python",
+				"json",
+				"fish",
+				"cmake",
+				"bash",
+				"gomod",
+				"lua",
+				"tsx",
+			},
+			highlight = {
+				enable = true,
+				disable = { "rust" },
+			},
+			context_commentstring = {
+				enable = true,
+			},
+		})
+	end,
+})
+
+
+
+--
+-- terminal
+--
+
+use({
+	"oberblastmeister/termwrapper.nvim",
+	keys = { "<C-t>" },
+	config = function()
+		vim.api.nvim_set_keymap("n", "<C-t>", ":Ttoggle<CR>", { silent = true, noremap = true })
+		vim.api.nvim_set_keymap("t", "<C-t>", "<C-\\><C-n>:Ttoggle<CR>", { silent = true })
+		-- vim.cmd([[
+		-- nnoremap <C-t> :Ttoggle<CR>
+		-- tmap <silent> <C-t> <C-\><C-n>:Ttoggle<CR>
+		-- ]])
+		vim.cmd([[autocmd Filetype termwrapper lua vim.api.nvim_buf_set_option(0, "buflisted", false)]])
+
+		require("termwrapper").setup({
+			open_autoinsert = true,
+			toggle_autoinsert = true,
+			autoclose = true,
+			winenter_autoinsert = false,
+			default_window_command = "belowright 13split",
+			open_new_toggle = true,
+			log = 1,
+		})
+	end,
+})
+
+--
+-- statusline
+--
+
+use({
+	"hoob3rt/lualine.nvim",
+	disable = true,
+	config = function()
+		require(_G.p("modules.lualine"))
+	end,
+})
+
+use({
+	"windwp/windline.nvim",
+	disable = true,
+	config = function()
+		-- require(_G.p("modules.windline"))
+		require("wlsample.evil_line")
+	end,
+})
+
+use({
+	"ojroques/nvim-hardline",
+	config = function()
+		require("hardline").setup({})
+	end,
+})
+
+
+
+--
+-- auto completion
+--
 use({
 	"hrsh7th/nvim-cmp",
 	event = { "InsertEnter" },
@@ -158,317 +288,6 @@ use({
 		require(_G.p("modules.coq"))
 	end,
 })
-
-use({
-	"crispgm/nvim-go",
-	requires = { { "nvim-lua/plenary.nvim", opt = true }, { "nvim-lua/popup.nvim", opt = true } },
-	ft = { "go" },
-	config = function()
-		vim.cmd([[PackerLoad plenary.nvim]])
-		vim.cmd([[PackerLoad popup.nvim]])
-		require("go").setup({
-			notify = true,
-			auto_format = true,
-			auto_lint = true,
-			linter = "revive",
-			linter_flags = {},
-			lint_prompt_style = "qf",
-			formatter = "goimports",
-			test_flags = { "-v" },
-			test_timeout = "30s",
-			test_env = {},
-			test_popup = true,
-			test_popup_auto_leave = false,
-			test_popup_width = 80,
-			test_popup_height = 10,
-			test_open_cmd = "edit",
-			tags_name = "json",
-			tags_options = { "json=omitempty" },
-			tags_transform = "snakecase",
-			tags_flags = { "-skip-unexported" },
-			quick_type_flags = { "--just-types" },
-		})
-	end,
-})
-
-use({
-	"PHSix/faster.nvim",
-	keys = { "j", "k" },
-	config = function()
-		vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
-		vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
-		vim.api.nvim_set_keymap("v", "j", "<Plug>(faster_vmove_j)", { noremap = false, silent = true })
-		vim.api.nvim_set_keymap("v", "k", "<Plug>(faster_vmove_k)", { noremap = false, silent = true })
-	end,
-})
-
-use({
-	"folke/todo-comments.nvim",
-	requires = "nvim-lua/plenary.nvim",
-	config = function()
-		require("todo-comments").setup({})
-	end,
-})
-
-use({
-	"nvim-telescope/telescope.nvim",
-	keys = { "<C-f>", "<A-x>" },
-	cmd = { "Telescope" },
-	requires = {
-		{ "nvim-lua/popup.nvim", opt = true },
-		{ "nvim-lua/plenary.nvim" },
-		{ "AckslD/nvim-neoclip.lua" },
-		{ "ElPiloto/telescope-vimwiki.nvim", opt = true },
-	},
-	config = function()
-		require(_G.p("modules.telescope"))
-	end,
-})
-
-use({
-	"windwp/nvim-autopairs",
-	event = { "InsertEnter" },
-	config = function()
-		require(_G.p("modules.autopairs"))
-	end,
-})
-
-use({
-	"norcalli/nvim-colorizer.lua",
-	config = function()
-		vim.o.termguicolors = true
-		require("colorizer").setup({
-			cpp = { rgb_fn = true },
-			c = { rgb_fn = true },
-			lua = { rgb_fn = true },
-			css = { rgb_fn = true },
-			scss = { rgb_fn = true },
-			vue = { rgb_fn = true },
-			sass = { rgb_fn = true },
-			stylus = { rgb_fn = true },
-			vim = { names = true },
-			tmux = { names = false },
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-			"json",
-			html = {
-				mode = "foreground",
-			},
-			"*",
-		})
-	end,
-})
-
-use({
-	"voldikss/vim-translator",
-	keys = { "<leader>tt" },
-	config = function()
-		vim.cmd([[
-			nmap <silent> <Leader>tt <Plug>TranslateW
-			vmap <silent> <Leader>tt <Plug>TranslateWV
-		]])
-	end,
-})
-
-use({
-	"lewis6991/gitsigns.nvim",
-	event = { "BufRead", "BufNewFile" },
-	config = function()
-		if not packer_plugins["plenary.nvim"].loaded then
-			vim.cmd([[packadd plenary.nvim]])
-		end
-		require("gitsigns").setup({
-			keymaps = {
-				noremap = false,
-				buffer = false,
-			},
-		})
-	end,
-})
-
-use({
-	"nvim-treesitter/nvim-treesitter",
-	requires = {
-		{ "windwp/nvim-ts-autotag", ft = { "vue", "html", "javascriptreact", "typescriptreact" } },
-		{ "p00f/nvim-ts-rainbow", event = { "BufReadPre" } },
-		{ "JoosepAlviste/nvim-ts-context-commentstring" },
-	},
-	config = function()
-		require("nvim-treesitter.configs").setup({
-			autotag = {
-				enable = true,
-			},
-			ensure_installed = {
-				"c",
-				"cpp",
-				"rust",
-				"typescript",
-				"javascript",
-				"html",
-				"css",
-				"scss",
-				"go",
-				"yaml",
-				"dart",
-				"toml",
-				"python",
-				"json",
-				"fish",
-				"cmake",
-				"bash",
-				"gomod",
-				"lua",
-				"tsx",
-			},
-			highlight = {
-				enable = true,
-				disable = { "rust" },
-			},
-			context_commentstring = {
-				enable = true,
-			},
-		})
-	end,
-})
-
-use({
-	"rafcamlet/nvim-luapad",
-	cmd = { "Luapad" },
-	config = function()
-		require("luapad").config({
-			count_limit = 150000,
-			error_indicator = false,
-			eval_on_move = true,
-			error_highlight = "WarningMsg",
-			on_init = function()
-				print("Hello from Luapad!")
-			end,
-			context = {
-				the_answer = 42,
-				shout = function(str)
-					return (string.upper(str) .. "!")
-				end,
-			},
-		})
-	end,
-})
-
-use({
-	"dhruvasagar/vim-table-mode",
-	ft = { "markdown" },
-})
-
-use({
-	"itchyny/vim-cursorword",
-	-- event = { "CursorMoved" },
-	config = function()
-		vim.g.cursorword_highlight = 0
-	end,
-})
-
-use({
-	"tpope/vim-commentary",
-	config = function()
-		vim.api.nvim_set_keymap("n", ",cc", "gcc", { noremap = false, silent = true })
-		vim.api.nvim_set_keymap("v", ",c", "gc", { noremap = false, silent = true })
-		vim.api.nvim_set_keymap("x", ",cc", "gc", { noremap = false, silent = true })
-	end,
-})
-
-use({
-	"b3nj5m1n/kommentary",
-	disable = true,
-	keys = { ",cc" },
-	config = function()
-		vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
-		vim.api.nvim_set_keymap("n", ",c", "<Plug>kommentary_motion_default", {})
-		vim.api.nvim_set_keymap("v", ",c", "<Plug>kommentary_visual_default<C-c>", {})
-	end,
-})
-
-use({
-	"tpope/vim-surround",
-	keys = { "c", "d" },
-})
-
-use({
-	"oberblastmeister/termwrapper.nvim",
-	keys = { "<C-t>" },
-	config = function()
-		vim.cmd([[
-      nnoremap <C-t> :Ttoggle<CR>
-      tmap <silent> <C-t> <C-\><C-n>:Ttoggle<CR>
-    ]])
-		vim.cmd([[autocmd Filetype termwrapper lua vim.api.nvim_buf_set_option(0, "buflisted", false)]])
-
-		require("termwrapper").setup({
-			open_autoinsert = true,
-			toggle_autoinsert = true,
-			autoclose = true,
-			winenter_autoinsert = false,
-			default_window_command = "belowright 13split",
-			open_new_toggle = true,
-			log = 1,
-		})
-	end,
-})
-
-use({
-	"hoob3rt/lualine.nvim",
-	disable = true,
-	config = function()
-		require(_G.p("modules.lualine"))
-	end,
-})
-
-use({
-	"windwp/windline.nvim",
-	disable = true,
-	config = function()
-		-- require(_G.p("modules.windline"))
-		require("wlsample.evil_line")
-	end,
-})
-
-use({
-	"ojroques/nvim-hardline",
-	config = function()
-		require("hardline").setup({})
-	end,
-})
-
-use({
-	"rktjmp/highlight-current-n.nvim",
-	config = function()
-		require("highlight_current_n").setup({
-			highlight_group = "IncSearch",
-		})
-		vim.cmd([[
-    nmap n <Plug>(highlight-current-n-n)
-    nmap N <Plug>(highlight-current-n-N)
-    nmap * *N
-    augroup ClearSearchHL
-      autocmd!
-      autocmd CmdlineEnter /,\? set hlsearch
-      autocmd CmdlineLeave /,\? set nohlsearch
-      autocmd CmdlineLeave /,\? lua require('highlight_current_n')['/,?']()
-    augroup END
-
-    ]])
-	end,
-})
-
-use("kevinhwang91/nvim-bqf")
-
-use({
-	"nathom/filetype.nvim",
-	config = function()
-		vim.g.did_load_filetypes = 1
-	end,
-})
-
 use({
 	"gelguy/wilder.nvim",
 	opt = true,
@@ -488,24 +307,9 @@ use({
 	end,
 })
 
-use({
-	"ethanholz/nvim-lastplace",
-	config = function()
-		require("nvim-lastplace").setup({
-			lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-			lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
-			lastplace_open_folds = true,
-		})
-	end,
-})
-
-use({
-	"lewis6991/impatient.nvim",
-	config = function()
-		require("impatient")
-	end,
-})
-
+--
+-- flutter
+--
 use({
 	"akinsho/flutter-tools.nvim",
 	requires = "nvim-lua/plenary.nvim",
@@ -514,15 +318,11 @@ use({
 	end,
 })
 
-use({
-	"phaazon/hop.nvim",
-	config = function()
-		require("hop").setup({ keys = "asdfghjkl;'qweruiop" })
-		vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", { noremap = true, silent = true })
-		vim.api.nvim_command("highlight default HopUnmatched guifg=#666666 guibg=bg guisp=#666666 ctermfg=242")
-	end,
-})
 
+
+--
+-- dap
+--
 use({
 	"rcarriga/nvim-dap-ui",
 	disable = true,
@@ -532,9 +332,9 @@ use({
 	end,
 })
 
--- [[
+--
 -- colorscheme setting
--- ]]
+--
 
 use({
 	"PHSix/nvim-hybrid",
@@ -582,27 +382,37 @@ use({
 	end,
 })
 
-use({
-	"rcarriga/nvim-notify",
-	disable = true,
-	config = function()
-		vim.notify = require("notify")
-	end,
-})
 
+--
+-- markdown
+--
 use({
 	"iamcco/markdown-preview.nvim",
 	ft = { "markdown" },
 })
 
 use({
-	"junegunn/vim-easy-align",
-	keys = { "ga" },
+	"dhruvasagar/vim-table-mode",
+	ft = { "markdown" },
+})
+
+
+--
+-- git plugin
+--
+use({
+	"lewis6991/gitsigns.nvim",
+	event = { "BufRead", "BufNewFile" },
 	config = function()
-		vim.cmd([[
-			nmap ga <Plug>(EasyAlign)
-			xmap ga <Plug>(EasyAlign)
-		]])
+		if not packer_plugins["plenary.nvim"].loaded then
+			vim.cmd([[packadd plenary.nvim]])
+		end
+		require("gitsigns").setup({
+			keymaps = {
+				noremap = false,
+				buffer = false,
+			},
+		})
 	end,
 })
 
@@ -625,14 +435,20 @@ use({
 	end,
 })
 
+-- preview diffview
 use({
 	"sindrets/diffview.nvim",
+	opt = true,
 	requires = { { "nvim-lua/plenary.nvim", opt = true } },
 	config = function()
 		require(_G.p("modules.diffview"))
 	end,
 })
 
+
+--
+-- file tree preview
+--
 use({
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v2.x",
@@ -648,8 +464,15 @@ use({
 	end,
 })
 
+--
+-- code formatter
+--
+
+-- neoformat was slowly
 use({
 	"sbdchd/neoformat",
+	opt = true,
+	disable = true,
 	config = function()
 		vim.cmd([[
 		augroup fmt
@@ -661,7 +484,293 @@ use({
 	end,
 })
 
+--
+-- golang coding enhance
+--
+
+use({
+	"fatih/vim-go",
+	ft = { "go" },
+	config = function()
+		vim.g.go_def_mapping_enabled = 0
+	end
+})
+
+use({"tweekmonster/gofmt.vim", disable = true})
+
+--
+-- buffer
+--
+use({
+	"matbme/JABS.nvim",
+	config = function()
+		-- (Optional) easy way to get Neovim current size.
+		local ui = vim.api.nvim_list_uis()[1]
+
+		require 'jabs'.setup {
+			position = 'corner', -- center, corner
+			width = 50,
+			height = 10,
+			border = 'shadow', -- none, single, double, rounded, solid, shadow, (or an array or chars)
+
+			-- Options for preview window
+			preview_position = 'left', -- top, bottom, left, right
+			preview = {
+				width = 40,
+				height = 30,
+				border = 'double', -- none, single, double, rounded, solid, shadow, (or an array or chars)
+			},
+
+			-- the options below are ignored when position = 'center'
+			col = ui.width, -- Window appears on the right
+			row = ui.height / 2, -- Window appears in the vertical middle
+		}
+	end
+})
+use("famiu/bufdelete.nvim")
+
+
+--
+-- impove vim use mothon plugins
+--
+
+
+-- A function and autocommand pair that removes all
+use("McAuleyPenney/tidy.nvim")
+
+-- scrollbar plugin
+use({
+	"petertriho/nvim-scrollbar",
+	config = function()
+		require("scrollbar").setup({})
+	end
+})
+
+use({
+	"edluffy/specs.nvim",
+	config = function()
+		require('specs').setup {
+			show_jumps       = true,
+			min_jump         = 30,
+			popup            = {
+				delay_ms = 0, -- delay before popup displays
+				inc_ms = 10, -- time increments used for fade/resize effects
+				blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
+				width = 10,
+				winhl = "PMenu",
+				fader = require('specs').linear_fader,
+				resizer = require('specs').shrink_resizer
+			},
+			ignore_filetypes = {},
+			ignore_buftypes  = {
+				nofile = true,
+			},
+		}
+	end
+})
+
+use({
+	"junegunn/vim-easy-align",
+	keys = { "ga" },
+	config = function()
+		vim.cmd([[
+			nmap ga <Plug>(EasyAlign)
+			xmap ga <Plug>(EasyAlign)
+		]])
+	end,
+})
+
+use({
+	"rcarriga/nvim-notify",
+	disable = true,
+	config = function()
+		vim.notify = require("notify")
+	end,
+})
+
+use({
+	"phaazon/hop.nvim",
+	config = function()
+		require("hop").setup({ keys = "asdfghjkl;'qweruiop" })
+		vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", { noremap = true, silent = true })
+		vim.api.nvim_command("highlight default HopUnmatched guifg=#666666 guibg=bg guisp=#666666 ctermfg=242")
+	end,
+})
+
+use({
+	"lewis6991/impatient.nvim",
+	config = function()
+		require("impatient")
+	end,
+})
+
+use({
+	"ethanholz/nvim-lastplace",
+	config = function()
+		require("nvim-lastplace").setup({
+			lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+			lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+			lastplace_open_folds = true,
+		})
+	end,
+})
+
+use("kevinhwang91/nvim-bqf")
+
+use({
+	"nathom/filetype.nvim",
+	config = function()
+		vim.g.did_load_filetypes = 1
+	end,
+})
+
+use({
+	"rktjmp/highlight-current-n.nvim",
+	config = function()
+		require("highlight_current_n").setup({
+			highlight_group = "IncSearch",
+		})
+		vim.cmd([[
+    nmap n <Plug>(highlight-current-n-n)
+    nmap N <Plug>(highlight-current-n-N)
+    nmap * *N
+    augroup ClearSearchHL
+      autocmd!
+      autocmd CmdlineEnter /,\? set hlsearch
+      autocmd CmdlineLeave /,\? set nohlsearch
+      autocmd CmdlineLeave /,\? lua require('highlight_current_n')['/,?']()
+    augroup END
+
+    ]])
+	end,
+})
+
+use({
+	"tpope/vim-surround",
+	keys = { "c", "d" },
+})
+
+use({
+	"itchyny/vim-cursorword",
+	-- event = { "CursorMoved" },
+	config = function()
+		vim.g.cursorword_highlight = 0
+	end,
+})
+
+use({
+	"tpope/vim-commentary",
+	config = function()
+		vim.api.nvim_set_keymap("n", ",cc", "gcc", { noremap = false, silent = true })
+		vim.api.nvim_set_keymap("v", ",c", "gc", { noremap = false, silent = true })
+		vim.api.nvim_set_keymap("x", ",cc", "gc", { noremap = false, silent = true })
+	end,
+})
+
+use({
+	"b3nj5m1n/kommentary",
+	disable = true,
+	keys = { ",cc" },
+	config = function()
+		vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
+		vim.api.nvim_set_keymap("n", ",c", "<Plug>kommentary_motion_default", {})
+		vim.api.nvim_set_keymap("v", ",c", "<Plug>kommentary_visual_default<C-c>", {})
+	end,
+})
+use({
+	"rafcamlet/nvim-luapad",
+	cmd = { "Luapad" },
+	config = function()
+		require("luapad").config({
+			count_limit = 150000,
+			error_indicator = false,
+			eval_on_move = true,
+			error_highlight = "WarningMsg",
+			on_init = function()
+				print("Hello from Luapad!")
+			end,
+			context = {
+				the_answer = 42,
+				shout = function(str)
+					return (string.upper(str) .. "!")
+				end,
+			},
+		})
+	end,
+})
+
+use({
+	"voldikss/vim-translator",
+	keys = { "<leader>tt" },
+	config = function()
+		vim.cmd([[
+			nmap <silent> <Leader>tt <Plug>TranslateW
+			vmap <silent> <Leader>tt <Plug>TranslateWV
+		]])
+	end,
+})
+use({
+	"windwp/nvim-autopairs",
+	event = { "InsertEnter" },
+	config = function()
+		require(_G.p("modules.autopairs"))
+	end,
+})
+
+use({
+	"norcalli/nvim-colorizer.lua",
+	config = function()
+		vim.o.termguicolors = true
+		require("colorizer").setup({
+			cpp = { rgb_fn = true },
+			c = { rgb_fn = true },
+			lua = { rgb_fn = true },
+			css = { rgb_fn = true },
+			scss = { rgb_fn = true },
+			vue = { rgb_fn = true },
+			sass = { rgb_fn = true },
+			stylus = { rgb_fn = true },
+			vim = { names = true },
+			tmux = { names = false },
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"json",
+			html = {
+				mode = "foreground",
+			},
+			"*",
+		})
+	end,
+})
+
+use({
+	"PHSix/faster.nvim",
+	keys = { "j", "k" },
+	config = function()
+		vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
+		vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
+		vim.api.nvim_set_keymap("v", "j", "<Plug>(faster_vmove_j)", { noremap = false, silent = true })
+		vim.api.nvim_set_keymap("v", "k", "<Plug>(faster_vmove_k)", { noremap = false, silent = true })
+	end,
+})
+
+use({
+	"folke/todo-comments.nvim",
+	requires = "nvim-lua/plenary.nvim",
+	config = function()
+		require("todo-comments").setup({})
+	end,
+})
+
+use({
+	"lukas-reineke/indent-blankline.nvim",
+	config = function()
+		require(_G.p("modules.indentLine"))
+	end,
+})
+
 vim.defer_fn(function()
-	vim.cmd([[PackerLoad wilder.nvim]])
-	vim.cmd([[PackerLoad neoformat]])
+	packer.loader("wilder.nvim")
 end, 300)
