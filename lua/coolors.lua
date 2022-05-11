@@ -60,18 +60,22 @@ M.link = function(t)
 	vim.cmd(cmd)
 end
 
-
 -- [[
 -- debug function
 -- ]]
-M.debug = function()
+M.debug = function(bg)
+	if bg == nil then
+		vim.o.background = "dark"
+	else
+		vim.o.background = bg
+	end
 	local fs = require("ludash").fs
 	vim.cmd([[hi clear]])
 	vim.cmd([[colorscheme coolors]])
 	fs.watchFile("~/.config/nvim/colors/coolors.lua", {
 		on_change = function()
-			vim.schedule(function ()
-			vim.cmd([[luafile ~/.config/nvim/colors/coolors.lua]])
+			vim.schedule(function()
+				vim.cmd([[luafile ~/.config/nvim/colors/coolors.lua]])
 			end)
 		end,
 		["repeat"] = true,
