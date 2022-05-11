@@ -3,7 +3,6 @@ local use = packer.use
 
 use("wbthomason/packer.nvim")
 
-
 --
 -- dashboard
 --
@@ -44,7 +43,6 @@ use({
 		-- vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
 	end,
 })
-
 
 --
 -- lsp
@@ -94,9 +92,6 @@ use({
 	end,
 })
 
-
-
-
 --
 -- fuzzy finder engine
 --
@@ -115,7 +110,6 @@ use({
 	end,
 })
 
-
 -- treesitter syntax
 use({
 	"nvim-treesitter/nvim-treesitter",
@@ -123,6 +117,7 @@ use({
 		{ "windwp/nvim-ts-autotag", ft = { "vue", "html", "javascriptreact", "typescriptreact" } },
 		{ "p00f/nvim-ts-rainbow", event = { "BufReadPre" } },
 		{ "JoosepAlviste/nvim-ts-context-commentstring" },
+		{ "romgrk/nvim-treesitter-context" },
 	},
 	config = function()
 		require("nvim-treesitter.configs").setup({
@@ -159,10 +154,25 @@ use({
 				enable = true,
 			},
 		})
+		require("treesitter-context").setup({
+			enable = true,
+			throttle = true,
+			max_lines = 0,
+			patterns = {
+				default = {
+					"class",
+					"function",
+					"method",
+					"for",
+					"while",
+					"if",
+					"switch",
+					"case",
+				},
+			},
+		})
 	end,
 })
-
-
 
 --
 -- terminal
@@ -219,8 +229,6 @@ use({
 		require("hardline").setup({})
 	end,
 })
-
-
 
 --
 -- auto completion
@@ -318,8 +326,6 @@ use({
 	end,
 })
 
-
-
 --
 -- dap
 --
@@ -382,7 +388,6 @@ use({
 	end,
 })
 
-
 --
 -- markdown
 --
@@ -395,7 +400,6 @@ use({
 	"dhruvasagar/vim-table-mode",
 	ft = { "markdown" },
 })
-
 
 --
 -- git plugin
@@ -445,7 +449,6 @@ use({
 	end,
 })
 
-
 --
 -- file tree preview
 --
@@ -489,14 +492,66 @@ use({
 --
 
 use({
+	"crispgm/nvim-go",
+	disable = true,
+	config = function()
+		require("go").setup({})
+	end,
+})
+
+use({
 	"fatih/vim-go",
+	disable = true,
 	ft = { "go" },
 	config = function()
 		vim.g.go_def_mapping_enabled = 0
-	end
+	end,
 })
 
-use({"tweekmonster/gofmt.vim", disable = true})
+use({ "tweekmonster/gofmt.vim", disable = true })
+
+--
+-- lua development
+--
+use({
+	"wesleimp/stylua.nvim",
+	ft = { "lua" },
+	config = function()
+		local id = vim.api.nvim_create_augroup("lua_auto_format", { clear = true })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = { "*.lua" },
+			callback = function()
+				require("stylua").format()
+			end,
+			group = id,
+		})
+	end,
+})
+
+--
+-- js/ts/frontend development
+--
+use({
+	"prettier/vim-prettier",
+	config = function()
+		vim.g["prettier#autoformat"] = 1
+		vim.g["prettier#autoformat_require_pragma"] = 0
+	end,
+	run = "yarn install --frozen-lockfile --production",
+	ft = {
+		"javascript",
+		"typescript",
+		"javascriptreact",
+		"typescriptreact",
+		"html",
+		"css",
+		"less",
+		"scss",
+		"json",
+		"vue",
+		"yaml",
+	},
+})
 
 --
 -- buffer
@@ -507,33 +562,31 @@ use({
 		-- (Optional) easy way to get Neovim current size.
 		local ui = vim.api.nvim_list_uis()[1]
 
-		require 'jabs'.setup {
-			position = 'corner', -- center, corner
+		require("jabs").setup({
+			position = "corner", -- center, corner
 			width = 50,
 			height = 10,
-			border = 'shadow', -- none, single, double, rounded, solid, shadow, (or an array or chars)
+			border = "shadow", -- none, single, double, rounded, solid, shadow, (or an array or chars)
 
 			-- Options for preview window
-			preview_position = 'left', -- top, bottom, left, right
+			preview_position = "left", -- top, bottom, left, right
 			preview = {
 				width = 40,
 				height = 30,
-				border = 'double', -- none, single, double, rounded, solid, shadow, (or an array or chars)
+				border = "double", -- none, single, double, rounded, solid, shadow, (or an array or chars)
 			},
 
 			-- the options below are ignored when position = 'center'
 			col = ui.width, -- Window appears on the right
 			row = ui.height / 2, -- Window appears in the vertical middle
-		}
-	end
+		})
+	end,
 })
 use("famiu/bufdelete.nvim")
-
 
 --
 -- impove vim use mothon plugins
 --
-
 
 -- A function and autocommand pair that removes all
 use("McAuleyPenney/tidy.nvim")
@@ -543,30 +596,30 @@ use({
 	"petertriho/nvim-scrollbar",
 	config = function()
 		require("scrollbar").setup({})
-	end
+	end,
 })
 
 use({
 	"edluffy/specs.nvim",
 	config = function()
-		require('specs').setup {
-			show_jumps       = true,
-			min_jump         = 30,
-			popup            = {
+		require("specs").setup({
+			show_jumps = true,
+			min_jump = 30,
+			popup = {
 				delay_ms = 0, -- delay before popup displays
 				inc_ms = 10, -- time increments used for fade/resize effects
 				blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
 				width = 10,
 				winhl = "PMenu",
-				fader = require('specs').linear_fader,
-				resizer = require('specs').shrink_resizer
+				fader = require("specs").linear_fader,
+				resizer = require("specs").shrink_resizer,
 			},
 			ignore_filetypes = {},
-			ignore_buftypes  = {
+			ignore_buftypes = {
 				nofile = true,
 			},
-		}
-	end
+		})
+	end,
 })
 
 use({
@@ -768,6 +821,18 @@ use({
 	"lukas-reineke/indent-blankline.nvim",
 	config = function()
 		require(_G.p("modules.indentLine"))
+	end,
+})
+
+use({
+	"folke/twilight.nvim",
+	cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
+	config = function()
+		require("twilight").setup({
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		})
 	end,
 })
 
