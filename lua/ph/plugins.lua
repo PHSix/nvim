@@ -836,6 +836,14 @@ use({
 	end,
 })
 
+use({
+	"Pocco81/TrueZen.nvim",
+	cmd = { "TZFocus" },
+	config = function()
+		require(_G.p("modules.zen"))
+	end,
+})
+
 vim.defer_fn(function()
 	packer.loader("wilder.nvim")
 end, 300)
