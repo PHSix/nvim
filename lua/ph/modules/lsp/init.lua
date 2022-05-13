@@ -124,6 +124,7 @@ M.setup = function()
 	initialize_server("arduino_language_server")
 	initialize_server("svelte")
 	initialize_server("dartls")
+	initialize_server("zls")
 end
 
 return M
