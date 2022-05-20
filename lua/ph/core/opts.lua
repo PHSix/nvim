@@ -1,7 +1,7 @@
 local M = {
 	["global"] = {
 		laststatus = 3,
-		guifont = "FiraCode Nerd Font:h16",
+		guifont = "Cascadia Mono PL:h15",
 		mouse = "a",
 		undofile = true,
 		tabstop = 2,
@@ -37,7 +37,7 @@ local M = {
 		syntax = "on",
 	},
 	["win"] = {
-		wrap = true,
+		wrap = false,
 		cursorline = true,
 		number = true,
 		relativenumber = true,

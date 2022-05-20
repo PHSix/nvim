@@ -125,6 +125,7 @@ M.setup = function()
 	initialize_server("svelte")
 	initialize_server("dartls")
 	initialize_server("zls")
+	initialize_server("hls")
 end
 
 return M

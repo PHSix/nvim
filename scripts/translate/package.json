@@ -1,0 +1,14 @@
+{
+  "name": "translate-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild index.js --bundle --platform=node --outfile=dist.js"
+  },
+  "dependencies": {
+    "bing-translate-api": "^2.6.0",
+    "esbuild": "^0.14.38",
+    "minimist": "^1.2.6"
+  }
+}
