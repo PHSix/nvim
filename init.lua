@@ -23,6 +23,13 @@ function check_health()
 		"fzf",
 		"ripgrep",
 		"lazygit",
+		"cmake",
+		"git",
+		"curl",
+		"unzip",
+		"tar",
+		"gzip",
+		"pip",
 	}
 	local _h = {}
 	for _, cmd in ipairs(_cmds) do
