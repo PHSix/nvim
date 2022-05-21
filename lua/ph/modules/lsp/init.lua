@@ -1,4 +1,5 @@
 require(_G.p("modules.lsp.handlers")).setup()
+local health = require("_health")
 local util = require("lspconfig.util")
 local attach = require(_G.p("modules.lsp.attach"))
 local capabilities = require(_G.p("modules.lsp.capabilities"))
@@ -53,79 +54,94 @@ M.setup = function()
 			},
 		},
 	})
-	initialize_server("gopls", {
-		init_options = {
-			usePlaceholders = true,
-			completeUnimported = true,
-		},
-	})
-	-- initialize_server("tsserver")
-	require("lspconfig").tsserver.setup({
-		cmd = {
-			"/home/ph/.local/share/nvim/lsp_servers/tsserver/node_modules/.bin/typescript-language-server",
-			"--tsserver-log-file=/home/ph/log/ts-logs.txt",
-			"--stdio",
-		},
-	})
-	initialize_server("clangd")
-	initialize_server("rust_analyzer", {
-		checkOnSave = {
-			enable = false,
-		},
-	})
-	initialize_server("pyright", {
-		settings = {
-			python = {
-				disableLanguageServices = false,
-				disableOrganizeImports = false,
-				analysis = {
-					autoImportCompletions = true,
-					autoSearchPaths = true,
-					diagnosticMode = "openFilesOnly",
-					stubPath = "typings",
-					typeshedPaths = {},
-					diagnosticSeverityOverrides = vim.empty_dict(),
-					typeCheckingMode = "basic",
-					useLibraryCodeForTypes = true,
-					pythonPath = "python3",
+	if health["go"] then
+		initialize_server("gopls", {
+			init_options = {
+				usePlaceholders = true,
+				completeUnimported = true,
+			},
+		})
+	end
+	-- require("lspconfig").tsserver.setup({
+	-- 	cmd = {
+	-- 		"/home/ph/.local/share/nvim/lsp_servers/tsserver/node_modules/.bin/typescript-language-server",
+	-- 		"--tsserver-log-file=/home/ph/log/ts-logs.txt",
+	-- 		"--stdio",
+	-- 	},
+	-- })
+	if health["npm"] and health["node"] then
+		initialize_server("tsserver")
+		initialize_server("eslint")
+		initialize_server("tailwindcss")
+		initialize_server("svelte")
+		initialize_server("html")
+		initialize_server("jsonls", {
+			settings = {
+				json = {
+					schemas = require("schemastore").json.schemas({
+						select = {
+							".eslintrc",
+							"package.json",
+						},
+					}),
 				},
 			},
-		},
-	})
-	initialize_server("vimls")
-	initialize_server("bashls")
-	initialize_server("jsonls", {
-		settings = {
-			json = {
-				schemas = require("schemastore").json.schemas({
-					select = {
-						".eslintrc",
-						"package.json",
-					},
-				}),
+		})
+		initialize_server("volar", {
+			config = {
+				on_new_config = function(new_config, new_root_dir)
+					new_config.init_options.typescript.serverPath = get_typescript_server_path(new_root_dir)
+				end,
 			},
-		},
-	})
-	initialize_server("cssls")
-	initialize_server("volar", {
-		config = {
-			on_new_config = function(new_config, new_root_dir)
-				new_config.init_options.typescript.serverPath = get_typescript_server_path(new_root_dir)
-			end,
-		},
-	})
-	initialize_server("cmake")
-	initialize_server("rnix")
-	initialize_server("tailwindcss")
-	initialize_server("html")
+		})
+		initialize_server("cssls")
+	end
+
+	if health["npm"] then
+		initialize_server("pyright", {
+			settings = {
+				python = {
+					disableLanguageServices = false,
+					disableOrganizeImports = false,
+					analysis = {
+						autoImportCompletions = true,
+						autoSearchPaths = true,
+						diagnosticMode = "openFilesOnly",
+						stubPath = "typings",
+						typeshedPaths = {},
+						diagnosticSeverityOverrides = vim.empty_dict(),
+						typeCheckingMode = "basic",
+						useLibraryCodeForTypes = true,
+						pythonPath = "python3",
+					},
+				},
+			},
+		})
+		initialize_server("vimls")
+		initialize_server("bashls")
+	end
+
+	if health["cmake"] then
+		initialize_server("cmake")
+	end
+	if health["zig"] then
+		initialize_server("zls")
+	end
+	if health["dart"] then
+		initialize_server("dartls")
+	end
 	initialize_server("zls")
-	initialize_server("svelte")
-	initialize_server("asm_lsp")
-	initialize_server("arduino_language_server")
-	initialize_server("svelte")
-	initialize_server("dartls")
-	initialize_server("zls")
-	initialize_server("hls")
+	if health["ghcup"] then
+		initialize_server("hls")
+	end
+	initialize_server("clangd")
+	if health["cargo"] then
+		initialize_server("rust_analyzer", {
+			checkOnSave = {
+				enable = false,
+			},
+		})
+	end
 end
 
 return M
