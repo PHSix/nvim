@@ -1,5 +1,6 @@
 local packer = require("packer")
 local use = packer.use
+local health = require("_health")
 
 use("wbthomason/packer.nvim")
 
@@ -86,6 +87,7 @@ use({
 -- rust
 use({
 	"simrat39/rust-tools.nvim",
+	disable = not health["cargo"],
 	ft = { "rust" },
 	config = function()
 		require(_G.p("modules.rust"))
@@ -103,7 +105,6 @@ use({
 		{ "nvim-lua/popup.nvim", opt = true },
 		{ "nvim-lua/plenary.nvim" },
 		{ "AckslD/nvim-neoclip.lua" },
-		{ "ElPiloto/telescope-vimwiki.nvim", opt = true },
 	},
 	config = function()
 		require(_G.p("modules.telescope"))
@@ -121,6 +122,9 @@ use({
 	},
 	config = function()
 		require("nvim-treesitter.configs").setup({
+			indent = {
+				enable = { "typescriptreact", "typescript", "javascriptreact", "javascript" },
+			},
 			autotag = {
 				enable = true,
 			},
@@ -320,6 +324,7 @@ use({
 --
 use({
 	"akinsho/flutter-tools.nvim",
+	disable = not health["flutter"],
 	requires = "nvim-lua/plenary.nvim",
 	config = function()
 		require(_G.p("modules.flutter"))
@@ -394,6 +399,7 @@ use({
 use({
 	"iamcco/markdown-preview.nvim",
 	ft = { "markdown" },
+	disable = not health["node"],
 })
 
 use({
@@ -422,6 +428,7 @@ use({
 
 use({
 	"kdheepak/lazygit.nvim",
+	disable = not health["lazygit"],
 	config = function()
 		vim.g.lazygit_floating_window_winblend = 0
 		vim.g.lazygit_floating_window_scaling_factor = 0.9
@@ -515,6 +522,7 @@ use({ "tweekmonster/gofmt.vim", disable = true })
 --
 use({
 	"wesleimp/stylua.nvim",
+	disable = not health["stylua"],
 	ft = { "lua" },
 	config = function()
 		local id = vim.api.nvim_create_augroup("lua_auto_format", { clear = true })
@@ -589,7 +597,7 @@ use("famiu/bufdelete.nvim")
 --
 
 -- A function and autocommand pair that removes all
-use("McAuleyPenney/tidy.nvim")
+use("mcauley-penney/tidy.nvim")
 
 -- scrollbar plugin
 use({
