@@ -74,7 +74,9 @@ M.setup = function()
 		initialize_server("eslint")
 		initialize_server("tailwindcss")
 		initialize_server("svelte")
-		initialize_server("html")
+		initialize_server("html", {
+			capabilities = M.capabilities,
+		})
 		initialize_server("jsonls", {
 			settings = {
 				json = {
@@ -86,6 +88,9 @@ M.setup = function()
 					}),
 				},
 			},
+			{
+				capabilities = M.capabilities,
+			},
 		})
 		initialize_server("volar", {
 			config = {
@@ -94,7 +99,9 @@ M.setup = function()
 				end,
 			},
 		})
-		initialize_server("cssls")
+		initialize_server("cssls", {
+			capabilities = M.capabilities,
+		})
 	end
 
 	if health["npm"] then

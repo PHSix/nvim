@@ -1,11 +1,10 @@
 vim.api.nvim_set_keymap("n", "<C-f>f", ":Telescope find_files<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<C-f>u", ":Telescope oldfiles<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<C-f>w", ":Telescope live_grep<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<c-f>b", ":Telescope buffers<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<A-x>", ":Telescope commands<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<c-f>v", ":Telescope vimwiki<CR>", { silent = true })
 vim.cmd([[packadd plenary.nvim]])
 vim.cmd([[packadd popup.nvim]])
-vim.cmd([[packadd telescope-vimwiki.nvim]])
 vim.cmd([[packadd telescope-fzy-native.nvim]])
 local actions = require("telescope.actions")
 require("telescope").setup({
@@ -58,6 +57,5 @@ require("telescope").setup({
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	},
 })
-require("telescope").load_extension("vimwiki")
 
 require("neoclip").setup()
