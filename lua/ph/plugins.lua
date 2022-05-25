@@ -423,6 +423,8 @@ use({
 				buffer = false,
 			},
 		})
+		vim.keymap.set("n", "gj", "<CMD>:Gitsigns next_hunk<CR>", { silent = true })
+		vim.keymap.set("n", "gk", "<CMD>:Gitsigns prev_hunk<CR>", { silent = true })
 	end,
 })
 
@@ -453,6 +455,15 @@ use({
 	requires = { { "nvim-lua/plenary.nvim", opt = true } },
 	config = function()
 		require(_G.p("modules.diffview"))
+	end,
+})
+
+use({
+	"junegunn/gv.vim",
+	cmd = { "GV" },
+	requires = { { "tpope/vim-fugitive", opt = true } },
+	config = function()
+		vim.cmd([[packadd vim-fugitive]])
 	end,
 })
 
