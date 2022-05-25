@@ -30,6 +30,7 @@ function check_health()
 		"tar",
 		"gzip",
 		"pip",
+		"fcitx5-remote",
 	}
 	local _h = {}
 	for _, cmd in ipairs(_cmds) do
