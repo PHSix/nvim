@@ -1,0 +1,30 @@
+{
+	"import default": {
+		"prefix": ["import def", "impordef"],
+		"body": ["import ${2:df} from ${1:module}"]
+	},
+	"import module": {
+		"prefix": ["import mod", "impormod"],
+		"body": ["import { $2 } from \"${1:module}\""]
+	},
+	"import type": {
+		"prefix": ["import tye", "importye"],
+		"body": ["import type { $2 } from \"${1:module}\""]
+	},
+	"export defult": {
+		"prefix": ["expordf", "export def"],
+		"body": ["export default $1"]
+	},
+	"export const": {
+		"prefix": ["exporcon", "export con"],
+		"body": ["export const $1 = $2"]
+	},
+	"function": {
+		"prefix": ["func"],
+		"body": ["function $1($2) {", "\t$3", "}"]
+	},
+	"arrow function": {
+		"prefix": ["arrfn"],
+		"body": ["($1) => {", "\t$2", "}"]
+	}
+}

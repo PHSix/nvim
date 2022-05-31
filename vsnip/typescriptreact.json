@@ -1,0 +1,18 @@
+{
+	"React Function Component": {
+		"prefix": ["fc"],
+		"body": [
+			"const ${1:Component}: FC = function() { ",
+			"\treturn <div>$2</div>",
+			"}"
+		]
+	},
+	"Solidjs Compoent": {
+		"prefix": ["Com"],
+		"body": [
+			"const ${1: Comp}: Component = function () {",
+			"\treturn <div>$2</div>",
+			"}"
+		]
+	}
+}

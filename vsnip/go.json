@@ -1,0 +1,10 @@
+{
+	"function": {
+		"prefix": ["fn"],
+		"body": ["func $1() {", "$2", "}"]
+	},
+	"gin func handler": {
+		"prefix": ["fgh"],
+		"body": ["func (ctx *gin.Context) {", "$1", "}"]
+	}
+}

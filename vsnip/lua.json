@@ -1,0 +1,6 @@
+{
+	"function": {
+		"prefix": ["func"],
+		"body": ["function $1()", "\t$2", "end"]
+	}
+}
