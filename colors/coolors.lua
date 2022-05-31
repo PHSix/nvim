@@ -50,6 +50,8 @@ local reverse = "reverse"
 if vim.o.background == "dark" then
 	-- dark mode
 	local bg = gray["900"]
+	-- bg = warn_gray["900"]
+	bg = black
 	h({
 		{ "Normal", bg = bg, fg = white },
 		{ "Comment", fg = warn_gray["400"], italic },
@@ -171,6 +173,7 @@ else
 		{ "NormalFloat", fg = fg, bg = blue_gray["200"] },
 		{ "Pmenu", fg = blue_gray["500"], bg = gray["100"] },
 		{ "PmenuSel", fg = fg, bg = gray["300"], bold },
+		{ "PmenuSbar", bg = cool_gray["100"] },
 		{ "WildMenu", fg = fg, bg = gray["100"] },
 		-- {"Folded", },
 		-- {"FoldColumn"},
@@ -207,5 +210,6 @@ else
 
 		-- telescope
 		-- { "TelescopePromptPrefix", bg = bg },
+		{ "TelescopeSelection", bg = blue_gray["200"], fg = red["500"], bold },
 	})
 end
