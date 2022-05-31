@@ -278,10 +278,6 @@ use({
 			"lukas-reineke/cmp-under-comparator",
 			opt = true,
 		},
-		{
-			"rafamadriz/friendly-snippets",
-			opt = true,
-		},
 	},
 	config = function()
 		require(_G.p("modules.cmp"))
@@ -519,7 +515,6 @@ use({
 
 use({
 	"fatih/vim-go",
-	disable = true,
 	ft = { "go" },
 	config = function()
 		vim.g.go_def_mapping_enabled = 0

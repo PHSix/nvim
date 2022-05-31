@@ -6,8 +6,8 @@ vim.cmd([[PackerLoad cmp-treesitter]])
 vim.cmd([[PackerLoad cmp-vsnip]])
 vim.cmd([[PackerLoad cmp-under-comparator]])
 vim.cmd([[PackerLoad vim-vsnip]])
-vim.cmd([[PackerLoad friendly-snippets]])
 vim.cmd([[PackerLoad cmp-buffer]])
+vim.g.vsnip_snippet_dir = vim.fn["stdpath"]("config") .. "/vsnip"
 
 vim.api.nvim_set_keymap("s", "<BS>", [[<c-g>"_c]], { silent = true })
 vim.api.nvim_set_keymap("s", "a", [[<c-g>"_ca]], { silent = true })
