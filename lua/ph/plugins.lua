@@ -5,7 +5,7 @@ local health = require("_health")
 use("wbthomason/packer.nvim")
 
 --
--- dashboard
+-- startup preview
 --
 use({
 	"goolord/alpha-nvim",
@@ -16,12 +16,17 @@ use({
 	end,
 })
 
+use({
+	"mhinz/vim-startify",
+})
+
 --
 -- bufferline
 --
 
 use({
 	"akinsho/nvim-bufferline.lua",
+	opt = true,
 	requires = { "kyazdani42/nvim-web-devicons" },
 	config = function()
 		require(_G.p("modules.bufferline"))
@@ -72,6 +77,17 @@ use({
 		require("trouble").setup({
 			auto_open = true,
 			auto_close = true,
+		})
+	end,
+})
+
+use({
+	"amrbashir/nvim-docs-view",
+	cmd = { "DocsViewToggle" },
+	config = function()
+		require("docs-view").setup({
+			position = "right",
+			width = 60,
 		})
 	end,
 })
@@ -575,22 +591,48 @@ use({
 	config = function()
 		-- (Optional) easy way to get Neovim current size.
 		local ui = vim.api.nvim_list_uis()[1]
+		vim.o.showtabline = 0
 
 		require("jabs").setup({
-			position = "corner", -- center, corner
-			width = 50,
-			height = 10,
-			border = "shadow", -- none, single, double, rounded, solid, shadow, (or an array or chars)
+			-- Options for the main window
+			position = "corner", -- center, corner. Default corner
+			width = 60, -- default 50
+			height = 15, -- default 10
+			border = "shadow", -- none, single, double, rounded, solid, shadow, (or an array or chars). Default shadow
 
 			-- Options for preview window
-			preview_position = "left", -- top, bottom, left, right
+			preview_position = "left", -- top, bottom, left, right. Default top
 			preview = {
-				width = 40,
-				height = 30,
-				border = "double", -- none, single, double, rounded, solid, shadow, (or an array or chars)
+				width = 40, -- default 70
+				height = 60, -- default 30
+				border = "single", -- none, single, double, rounded, solid, shadow, (or an array or chars). Default double
 			},
 
-			-- the options below are ignored when position = 'center'
+			-- Default highlights (must be a valid :highlight)
+			highlight = {
+				current = "Title", -- default StatusLine
+				hidden = "StatusLineNC", -- default ModeMsg
+				split = "WarningMsg", -- default StatusLine
+				alternate = "StatusLine", -- default WarningMsg
+			},
+
+			-- Default symbols
+			symbols = {
+				current = "C", -- default 
+				split = "S", -- default 
+				alternate = "A", -- default 
+				hidden = "H", -- default ﬘
+				locked = "L", -- default 
+				ro = "R", -- default 
+				edited = "E", -- default 
+				terminal = "T", -- default 
+				default_file = "D", -- Filetype icon if not present in nvim-web-devicons. Default 
+			},
+
+			-- Whether to use nvim-web-devicons next to filenames
+			use_devicons = true, -- true or false. Default true
+
+			-- The options below are ignored when position = 'center'
 			col = ui.width, -- Window appears on the right
 			row = ui.height / 2, -- Window appears in the vertical middle
 		})
