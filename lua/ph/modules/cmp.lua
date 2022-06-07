@@ -1,4 +1,3 @@
-vim.cmd([[PackerLoad lspkind-nvim]])
 vim.cmd([[PackerLoad cmp-nvim-lsp]])
 vim.cmd([[PackerLoad cmp-nvim-lua]])
 vim.cmd([[PackerLoad cmp-path]])
@@ -38,7 +37,33 @@ vim.api.nvim_set_keymap("s", "y", [[<c-g>"_cy]], { silent = true })
 vim.api.nvim_set_keymap("s", "z", [[<c-g>"_cz]], { silent = true })
 
 local cmp = require("cmp")
-local lspkind = require("lspkind")
+local cmp_kinds = {
+	Text = "  ",
+	Method = "  ",
+	Function = "  ",
+	Constructor = "  ",
+	Field = "  ",
+	Variable = "  ",
+	Class = "  ",
+	Interface = "  ",
+	Module = "  ",
+	Property = "  ",
+	Unit = "  ",
+	Value = "  ",
+	Enum = "  ",
+	Keyword = "  ",
+	Snippet = "  ",
+	Color = "  ",
+	File = "  ",
+	Reference = "  ",
+	Folder = "  ",
+	EnumMember = "  ",
+	Constant = "  ",
+	Struct = "  ",
+	Event = "  ",
+	Operator = "  ",
+	TypeParameter = "  ",
+}
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -51,7 +76,11 @@ end
 cmp.setup({
 	completion = { completeopt = "menu,menuone,noinsert" },
 	formatting = {
-		format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
+		fields = { "kind", "abbr" },
+		format = function(_, vim_item)
+			vim_item.kind = cmp_kinds[vim_item.kind] or ""
+			return vim_item
+		end,
 	},
 	snippet = {
 		expand = function(args)
