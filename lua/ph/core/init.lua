@@ -3,6 +3,7 @@ local packer = require(_G.p("core.packer"))
 local keymap = require(_G.p("core.keymap"))
 local autocmd = require(_G.p("core.autocmd"))
 local hack = require(_G.p("hack"))
+local ft = require(_G.p("core.ft"))
 vim.g.python3_host_prog = "/bin/python3"
 require("coolors").debug("dark")
 
@@ -11,3 +12,4 @@ keymap.setup()
 autocmd.setup()
 hack.setup()
 packer.setup()
+ft.setup()
