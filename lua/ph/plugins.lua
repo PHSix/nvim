@@ -26,7 +26,6 @@ use({
 
 use({
 	"akinsho/nvim-bufferline.lua",
-	opt = true,
 	requires = { "kyazdani42/nvim-web-devicons" },
 	config = function()
 		require(_G.p("modules.bufferline"))
@@ -255,7 +254,6 @@ use({
 --
 use({
 	"hrsh7th/nvim-cmp",
-	disable = true,
 	event = { "InsertEnter" },
 	-- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
 	requires = {
@@ -303,6 +301,7 @@ use({
 
 use({
 	"ms-jpq/coq_nvim",
+	disable = true,
 	branch = "coq",
 	requires = {
 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
@@ -402,6 +401,27 @@ use({
 			overrides = {},
 		})
 		vim.cmd([[colorscheme ayu]])
+	end,
+})
+
+use({
+	"mangeshrex/everblush.vim",
+	disable = true,
+	config = function()
+		vim.g.everblushNR = 1
+		vim.cmd([[colorscheme everblush]])
+	end,
+})
+
+-- greate support for terminal which want transparent
+use({
+	"tiagovla/tokyodark.nvim",
+	config = function()
+		vim.g.tokyodark_transparent_background = false
+		vim.g.tokyodark_enable_italic_comment = true
+		vim.g.tokyodark_enable_italic = true
+		vim.g.tokyodark_color_gamma = "1.0"
+		vim.cmd("colorscheme tokyodark")
 	end,
 })
 

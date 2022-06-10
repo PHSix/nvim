@@ -29,12 +29,14 @@ vim.api.nvim_set_keymap("s", "z", [[<c-g>"_cz]], { silent = true })
 require("coq_3p")({
 	{ src = "nvimlua", short_name = "nLUA" },
 })
+
 vim.g.coq_settings = {
 	["auto_start"] = true,
 	["keymap.recommended"] = true,
 	["keymap.pre_select"] = true,
 	["keymap.jump_to_mark"] = "",
-	["display.pum.fast_close"] = true,
+	["completion.always"] = true,
+	["display.pum.fast_close"] = false,
 	["display.preview.border"] = "single",
 	["display.preview.positions"] = nil,
 	["display.ghost_text.enabled"] = false,
