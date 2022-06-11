@@ -1,4 +1,5 @@
 require(_G.p("modules.lsp.handlers")).setup()
+require(_G.p("modules.lsp.null-ls"))
 local health = require("_health")
 local util = require("lspconfig.util")
 local attach = require(_G.p("modules.lsp.attach"))

@@ -63,6 +63,7 @@ use({
 		{ "b0o/schemastore.nvim" },
 		{ "williamboman/nvim-lsp-installer" },
 		{ "tami5/lspsaga.nvim", branch = "main" },
+		{ "jose-elias-alvarez/null-ls.nvim" },
 	},
 	config = function()
 		require(_G.p("modules.lsp")).setup()
@@ -254,6 +255,7 @@ use({
 --
 use({
 	"hrsh7th/nvim-cmp",
+	disable = true,
 	event = { "InsertEnter" },
 	-- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
 	requires = {
@@ -301,7 +303,6 @@ use({
 
 use({
 	"ms-jpq/coq_nvim",
-	disable = true,
 	branch = "coq",
 	requires = {
 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
@@ -484,7 +485,7 @@ use({
 use({
 	"sindrets/diffview.nvim",
 	opt = true,
-	requires = { { "nvim-lua/plenary.nvim", opt = true } },
+	requires = { "nvim-lua/plenary.nvim" },
 	config = function()
 		require(_G.p("modules.diffview"))
 	end,
@@ -508,7 +509,7 @@ use({
 	cmd = { "Neotree", "NeoTreeRevealToggle" },
 	keys = { "<C-n>" },
 	requires = {
-		{ opt = true, "nvim-lua/plenary.nvim" },
+		{ "nvim-lua/plenary.nvim" },
 		{ opt = true, "kyazdani42/nvim-web-devicons" },
 		{ opt = true, "MunifTanjim/nui.nvim" },
 	},
@@ -552,6 +553,7 @@ use({
 use({
 	"fatih/vim-go",
 	ft = { "go" },
+	disable = true,
 	config = function()
 		vim.g.go_def_mapping_enabled = 0
 	end,
@@ -564,7 +566,8 @@ use({ "tweekmonster/gofmt.vim", disable = true })
 --
 use({
 	"wesleimp/stylua.nvim",
-	disable = not health["stylua"],
+	disable = true,
+	-- disable = not health["stylua"],
 	ft = { "lua" },
 	config = function()
 		local id = vim.api.nvim_create_augroup("lua_auto_format", { clear = true })
@@ -838,6 +841,7 @@ use({
 		]])
 	end,
 })
+
 use({
 	"windwp/nvim-autopairs",
 	event = { "InsertEnter" },

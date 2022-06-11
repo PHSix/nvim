@@ -2,8 +2,27 @@ local api = vim.api
 -- local util = vim.lsp.util
 -- local t = { tsserver = true, sumneko_lua = true }
 
+local t
+t = {
+	collections = {
+		"tsserer",
+		"sumneko_lua",
+		"gopls",
+	},
+	has = function(ls)
+		for _, _ls in ipairs(t.collections) do
+			if ls == _ls then
+				return true
+			end
+		end
+		return false
+	end,
+}
+
 local on_attach = function(client, bufnr)
-	client.resolved_capabilities.document_range_formatting = false
+	if t.has(client.name) then
+		client.resolved_capabilities.document_formatting = false
+	end
 	-- if not t[client.name] and client.resolved_capabilities.document_formatting
 	-- then
 	-- 	vim.cmd([[
