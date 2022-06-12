@@ -5,7 +5,7 @@ nu.setup({
 		nu.builtins.completion.spell,
 		nu.builtins.code_actions.eslint_d,
 
-		nu.builtins.diagnostics.eslint_d,
+		-- nu.builtins.diagnostics.eslint_d,
 		nu.builtins.diagnostics.fish,
 		nu.builtins.diagnostics.stylelint,
 		nu.builtins.diagnostics.zsh,
@@ -23,8 +23,8 @@ nu.setup({
 
 vim.api.nvim_create_user_command("LspFormat", "execute 'lua vim.lsp.buf.formatting_sync()'", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = {"*"},
-	callback = function ()
+	pattern = { "*" },
+	callback = function()
 		vim.lsp.buf.formatting_sync()
-	end
+	end,
 })

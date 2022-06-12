@@ -5,7 +5,7 @@ local api = vim.api
 local t
 t = {
 	collections = {
-		"tsserer",
+		"tsserver",
 		"sumneko_lua",
 		"gopls",
 	},
