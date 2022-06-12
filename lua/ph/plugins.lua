@@ -293,21 +293,6 @@ use({
 	end,
 })
 
---
--- golang coding enhance
---
-
-use({
-	"fatih/vim-go",
-	ft = { "go" },
-	disable = true,
-	config = function()
-		vim.g.go_def_mapping_enabled = 0
-	end,
-})
-
-use({ "tweekmonster/gofmt.vim", disable = true })
-
 use("famiu/bufdelete.nvim")
 
 --
@@ -564,6 +549,7 @@ use({
 		"matsui54/ddc-buffer",
 		"ippachi/ddc-yank",
 		"LumaKernel/ddc-file",
+		"windwp/nvim-autopairs",
 	},
 	config = function()
 		require(_G.p("modules.ddc"))
@@ -583,6 +569,8 @@ use({
 -- 		require(_G.p("modules.ddc"))
 -- 	end,
 -- })
+
+use("~/projects/go-completion")
 
 vim.defer_fn(function()
 	-- packer.loader("wilder.nvim")

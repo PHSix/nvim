@@ -1,13 +1,15 @@
-vim.o.completeopt = vim.o.completeopt .. ",noinsert"
+vim.o.completeopt = "menu,noinsert"
 vim.g.vsnip_snippet_dir = vim.fn["stdpath"]("config") .. "/vsnip"
 -- font link: https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf
 vim.call("ddc#custom#patch_global", {
-	sources = { "nvim-lsp", "around", "vsnip", "buffer", "yank", "file" },
+	sources = { "file", "vsnip", "nvim-lsp", "around", "buffer", "yank" },
 	sourceOptions = {
 		["_"] = {
-			matchers = { "matcher_fuzzy" },
-			sorters = { "sorter_fuzzy" },
-			converters = { "converter_fuzzy" },
+			-- matchers = { "matcher_fuzzy" },
+			-- sorters = { "sorter_fuzzy" },
+			-- converters = { "converter_fuzzy" },
+			matchers = { "matcher_head" },
+			sorters = { "sorter_rank" },
 		},
 		["nvim-lsp"] = {
 			mark = "「LSP」",
@@ -15,6 +17,7 @@ vim.call("ddc#custom#patch_global", {
 			minAutoCompleteLength = 1,
 			forceCompletionPattern = [[\.|:|->]],
 			dup = true,
+			ignoreCase = true,
 		},
 		around = {
 			mark = "「AROUND」",
@@ -28,6 +31,7 @@ vim.call("ddc#custom#patch_global", {
 		},
 		file = {
 			mark = "「FILE」",
+			forceCompletionPattern = "\\S/\\S*",
 		},
 		yank = {
 			mark = "「YANK」",
@@ -63,13 +67,49 @@ vim.call("ddc#custom#patch_global", {
 				-- TypeParameter = "  ",
 			},
 		},
+		file = {
+			displayFile = "  ",
+			displayDir = "  ",
+		},
 	},
 	-- completionMenu = "pum.vim",
+	backspaceCompletion = true,
 })
+
 -- vim.call("popup_preview#enable")
 vim.call("signature_help#enable")
 vim.call("ddc#enable")
 vim.call("pum#set_option", "setline_insert", false)
+
+local npairs = require("nvim-autopairs")
+npairs.setup({ map_bs = false, map_cr = false })
+vim.keymap.set("i", "<tab>", function()
+	if vim.fn.pumvisible() ~= 0 then
+		return "<C-n>"
+	elseif vim.fn["vsnip#available"](1) == 1 then
+		return "<Plug>(vsnip-expand-or-jump)"
+	else
+		return "<TAB>"
+	end
+end, { expr = true, noremap = true })
+vim.api.nvim_set_keymap("i", "<s-tab>", [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+vim.keymap.set("i", "<CR>", function()
+	if vim.fn.pumvisible() ~= 0 then
+		return "<c-y>"
+	else
+		return "<CR>"
+		-- return npairs.autopairs_cr()
+	end
+	-- if vim.fn.pumvisible() ~= 0 then
+	-- 	if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+	-- 		return npairs.esc("<c-y>")
+	-- 	else
+	-- 		return "<CR>"
+	-- 	end
+	-- else
+	-- 	return npairs.autopairs_cr()
+	-- end
+end, { expr = true })
 
 -- BUG: pum.vim map
 -- vim.cmd([[

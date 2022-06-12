@@ -8,6 +8,7 @@ t = {
 		"tsserver",
 		"sumneko_lua",
 		"gopls",
+		"denols",
 	},
 	has = function(ls)
 		for _, _ls in ipairs(t.collections) do
