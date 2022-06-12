@@ -534,12 +534,12 @@ use({
 	"Shougo/ddc.vim",
 	requires = {
 		"vim-denops/denops.vim",
-		-- "Shougo/ddc-nvim-lsp",
-		"~/git/ddc-nvim-lsp",
+		"Shougo/ddc-nvim-lsp",
+		"~/git/ddc-nvim-lsp-sort",
 		"Shougo/ddc-matcher_head",
 		"Shougo/ddc-sorter_rank",
 		"Shougo/ddc-around",
-		-- "matsui54/denops-popup-preview.vim",
+		"matsui54/denops-popup-preview.vim",
 		"matsui54/denops-signature_help",
 		"Shougo/pum.vim",
 		"tani/ddc-fuzzy",
@@ -550,6 +550,7 @@ use({
 		"ippachi/ddc-yank",
 		"LumaKernel/ddc-file",
 		"windwp/nvim-autopairs",
+		"tani/ddc-onp",
 	},
 	config = function()
 		require(_G.p("modules.ddc"))

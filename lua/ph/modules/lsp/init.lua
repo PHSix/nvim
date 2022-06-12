@@ -71,7 +71,7 @@ M.setup = function()
 	-- 	},
 	-- })
 	if health["npm"] and health["node"] then
-		initialize_server("tsserver")
+		-- initialize_server("tsserver")
 		initialize_server("eslint")
 		initialize_server("tailwindcss")
 		initialize_server("svelte")

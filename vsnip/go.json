@@ -1,14 +1,14 @@
 {
-	"function": {
-		"prefix": ["fn"],
-		"body": ["func $1() {", "$2", "}"]
-	},
-	"gin func handler": {
-		"prefix": ["fgh"],
-		"body": ["func (ctx *gin.Context) {", "$1", "}"]
-	},
-	"if error not nil handle": {
-		"prefix": ["iferr"],
-		"body": ["if err != nil {", "\t$1", "}"]
-	}
+  "function": {
+    "prefix": ["fn", "func"],
+    "body": ["func $1() {", "\t$2", "}"]
+  },
+  "gin func handler": {
+    "prefix": ["fgh"],
+    "body": ["func (ctx *gin.Context) {", "$1", "}"]
+  },
+  "if error not nil handle": {
+    "prefix": ["iferr"],
+    "body": ["if err != nil {", "\t$1", "}"]
+  }
 }
