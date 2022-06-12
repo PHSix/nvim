@@ -571,8 +571,27 @@ use({
 -- 	end,
 -- })
 
-use("~/projects/go-completion")
+use({
+	"gelguy/wilder.nvim",
+	opt = true,
+	config = function()
+		vim.cmd([[
+      call wilder#setup({'modes': [':', '/', '?']})
+      call wilder#set_option('pipeline', [
+            \   wilder#branch(
+            \     wilder#cmdline_pipeline(),
+            \     wilder#search_pipeline(),
+            \   ),
+            \ ])
+      call wilder#set_option('renderer', wilder#popupmenu_renderer({
+            \ 'highlighter': wilder#basic_highlighter(),
+            \ }))
+    ]])
+	end,
+})
+
+-- use("~/projects/go-completion")
 
 vim.defer_fn(function()
-	-- packer.loader("wilder.nvim")
+	packer.loader("wilder.nvim")
 end, 300)
