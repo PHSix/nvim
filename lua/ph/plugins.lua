@@ -535,7 +535,7 @@ use({
 	requires = {
 		"vim-denops/denops.vim",
 		"Shougo/ddc-nvim-lsp",
-		"~/git/ddc-nvim-lsp-sort",
+		"PHSix/ddc-nvim-lsp-sort",
 		"Shougo/ddc-matcher_head",
 		"Shougo/ddc-sorter_rank",
 		"Shougo/ddc-around",
