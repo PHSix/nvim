@@ -255,7 +255,6 @@ use({
 --
 use({
 	"hrsh7th/nvim-cmp",
-	disable = true,
 	event = { "InsertEnter" },
 	-- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
 	requires = {
@@ -303,6 +302,7 @@ use({
 
 use({
 	"ms-jpq/coq_nvim",
+	disable = true,
 	branch = "coq",
 	requires = {
 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
