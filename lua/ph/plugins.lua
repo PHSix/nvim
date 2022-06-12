@@ -7,14 +7,6 @@ use("wbthomason/packer.nvim")
 --
 -- startup preview
 --
-use({
-	"goolord/alpha-nvim",
-	disable = true,
-	-- requires = { "kyazdani42/nvim-web-devicons" },
-	config = function()
-		require("alpha").setup(require(_G.p("modules.dashboard")).opts)
-	end,
-})
 
 use({
 	"mhinz/vim-startify",
@@ -29,23 +21,6 @@ use({
 	requires = { "kyazdani42/nvim-web-devicons" },
 	config = function()
 		require(_G.p("modules.bufferline"))
-	end,
-})
-
-use({
-	"nanozuki/tabby.nvim",
-	disable = true,
-	config = function()
-		require("tabby").setup()
-		-- vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
-		-- vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
-		-- vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
-		-- vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
-		-- vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
-		-- -- move current tab to previous position
-		-- vim.api.nvim_set_keymap("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
-		-- -- move current tab to next position
-		-- vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
 	end,
 })
 
@@ -227,192 +202,14 @@ use({
 --
 
 use({
-	"hoob3rt/lualine.nvim",
-	disable = true,
-	config = function()
-		require(_G.p("modules.lualine"))
-	end,
-})
-
-use({
-	"windwp/windline.nvim",
-	disable = true,
-	config = function()
-		-- require(_G.p("modules.windline"))
-		require("wlsample.evil_line")
-	end,
-})
-
-use({
 	"ojroques/nvim-hardline",
 	config = function()
 		require("hardline").setup({})
 	end,
 })
-
---
--- auto completion
---
-use({
-	"hrsh7th/nvim-cmp",
-	event = { "InsertEnter" },
-	-- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
-	requires = {
-		{
-			"hrsh7th/cmp-nvim-lsp",
-			opt = true,
-		},
-		{
-			"hrsh7th/cmp-buffer",
-			opt = true,
-		},
-		{
-			"hrsh7th/cmp-vsnip",
-			opt = true,
-		},
-		{
-			"hrsh7th/vim-vsnip",
-			opt = true,
-		},
-		{
-			"hrsh7th/cmp-path",
-			opt = true,
-		},
-		{
-			"hrsh7th/cmp-nvim-lua",
-			opt = true,
-		},
-		{
-			"ray-x/cmp-treesitter",
-			opt = true,
-		},
-		{
-			"onsails/lspkind-nvim",
-			opt = true,
-		},
-		{
-			"lukas-reineke/cmp-under-comparator",
-			opt = true,
-		},
-	},
-	config = function()
-		require(_G.p("modules.cmp"))
-	end,
-})
-
-use({
-	"ms-jpq/coq_nvim",
-	disable = true,
-	branch = "coq",
-	requires = {
-		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
-		{ "ms-jpq/coq.thirdparty", branch = "3p" },
-	},
-	config = function()
-		require(_G.p("modules.coq"))
-	end,
-})
-use({
-	"gelguy/wilder.nvim",
-	opt = true,
-	config = function()
-		vim.cmd([[
-      call wilder#setup({'modes': [':', '/', '?']})
-      call wilder#set_option('pipeline', [
-            \   wilder#branch(
-            \     wilder#cmdline_pipeline(),
-            \     wilder#search_pipeline(),
-            \   ),
-            \ ])
-      call wilder#set_option('renderer', wilder#popupmenu_renderer({
-            \ 'highlighter': wilder#basic_highlighter(),
-            \ }))
-    ]])
-	end,
-})
-
---
--- flutter
---
-use({
-	"akinsho/flutter-tools.nvim",
-	disable = not health["flutter"],
-	requires = "nvim-lua/plenary.nvim",
-	config = function()
-		require(_G.p("modules.flutter"))
-	end,
-})
-
---
--- dap
---
-use({
-	"rcarriga/nvim-dap-ui",
-	disable = true,
-	requires = { "mfussenegger/nvim-dap", "Pocco81/DAPInstall.nvim" },
-	config = function()
-		require(_G.p("modules.dap"))
-	end,
-})
-
 --
 -- colorscheme setting
 --
-
-use({
-	"PHSix/nvim-hybrid",
-	disable = true,
-	config = function()
-		require("hybrid").setup()
-		vim.cmd([[colorscheme hybrid]])
-	end,
-})
-
-use({
-	"sainnhe/everforest",
-	disable = true,
-	config = function()
-		vim.o.termguicolors = true
-		vim.g.everforest_background = "hard"
-		vim.cmd([[colorscheme everforest]])
-	end,
-})
-
-use({
-	"sainnhe/gruvbox-material",
-	disable = true,
-	config = function()
-		vim.cmd([[
-    if has('termguicolors')
-      set termguicolors
-    endif
-    set background=dark
-    let g:gruvbox_material_background = 'medium'
-    colorscheme gruvbox-material
-    ]])
-	end,
-})
-
-use({
-	"Shatur/neovim-ayu",
-	disable = true,
-	config = function()
-		require("ayu").setup({
-			mirage = false,
-			overrides = {},
-		})
-		vim.cmd([[colorscheme ayu]])
-	end,
-})
-
-use({
-	"mangeshrex/everblush.vim",
-	disable = true,
-	config = function()
-		vim.g.everblushNR = 1
-		vim.cmd([[colorscheme everblush]])
-	end,
-})
 
 -- greate support for terminal which want transparent
 use({
@@ -462,32 +259,10 @@ use({
 })
 
 use({
-	"kdheepak/lazygit.nvim",
-	disable = not health["lazygit"],
-	config = function()
-		vim.g.lazygit_floating_window_winblend = 0
-		vim.g.lazygit_floating_window_scaling_factor = 0.9
-		vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" }
-		vim.g.lazygit_floating_window_use_plenary = 0
-		vim.g.lazygit_use_neovim_remote = 1
-	end,
-})
-
-use({
 	"TimUntersberger/neogit",
 	cmd = { "Neogit" },
 	config = function()
 		require(_G.p("modules.neogit"))
-	end,
-})
-
--- preview diffview
-use({
-	"sindrets/diffview.nvim",
-	opt = true,
-	requires = { "nvim-lua/plenary.nvim" },
-	config = function()
-		require(_G.p("modules.diffview"))
 	end,
 })
 
@@ -519,36 +294,8 @@ use({
 })
 
 --
--- code formatter
---
-
--- neoformat was slowly
-use({
-	"sbdchd/neoformat",
-	opt = true,
-	disable = true,
-	config = function()
-		vim.cmd([[
-		augroup fmt
-			autocmd!
-			autocmd BufWritePre * undojoin | Neoformat
-		augroup END
-		]])
-		vim.api.nvim_set_keymap("n", "<leader>cf", "<CMD>Neoformat<CR>", { silent = true, noremap = true })
-	end,
-})
-
---
 -- golang coding enhance
 --
-
-use({
-	"crispgm/nvim-go",
-	disable = true,
-	config = function()
-		require("go").setup({})
-	end,
-})
 
 use({
 	"fatih/vim-go",
@@ -561,106 +308,6 @@ use({
 
 use({ "tweekmonster/gofmt.vim", disable = true })
 
---
--- lua development
---
-use({
-	"wesleimp/stylua.nvim",
-	disable = true,
-	-- disable = not health["stylua"],
-	ft = { "lua" },
-	config = function()
-		local id = vim.api.nvim_create_augroup("lua_auto_format", { clear = true })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = { "*.lua" },
-			callback = function()
-				require("stylua").format()
-			end,
-			group = id,
-		})
-	end,
-})
-
---
--- js/ts/frontend development
---
-use({
-	"prettier/vim-prettier",
-	config = function()
-		vim.g["prettier#autoformat"] = 1
-		vim.g["prettier#autoformat_require_pragma"] = 0
-	end,
-	run = "yarn install --frozen-lockfile --production",
-	ft = {
-		"javascript",
-		"typescript",
-		"javascriptreact",
-		"typescriptreact",
-		"html",
-		"css",
-		"less",
-		"scss",
-		"json",
-		"vue",
-		"yaml",
-	},
-})
-
---
--- buffer
---
-use({
-	"matbme/JABS.nvim",
-	config = function()
-		-- (Optional) easy way to get Neovim current size.
-		local ui = vim.api.nvim_list_uis()[1]
-		vim.o.showtabline = 0
-
-		require("jabs").setup({
-			-- Options for the main window
-			position = "corner", -- center, corner. Default corner
-			width = 60, -- default 50
-			height = 15, -- default 10
-			border = "shadow", -- none, single, double, rounded, solid, shadow, (or an array or chars). Default shadow
-
-			-- Options for preview window
-			preview_position = "left", -- top, bottom, left, right. Default top
-			preview = {
-				width = 40, -- default 70
-				height = 60, -- default 30
-				border = "single", -- none, single, double, rounded, solid, shadow, (or an array or chars). Default double
-			},
-
-			-- Default highlights (must be a valid :highlight)
-			highlight = {
-				current = "Title", -- default StatusLine
-				hidden = "StatusLineNC", -- default ModeMsg
-				split = "WarningMsg", -- default StatusLine
-				alternate = "StatusLine", -- default WarningMsg
-			},
-
-			-- Default symbols
-			symbols = {
-				current = "C", -- default 
-				split = "S", -- default 
-				alternate = "A", -- default 
-				hidden = "H", -- default ﬘
-				locked = "L", -- default 
-				ro = "R", -- default 
-				edited = "E", -- default 
-				terminal = "T", -- default 
-				default_file = "D", -- Filetype icon if not present in nvim-web-devicons. Default 
-			},
-
-			-- Whether to use nvim-web-devicons next to filenames
-			use_devicons = true, -- true or false. Default true
-
-			-- The options below are ignored when position = 'center'
-			col = ui.width, -- Window appears on the right
-			row = ui.height / 2, -- Window appears in the vertical middle
-		})
-	end,
-})
 use("famiu/bufdelete.nvim")
 
 --
@@ -709,14 +356,6 @@ use({
 			nmap ga <Plug>(EasyAlign)
 			xmap ga <Plug>(EasyAlign)
 		]])
-	end,
-})
-
-use({
-	"rcarriga/nvim-notify",
-	disable = true,
-	config = function()
-		vim.notify = require("notify")
 	end,
 })
 
@@ -800,16 +439,6 @@ use({
 })
 
 use({
-	"b3nj5m1n/kommentary",
-	disable = true,
-	keys = { ",cc" },
-	config = function()
-		vim.api.nvim_set_keymap("n", ",cc", "<Plug>kommentary_line_default", {})
-		vim.api.nvim_set_keymap("n", ",c", "<Plug>kommentary_motion_default", {})
-		vim.api.nvim_set_keymap("v", ",c", "<Plug>kommentary_visual_default<C-c>", {})
-	end,
-})
-use({
 	"rafcamlet/nvim-luapad",
 	cmd = { "Luapad" },
 	config = function()
@@ -839,14 +468,6 @@ use({
 			nmap <silent> <Leader>tt <Plug>TranslateW
 			vmap <silent> <Leader>tt <Plug>TranslateWV
 		]])
-	end,
-})
-
-use({
-	"windwp/nvim-autopairs",
-	event = { "InsertEnter" },
-	config = function()
-		require(_G.p("modules.autopairs"))
 	end,
 })
 
@@ -924,6 +545,45 @@ use({
 	end,
 })
 
+use({
+	"Shougo/ddc.vim",
+	requires = {
+		"vim-denops/denops.vim",
+		-- "Shougo/ddc-nvim-lsp",
+		"~/git/ddc-nvim-lsp",
+		"Shougo/ddc-matcher_head",
+		"Shougo/ddc-sorter_rank",
+		"Shougo/ddc-around",
+		-- "matsui54/denops-popup-preview.vim",
+		"matsui54/denops-signature_help",
+		"Shougo/pum.vim",
+		"tani/ddc-fuzzy",
+		"hrsh7th/vim-vsnip-integ",
+		"hrsh7th/vim-vsnip",
+		"delphinus/ddc-treesitter",
+		"matsui54/ddc-buffer",
+		"ippachi/ddc-yank",
+		"LumaKernel/ddc-file",
+	},
+	config = function()
+		require(_G.p("modules.ddc"))
+	end,
+})
+
+-- use({
+-- 	"Shougo/ddc.vim",
+-- 	event = { "InsertEnter" },
+-- 	requires = {
+-- 		{ "vim-denops/denops.vim" },
+-- 		{ "Shougo/ddc-nvim-lsp", opt = true },
+-- 		{ "tani/ddc-fuzzy", opt = true },
+-- 		{ "Shougo/ddc-around", opt = true },
+-- 	},
+-- 	config = function()
+-- 		require(_G.p("modules.ddc"))
+-- 	end,
+-- })
+
 vim.defer_fn(function()
-	packer.loader("wilder.nvim")
+	-- packer.loader("wilder.nvim")
 end, 300)

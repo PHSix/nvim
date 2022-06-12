@@ -150,6 +150,7 @@ M.setup = function()
 			},
 		})
 	end
+	initialize_server("denols")
 end
 
 return M
