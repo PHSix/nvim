@@ -23,7 +23,11 @@ t = {
 
 local on_attach = function(client, bufnr)
 	if t.has(client.name) then
-		client.resolved_capabilities.document_formatting = false
+		if vim.fn.has("nvim-0.8.0") == 1 then
+			client.server_capabilities.documentFormattingProvider = false
+		else
+			client.resolved_capabilities.document_formatting = false
+		end
 	end
 	-- if not t[client.name] and client.resolved_capabilities.document_formatting
 	-- then

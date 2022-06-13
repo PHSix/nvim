@@ -80,6 +80,8 @@ vim.call("ddc#custom#patch_global", {
 vim.call("signature_help#enable")
 vim.call("ddc#enable")
 vim.call("pum#set_option", "setline_insert", false)
+vim.call("pum#set_option", "padding", true)
+vim.call("pum#set_option", "border", "solid") -- solid/double/single/none/shadow/rounded
 
 local npairs = require("nvim-autopairs")
 npairs.setup({ map_bs = false, map_cr = false })

@@ -58,6 +58,9 @@ local function load_opts()
 		vim.o[opt] = value
 	end
 	vim.cmd([[language en_US.UTF-8]])
+	if vim.fn.has("nvim-0.8.0") == 1 then
+		vim.o.cmdheight = 0
+	end
 end
 
 return {

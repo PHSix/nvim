@@ -346,6 +346,7 @@ use({
 
 use({
 	"phaazon/hop.nvim",
+	keys = { "s" },
 	config = function()
 		require("hop").setup({ keys = "asdfghjkl;'qweruiop" })
 		vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", { noremap = true, silent = true })
@@ -511,18 +512,6 @@ use({
 })
 
 use({
-	"folke/twilight.nvim",
-	cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
-	config = function()
-		require("twilight").setup({
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		})
-	end,
-})
-
-use({
 	"Pocco81/TrueZen.nvim",
 	cmd = { "TZFocus" },
 	config = function()
@@ -532,6 +521,7 @@ use({
 
 use({
 	"Shougo/ddc.vim",
+	-- commit = "bfa3cb50cfd6c036b8dda3a8db238979c945ce6f",
 	requires = {
 		"vim-denops/denops.vim",
 		"Shougo/ddc-nvim-lsp",
@@ -556,20 +546,6 @@ use({
 		require(_G.p("modules.ddc"))
 	end,
 })
-
--- use({
--- 	"Shougo/ddc.vim",
--- 	event = { "InsertEnter" },
--- 	requires = {
--- 		{ "vim-denops/denops.vim" },
--- 		{ "Shougo/ddc-nvim-lsp", opt = true },
--- 		{ "tani/ddc-fuzzy", opt = true },
--- 		{ "Shougo/ddc-around", opt = true },
--- 	},
--- 	config = function()
--- 		require(_G.p("modules.ddc"))
--- 	end,
--- })
 
 use({
 	"gelguy/wilder.nvim",

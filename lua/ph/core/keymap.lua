@@ -17,6 +17,10 @@ local M = {
 			"<space>",
 			"<leader>",
 		},
+		{
+			"<C-s>",
+			":w<CR>",
+		},
 	},
 	visual = {
 		{
@@ -47,9 +51,9 @@ local M = {
 	insert = {
 		{
 			"<C-V>",
-			"<ESC>\"+pa"
+			'<ESC>"+pa',
 		},
-	}
+	},
 }
 
 M.defult_opt = {
