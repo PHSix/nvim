@@ -9,7 +9,49 @@ use("wbthomason/packer.nvim")
 --
 
 use({
-	"mhinz/vim-startify",
+	"glepnir/dashboard-nvim",
+	config = function()
+		local home = os.getenv("HOME")
+		local db = require("dashboard")
+		db.custom_center = {
+			{
+				icon = "  ",
+				desc = "Recently laset session                  ",
+				shortcut = "SPC s l",
+				action = "SessionLoad",
+			},
+			{
+				icon = "  ",
+				desc = "Recently opened files                   ",
+				action = "DashboardFindHistory",
+				shortcut = "SPC f h",
+			},
+			{
+				icon = "  ",
+				desc = "Find  File                              ",
+				action = "Telescope find_files find_command=rg,--hidden,--files",
+				shortcut = "SPC f f",
+			},
+			{
+				icon = "  ",
+				desc = "File Browser                            ",
+				action = "Telescope file_browser",
+				shortcut = "SPC f b",
+			},
+			{
+				icon = "  ",
+				desc = "Find  word                              ",
+				aciton = "DashboardFindWord",
+				shortcut = "SPC f w",
+			},
+			{
+				icon = "  ",
+				desc = "Open Personal dotfiles                  ",
+				action = "Telescope dotfiles path=" .. home .. "/.dotfiles",
+				shortcut = "SPC f d",
+			},
+		}
+	end,
 })
 
 --
@@ -37,11 +79,18 @@ use({
 		},
 		{ "b0o/schemastore.nvim" },
 		{ "williamboman/nvim-lsp-installer" },
-		{ "tami5/lspsaga.nvim", branch = "main" },
 		{ "jose-elias-alvarez/null-ls.nvim" },
 	},
 	config = function()
 		require(_G.p("modules.lsp")).setup()
+	end,
+})
+
+use({
+	"glepnir/lspsaga.nvim",
+	branch = "main",
+	config = function()
+		require(_G.p("modules.saga"))
 	end,
 })
 
@@ -64,14 +113,6 @@ use({
 			position = "right",
 			width = 60,
 		})
-	end,
-})
-
-use({
-	"simrat39/symbols-outline.nvim",
-	cmd = { "SymbolsOutline" },
-	config = function()
-		require(_G.p("modules.outline"))
 	end,
 })
 
@@ -226,11 +267,6 @@ use({
 --
 -- markdown
 --
-use({
-	"iamcco/markdown-preview.nvim",
-	ft = { "markdown" },
-	disable = not health["node"],
-})
 
 use({
 	"dhruvasagar/vim-table-mode",
@@ -258,23 +294,6 @@ use({
 	end,
 })
 
-use({
-	"TimUntersberger/neogit",
-	cmd = { "Neogit" },
-	config = function()
-		require(_G.p("modules.neogit"))
-	end,
-})
-
-use({
-	"junegunn/gv.vim",
-	cmd = { "GV" },
-	requires = { { "tpope/vim-fugitive", opt = true } },
-	config = function()
-		vim.cmd([[packadd vim-fugitive]])
-	end,
-})
-
 --
 -- file tree preview
 --
@@ -293,7 +312,9 @@ use({
 	end,
 })
 
-use("famiu/bufdelete.nvim")
+use({ "famiu/bufdelete.nvim", cmd = {
+	"Bdelete",
+} })
 
 --
 -- impove vim use mothon plugins
@@ -312,6 +333,7 @@ use({
 
 use({
 	"edluffy/specs.nvim",
+	opt = true,
 	config = function()
 		require("specs").setup({
 			show_jumps = true,
@@ -372,10 +394,9 @@ use({
 	end,
 })
 
-use("kevinhwang91/nvim-bqf")
-
 use({
 	"nathom/filetype.nvim",
+	opt = true,
 	config = function()
 		vim.g.did_load_filetypes = 1
 	end,
@@ -410,6 +431,7 @@ use({
 use({
 	"itchyny/vim-cursorword",
 	-- event = { "CursorMoved" },
+	opt = true,
 	config = function()
 		vim.g.cursorword_highlight = 0
 	end,
@@ -417,6 +439,7 @@ use({
 
 use({
 	"tpope/vim-commentary",
+	keys = { "gc" },
 	config = function()
 		vim.api.nvim_set_keymap("n", ",cc", "gcc", { noremap = false, silent = true })
 		vim.api.nvim_set_keymap("v", ",c", "gc", { noremap = false, silent = true })
@@ -426,7 +449,8 @@ use({
 
 use({
 	"rafcamlet/nvim-luapad",
-	cmd = { "Luapad" },
+	-- cmd = { "Luapad" },
+	opt = true,
 	config = function()
 		require("luapad").config({
 			count_limit = 150000,
@@ -506,41 +530,35 @@ use({
 
 use({
 	"lukas-reineke/indent-blankline.nvim",
+	event = { "BufRead" },
 	config = function()
 		require(_G.p("modules.indentLine"))
 	end,
 })
 
 use({
-	"Pocco81/TrueZen.nvim",
-	cmd = { "TZFocus" },
-	config = function()
-		require(_G.p("modules.zen"))
-	end,
-})
-
-use({
 	"Shougo/ddc.vim",
-	-- commit = "bfa3cb50cfd6c036b8dda3a8db238979c945ce6f",
+	commit = "7da65df5e0cb7234f74747115ca8f4721e8efaa7",
+	event = { "InsertEnter" },
 	requires = {
-		"vim-denops/denops.vim",
-		"Shougo/ddc-nvim-lsp",
-		"PHSix/ddc-nvim-lsp-sort",
-		"Shougo/ddc-matcher_head",
-		"Shougo/ddc-sorter_rank",
-		"Shougo/ddc-around",
-		"matsui54/denops-popup-preview.vim",
-		"matsui54/denops-signature_help",
-		"Shougo/pum.vim",
-		"tani/ddc-fuzzy",
-		"hrsh7th/vim-vsnip-integ",
-		"hrsh7th/vim-vsnip",
-		"delphinus/ddc-treesitter",
-		"matsui54/ddc-buffer",
-		"ippachi/ddc-yank",
-		"LumaKernel/ddc-file",
-		"windwp/nvim-autopairs",
-		"tani/ddc-onp",
+		{ "vim-denops/denops.vim", opt = true },
+		{ "Shougo/ddc-nvim-lsp", opt = true },
+		{ "PHSix/ddc-nvim-lsp-sort", opt = true },
+		{ "Shougo/ddc-matcher_head", opt = true },
+		{ "Shougo/ddc-sorter_rank", opt = true },
+		{ "Shougo/ddc-around", opt = true },
+		{ "matsui54/denops-popup-preview.vim", opt = true },
+		{ "matsui54/denops-signature_help", opt = true },
+		{ "Shougo/pum.vim", opt = true },
+		{ "tani/ddc-fuzzy", opt = true },
+		{ "hrsh7th/vim-vsnip-integ", opt = true },
+		{ "hrsh7th/vim-vsnip", opt = true },
+		{ "delphinus/ddc-treesitter", opt = true },
+		{ "matsui54/ddc-buffer", opt = true },
+		{ "ippachi/ddc-yank", opt = true },
+		{ "LumaKernel/ddc-file", opt = true },
+		{ "windwp/nvim-autopairs", opt = true },
+		{ "tani/ddc-onp", opt = true },
 	},
 	config = function()
 		require(_G.p("modules.ddc"))

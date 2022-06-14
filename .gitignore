@@ -1,5 +1,5 @@
 /undodir
-/plugin
+/plugin/packer_compiled.lua
 .netrwhist
 target/
 node_modules/

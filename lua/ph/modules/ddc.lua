@@ -1,3 +1,28 @@
+local deps = {
+	"denops.vim",
+	"ddc-nvim-lsp",
+	"ddc-nvim-lsp-sort",
+	"ddc-matcher_head",
+	"ddc-sorter_rank",
+	"ddc-around",
+	"denops-popup-preview.vim",
+	"denops-signature_help",
+	"pum.vim",
+	"ddc-fuzzy",
+	"vim-vsnip-integ",
+	"vim-vsnip",
+	"ddc-treesitter",
+	"ddc-buffer",
+	"ddc-yank",
+	"ddc-file",
+	"nvim-autopairs",
+	"ddc-onp",
+}
+
+for _, dep in ipairs(deps) do
+	vim.cmd("PackerLoad " .. dep)
+end
+
 vim.o.completeopt = "menu,noinsert"
 vim.g.vsnip_snippet_dir = vim.fn["stdpath"]("config") .. "/vsnip"
 -- font link: https://github.com/microsoft/vscode-codicons/raw/main/dist/codicon.ttf
@@ -76,7 +101,7 @@ vim.call("ddc#custom#patch_global", {
 	backspaceCompletion = true,
 })
 
--- vim.call("popup_preview#enable")
+vim.call("popup_preview#enable")
 vim.call("signature_help#enable")
 vim.call("ddc#enable")
 vim.call("pum#set_option", "setline_insert", false)
@@ -115,3 +140,5 @@ vim.cmd([[
 ]])
 
 vim.cmd([[autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)]])
+
+-- vim.cmd([[autocmd TextChanged,TextChangedI * lua print(vim.fn["pum#_get"]().buf)]])
