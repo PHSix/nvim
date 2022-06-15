@@ -11,46 +11,7 @@ use("wbthomason/packer.nvim")
 use({
 	"glepnir/dashboard-nvim",
 	config = function()
-		local home = os.getenv("HOME")
-		local db = require("dashboard")
-		db.custom_center = {
-			{
-				icon = "  ",
-				desc = "Recently laset session                  ",
-				shortcut = "SPC s l",
-				action = "SessionLoad",
-			},
-			{
-				icon = "  ",
-				desc = "Recently opened files                   ",
-				action = "DashboardFindHistory",
-				shortcut = "SPC f h",
-			},
-			{
-				icon = "  ",
-				desc = "Find  File                              ",
-				action = "Telescope find_files find_command=rg,--hidden,--files",
-				shortcut = "SPC f f",
-			},
-			{
-				icon = "  ",
-				desc = "File Browser                            ",
-				action = "Telescope file_browser",
-				shortcut = "SPC f b",
-			},
-			{
-				icon = "  ",
-				desc = "Find  word                              ",
-				aciton = "DashboardFindWord",
-				shortcut = "SPC f w",
-			},
-			{
-				icon = "  ",
-				desc = "Open Personal dotfiles                  ",
-				action = "Telescope dotfiles path=" .. home .. "/.dotfiles",
-				shortcut = "SPC f d",
-			},
-		}
+		require(_G.p("modules.dashboard"))
 	end,
 })
 
@@ -77,7 +38,6 @@ use({
 			"weilbith/nvim-code-action-menu",
 			cmd = "CodeActionMenu",
 		},
-		{ "b0o/schemastore.nvim" },
 		{ "williamboman/nvim-lsp-installer" },
 		{ "jose-elias-alvarez/null-ls.nvim" },
 	},
@@ -91,28 +51,6 @@ use({
 	branch = "main",
 	config = function()
 		require(_G.p("modules.saga"))
-	end,
-})
-
-use({
-	"folke/trouble.nvim",
-	cmd = "TroubleToggle",
-	config = function()
-		require("trouble").setup({
-			auto_open = true,
-			auto_close = true,
-		})
-	end,
-})
-
-use({
-	"amrbashir/nvim-docs-view",
-	cmd = { "DocsViewToggle" },
-	config = function()
-		require("docs-view").setup({
-			position = "right",
-			width = 60,
-		})
 	end,
 })
 
@@ -131,12 +69,11 @@ use({
 --
 use({
 	"nvim-telescope/telescope.nvim",
-	keys = { "<C-f>", "<A-x>" },
+	keys = { "<leader>f", "<A-x>" },
 	cmd = { "Telescope" },
 	requires = {
 		{ "nvim-lua/popup.nvim", opt = true },
 		{ "nvim-lua/plenary.nvim" },
-		{ "AckslD/nvim-neoclip.lua" },
 	},
 	config = function()
 		require(_G.p("modules.telescope"))
@@ -220,10 +157,6 @@ use({
 	config = function()
 		vim.api.nvim_set_keymap("n", "<C-t>", ":Ttoggle<CR>", { silent = true, noremap = true })
 		vim.api.nvim_set_keymap("t", "<C-t>", "<C-\\><C-n>:Ttoggle<CR>", { silent = true })
-		-- vim.cmd([[
-		-- nnoremap <C-t> :Ttoggle<CR>
-		-- tmap <silent> <C-t> <C-\><C-n>:Ttoggle<CR>
-		-- ]])
 		vim.cmd([[autocmd Filetype termwrapper lua vim.api.nvim_buf_set_option(0, "buflisted", false)]])
 
 		require("termwrapper").setup({
@@ -264,6 +197,14 @@ use({
 	end,
 })
 
+use({
+	"glepnir/zephyr-nvim",
+	disable = true,
+	config = function()
+		require("zephyr")
+	end,
+})
+
 --
 -- markdown
 --
@@ -278,7 +219,7 @@ use({
 --
 use({
 	"lewis6991/gitsigns.nvim",
-	event = { "BufRead", "BufNewFile" },
+	requires = { "nvim-lua/plenary.nvim" },
 	config = function()
 		if not packer_plugins["plenary.nvim"].loaded then
 			vim.cmd([[packadd plenary.nvim]])
@@ -304,7 +245,7 @@ use({
 	keys = { "<C-n>" },
 	requires = {
 		{ "nvim-lua/plenary.nvim" },
-		{ opt = true, "kyazdani42/nvim-web-devicons" },
+		{ "kyazdani42/nvim-web-devicons" },
 		{ opt = true, "MunifTanjim/nui.nvim" },
 	},
 	config = function()
@@ -312,9 +253,7 @@ use({
 	end,
 })
 
-use({ "famiu/bufdelete.nvim", cmd = {
-	"Bdelete",
-} })
+use({ "famiu/bufdelete.nvim", cmd = { "Bdelete" } })
 
 --
 -- impove vim use mothon plugins
@@ -328,41 +267,6 @@ use({
 	"petertriho/nvim-scrollbar",
 	config = function()
 		require("scrollbar").setup({})
-	end,
-})
-
-use({
-	"edluffy/specs.nvim",
-	opt = true,
-	config = function()
-		require("specs").setup({
-			show_jumps = true,
-			min_jump = 30,
-			popup = {
-				delay_ms = 0, -- delay before popup displays
-				inc_ms = 10, -- time increments used for fade/resize effects
-				blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
-				width = 10,
-				winhl = "PMenu",
-				fader = require("specs").linear_fader,
-				resizer = require("specs").shrink_resizer,
-			},
-			ignore_filetypes = {},
-			ignore_buftypes = {
-				nofile = true,
-			},
-		})
-	end,
-})
-
-use({
-	"junegunn/vim-easy-align",
-	keys = { "ga" },
-	config = function()
-		vim.cmd([[
-			nmap ga <Plug>(EasyAlign)
-			xmap ga <Plug>(EasyAlign)
-		]])
 	end,
 })
 
@@ -391,14 +295,6 @@ use({
 			lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
 			lastplace_open_folds = true,
 		})
-	end,
-})
-
-use({
-	"nathom/filetype.nvim",
-	opt = true,
-	config = function()
-		vim.g.did_load_filetypes = 1
 	end,
 })
 
@@ -521,14 +417,6 @@ use({
 })
 
 use({
-	"folke/todo-comments.nvim",
-	requires = "nvim-lua/plenary.nvim",
-	config = function()
-		require("todo-comments").setup({})
-	end,
-})
-
-use({
 	"lukas-reineke/indent-blankline.nvim",
 	event = { "BufRead" },
 	config = function()
@@ -538,8 +426,6 @@ use({
 
 use({
 	"Shougo/ddc.vim",
-	commit = "7da65df5e0cb7234f74747115ca8f4721e8efaa7",
-	event = { "InsertEnter" },
 	requires = {
 		{ "vim-denops/denops.vim", opt = true },
 		{ "Shougo/ddc-nvim-lsp", opt = true },

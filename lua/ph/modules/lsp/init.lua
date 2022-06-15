@@ -81,12 +81,12 @@ M.setup = function()
 		initialize_server("jsonls", {
 			settings = {
 				json = {
-					schemas = require("schemastore").json.schemas({
-						select = {
-							".eslintrc",
-							"package.json",
-						},
-					}),
+					-- schemas = require("schemastore").json.schemas({
+					-- 	select = {
+					-- 		".eslintrc",
+					-- 		"package.json",
+					-- 	},
+					-- }),
 				},
 			},
 			{
