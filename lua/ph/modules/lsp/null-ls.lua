@@ -13,6 +13,7 @@ nu.setup({
 		-- nu.builtins.formatting.clang_format,
 		-- nu.builtins.formatting.eslint_d,
 		nu.builtins.formatting.gofmt,
+		nu.builtins.formatting.goimports,
 		-- nu.builtins.formatting.prettier,
 		-- nu.builtins.formatting.prettier_d_slim
 		nu.builtins.formatting.prettierd,

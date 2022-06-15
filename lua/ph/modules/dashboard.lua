@@ -53,5 +53,6 @@ for _, v in ipairs(default_banner) do
 end
 
 dashboard.custom_header = header
-
-vim.cmd([[hi link DashboardHeader WarningMsg]])
+vim.defer_fn(function()
+	vim.cmd([[hi! link DashboardHeader WarningMsg]])
+end, 1)
