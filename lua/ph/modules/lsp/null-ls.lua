@@ -5,13 +5,13 @@ nu.setup({
 		nu.builtins.completion.spell,
 		nu.builtins.code_actions.eslint_d,
 
-		-- nu.builtins.diagnostics.eslint_d,
+		nu.builtins.diagnostics.eslint_d,
 		nu.builtins.diagnostics.fish,
 		nu.builtins.diagnostics.stylelint,
 		nu.builtins.diagnostics.zsh,
 
 		-- nu.builtins.formatting.clang_format,
-		-- nu.builtins.formatting.eslint_d,
+		nu.builtins.formatting.eslint_d,
 		nu.builtins.formatting.gofmt,
 		nu.builtins.formatting.goimports,
 		-- nu.builtins.formatting.prettier,

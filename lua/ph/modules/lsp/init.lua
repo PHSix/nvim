@@ -70,9 +70,10 @@ M.setup = function()
 	-- 		"--stdio",
 	-- 	},
 	-- })
-	if health["npm"] and health["node"] then
-		-- initialize_server("tsserver")
-		initialize_server("eslint")
+	-- if health["npm"] and health["node"] then
+	if true then
+		initialize_server("tsserver")
+		-- initialize_server("eslint")
 		initialize_server("tailwindcss")
 		initialize_server("svelte")
 		initialize_server("html", {
@@ -150,7 +151,7 @@ M.setup = function()
 			},
 		})
 	end
-	initialize_server("denols")
+	-- initialize_server("denols")
 end
 
 return M

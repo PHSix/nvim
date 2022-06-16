@@ -425,6 +425,20 @@ use({
 })
 
 use({
+	"ms-jpq/coq_nvim",
+	branch = "coq",
+	disable = true,
+	requires = {
+		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+		{ "ms-jpq/coq.thirdparty", branch = "3p" },
+		-- { "windwp/nvim-autopairs" },
+	},
+	config = function()
+		require(_G.p("modules.coq"))
+	end,
+})
+
+use({
 	"Shougo/ddc.vim",
 	requires = {
 		{ "vim-denops/denops.vim", opt = true },
