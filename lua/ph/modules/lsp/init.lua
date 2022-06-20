@@ -151,6 +151,7 @@ M.setup = function()
 			},
 		})
 	end
+	initialize_server("angularls")
 	-- initialize_server("denols")
 end
 

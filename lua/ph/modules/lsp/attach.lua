@@ -10,6 +10,7 @@ t = {
 		"gopls",
 		"denols",
 		"jsonls",
+		"html",
 	},
 	has = function(ls)
 		for _, _ls in ipairs(t.collections) do
