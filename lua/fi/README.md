@@ -1,1 +1,0 @@
-# Automatic formatter install plugin.

@@ -1,0 +1,69 @@
+
+-- Disable some builtin plugins.
+local disabled_built_ins = {
+  "2html_plugin",
+  "gzip",
+  "matchit",
+  "rrhelper",
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+  "logipat",
+  "spellfile_plugin",
+}
+for _, plugin in pairs(disabled_built_ins) do
+  vim.g["loaded_" .. plugin] = 1
+end
+
+
+-- number
+vim.o.nu = true
+vim.o.rnu = true
+vim.o.backup = false
+
+-- sign column enable
+vim.wo.signcolumn = "yes"
+
+-- syntax
+vim.bo.syntax = "on"
+
+-- mouse control
+vim.o.mouse = "a"
+
+-- ignore case
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- tab width
+vim.bo.shiftwidth = 2
+vim.bo.softtabwidth = 2
+vim.bo.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabwidth = 2
+vim.o.tabstop = 2
+
+-- back file
+vim.bo.undofile = true
+vim.bo.swapfile = false
+vim.o.undofile = true
+vim.o.swapfile = false
+
+-- remap keymap
+vim.keymap.set("n", ";", ":", { noremap = true})
+
+-- autocmd
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {"*"},
+	callback = function () 
+		vim.api.nvim_buf_set_keymap(0, "n", "q", ":q<CR>", {silent = true, noremap = true})
+	end
+})
