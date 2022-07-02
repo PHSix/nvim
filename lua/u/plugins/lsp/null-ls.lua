@@ -78,11 +78,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		local record = Recorder:new()
 		record:start()
 		if vim.fn.has("nvim-0.8") == 1 then
+			local clients = vim.lsp.get_active_clients()
+			local null_ls_client = vim.tbl_filter(function(c)
+				return c.name == "null-ls"
+			end, clients)[1]
+			if not (null_ls_client and null_ls_client.supports_method("textDocument/formatting")) then
+				return
+			end
 			vim.lsp.buf.format({
 				timeout_ms = 1000,
 				bufnr = 0,
 				async = false,
-				name = "null-ls",
+				filter = function(client)
+					return client.name == "null-ls"
+				end,
 			})
 		else
 			vim.lsp.buf.formatting()

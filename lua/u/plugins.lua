@@ -24,6 +24,7 @@ utils.push_async_task(function()
 			use("sainnhe/everforest")
 			use("nvim-lua/plenary.nvim")
 			use({ "famiu/bufdelete.nvim", cmd = "Bdelete" })
+			use({ "kyazdani42/nvim-web-devicons" })
 			use({
 				"lewis6991/impatient.nvim",
 				config = [[require("impatient")]],
@@ -105,7 +106,6 @@ utils.push_async_task(function()
 				cmd = { "NeoTreeRevealToggle" },
 				keys = { "<C-n>" },
 				requires = {
-					{ opt = true, "kyazdani42/nvim-web-devicons" },
 					{ opt = true, "MunifTanjim/nui.nvim" },
 				},
 				config = [[r("plugins.neotree")]],
@@ -219,6 +219,7 @@ utils.push_async_task(function()
 			})
 			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
 			use({ "shaeinst/penvim", event = { "BufRead", "BufNewFile" }, config = [[require("penvim").setup()]] })
+			use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 		end,
 		config = {
 			-- Default compile path of packer_compiled file.

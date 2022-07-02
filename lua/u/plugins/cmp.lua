@@ -76,7 +76,7 @@ end
 local disable_ft = { "nofile", "prompt", "clap_input" }
 
 cmp.setup({
-	enabeld = function()
+	enabled = function()
 		if vim.tbl_contains(disable_ft, vim.bo.filetype) then
 			return false
 		end

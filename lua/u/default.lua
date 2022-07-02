@@ -1,14 +1,13 @@
 vim.defer_fn(function()
 	-- vim.cmd([[colorscheme zephyrium]])
-	-- vim.o.background = "dark"
-	-- vim.o.termguicolors = true
-	-- vim.g.everforest_background = "hard"
-	-- vim.cmd([[colorscheme everforest]])
 
-	vim.g.onedark_config = {
-		style = "deep",
-	}
-	vim.cmd([[colorscheme onedark]])
+	vim.g.everforest_background = "soft"
+	vim.cmd([[colorscheme everforest]])
+
+	-- vim.g.onedark_config = {
+	-- 	style = "deep",
+	-- }
+	-- vim.cmd([[colorscheme onedark]])
 
 	-- vim.cmd([[colorscheme deus]])
 

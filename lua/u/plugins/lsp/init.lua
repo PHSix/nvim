@@ -73,9 +73,7 @@ end
 local t = {
 	disable_commands = false,
 	debug = false,
-	server = vim.tbl_deep_extend("force", tsserver:get_default_options(), {
-		on_attach = attach,
-	}),
+	server = vim.tbl_deep_extend("force", tsserver:get_default_options(), {}),
 }
 require("typescript").setup(t)
 vim.cmd([[
