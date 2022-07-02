@@ -1,10 +1,8 @@
 local utils = r("utils")
 utils.push_async_task(function()
-	local uv = vim.loop
 	local fn = vim.fn
-	local packer_bootstrap
 	if not utils.is_plugin_installed("packer.nvim") then
-		packer_bootstrap = fn.system({
+		fn.system({
 			"git",
 			"clone",
 			"--depth",
@@ -19,13 +17,50 @@ utils.push_async_task(function()
 
 	require("packer").startup({
 		function()
-			use({ "wbthomason/packer.nvim" })
-			use({ "theniceboy/nvim-deus" })
+			use("wbthomason/packer.nvim")
+			use("theniceboy/nvim-deus")
+			use("navarasu/onedark.nvim")
+			use("titanzero/zephyrium")
+			use("sainnhe/everforest")
+			use("nvim-lua/plenary.nvim")
+			use("famiu/bufdelete.nvim")
 			use({
 				"lewis6991/impatient.nvim",
 				config = [[require("impatient")]],
 			})
-			use("nvim-lua/plenary.nvim")
+			use({
+				"glepnir/dashboard-nvim",
+				config = [[r("plugins.dashboard")]],
+			})
+			use({
+				"ethanholz/nvim-lastplace",
+				config = function()
+					require("nvim-lastplace").setup({
+						lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+						lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+						lastplace_open_folds = true,
+					})
+				end,
+			})
+
+			use({
+				"tpope/vim-surround",
+				keys = { "c", "d" },
+			})
+			use({
+				"tpope/vim-commentary",
+				keys = { "gc", ",c" },
+				config = function()
+					vim.api.nvim_set_keymap("n", ",cc", "gcc", { noremap = false, silent = true })
+					vim.api.nvim_set_keymap("v", ",c", "gc", { noremap = false, silent = true })
+					vim.api.nvim_set_keymap("x", ",cc", "gc", { noremap = false, silent = true })
+				end,
+			})
+			use({
+				"voldikss/vim-translator",
+				cmd = { "TranslateW" },
+			})
+
 			use({
 				"williamboman/nvim-lsp-installer",
 				event = { "BufRead", "BufNewFile" },
@@ -54,23 +89,13 @@ utils.push_async_task(function()
 			use({
 				"lewis6991/gitsigns.nvim",
 				event = { "BufRead", "BufNewFile" },
+				cmd = { "Gitsigns" },
 				config = [[r("plugins.gitsign")]],
 			})
 			use({
 				"folke/which-key.nvim",
 				keys = {
-					"<leader>",
-					"g",
-					"d",
-					"y",
-					"!",
-					"z",
-					">",
-					"<",
-					"]",
-					"[",
-					"v",
-					"c",
+					"<space>",
 				},
 				config = [[r("plugins.which-key")]],
 			})
@@ -110,6 +135,12 @@ utils.push_async_task(function()
 				},
 				config = [[r("plugins.treesitter")]],
 			})
+			use({
+				"lukas-reineke/indent-blankline.nvim",
+				event = { "BufRead", "BufNewFile" },
+				config = [[r("plugins.indentline")]],
+			})
+
 			use({
 				"hrsh7th/nvim-cmp",
 				event = { "InsertEnter" },
@@ -154,7 +185,41 @@ utils.push_async_task(function()
 				},
 				config = [[r("plugins.cmp")]],
 			})
-			use({"Yggdroot/LeaderF", run = ":LeaderfInstallCExtension", config = [[r("plugins.leaderf")]], cmd = "Leaderf"})
+			use({
+				"liuchengxu/vim-clap",
+				run = ":Clap install-binary",
+				cmd = "Clap",
+				config = [[r("plugins.clap")]],
+			})
+			use({
+				"sindrets/diffview.nvim",
+				cmd = { "DiffviewFileHistory", "DiffviewOpen" },
+				config = [[r("plugins.diffview")]],
+			})
+			use({
+				"nvim-pack/nvim-spectre",
+				config = function()
+					require("spectre").setup()
+				end,
+			})
+			use({
+				"windwp/nvim-autopairs",
+				after = "nvim-cmp",
+				config = [[require("nvim-autopairs").setup()]],
+			})
+			use({ "liuchengxu/vista.vim", cmd = "Vista" })
+
+			use({
+				"phaazon/hop.nvim",
+				keys = { "s" },
+				config = function()
+					require("hop").setup({ keys = "asdfghjkl;'qweruiop" })
+					vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", { noremap = true, silent = true })
+					-- vim.api.nvim_command("highlight default HopUnmatched guifg=#666666 guibg=bg guisp=#666666 ctermfg=242")
+				end,
+			})
+			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
+			use({ "shaeinst/penvim" })
 		end,
 		config = {
 			-- Default compile path of packer_compiled file.
@@ -171,4 +236,5 @@ utils.push_async_task(function()
 		},
 	})
 end, { isRecord = true })
-vim.cmd([[colorscheme deus]])
+
+r("plugins.default")

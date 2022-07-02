@@ -48,7 +48,18 @@ local feedkey = function(key, mode)
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
+local ft = { "nofile", "prompt", "clap_input", "spectre_panel", "qf" }
+
 cmp.setup({
+  enabled = function()
+		local disabled = false
+		disabled = disabled or (vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt')
+		disabled = disabled or (vim.api.nvim_buf_get_option(0, 'buftype') == 'nofile')
+		disabled = disabled or (vim.fn.reg_recording() ~= '')
+		disabled = disabled or (vim.fn.reg_executing() ~= '')
+		disabled = disabled or vim.tbl_contains(ft, vim.bo.filetype)
+    return not disabled
+  end,
 	completion = { completeopt = "menu,menuone,noinsert" },
 	formatting = {
 		format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
