@@ -236,4 +236,4 @@ utils.push_async_task(function()
 	})
 end, { isRecord = false })
 
-r("plugins.default")
+r("default")

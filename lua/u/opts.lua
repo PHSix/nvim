@@ -23,6 +23,8 @@ for _, plugin in pairs(disabled_built_ins) do
 	vim.g["loaded_" .. plugin] = 1
 end
 
+-- set listchars=tab:\|\ ,trail:▫
+
 -- number
 vim.o.nu = true
 vim.o.rnu = true
