@@ -23,7 +23,7 @@ utils.push_async_task(function()
 			use("titanzero/zephyrium")
 			use("sainnhe/everforest")
 			use("nvim-lua/plenary.nvim")
-			use("famiu/bufdelete.nvim")
+			use({ "famiu/bufdelete.nvim", cmd = "Bdelete" })
 			use({
 				"lewis6991/impatient.nvim",
 				config = [[require("impatient")]],
@@ -144,7 +144,6 @@ utils.push_async_task(function()
 			use({
 				"hrsh7th/nvim-cmp",
 				event = { "InsertEnter" },
-				-- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
 				requires = {
 					{
 						"hrsh7th/cmp-nvim-lsp",
@@ -219,7 +218,7 @@ utils.push_async_task(function()
 				end,
 			})
 			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
-			use({ "shaeinst/penvim" })
+			use({ "shaeinst/penvim", event = { "BufRead", "BufNewFile" }, config = [[require("penvim").setup()]] })
 		end,
 		config = {
 			-- Default compile path of packer_compiled file.
@@ -235,6 +234,6 @@ utils.push_async_task(function()
 			},
 		},
 	})
-end, { isRecord = true })
+end, { isRecord = false })
 
 r("plugins.default")

@@ -49,6 +49,13 @@ local default_banner = {
 	"[ Hello, world! ]",
 	"",
 }
+local loaded_plugin_count = 0
+for _, value in pairs(packer_plugins) do
+	if value.loaded then
+		loaded_plugin_count = loaded_plugin_count + 1
+	end
+end
+local footer = { "🎉 neovim loaded " .. loaded_plugin_count .. " plugins" }
 
 for _ = 0, fill_height, 1 do
 	table.insert(header, "")
@@ -57,8 +64,8 @@ end
 for _, v in ipairs(default_banner) do
 	table.insert(header, v)
 end
-
 dashboard.custom_header = header
+dashboard.custom_footer = footer
 vim.defer_fn(function()
 	vim.cmd([[
 		hi DashboardHeader guifg=#F7144A

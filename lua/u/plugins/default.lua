@@ -35,4 +35,3 @@ vim.api.nvim_create_autocmd("BufRead", {
 })
 
 vim.keymap.set("n", "<C-t>", "<Cmd>Lspsaga open_floaterm<CR>", { silent = true })
-require("penvim").setup() -- use defaults

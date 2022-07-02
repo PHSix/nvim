@@ -179,5 +179,12 @@ require("neo-tree").setup({
 		},
 	},
 })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "neo-tree" },
+	callback = function()
+		vim.api.nvim_buf_set_keymap(0, "n", "=", "<Cmd>vertical resize +7<CR>", { silent = true })
+		vim.api.nvim_buf_set_keymap(0, "n", "-", "<Cmd>vertical resize -7<CR>", { silent = true })
+	end,
+})
 
 vim.api.nvim_set_keymap("n", "<C-n>", "<CMD>NeoTreeRevealToggle<CR>", { noremap = true, silent = true })
