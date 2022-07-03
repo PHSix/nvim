@@ -1,7 +1,8 @@
 vim.defer_fn(function()
-	-- vim.cmd([[colorscheme zephyrium]])
+	-- vim.g.material_style = "oceanic"
+	-- vim.cmd("colorscheme material")
 
-	vim.g.everforest_background = "soft"
+	-- vim.g.everforest_background = "soft"
 	vim.cmd([[colorscheme everforest]])
 
 	-- vim.g.onedark_config = {
@@ -34,5 +35,6 @@ vim.defer_fn(function()
 		once = true,
 	})
 
+	vim.g.exclude_ft = { "plaintext" }
 	vim.keymap.set("n", "<C-t>", "<Cmd>Lspsaga open_floaterm<CR>", { silent = true })
 end, 1)

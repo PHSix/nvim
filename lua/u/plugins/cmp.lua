@@ -37,6 +37,7 @@ vim.api.nvim_set_keymap("s", "y", [[<c-g>"_cy]], { silent = true })
 vim.api.nvim_set_keymap("s", "z", [[<c-g>"_cz]], { silent = true })
 
 local cmp = require("cmp")
+local types = require("cmp.types")
 local cmp_kinds = {
 	Text = "  ",
 	Method = "  ",
@@ -77,18 +78,22 @@ local disable_ft = { "nofile", "prompt", "clap_input" }
 
 cmp.setup({
 	enabled = function()
-		if vim.tbl_contains(disable_ft, vim.bo.filetype) then
-			return false
-		end
-		return true
+		local disabled = false
+		disabled = disabled or (vim.api.nvim_buf_get_option(0, "buftype") == "prompt")
+		disabled = disabled or (vim.fn.reg_recording() ~= "")
+		disabled = disabled or (vim.fn.reg_executing() ~= "")
+		disabled = disabled or vim.tbl_contains(disable_ft, vim.bo.filetype)
+		-- disabled = disabled or cmp.config.context.in_syntax_group('Comment')
+		return not disabled
 	end,
 	completion = { completeopt = "menu,menuone,noinsert" },
 	formatting = {
-		fields = { "kind", "abbr" },
-		format = function(_, vim_item)
-			vim_item.kind = cmp_kinds[vim_item.kind] or ""
-			return vim_item
-		end,
+		fields = { "abbr", "kind" },
+		-- fields = { "kind", "abbr" },
+		-- format = function(_, vim_item)
+		-- 	vim_item.kind = cmp_kinds[vim_item.kind] or ""
+		-- 	return vim_item
+		-- end,
 	},
 	snippet = {
 		expand = function(args)
@@ -145,6 +150,24 @@ cmp.setup({
 	},
 	sorting = {
 		comparators = {
+			function(entry1, entry2)
+				local kind1 = entry1:get_kind() or 1
+				local kind2 = entry2:get_kind() or 1
+				if kind1 == 1 and kind2 == 1 then
+					return false
+				end
+			end,
+			function(entry1, entry2)
+				local _, entry1_under = entry1.completion_item.label:find(" ")
+				local _, entry2_under = entry2.completion_item.label:find(" ")
+				entry1_under = entry1_under or 0
+				entry2_under = entry2_under or 0
+				if entry1_under > entry2_under then
+					return false
+				elseif entry1_under < entry2_under then
+					return true
+				end
+			end,
 			cmp.config.compare.offset,
 			cmp.config.compare.exact,
 			cmp.config.compare.score,

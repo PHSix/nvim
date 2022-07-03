@@ -29,7 +29,7 @@ saga.init_lsp_saga({
 		enable = true,
 		sign = true,
 		sign_priority = 20,
-		virtual_text = true,
+		virtual_text = false,
 	},
 	-- separator in finder
 	finder_separator = "  ",
@@ -41,8 +41,8 @@ saga.init_lsp_saga({
 		split = "i",
 		tabe = "t",
 		quit = "q",
-		scroll_down = { "<C-f>", "j" },
-		scroll_up = { "<C-b>", "k" }, -- quit can be a table
+		scroll_down = "j",
+		scroll_up = "k", -- quit can be a table
 	},
 	code_action_keys = {
 		quit = "q",
@@ -70,3 +70,5 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.api.nvim_buf_set_keymap(0, "t", "<C-t>", "<C-//><C-n><Cmd>Lspsaga close_floaterm<CR>", { silent = true })
 	end,
 })
+
+vim.cmd([[colorscheme everforest]])
