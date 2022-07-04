@@ -25,6 +25,7 @@ utils.push_async_task(function()
 			use("tiagovla/tokyodark.nvim")
 			use("marko-cerovac/material.nvim")
 			use("nvim-lua/plenary.nvim")
+			use("RishabhRD/popfix")
 			use({ "famiu/bufdelete.nvim", cmd = "Bdelete" })
 			use({ "kyazdani42/nvim-web-devicons" })
 			use({
@@ -83,9 +84,10 @@ utils.push_async_task(function()
 				after = "nvim-lsp-installer",
 			})
 			use({ "jose-elias-alvarez/typescript.nvim", after = "null-ls.nvim" })
+			use({ "RishabhRD/nvim-lsputils", after = "typescript.nvim" })
 			use({
 				"neovim/nvim-lspconfig",
-				after = "typescript.nvim",
+				after = "nvim-lsputils",
 				config = [[r("plugins.lsp")]],
 			})
 			use({ "glepnir/lspsaga.nvim", cmd = "Lspsaga", config = [[r("plugins.saga")]] })

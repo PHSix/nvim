@@ -45,10 +45,10 @@ vim.o.smartcase = true
 
 -- tab width
 vim.bo.shiftwidth = 2
-vim.bo.softtabwidth = 2
+vim.bo.softtabstop = 2
 vim.bo.tabstop = 2
 vim.o.shiftwidth = 2
-vim.o.softtabwidth = 2
+vim.o.softtabstop = 2
 vim.o.tabstop = 2
 
 -- back file
@@ -63,6 +63,7 @@ vim.o.termguicolors = true
 
 -- remap keymap
 vim.keymap.set("n", ";", ":", { noremap = true })
+vim.keymap.set("n", "fy", "\"+y", { noremap = true })
 
 -- autocmd
 vim.api.nvim_create_autocmd("FileType", {
@@ -72,4 +73,4 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.cmd([[language en_US]])
+vim.cmd([[language en_US.utf8]])

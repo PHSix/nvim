@@ -1,10 +1,22 @@
 local installer = require("nvim-lsp-installer")
 local lspconfig = require("lspconfig")
 local capabilities = r("plugins.lsp.capabilities")
+local on_attach = r("plugins.lsp.attach")
 r("plugins.lsp.null-ls")
+
+-- lsp utils settings
+vim.lsp.handlers["textDocument/codeAction"] = require("lsputil.codeAction").code_action_handler
+vim.lsp.handlers["textDocument/references"] = require("lsputil.locations").references_handler
+vim.lsp.handlers["textDocument/definition"] = require("lsputil.locations").definition_handler
+vim.lsp.handlers["textDocument/declaration"] = require("lsputil.locations").declaration_handler
+vim.lsp.handlers["textDocument/typeDefinition"] = require("lsputil.locations").typeDefinition_handler
+vim.lsp.handlers["textDocument/implementation"] = require("lsputil.locations").implementation_handler
+vim.lsp.handlers["textDocument/documentSymbol"] = require("lsputil.symbols").document_handler
+vim.lsp.handlers["workspace/symbol"] = require("lsputil.symbols").workspace_handler
 local st = function(server_name, opts)
 	local ok, server = installer.get_server(server_name)
 	opts = opts or {}
+	opts["on_attach"] = on_attach
 	if not ok then
 		return
 	end
@@ -73,7 +85,9 @@ end
 local t = {
 	disable_commands = false,
 	debug = false,
-	server = vim.tbl_deep_extend("force", tsserver:get_default_options(), {}),
+	server = vim.tbl_deep_extend("force", tsserver:get_default_options(), {
+		on_attach = on_attach,
+	}),
 }
 require("typescript").setup(t)
 vim.cmd([[

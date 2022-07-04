@@ -32,10 +32,4 @@ function M.push_async_task(callback, obj)
 	async_task:send()
 end
 
-function M.defer(callback, ms)
-	ludash.setTimeout(function()
-		M.push_async_task(callback)
-	end, ms)
-end
-
 return M

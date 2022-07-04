@@ -12,11 +12,9 @@ vim.defer_fn(function()
 
 	-- vim.cmd([[colorscheme deus]])
 
-	local opts = {}
-	vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts)
-	vim.keymap.set("n", "<F2>", "<Cmd>Lspsaga rename<CR>", opts)
-	vim.keymap.set("n", "gh", "<Cmd>Lspsaga lsp_finder<CR>", opts)
-	vim.keymap.set("n", "gd", "<Cmd>Lspsaga preview_definition<CR>", opts)
+	-- local opts = {}
+	-- vim.keymap.set("n", "gh", "<Cmd>Lspsaga lsp_finder<CR>", opts)
+	-- vim.keymap.set("n", "gd", "<Cmd>Lspsaga preview_definition<CR>", opts)
 
 	vim.g.vista_default_executive = "nvim_lsp"
 
