@@ -1,7 +1,7 @@
 local attach = function(_, bufnr)
 	local packer = require("packer")
 	if not packer_plugins["which-key.nvim"].loaded then
-		packer.load("which-key.nvim")
+		packer.loader("which-key.nvim")
 	end
 	local wk = require("which-key")
 

@@ -222,7 +222,12 @@ utils.push_async_task(function()
 				end,
 			})
 			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
-			use({ "shaeinst/penvim", event = { "BufRead", "BufNewFile" }, config = [[require("penvim").setup()]] })
+			use({
+				"shaeinst/penvim",
+				disable = vim.loop.os_uname().sysname == "Darwin",
+				event = { "BufRead", "BufNewFile" },
+				config = [[require("penvim").setup()]],
+			})
 			use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 		end,
 		config = {
