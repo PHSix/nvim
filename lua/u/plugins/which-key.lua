@@ -66,6 +66,16 @@ wk.register({
 		l = { "<Cmd>BufferNext<CR>", "Goto Next Buffer" },
 	},
 
+	p = {
+		name = "packer",
+		i = { "<Cmd>PackerInstall<CR>", "Packer Install" },
+		u = { "<Cmd>PackerUpdate<CR>", "Packer Update" },
+		c = { "<Cmd>PackerClean<CR>", "Packer Clean" },
+		s = { "<Cmd>PackerSync<CR>", "Packer Sync" },
+		o = { "<Cmd>PackerStatus<CR>", "Packer Status" },
+		y = { "<Cmd>PackerComplie<CR>", "Packer Complie" },
+	},
+
 	["1"] = { "<Cmd>BufferGoto 1<CR>", "Goto Buffer 1" },
 	["2"] = { "<Cmd>BufferGoto 2<CR>", "Goto Buffer 2" },
 	["3"] = { "<Cmd>BufferGoto 3<CR>", "Goto Buffer 3" },
