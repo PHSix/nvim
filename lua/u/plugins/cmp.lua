@@ -1,11 +1,11 @@
 vim.cmd([[PackerLoad cmp-nvim-lsp]])
 vim.cmd([[PackerLoad cmp-nvim-lua]])
 vim.cmd([[PackerLoad cmp-path]])
-vim.cmd([[PackerLoad cmp-treesitter]])
+-- vim.cmd([[PackerLoad cmp-treesitter]])
 vim.cmd([[PackerLoad cmp-vsnip]])
 vim.cmd([[PackerLoad cmp-under-comparator]])
 vim.cmd([[PackerLoad vim-vsnip]])
-vim.cmd([[PackerLoad cmp-buffer]])
+-- vim.cmd([[PackerLoad cmp-buffer]])
 vim.g.vsnip_snippet_dir = vim.fn["stdpath"]("config") .. "/vsnip"
 
 vim.api.nvim_set_keymap("s", "<BS>", [[<c-g>"_c]], { silent = true })
@@ -145,8 +145,8 @@ cmp.setup({
 		-- { name = "atomic_css", priority = 3 },
 		{ name = "nvim_lua", priority = 3 },
 
-		{ name = "buffer", priority = 2 },
-		{ name = "treesitter", priority = 1 },
+		-- { name = "buffer", priority = 2 },
+		-- { name = "treesitter", priority = 1 },
 	},
 	sorting = {
 		comparators = {

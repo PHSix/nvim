@@ -11,6 +11,7 @@ local has_stylua_config = function(u)
 	return u.root_has_file("stylua.toml") or u.root_has_file(".stylua.toml")
 end
 nu.setup({
+	update_in_insert = false,
 	sources = {
 		nu.builtins.completion.spell,
 		nu.builtins.code_actions.eslint_d.with({
@@ -97,9 +98,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			vim.lsp.buf.formatting()
 		end
 		record:stop()
-		if record:getms() > 100 then
-			vim.notify(string.format("LSP Auto Format cost too long time, last time it cost %dms.", record:getms()))
-			table.insert(fts, vim.bo.filetype)
-		end
+		-- if record:getms() > 100 then
+		-- 	vim.notify(string.format("LSP Auto Format cost too long time, last time it cost %dms.", record:getms()))
+		-- 	table.insert(fts, vim.bo.filetype)
+		-- end
 	end,
 })
