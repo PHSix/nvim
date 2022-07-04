@@ -63,7 +63,7 @@ vim.o.termguicolors = true
 
 -- remap keymap
 vim.keymap.set("n", ";", ":", { noremap = true })
-vim.keymap.set("n", "fy", '"+y', { noremap = true })
+vim.keymap.set("v", "fy", '"+y', { noremap = false })
 
 -- autocmd
 vim.api.nvim_create_autocmd("FileType", {
@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-if vim.fn.has("nvim-0.8") then
+if vim.loop.os_uname().sysname == "Darwin" then
 	vim.cmd([[language en_US]])
 else
 	vim.cmd([[language en_US.utf8]])

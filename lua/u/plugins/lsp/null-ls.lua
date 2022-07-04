@@ -58,7 +58,7 @@ nu.setup({
 vim.api.nvim_create_user_command("LSPFormat", function()
 	if vim.fn.has("nvim-0.8") == 1 then
 		vim.lsp.buf.format({
-			timeout_ms = 1000,
+			timeout_ms = 3000,
 			bufnr = 0,
 			async = false,
 			name = "null-ls",
@@ -89,7 +89,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			vim.lsp.buf.format({
 				timeout_ms = 1000,
 				bufnr = 0,
-				async = false,
+				async = true,
 				filter = function(client)
 					return client.name == "null-ls"
 				end,
@@ -98,9 +98,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			vim.lsp.buf.formatting()
 		end
 		record:stop()
-		-- if record:getms() > 100 then
-		-- 	vim.notify(string.format("LSP Auto Format cost too long time, last time it cost %dms.", record:getms()))
-		-- 	table.insert(fts, vim.bo.filetype)
-		-- end
+		if record:getms() > 300 then
+			vim.notify(string.format("LSP Auto Format cost too long time, last time it cost %dms.", record:getms()))
+			table.insert(fts, vim.bo.filetype)
+		end
 	end,
 })
