@@ -14,15 +14,15 @@ nu.setup({
 	update_in_insert = false,
 	sources = {
 		nu.builtins.completion.spell,
-		nu.builtins.code_actions.eslint_d.with({
-			condition = has_eslint_config,
-			prefer_local = "node_modules/.bin",
-		}),
+		-- nu.builtins.code_actions.eslint_d.with({
+		-- 	condition = has_eslint_config,
+		-- 	prefer_local = "node_modules/.bin",
+		-- }),
 
-		nu.builtins.diagnostics.eslint_d.with({
-			condition = has_eslint_config,
-			prefer_local = "node_modules/.bin",
-		}),
+		-- nu.builtins.diagnostics.eslint_d.with({
+		-- 	condition = has_eslint_config,
+		-- 	prefer_local = "node_modules/.bin",
+		-- }),
 		nu.builtins.diagnostics.stylelint.with({
 			condition = has_stylelint_config,
 			prefer_local = "node_modules/.bin",

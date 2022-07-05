@@ -71,12 +71,9 @@ utils.push_async_task(function()
 				cmd = {
 					"LspInstall",
 					"LspInstallInfo",
-					"LspPrintInstalled",
 					"LspRestart",
 					"LspStart",
 					"LspStop",
-					"LspUninstall",
-					"LspUninstallAll",
 				},
 			})
 			use({
