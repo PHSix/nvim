@@ -96,3 +96,5 @@ vim.cmd([[
 	sign define DiagnosticSignInfo  text= texthl=DiagnosticSignInfo linehl= numhl=
 	sign define DiagnosticSignHint  text=ﴞ texthl=DiagnosticSignHint linehl= numhl=
 ]])
+
+vim.cmd([[LspStart]])
