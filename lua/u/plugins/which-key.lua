@@ -1,6 +1,29 @@
 local wk = require("which-key")
 
 wk.register({
+	d = {
+		"<Plug>(coc-definition)",
+		"LSP goto definition"
+	},
+	i = {
+		"<Plug>(coc-implementation)",
+		"LSP goto implementation"
+	},
+	r = {
+		"<Plug>(coc-references)",
+		"LSP goto references"
+	},
+	j = {
+		"<CMD>:Gitsigns next_hunk<CR>",
+		"Next Git Hunk"
+	},
+	k = {
+		"<CMD>:Gitsigns prev_hunk<CR>",
+		"Prev Git Hunk"
+	},
+}, {prefix= "g"})
+
+wk.register({
 	f = {
 		name = "Finder",
 
@@ -11,7 +34,6 @@ wk.register({
 		h = { "<Cmd>Clap help_tags<CR>", "Find Help Doc" },
 		y = { "<Cmd>Clap yanks<CR>", "Find Yanks" },
 		r = { "<Cmd>Clap registers<CR>", "Find Registers" },
-		l = { "<Cmd>Lspsaga lsp_finder<CR>", "LSP Finder" },
 	},
 
 	t = {
@@ -23,19 +45,22 @@ wk.register({
 	m = {
 		name = "Misc",
 		v = { "<Cmd>Vista<CR>", "Symbol Outline(BY Visita)" },
-		t = { "<Cmd>Lspsaga open_floaterm<CR>", "Open Float Term" },
 	},
 
 	r = {
 		name = "Re Action",
-
-		n = { "<Cmd>Lspsaga rename<CR>", "LSP Rename" },
+		n = {
+			"<Plug>(coc-rename)",
+			"LSP Rename"
+		}
 	},
 
 	c = {
 		name = "Code",
-
-		a = { "<Cmd>Lspsaga code_action<CR>", "LSP Code Action" },
+		a = {
+			"<Plug>(coc-codeaction)",
+			"LSP Code Action"
+		},
 	},
 
 	g = {
@@ -48,12 +73,13 @@ wk.register({
 	},
 
 	j = {
-		"<Cmd>Lspsaga diagnostic_jump_next<CR>",
+		"<Plug>(coc-diagnostic-next)",
 		"LSP Diagnostic Next",
+
 	},
 
 	k = {
-		"<Cmd>Lspsaga diagnostic_jump_prev<CR>",
+		"<Plug>(coc-diagnostic-prev)",
 		"LSP Diagnostic Prev",
 	},
 
@@ -122,4 +148,5 @@ wk.setup({
 	},
 	ignore_missing = false,
 })
+
 vim.cmd([[map <space> <leader>]])

@@ -1,0 +1,7 @@
+{
+	"suggest.enablePreselect": true,
+	"suggest.noselect": false,
+	"diagnostic.floatConfig": {},
+	"Lua.telemetry.enable": true,
+	"Lua.diagnostics.globals": ["vim", "packer_plugins"]
+}

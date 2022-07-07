@@ -66,29 +66,6 @@ utils.push_async_task(function()
 			})
 
 			use({
-				"williamboman/nvim-lsp-installer",
-				event = { "BufRead", "BufNewFile" },
-				cmd = {
-					"LspInstall",
-					"LspInstallInfo",
-					"LspRestart",
-					"LspStart",
-					"LspStop",
-				},
-			})
-			use({
-				"jose-elias-alvarez/null-ls.nvim",
-				after = "nvim-lsp-installer",
-			})
-			use({ "jose-elias-alvarez/typescript.nvim", after = "null-ls.nvim" })
-			use({ "RishabhRD/nvim-lsputils", after = "typescript.nvim" })
-			use({
-				"neovim/nvim-lspconfig",
-				after = "nvim-lsputils",
-				config = [[r("plugins.lsp")]],
-			})
-			use({ "glepnir/lspsaga.nvim", cmd = "Lspsaga", config = [[r("plugins.saga")]] })
-			use({
 				"lewis6991/gitsigns.nvim",
 				event = { "BufRead", "BufNewFile" },
 				cmd = { "Gitsigns" },
@@ -143,49 +120,6 @@ utils.push_async_task(function()
 			})
 
 			use({
-				"hrsh7th/nvim-cmp",
-				event = { "InsertEnter" },
-				requires = {
-					{
-						"hrsh7th/cmp-nvim-lsp",
-						opt = true,
-					},
-					{
-						"hrsh7th/cmp-buffer",
-						opt = true,
-					},
-					{
-						"hrsh7th/cmp-vsnip",
-						opt = true,
-					},
-					{
-						"hrsh7th/vim-vsnip",
-						opt = true,
-					},
-					{
-						"hrsh7th/cmp-path",
-						opt = true,
-					},
-					{
-						"hrsh7th/cmp-nvim-lua",
-						opt = true,
-					},
-					{
-						"ray-x/cmp-treesitter",
-						opt = true,
-					},
-					{
-						"onsails/lspkind-nvim",
-						opt = true,
-					},
-					{
-						"lukas-reineke/cmp-under-comparator",
-						opt = true,
-					},
-				},
-				config = [[r("plugins.cmp")]],
-			})
-			use({
 				"liuchengxu/vim-clap",
 				run = ":Clap install-binary",
 				cmd = "Clap",
@@ -201,11 +135,6 @@ utils.push_async_task(function()
 				config = function()
 					require("spectre").setup()
 				end,
-			})
-			use({
-				"windwp/nvim-autopairs",
-				after = "nvim-cmp",
-				config = [[require("nvim-autopairs").setup()]],
 			})
 			use({ "liuchengxu/vista.vim", cmd = "Vista" })
 
@@ -226,6 +155,11 @@ utils.push_async_task(function()
 				config = [[require("penvim").setup()]],
 			})
 			use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
+			use({
+				"neoclide/coc.nvim",
+				branch = "release",
+				config = [[r('plugins.coc')]]
+			})
 		end,
 		config = {
 			-- Default compile path of packer_compiled file.
