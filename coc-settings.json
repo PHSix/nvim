@@ -1,9 +1,15 @@
 {
-	"suggest.enablePreselect": true,
-	"suggest.noselect": false,
-	"diagnostic.floatConfig": {},
-	"typescript.autoClosingTags": false,
-	"javascript.autoClosingTags": false,
-	"Lua.telemetry.enable": true,
-	"Lua.diagnostics.globals": ["vim", "packer_plugins"]
+  "suggest.enablePreselect": true,
+  "suggest.noselect": false,
+  "diagnostic.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "title": "Diagnostic"
+  },
+  "hover.floatConfig": { "border": true, "title": "Hover Doc" },
+  "coc.preferences.formatOnSaveFiletypes": ["json"],
+  "typescript.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "Lua.telemetry.enable": true,
+  "Lua.diagnostics.globals": ["vim", "packer_plugins"]
 }
