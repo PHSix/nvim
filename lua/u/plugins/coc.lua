@@ -7,8 +7,6 @@ vim.api.nvim_set_keymap("n", "K", ":call CocActionAsync('doHover')<CR>", { silen
 vim.api.nvim_set_keymap("n", "<F2>", "<Plug>(coc-rename)", {})
 
 
-
-vim.cmd [[command! -nargs=0 Format :call CocActionAsync('format')]]
 vim.g.coc_global_extensions = {
 	'coc-lua',
 	"coc-json",
@@ -17,9 +15,10 @@ vim.g.coc_global_extensions = {
 	"coc-marketplace",
 	"coc-eslint",
 	"coc-prettier",
+	"coc-snippets",
 }
 
 vim.cmd [[
 	command! -nargs=0 CocFormat :call CocActionAsync('format')
-	command! -nargs=0 CocMarketplace <CMD>CocList marketplace<CR>
+	command! -nargs=0 CocMarketplace :CocList marketplace<CR>
 ]]
