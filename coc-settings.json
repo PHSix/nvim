@@ -2,6 +2,8 @@
 	"suggest.enablePreselect": true,
 	"suggest.noselect": false,
 	"diagnostic.floatConfig": {},
+	"typescript.autoClosingTags": false,
+	"javascript.autoClosingTags": false,
 	"Lua.telemetry.enable": true,
 	"Lua.diagnostics.globals": ["vim", "packer_plugins"]
 }
