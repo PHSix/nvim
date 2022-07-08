@@ -36,9 +36,20 @@
   },
   "snippets.ultisnips.enable": false,
   "hover.floatConfig": { "border": true, "title": "Hover Doc" },
-  "coc.preferences.formatOnSaveFiletypes": ["json"],
-  "typescript.autoClosingTags": false,
-  "javascript.autoClosingTags": false,
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+  "semanticTokens.filetypes": [
+    "json",
+    "lua",
+    "typescriptreact",
+    "typescript",
+    "javascript",
+    "javascriptreact"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "typescriptreact",
+    "typescript"
+  ],
   "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"]
 }
