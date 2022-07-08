@@ -52,13 +52,10 @@ utils.push_async_task(function()
 				keys = { "c", "d" },
 			})
 			use({
-				"tpope/vim-commentary",
-				keys = { "gc", ",c" },
-				config = function()
-					vim.api.nvim_set_keymap("n", ",cc", "gcc", { noremap = false, silent = true })
-					vim.api.nvim_set_keymap("v", ",c", "gc", { noremap = false, silent = true })
-					vim.api.nvim_set_keymap("x", ",cc", "gc", { noremap = false, silent = true })
-				end,
+				"numToStr/Comment.nvim",
+				config = function ()
+					require('Comment').setup()
+				end
 			})
 			use({
 				"voldikss/vim-translator",
