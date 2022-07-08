@@ -2,9 +2,6 @@ require("nvim-treesitter.configs").setup({
 	indent = {
 		enable = { "typescriptreact", "typescript", "javascriptreact", "javascript" },
 	},
-	autotag = {
-		enable = true,
-	},
 	ensure_installed = {
 		"c",
 		"cpp",

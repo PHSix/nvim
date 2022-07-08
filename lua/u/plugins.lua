@@ -103,23 +103,6 @@ utils.push_async_task(function()
 				config = [[r("plugins.statusline")]],
 			})
 			use({
-				"nvim-treesitter/nvim-treesitter",
-				event = { "BufNewFile", "BufRead" },
-				requires = {
-					{ "windwp/nvim-ts-autotag", after = "nvim-treesitter" },
-					{ "p00f/nvim-ts-rainbow", after = "nvim-treesitter" },
-					{ "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
-					{ "nvim-treesitter/playground", after = "nvim-treesitter" },
-				},
-				config = [[r("plugins.treesitter")]],
-			})
-			use({
-				"lukas-reineke/indent-blankline.nvim",
-				event = { "BufRead", "BufNewFile" },
-				config = [[r("plugins.indentline")]],
-			})
-
-			use({
 				"liuchengxu/vim-clap",
 				run = ":Clap install-binary",
 				cmd = "Clap",
@@ -160,6 +143,7 @@ utils.push_async_task(function()
 				branch = "release",
 				config = [[r('plugins.coc')]]
 			})
+			use("glepnir/indent-guides.nvim")
 		end,
 		config = {
 			-- Default compile path of packer_compiled file.
