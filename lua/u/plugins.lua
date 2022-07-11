@@ -30,6 +30,7 @@ utils.push_async_task(function()
 			use({ "kyazdani42/nvim-web-devicons" })
 			use({
 				"lewis6991/impatient.nvim",
+				disable = vim.loop.os_uname().sysname == 'Darwin',
 				config = [[require("impatient")]],
 			})
 			use({
@@ -38,6 +39,7 @@ utils.push_async_task(function()
 			})
 			use({
 				"ethanholz/nvim-lastplace",
+				event = "BufRead",
 				config = function()
 					require("nvim-lastplace").setup({
 						lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
@@ -64,7 +66,7 @@ utils.push_async_task(function()
 
 			use({
 				"lewis6991/gitsigns.nvim",
-				event = { "BufRead", "BufNewFile" },
+				event = { "BufRead" },
 				cmd = { "Gitsigns" },
 				config = [[r("plugins.gitsign")]],
 			})
@@ -112,11 +114,11 @@ utils.push_async_task(function()
 			})
 			use({
 				"nvim-pack/nvim-spectre",
+				event = "BufRead",
 				config = function()
 					require("spectre").setup()
 				end,
 			})
-			use({ "liuchengxu/vista.vim", cmd = "Vista" })
 
 			use({
 				"phaazon/hop.nvim",
@@ -128,13 +130,6 @@ utils.push_async_task(function()
 				end,
 			})
 			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
-			use({
-				"shaeinst/penvim",
-				disable = vim.loop.os_uname().sysname == "Darwin",
-				event = { "BufRead", "BufNewFile" },
-				config = [[require("penvim").setup()]],
-			})
-			use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 			use({
 				"neoclide/coc.nvim",
 				branch = "release",
@@ -157,5 +152,9 @@ utils.push_async_task(function()
 		},
 	})
 end, { isRecord = false })
+
+local start = vim.loop.hrtime()
+local lsp = vim.lsp
+print(string.format("cost %f ms", (vim.loop.hrtime() - start) / 1000000))
 
 r("default")

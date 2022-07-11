@@ -1,7 +1,6 @@
 local gl = require("galaxyline")
 local gls = gl.section
 local condition = require("galaxyline.condition")
-local diagnostic = require("galaxyline.provider_diagnostic")
 local vcs = require("galaxyline.provider_vcs")
 local fileinfo = require("galaxyline.provider_fileinfo")
 local extension = require("galaxyline.provider_extensions")
@@ -9,23 +8,6 @@ local colors = require("galaxyline.colors")
 local buffer = require("galaxyline.provider_buffer")
 local whitespace = require("galaxyline.provider_whitespace")
 
-local get_clients = function()
-	local max_len = 15
-	local msg = "No Active Lsp"
-	local clients = vim.lsp.buf_get_clients()
-	if #clients ~= 0 then
-		msg = ""
-		for _, client in pairs(clients) do
-			msg = msg .. client.name .. ", "
-		end
-		msg = string.sub(msg, 1, string.len(msg) - 2)
-	end
-	if string.len(msg) > max_len then
-		msg = string.sub(msg, 1, max_len)
-		msg = msg .. "..."
-	end
-	return msg
-end
 local get_hl = function(group_name, attr)
 	local group = vim.api.nvim_get_hl_by_name(group_name, true)
 	local complete_attr
@@ -40,6 +22,7 @@ local get_hl = function(group_name, attr)
 	if group[complete_attr] then
 		return string.format("#%x", group[complete_attr])
 	end
+
 	return "#000"
 end
 
@@ -210,15 +193,6 @@ gls.right[4] = {
 }
 
 gls.right[5] = {
-	LspClient = {
-		provider = function()
-			return "    " .. get_clients()
-		end,
-		highlight = { blue, bg },
-	},
-}
-
-gls.right[6] = {
 	EndComponent = {
 		provider = function()
 			return "   "
@@ -226,3 +200,4 @@ gls.right[6] = {
 		highlight = { warn, bg, "bold" },
 	},
 }
+
