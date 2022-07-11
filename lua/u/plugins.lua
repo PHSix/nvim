@@ -3,9 +3,7 @@ utils.push_async_task(function()
 	local fn = vim.fn
 	if not utils.is_plugin_installed("packer.nvim") then
 		fn.system({
-			"git",
-			"clone",
-			"--depth",
+			"git", "clone", "--depth",
 			"1",
 			"https://github.com/wbthomason/packer.nvim",
 			utils.plugins_path .. "/start/packer.nvim",
@@ -55,7 +53,7 @@ utils.push_async_task(function()
 			})
 			use({
 				"numToStr/Comment.nvim",
-				config = function ()
+				config = function()
 					require('Comment').setup()
 				end
 			})
@@ -131,6 +129,14 @@ utils.push_async_task(function()
 			})
 			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
 			use({
+				"shaeinst/penvim",
+				disable = vim.loop.os_uname().sysname == "Darwin",
+				event = { "BufRead", "BufNewFile" },
+				config = [[require("penvim").setup()]],
+			})
+			-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
+			use({ "nanozuki/tabby.nvim", event = { "BufRead", "BufNewFile" }, config = [[r("plugins.tabby")]] })
+			use({
 				"neoclide/coc.nvim",
 				branch = "release",
 				config = [[r('plugins.coc')]]
@@ -153,8 +159,5 @@ utils.push_async_task(function()
 	})
 end, { isRecord = false })
 
-local start = vim.loop.hrtime()
-local lsp = vim.lsp
-print(string.format("cost %f ms", (vim.loop.hrtime() - start) / 1000000))
 
 r("default")

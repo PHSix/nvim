@@ -37,14 +37,14 @@ wk.register({
 	},
 
 	t = {
-		name = "Translate",
+		name = "Tabline",
 
-		t = { "<Cmd>TranslateW<CR>", "Translate in Window" },
 	},
 
 	m = {
 		name = "Misc",
 		v = { "<Cmd>Vista<CR>", "Symbol Outline(BY Visita)" },
+		t = { "<Cmd>TranslateW<CR>", "Translate in Window" },
 	},
 
 	r = {
@@ -88,8 +88,8 @@ wk.register({
 
 		d = { "<Cmd>Bdelete", "Delete Current Buffer" },
 
-		h = { "<Cmd>BufferPrevious<CR>", "Goto Prev Buffer" },
-		l = { "<Cmd>BufferNext<CR>", "Goto Next Buffer" },
+		h = { "<Cmd>bp<CR>", "Goto Prev Buffer" },
+		l = { "<Cmd>bn<CR>", "Goto Next Buffer" },
 	},
 
 	p = {
@@ -102,14 +102,14 @@ wk.register({
 		y = { "<Cmd>PackerComplie<CR>", "Packer Complie" },
 	},
 
-	["1"] = { "<Cmd>BufferGoto 1<CR>", "Goto Buffer 1" },
-	["2"] = { "<Cmd>BufferGoto 2<CR>", "Goto Buffer 2" },
-	["3"] = { "<Cmd>BufferGoto 3<CR>", "Goto Buffer 3" },
-	["4"] = { "<Cmd>BufferGoto 4<CR>", "Goto Buffer 4" },
-	["5"] = { "<Cmd>BufferGoto 5<CR>", "Goto Buffer 5" },
-	["6"] = { "<Cmd>BufferGoto 6<CR>", "Goto Buffer 6" },
-	["7"] = { "<Cmd>BufferGoto 7<CR>", "Goto Buffer 7" },
-	["8"] = { "<Cmd>BufferGoto 8<CR>", "Goto Buffer 8" },
+	-- ["1"] = { "<Cmd>BufferGoto 1<CR>", "Goto Buffer 1" },
+	-- ["2"] = { "<Cmd>BufferGoto 2<CR>", "Goto Buffer 2" },
+	-- ["3"] = { "<Cmd>BufferGoto 3<CR>", "Goto Buffer 3" },
+	-- ["4"] = { "<Cmd>BufferGoto 4<CR>", "Goto Buffer 4" },
+	-- ["5"] = { "<Cmd>BufferGoto 5<CR>", "Goto Buffer 5" },
+	-- ["6"] = { "<Cmd>BufferGoto 6<CR>", "Goto Buffer 6" },
+	-- ["7"] = { "<Cmd>BufferGoto 7<CR>", "Goto Buffer 7" },
+	-- ["8"] = { "<Cmd>BufferGoto 8<CR>", "Goto Buffer 8" },
 }, { prefix = "<leader>" })
 
 wk.setup({

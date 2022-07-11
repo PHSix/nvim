@@ -8,7 +8,7 @@ vim.api.nvim_set_keymap("n", "<F2>", "<Plug>(coc-rename)", {})
 
 
 vim.g.coc_global_extensions = {
-	'coc-lua',
+	'coc-sumneko-lua',
 	"coc-json",
 	"coc-tsserver",
 	"coc-pairs",
