@@ -1,10 +1,14 @@
 {
   "suggest.enablePreselect": true,
   "suggest.noselect": false,
+  "diagnostic.errorSign": " ",
+  "diagnostic.warningSign": " ",
+  "diagnostic.infoSign": " ",
+  "diagnostic.hintSign": ">>",
   "diagnostic.floatConfig": {
     "border": true,
     "rounded": true,
-    "title": "Diagnostic"
+    "title": "LSP Diagnostic"
   },
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
@@ -35,7 +39,7 @@
     "default": "\uf29c"
   },
   "snippets.ultisnips.enable": false,
-  "hover.floatConfig": { "border": true, "title": "Hover Doc" },
+  "hover.floatConfig": { "border": true, "title": "LSP Hover Doc" },
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "semanticTokens.filetypes": [
     "json",
