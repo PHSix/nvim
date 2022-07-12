@@ -52,7 +52,8 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "typescriptreact",
-    "typescript"
+    "typescript",
+    "vue"
   ],
   "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
