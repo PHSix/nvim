@@ -1,15 +1,15 @@
 pcall(
 	function()
-		-- vim.defer_fn(function()
+		vim.defer_fn(function()
 			-- vim.g.material_style = "oceanic"
 			-- vim.cmd("colorscheme material")
 
-			-- vim.g.everforest_background = "soft"
-			-- vim.cmd([[colorscheme everforest]])
+			vim.g.everforest_background = "soft"
+			vim.cmd([[colorscheme everforest]])
 
-			vim.g.sonokai_style = 'atlantis'
-			vim.g.sonokai_better_performance = 1
-			vim.cmd [[colorscheme sonokai]]
+			-- vim.g.sonokai_style = 'atlantis'
+			-- vim.g.sonokai_better_performance = 1
+			-- vim.cmd [[colorscheme sonokai]]
 
 			-- vim.g.onedark_config = {
 			-- 	style = "deep",
@@ -17,8 +17,6 @@ pcall(
 			-- vim.cmd([[colorscheme onedark]])
 
 			-- vim.cmd([[colorscheme deus]])
-
-			vim.g.vista_default_executive = "coc"
 
 			vim.g.exclude_ft = { "plaintext" }
 			require('indent_guides').setup({
@@ -33,6 +31,6 @@ pcall(
 				even_colors = { fg = '#2a3834', bg = '#332b36' };
 				odd_colors = { fg = '#332b36', bg = '#2a3834' };
 			})
-		-- end, 1)
+		end, 1)
 	end
 )

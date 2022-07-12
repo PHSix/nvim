@@ -55,5 +55,6 @@
     "typescript"
   ],
   "Lua.telemetry.enable": true,
-  "Lua.diagnostics.globals": ["vim", "packer_plugins"]
+  "Lua.diagnostics.globals": ["vim", "packer_plugins"],
+  "sumneko-lua.inlayHints.trimSemicolon": false
 }

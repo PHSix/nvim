@@ -144,19 +144,16 @@ utils.push_async_task(function()
 			use("glepnir/indent-guides.nvim")
 		end,
 		config = {
-			-- Default compile path of packer_compiled file.
 			compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
 			git = {
-				clone_timeout = 300,
+				clone_timeout = 30,
 			},
-			-- Adding single border to packer window.
-			display = {
-				open_fn = function()
-					return require("packer.util").float({ border = "single" })
-				end,
+			profile = {
+				enable = true,
+				threshold = 3,
 			},
 		},
 	})
-end, { isRecord = false })
+end, { isRecord = false, })
 
 r("default")
