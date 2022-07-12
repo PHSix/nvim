@@ -8,12 +8,6 @@ local cmds = {
 }
 dashboard.custom_center = {
 	{
-		icon = "  ",
-		desc = "Recently laset session                  ",
-		shortcut = "SPC s l",
-		action = "SessionLoad",
-	},
-	{
 		icon = "  ",
 		desc = "Recently opened files                   ",
 		action = cmds.file_recent,

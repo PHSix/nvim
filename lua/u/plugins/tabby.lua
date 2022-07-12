@@ -24,9 +24,7 @@ local get_buf_id = function()
 end
 
 vim.api.nvim_create_user_command("TabbyNew", function()
-end, {
-
-})
+end, {})
 
 vim.api.nvim_create_user_command("TabbyRename", function()
 	local cur_name = require('tabby.util').get_tab_name(vim.api.nvim_get_current_tabpage())
