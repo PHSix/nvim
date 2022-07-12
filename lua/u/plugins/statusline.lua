@@ -3,10 +3,9 @@ local gls = gl.section
 local condition = require("galaxyline.condition")
 local vcs = require("galaxyline.provider_vcs")
 local fileinfo = require("galaxyline.provider_fileinfo")
-local extension = require("galaxyline.provider_extensions")
-local colors = require("galaxyline.colors")
 local buffer = require("galaxyline.provider_buffer")
-local whitespace = require("galaxyline.provider_whitespace")
+-- TODO: rewrite fileinfo provider(cost too many time)
+
 
 local get_hl = function(group_name, attr)
 	local group = vim.api.nvim_get_hl_by_name(group_name, true)

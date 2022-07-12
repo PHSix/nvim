@@ -153,8 +153,4 @@ utils.push_async_task(function()
 	})
 end, { isRecord = false })
 
-local start = vim.loop.hrtime()
-local lsp = vim.lsp
-print(string.format("cost %f ms", (vim.loop.hrtime() - start) / 1000000))
-
 r("default")
