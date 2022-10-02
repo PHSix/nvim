@@ -53,5 +53,9 @@
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
   "inlayHint.enable": false,
   "stylua.styluaPath": "/usr/local/bin/stylua",
-  "stylua.checkUpdate": false
+  "stylua.checkUpdate": false,
+
+  "explorer.icon.enableNerdfont": true,
+  "explorer.git.enable": false,
+  "explorer.width": 35
 }

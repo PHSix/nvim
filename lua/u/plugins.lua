@@ -78,16 +78,6 @@ utils.push_async_task(function()
 				config = [[r("plugins.which-key")]],
 			})
 			use({
-				"nvim-neo-tree/neo-tree.nvim",
-				branch = "v2.x",
-				cmd = { "NeoTreeRevealToggle" },
-				keys = { "<C-n>" },
-				requires = {
-					{ opt = true, "MunifTanjim/nui.nvim" },
-				},
-				config = [[r("plugins.neotree")]],
-			})
-			use({
 				"PHSix/faster.nvim",
 				keys = { "j", "k" },
 				config = function()
@@ -144,7 +134,7 @@ utils.push_async_task(function()
 				branch = "release",
 				config = [[r('plugins.coc')]],
 			})
-			use("glepnir/indent-guides.nvim")
+			use({ "lukas-reineke/indent-blankline.nvim", config = [[r("plugins.indentline")]] })
 			use({
 				"nvim-treesitter/nvim-treesitter",
 				config = function()
