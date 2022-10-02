@@ -4,7 +4,7 @@
   "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
   "diagnostic.infoSign": " ",
-  "diagnostic.hintSign": ">>",
+  "diagnostic.hintSign": " ",
   "diagnostic.floatConfig": {
     "border": true,
     "rounded": true,
@@ -41,21 +41,17 @@
   "snippets.ultisnips.enable": false,
   "hover.floatConfig": { "border": true, "title": "LSP Hover Doc" },
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
-  "semanticTokens.filetypes": [
-    "json",
-    "lua",
-    "typescriptreact",
-    "typescript",
-    "javascript",
-    "javascriptreact"
-  ],
+  "semanticTokens.enable": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "typescriptreact",
     "typescript",
-    "vue"
+    "vue",
+    "lua"
   ],
   "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
-  "sumneko-lua.inlayHints.trimSemicolon": false
+  "inlayHint.enable": false,
+  "stylua.styluaPath": "/usr/local/bin/stylua",
+  "stylua.checkUpdate": false
 }

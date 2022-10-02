@@ -3,42 +3,51 @@ local wk = require("which-key")
 wk.register({
 	d = {
 		"<Plug>(coc-definition)",
-		"LSP goto definition"
+		"LSP goto definition",
 	},
 	i = {
 		"<Plug>(coc-implementation)",
-		"LSP goto implementation"
+		"LSP goto implementation",
 	},
 	r = {
 		"<Plug>(coc-references)",
-		"LSP goto references"
+		"LSP goto references",
 	},
 	j = {
 		"<CMD>:Gitsigns next_hunk<CR>",
-		"Next Git Hunk"
+		"Next Git Hunk",
 	},
 	k = {
 		"<CMD>:Gitsigns prev_hunk<CR>",
-		"Prev Git Hunk"
+		"Prev Git Hunk",
 	},
-}, {prefix= "g"})
+}, { prefix = "g" })
 
 wk.register({
 	f = {
 		name = "Finder",
 
-		u = { "<Cmd>Clap history<CR>", "Recently Open Files" },
-		f = { "<Cmd>Clap files<CR>", "Find File" },
-		w = { "<Cmd>Clap grep2<CR>", "Live Grep" },
-		b = { "<Cmd>Clap buffers<CR>", "Find Buffer" },
-		h = { "<Cmd>Clap help_tags<CR>", "Find Help Doc" },
-		y = { "<Cmd>Clap yanks<CR>", "Find Yanks" },
-		r = { "<Cmd>Clap registers<CR>", "Find Registers" },
+		u = { "<Cmd>Telescope oldfiles<CR>", "Recently Open Files" },
+		f = { "<Cmd>Telescope find_files<CR>", "Find File" },
+		w = { "<Cmd>Telescope live_grep<CR>", "Live Grep" },
+		b = { "<Cmd>Telescope buffers<CR>", "Find Buffer" },
+		h = { "<Cmd>Telescope help_tags<CR>", "Find Help Doc" },
+		-- y = { "<Cmd>Telescope yanks<CR>", "Find Yanks" },
+		r = { "<Cmd>Telescope registers<CR>", "Find Registers" },
+		c = { "<Cmd>Telescope git_bcommits<CR>", "Find Buffer Commits" },
+		C = { "<Cmd>Telescope git_commits<CR>", "Find All Commits" },
+
+		-- u = { "<Cmd>Clap history<CR>", "Recently Open Files" },
+		-- f = { "<Cmd>Clap files<CR>", "Find File" },
+		-- w = { "<Cmd>Clap grep2<CR>", "Live Grep" },
+		-- b = { "<Cmd>Clap buffers<CR>", "Find Buffer" },
+		-- h = { "<Cmd>Clap help_tags<CR>", "Find Help Doc" },
+		-- y = { "<Cmd>Clap yanks<CR>", "Find Yanks" },
+		-- r = { "<Cmd>Clap registers<CR>", "Find Registers" },
 	},
 
 	t = {
 		name = "Tabline",
-
 	},
 
 	m = {
@@ -51,15 +60,15 @@ wk.register({
 		name = "Re Action",
 		n = {
 			"<Plug>(coc-rename)",
-			"LSP Rename"
-		}
+			"LSP Rename",
+		},
 	},
 
 	c = {
 		name = "Code",
 		a = {
 			"<Plug>(coc-codeaction)",
-			"LSP Code Action"
+			"LSP Code Action",
 		},
 	},
 
@@ -75,7 +84,6 @@ wk.register({
 	j = {
 		"<Plug>(coc-diagnostic-next)",
 		"LSP Diagnostic Next",
-
 	},
 
 	k = {

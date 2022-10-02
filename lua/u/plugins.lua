@@ -3,7 +3,9 @@ utils.push_async_task(function()
 	local fn = vim.fn
 	if not utils.is_plugin_installed("packer.nvim") then
 		fn.system({
-			"git", "clone", "--depth",
+			"git",
+			"clone",
+			"--depth",
 			"1",
 			"https://github.com/wbthomason/packer.nvim",
 			utils.plugins_path .. "/start/packer.nvim",
@@ -28,7 +30,7 @@ utils.push_async_task(function()
 			use({ "kyazdani42/nvim-web-devicons" })
 			use({
 				"lewis6991/impatient.nvim",
-				disable = vim.loop.os_uname().sysname == 'Darwin',
+				disable = vim.loop.os_uname().sysname == "Darwin",
 				config = [[require("impatient")]],
 			})
 			use({
@@ -54,8 +56,8 @@ utils.push_async_task(function()
 			use({
 				"numToStr/Comment.nvim",
 				config = function()
-					require('Comment').setup()
-				end
+					require("Comment").setup()
+				end,
 			})
 			use({
 				"voldikss/vim-translator",
@@ -105,6 +107,8 @@ utils.push_async_task(function()
 				cmd = "Clap",
 				config = [[r("plugins.clap")]],
 			})
+
+			use({ "nvim-telescope/telescope.nvim", cmd = "Telescope", config = [[r("plugins.telescope")]] })
 			use({
 				"sindrets/diffview.nvim",
 				cmd = { "DiffviewFileHistory", "DiffviewOpen" },
@@ -135,13 +139,37 @@ utils.push_async_task(function()
 				config = [[require("penvim").setup()]],
 			})
 			-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
-			use({ "nanozuki/tabby.nvim", event = { "BufRead", "BufNewFile" }, config = [[r("plugins.tabby")]] })
 			use({
 				"neoclide/coc.nvim",
 				branch = "release",
-				config = [[r('plugins.coc')]]
+				config = [[r('plugins.coc')]],
 			})
 			use("glepnir/indent-guides.nvim")
+			use({
+				"nvim-treesitter/nvim-treesitter",
+				config = function()
+					require("nvim-treesitter.configs").setup({
+						ensure_installed = {
+							"c",
+							"lua",
+							"rust",
+							"tsx",
+							"javascript",
+							"typescript",
+							"vim",
+							"toml",
+							"json",
+						},
+						sync_install = false,
+						auto_install = true,
+						highlight = {
+							enable = true,
+							disable = { "c", "rust" },
+							additional_vim_regex_highlighting = false,
+						},
+					})
+				end,
+			})
 		end,
 		config = {
 			compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
@@ -154,6 +182,6 @@ utils.push_async_task(function()
 			},
 		},
 	})
-end, { isRecord = false, })
+end, { isRecord = false })
 
 r("default")

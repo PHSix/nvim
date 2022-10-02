@@ -7,14 +7,14 @@ pcall(
 			-- vim.g.everforest_background = "soft"
 			-- vim.cmd([[colorscheme everforest]])
 
-			vim.g.sonokai_style = 'atlantis'
-			vim.g.sonokai_better_performance = 1
-			vim.cmd [[colorscheme sonokai]]
+			-- vim.g.sonokai_style = 'atlantis'
+			-- vim.g.sonokai_better_performance = 1
+			-- vim.cmd [[colorscheme sonokai]]
 
-			-- vim.g.onedark_config = {
-			-- 	style = "deep",
-			-- }
-			-- vim.cmd([[colorscheme onedark]])
+			vim.g.onedark_config = {
+				style = "deep",
+			}
+			vim.cmd([[colorscheme onedark]])
 
 			-- vim.cmd([[colorscheme deus]])
 
