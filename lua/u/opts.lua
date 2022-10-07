@@ -31,6 +31,8 @@ vim.o.backup = false
 vim.wo.signcolumn = "yes"
 
 -- syntax
+local tab_width = 4
+
 vim.bo.syntax = "on"
 
 -- mouse control
@@ -41,12 +43,12 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- tab width
-vim.bo.shiftwidth = 2
-vim.bo.softtabstop = 2
-vim.bo.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
-vim.o.tabstop = 2
+vim.bo.shiftwidth = tab_width
+vim.bo.softtabstop = tab_width
+vim.bo.tabstop = tab_width
+vim.o.shiftwidth = tab_width
+vim.o.softtabstop = tab_width
+vim.o.tabstop = tab_width
 
 -- back file
 vim.bo.undofile = true
@@ -58,7 +60,7 @@ vim.o.swapfile = false
 vim.o.background = "dark"
 vim.o.termguicolors = true
 
-vim.opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
+-- vim.opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
 
 -- remap keymap
 vim.keymap.set("n", ";", ":", { noremap = true })

@@ -1,4 +1,5 @@
 local utils = r("utils")
+
 utils.push_async_task(function()
 	local fn = vim.fn
 	if not utils.is_plugin_installed("packer.nvim") then
@@ -15,10 +16,11 @@ utils.push_async_task(function()
 
 	local use = require("packer").use
 
+	-- local use = require("packer").use
+
 	require("packer").startup({
 		function()
 			use("wbthomason/packer.nvim")
-			use("theniceboy/nvim-deus")
 			use("navarasu/onedark.nvim")
 			use("sainnhe/everforest")
 			use("sainnhe/sonokai")
@@ -26,6 +28,10 @@ utils.push_async_task(function()
 			use("marko-cerovac/material.nvim")
 			use("nvim-lua/plenary.nvim")
 			use("RishabhRD/popfix")
+			use("sam4llis/nvim-tundra")
+			use({ "kartikp10/noctis.nvim", requires = { "rktjmp/lush.nvim" } })
+			use({ "projekt0n/github-nvim-theme" })
+			use({ "catppuccin/nvim", as = "catppuccin" })
 			use({ "famiu/bufdelete.nvim", cmd = "Bdelete" })
 			use({ "kyazdani42/nvim-web-devicons" })
 			use({
@@ -98,7 +104,7 @@ utils.push_async_task(function()
 				config = [[r("plugins.clap")]],
 			})
 
-			use({ "nvim-telescope/telescope.nvim", cmd = "Telescope", config = [[r("plugins.telescope")]] })
+			-- use({ "nvim-telescope/telescope.nvim", cmd = "Telescope", config = [[r("plugins.telescope")]] })
 			use({
 				"sindrets/diffview.nvim",
 				cmd = { "DiffviewFileHistory", "DiffviewOpen" },
@@ -158,6 +164,23 @@ utils.push_async_task(function()
 							additional_vim_regex_highlighting = false,
 						},
 					})
+				end,
+			})
+			use({
+				"numToStr/FTerm.nvim",
+				keys = { "<C-t>" },
+				config = function()
+					require("FTerm").setup({
+						border = "rounded",
+						dimensions = {
+							height = 0.9,
+							width = 0.9,
+						},
+					})
+
+					-- Example keybindings
+					vim.keymap.set("n", "<C-t>", '<CMD>lua require("FTerm").toggle()<CR>')
+					vim.keymap.set("t", "<C-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 				end,
 			})
 		end,
