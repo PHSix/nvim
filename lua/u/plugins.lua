@@ -29,6 +29,8 @@ utils.push_async_task(function()
 			use("nvim-lua/plenary.nvim")
 			use("RishabhRD/popfix")
 			use("sam4llis/nvim-tundra")
+			use("Th3Whit3Wolf/one-nvim")
+			use('kevinhwang91/promise-async')
 			use({ "kartikp10/noctis.nvim", requires = { "rktjmp/lush.nvim" } })
 			use({ "projekt0n/github-nvim-theme" })
 			use({ "catppuccin/nvim", as = "catppuccin" })
@@ -94,17 +96,26 @@ utils.push_async_task(function()
 				end,
 			})
 			use({
-				"glepnir/galaxyline.nvim",
-				config = [[r("plugins.statusline")]],
-			})
-			use({
-				"liuchengxu/vim-clap",
-				run = ":Clap install-binary",
-				cmd = "Clap",
-				config = [[r("plugins.clap")]],
-			})
+				'itchyny/lightline.vim',
+				requires = {
+					'mengelbrecht/lightline-bufferline',
+					'josa42/vim-lightline-coc'
+				},
+				config = [[r('plugins.lightline')]]
 
-			-- use({ "nvim-telescope/telescope.nvim", cmd = "Telescope", config = [[r("plugins.telescope")]] })
+			})
+			-- use({
+			-- 	"glepnir/galaxyline.nvim",
+			-- 	config = [[r("plugins.statusline")]],
+			-- })
+			-- use({
+			-- 	"liuchengxu/vim-clap",
+			-- 	run = ":Clap install-binary",
+			-- 	cmd = "Clap",
+			-- 	config = [[r("plugins.clap")]],
+			-- })
+
+			use({ "nvim-telescope/telescope.nvim", cmd = "Telescope", config = [[r("plugins.telescope")]] })
 			use({
 				"sindrets/diffview.nvim",
 				cmd = { "DiffviewFileHistory", "DiffviewOpen" },
@@ -135,6 +146,7 @@ utils.push_async_task(function()
 				config = [[require("penvim").setup()]],
 			})
 			-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
+			use { 'kevinhwang91/nvim-ufo', config = [[r('plugins.ufo')]] }
 			use({
 				"neoclide/coc.nvim",
 				branch = "release",
@@ -143,6 +155,7 @@ utils.push_async_task(function()
 			use({ "lukas-reineke/indent-blankline.nvim", config = [[r("plugins.indentline")]] })
 			use({
 				"nvim-treesitter/nvim-treesitter",
+				branch = "v0.8.0",
 				config = function()
 					require("nvim-treesitter.configs").setup({
 						ensure_installed = {
@@ -159,7 +172,7 @@ utils.push_async_task(function()
 						sync_install = false,
 						auto_install = true,
 						highlight = {
-							enable = true,
+							enable = false,
 							disable = { "c", "rust" },
 							additional_vim_regex_highlighting = false,
 						},
@@ -197,4 +210,6 @@ utils.push_async_task(function()
 	})
 end, { isRecord = false })
 
-r("default")
+
+r
+("default")

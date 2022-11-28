@@ -51,7 +51,7 @@ vim.g.clap_popup_move_manager = {
 }
 vim.g.clap_prompt_format = " %spinner%%forerunner_status%%provider_id%: "
 vim.g.clap_enable_icon = 1
-vim.g.clap_theme = "onehalfdark"
+-- vim.g.clap_theme = "onehalfdark"
 
 vim.cmd([[
 	hi ClapSpinner guibg=NONE guifg=#FF7396 gui=bold

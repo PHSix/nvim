@@ -32,7 +32,9 @@ pcall(function()
 		-- vim.opt.background = "dark"
 		-- vim.cmd("colorscheme tundra")
 
-		vim.cmd([[colorscheme noctis]])
+		-- vim.cmd([[colorscheme noctis]])
+		--
+		vim.cmd [[colorscheme one-nvim]]
 
 		vim.g.exclude_ft = { "plaintext" }
 	end, 1)

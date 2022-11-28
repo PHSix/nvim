@@ -56,8 +56,12 @@ vim.bo.swapfile = false
 vim.o.undofile = true
 vim.o.swapfile = false
 
+-- cursorline
+vim.wo.cursorline = true;
+vim.o.cursorline = true;
+
 -- theme options
-vim.o.background = "dark"
+vim.o.background = "light"
 vim.o.termguicolors = true
 
 -- vim.opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"

@@ -24,8 +24,6 @@ vim.g.coc_global_extensions = {
 	"coc-prettier",
 	"coc-snippets",
 	"coc-explorer",
-	"coc-stylua",
-	"coc-explorer",
 	"coc-pairs",
 }
 
