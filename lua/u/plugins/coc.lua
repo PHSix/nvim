@@ -25,6 +25,7 @@ vim.g.coc_global_extensions = {
 	"coc-snippets",
 	"coc-explorer",
 	"coc-pairs",
+	"coc-spell-checker",
 }
 
 vim.api.nvim_set_keymap("n", "<C-n>", "<CMD>CocCommand explorer<CR>", { silent = true })

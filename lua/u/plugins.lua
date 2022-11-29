@@ -211,5 +211,5 @@ utils.push_async_task(function()
 end, { isRecord = false })
 
 
-r
-("default")
+
+r("default")

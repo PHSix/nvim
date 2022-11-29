@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
 let g:lightline = {
       \ 'colorscheme': 'one',
       \ 'tabline': {
@@ -8,11 +8,15 @@ let g:lightline = {
       \ 'component_expand': {
       \   'buffers': 'lightline#bufferline#buffers'
       \ },
+	  \ 'active': {
+	  \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ], [  'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ], [ 'coc_status'  ] ]
+	  \ },
       \ 'component_type': {
       \   'buffers': 'tabsel'
       \ }
       \ }
-
+call lightline#coc#register()
 let g:lightline#bufferline#show_number = 2
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
@@ -25,4 +29,4 @@ nmap <Leader>7 <Plug>lightline#bufferline#go(7)
 nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-]]
+]])
