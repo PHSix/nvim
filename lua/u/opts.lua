@@ -70,6 +70,9 @@ vim.o.termguicolors = true
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("v", "fy", '"+y', { noremap = false })
 
+-- tabline
+vim.o.showtabline = 2
+
 -- autocmd
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "help" },

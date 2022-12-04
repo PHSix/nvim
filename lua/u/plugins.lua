@@ -1,5 +1,7 @@
 local utils = r("utils")
 
+local isMac = vim.loop.os_uname().system == 'Darwin';
+
 utils.push_async_task(function()
 	local fn = vim.fn
 	if not utils.is_plugin_installed("packer.nvim") then
@@ -31,20 +33,30 @@ utils.push_async_task(function()
 			use("sam4llis/nvim-tundra")
 			use("Th3Whit3Wolf/one-nvim")
 			use('kevinhwang91/promise-async')
+			use("MunifTanjim/nui.nvim")
+			use('folke/noice.nvim')
+			use('tpope/vim-repeat')
+			use({ "TimUntersberger/neogit", config = [[require('neogit').setup()]] })
+			use({ 'anuvyklack/hydra.nvim',
+				keys = { "<leader>g" },
+				config = [[r('plugins.hydra')]]
+			})
 			use({ "kartikp10/noctis.nvim", requires = { "rktjmp/lush.nvim" } })
 			use({ "projekt0n/github-nvim-theme" })
 			use({ "catppuccin/nvim", as = "catppuccin" })
 			use({ "famiu/bufdelete.nvim", cmd = "Bdelete" })
 			use({ "kyazdani42/nvim-web-devicons" })
+
 			use({
 				"lewis6991/impatient.nvim",
-				disable = vim.loop.os_uname().sysname == "Darwin",
+				disable = isMac,
 				config = [[require("impatient")]],
 			})
-			use({
-				"glepnir/dashboard-nvim",
-				config = [[r("plugins.dashboard")]],
-			})
+			use("mhinz/vim-startify")
+			-- use({
+			-- 	"glepnir/dashboard-nvim",
+			-- 	config = [[r("plugins.dashboard")]],
+			-- })
 			use({
 				"ethanholz/nvim-lastplace",
 				event = "BufRead",
@@ -129,22 +141,11 @@ utils.push_async_task(function()
 				end,
 			})
 
-			use({
-				"phaazon/hop.nvim",
-				keys = { "s" },
-				config = function()
-					require("hop").setup({ keys = "asdfghjkl;'qweruiop" })
-					vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", { noremap = true, silent = true })
-					-- vim.api.nvim_command("highlight default HopUnmatched guifg=#666666 guibg=bg guisp=#666666 ctermfg=242")
-				end,
-			})
+			use({ 'ggandor/leap.nvim', config = function()
+				require('leap').add_default_mappings()
+			end })
+
 			use({ "skywind3000/asynctasks.vim", opt = true, requires = { "skywind3000/asyncrun.vim", opt = true } })
-			use({
-				"shaeinst/penvim",
-				disable = vim.loop.os_uname().sysname == "Darwin",
-				event = { "BufRead", "BufNewFile" },
-				config = [[require("penvim").setup()]],
-			})
 			-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 			use { 'kevinhwang91/nvim-ufo', config = [[r('plugins.ufo')]] }
 			use({

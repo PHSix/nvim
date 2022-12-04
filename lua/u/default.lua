@@ -36,6 +36,7 @@ pcall(function()
 		--
 		vim.cmd [[colorscheme one-nvim]]
 
+		require("noice").setup()
 		vim.g.exclude_ft = { "plaintext" }
 	end, 1)
 end)
