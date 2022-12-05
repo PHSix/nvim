@@ -36,6 +36,7 @@ utils.push_async_task(function()
 			use("MunifTanjim/nui.nvim")
 			use('folke/noice.nvim')
 			use('tpope/vim-repeat')
+			use('xiyaowong/nvim-cursorword')
 			use({ "TimUntersberger/neogit", config = [[require('neogit').setup()]] })
 			use({ 'anuvyklack/hydra.nvim',
 				keys = { "<leader>g" },
@@ -197,6 +198,10 @@ utils.push_async_task(function()
 					vim.keymap.set("t", "<C-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 				end,
 			})
+			use {
+				"nvim-zh/colorful-winsep.nvim",
+				config = [[require('colorful-winsep').setup()]]
+			}
 		end,
 		config = {
 			compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
