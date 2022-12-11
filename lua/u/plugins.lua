@@ -36,6 +36,7 @@ utils.push_async_task(function()
 			use("MunifTanjim/nui.nvim")
 			use('folke/noice.nvim')
 			use('tpope/vim-repeat')
+			use("romainl/vim-cool")
 			use({ "TimUntersberger/neogit", config = [[require('neogit').setup()]] })
 			use({ 'anuvyklack/hydra.nvim',
 				keys = { "<leader>g" },
