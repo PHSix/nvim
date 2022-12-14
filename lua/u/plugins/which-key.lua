@@ -1,4 +1,26 @@
 local wk = require("which-key")
+vim.cmd [[PackerLoad telescope.nvim]]
+local builtin = require("telescope.builtin")
+local getCwd = function()
+	local is_success, ret = pcall(function()
+		local folders = vim.g.WorkspaceFolders
+		local path = nil
+		local buffer_path = vim.fn.expand('%:p')
+		for _, folder in ipairs(folders) do
+			if string.match(buffer_path, folder) then
+				if not path or folder.length > path.length then
+					path = folder
+				end
+			end
+		end
+
+		return path
+	end)
+	if not is_success then
+		ret = nil
+	end
+	return ret
+end
 
 wk.register({
 	d = {
@@ -28,8 +50,12 @@ wk.register({
 		name = "Finder",
 
 		o = { "<Cmd>Telescope oldfiles<CR>", "Recently Open Files" },
-		f = { "<Cmd>Telescope find_files<CR>", "Find File" },
-		w = { "<Cmd>Telescope live_grep<CR>", "Live Grep" },
+		f = { function()
+			builtin.find_files({ cwd = getCwd() })
+		end, "Find File" },
+		w = { function()
+			builtin.live_grep({ cwd = getCwd() })
+		end, "Live Grep" },
 		b = { "<Cmd>Telescope buffers<CR>", "Find Buffer" },
 		h = { "<Cmd>Telescope help_tags<CR>", "Find Help Doc" },
 		r = { "<Cmd>Telescope registers<CR>", "Find Registers" },
