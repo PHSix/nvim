@@ -70,6 +70,8 @@ vim.o.termguicolors = true
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("v", "fy", '"+y', { noremap = false })
 
+vim.o.laststatus = 3
+
 -- tabline
 vim.o.showtabline = 2
 
