@@ -49,6 +49,8 @@ wk.register({
 	f = {
 		name = "Finder",
 
+		d = { "<Cmd>Telescope workspace_diagnostics<CR>", "Find workspace diagnostics" },
+
 		o = { "<Cmd>Telescope oldfiles<CR>", "Recently Open Files" },
 		f = { function()
 			builtin.find_files({ cwd = getCwd() })

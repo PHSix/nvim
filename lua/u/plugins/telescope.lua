@@ -4,9 +4,12 @@ if not present then
 	return
 end
 
+vim.cmd [[PackerLoad telescope-coc.nvim]]
+
 local actions = require("telescope.actions")
 
 vim.g.theme_switcher_loaded = true
+
 
 local options = {
 	defaults = {
@@ -62,6 +65,15 @@ local options = {
 			},
 		},
 	},
+	extensions = {
+		coc = {
+			theme = 'ivy',
+			prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+		}
+
+	},
 }
 
 telescope.setup(options)
+
+telescope.load_extension('coc')

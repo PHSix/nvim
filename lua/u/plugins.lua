@@ -129,7 +129,9 @@ utils.push_async_task(function()
 			-- 	config = [[r("plugins.clap")]],
 			-- })
 
-			use({ "nvim-telescope/telescope.nvim", cmd = "Telescope", config = [[r("plugins.telescope")]] })
+			use({ "nvim-telescope/telescope.nvim",
+				requires = { "fannheyward/telescope-coc.nvim", opt = true },
+				cmd = "Telescope", config = [[r("plugins.telescope")]] })
 			use({
 				"sindrets/diffview.nvim",
 				cmd = { "DiffviewFileHistory", "DiffviewOpen" },
