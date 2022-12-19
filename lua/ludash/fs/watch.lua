@@ -11,7 +11,7 @@ local watchFile = function(filePath, t)
 	-- check {t} type
 	assert(type(t["on_change"]) == "function", "Watch file function api must provide a on_change function parameter.")
 	if t["on_error"] == nil then
-		t["on_error"] = function ()end
+		t["on_error"] = function(...) end
 	end
 	local _filesub = string.sub(filePath, 1, 1)
 	-- translate relative path to absolute path

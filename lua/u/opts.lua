@@ -61,7 +61,7 @@ vim.wo.cursorline = true;
 vim.o.cursorline = true;
 
 -- theme options
-vim.o.background = "light"
+vim.o.background = "dark"
 vim.o.termguicolors = true
 
 -- vim.opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
@@ -71,6 +71,7 @@ vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("v", "fy", '"+y', { noremap = false })
 
 vim.o.laststatus = 3
+vim.o.cmdheight = 0
 
 -- tabline
 vim.o.showtabline = 2

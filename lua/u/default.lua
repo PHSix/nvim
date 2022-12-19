@@ -34,7 +34,7 @@ pcall(function()
 
 		-- vim.cmd([[colorscheme noctis]])
 		--
-		vim.cmd [[colorscheme one-nvim]]
+		vim.cmd [[colorscheme tokyodark]]
 
 		require("noice").setup()
 		vim.g.exclude_ft = { "plaintext" }

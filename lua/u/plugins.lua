@@ -22,20 +22,25 @@ utils.push_async_task(function()
 
 	require("packer").startup({
 		function()
+			-- dependences
 			use("wbthomason/packer.nvim")
+			use("nvim-lua/plenary.nvim")
+			use("RishabhRD/popfix")
+			use('kevinhwang91/promise-async')
+			use("MunifTanjim/nui.nvim")
+			use('tpope/vim-repeat')
+
+			-- colorscheme
 			use("navarasu/onedark.nvim")
 			use("sainnhe/everforest")
 			use("sainnhe/sonokai")
 			use("tiagovla/tokyodark.nvim")
 			use("marko-cerovac/material.nvim")
-			use("nvim-lua/plenary.nvim")
-			use("RishabhRD/popfix")
-			use("sam4llis/nvim-tundra")
 			use("Th3Whit3Wolf/one-nvim")
-			use('kevinhwang91/promise-async')
-			use("MunifTanjim/nui.nvim")
+
+			-- else
+			use("sam4llis/nvim-tundra")
 			use('folke/noice.nvim')
-			use('tpope/vim-repeat')
 			use("romainl/vim-cool")
 			use('xiyaowong/nvim-cursorword')
 			use({ "TimUntersberger/neogit", config = [[require('neogit').setup()]] })
