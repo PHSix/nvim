@@ -83,7 +83,12 @@ utils.push_async_task(function()
 			use({
 				"numToStr/Comment.nvim",
 				config = function()
-					require("Comment").setup()
+					require("Comment").setup({
+						mappings = {
+							basic = true,
+							extra = false
+						}
+					})
 				end,
 			})
 			use({
@@ -101,6 +106,7 @@ utils.push_async_task(function()
 				"folke/which-key.nvim",
 				keys = {
 					"<space>",
+					"g"
 				},
 				config = [[r("plugins.which-key")]],
 			})
