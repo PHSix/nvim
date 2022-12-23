@@ -216,6 +216,7 @@ utils.push_async_task(function()
 				"nvim-zh/colorful-winsep.nvim",
 				config = [[require('colorful-winsep').setup()]]
 			}
+			use({ "lervag/vimtex", config = [[r('plugins.vimtex')]] })
 		end,
 		config = {
 			compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
