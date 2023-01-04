@@ -10,10 +10,10 @@ pcall(function()
 		-- vim.g.sonokai_better_performance = 1
 		-- vim.cmd [[colorscheme sonokai]]
 
-		-- vim.g.onedark_config = {
-		-- 	style = "deep",
-		-- }
-		-- vim.cmd([[colorscheme onedark]])
+		vim.g.onedark_config = {
+			style = "deep",
+		}
+		vim.cmd([[colorscheme onedark]])
 
 		-- vim.cmd([[colorscheme deus]])
 
@@ -33,8 +33,8 @@ pcall(function()
 		-- vim.cmd("colorscheme tundra")
 
 		-- vim.cmd([[colorscheme noctis]])
-		--
-		vim.cmd [[colorscheme tokyodark]]
+
+		-- vim.cmd [[colorscheme tokyodark]]
 
 		require("noice").setup()
 		vim.g.exclude_ft = { "plaintext" }

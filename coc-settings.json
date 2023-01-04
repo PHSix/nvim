@@ -44,10 +44,11 @@
   "signature.floatConfig": { "border": true, "title": "LSP Signature" },
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "semanticTokens.enable": true,
-  "coc.preferences.formatOnSave": true,
+  "coc.preferences.formatOnSave": false,
   "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
   "inlayHint.enable": false,
+  "eslint.autoFixOnSave": true,
 
   "explorer.icon.enableNerdfont": true,
   "explorer.git.enable": false,

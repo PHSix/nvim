@@ -99,6 +99,10 @@ wk.register({
 			"<Plug>(coc-codeaction)",
 			"LSP Code Action",
 		},
+		f = {
+			"<Cmd>CocFormat<CR>",
+			"LSP Code Format",
+		}
 	},
 
 	g = {
