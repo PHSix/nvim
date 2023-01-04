@@ -1,11 +1,12 @@
 local wk = require("which-key")
-vim.cmd [[PackerLoad telescope.nvim]]
+vim.cmd([[Lazy load telescope.nvim]])
 local builtin = require("telescope.builtin")
+
 local getCwd = function()
 	local is_success, ret = pcall(function()
 		local folders = vim.g.WorkspaceFolders
 		local path = nil
-		local buffer_path = vim.fn.expand('%:p')
+		local buffer_path = vim.fn.expand("%:p")
 		for _, folder in ipairs(folders) do
 			if string.match(buffer_path, folder) then
 				if not path or folder.length > path.length then
@@ -52,12 +53,18 @@ wk.register({
 		d = { "<Cmd>Telescope workspace_diagnostics<CR>", "Find workspace diagnostics" },
 
 		o = { "<Cmd>Telescope oldfiles<CR>", "Recently Open Files" },
-		f = { function()
-			builtin.find_files({ cwd = getCwd() })
-		end, "Find File" },
-		w = { function()
-			builtin.live_grep({ cwd = getCwd() })
-		end, "Live Grep" },
+		f = {
+			function()
+				builtin.find_files({ cwd = getCwd() })
+			end,
+			"Find File",
+		},
+		w = {
+			function()
+				builtin.live_grep({ cwd = getCwd() })
+			end,
+			"Live Grep",
+		},
 		b = { "<Cmd>Telescope buffers<CR>", "Find Buffer" },
 		h = { "<Cmd>Telescope help_tags<CR>", "Find Help Doc" },
 		r = { "<Cmd>Telescope registers<CR>", "Find Registers" },
@@ -102,7 +109,7 @@ wk.register({
 		f = {
 			"<Cmd>CocFormat<CR>",
 			"LSP Code Format",
-		}
+		},
 	},
 
 	g = {

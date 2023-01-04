@@ -53,5 +53,5 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.git.enable": false,
   "explorer.width": 35,
-  "colors.enable": true
+  "colors.enable": true,
 }

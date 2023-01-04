@@ -1,24 +1,26 @@
 vim.g.lightline = {
-	colorscheme = 'one',
+	colorscheme = "one",
 	tabline = {
-		left = { { 'buffers' } },
-		right = { { 'close' } }
+		left = { { "buffers" } },
+		right = { { "close" } },
 	},
 	component_expand = {
-		buffers = 'lightline#bufferline#buffers'
+		buffers = "lightline#bufferline#buffers",
 	},
 	active = {
-		left = { { 'mode', 'paste' }, { 'readonly', 'filename', 'modified' },
-			{ 'coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' },
-			{ 'coc_status' },
-		}
+		left = {
+			{ "mode", "paste" },
+			{ "readonly", "filename", "modified" },
+			{ "coc_info", "coc_hints", "coc_errors", "coc_warnings", "coc_ok" },
+			{ "coc_status" },
+		},
 	},
 	component_type = {
-		buffers = 'tabsel'
-	}
+		buffers = "tabsel",
+	},
 }
-vim.call('lightline#coc#register')
-vim.g['lightline#bufferline#show_number'] = 2
+vim.call("lightline#coc#register")
+vim.g["lightline#bufferline#show_number"] = 2
 
 -- vim.cmd([[
 -- " let g:lightline = {
