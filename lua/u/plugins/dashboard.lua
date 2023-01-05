@@ -2,9 +2,9 @@ local dashboard = require("dashboard")
 
 -- "Telescope find_files find_command=rg,--hidden,--files"
 local cmds = {
-	file_recent = "Clap history",
-	find_files = "Clap files",
-	live_grep = "Clap grep2",
+	file_recent = "Telescope oldfiles",
+	find_files = "Telescope find_files",
+	live_grep = "Telescope live_grep",
 }
 dashboard.custom_center = {
 	{
@@ -43,13 +43,8 @@ local default_banner = {
 	"[ Hello, world! ]",
 	"",
 }
-local loaded_plugin_count = 0
-for _, value in pairs(packer_plugins) do
-	if value.loaded then
-		loaded_plugin_count = loaded_plugin_count + 1
-	end
-end
-local footer = { "🎉 neovim loaded " .. loaded_plugin_count .. " plugins" }
+
+local footer = { "🎉 neovim is best editor for coding" }
 
 for _ = 0, fill_height, 1 do
 	table.insert(header, "")

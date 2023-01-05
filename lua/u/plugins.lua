@@ -58,7 +58,13 @@ local tbl = {
 			require("impatient")
 		end,
 	},
-	"mhinz/vim-startify",
+	{
+		"glepnir/dashboard-nvim",
+		config = function ()
+			r("plugins.dashboard")
+		end
+	},
+	-- "mhinz/vim-startify",
 	{
 		"ethanholz/nvim-lastplace",
 		event = "BufRead",
