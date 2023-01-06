@@ -143,7 +143,7 @@ local tbl = {
 	},
 	{
 		"nvim-pack/nvim-spectre",
-		cmd={
+		cmd = {
 			'Spectre'
 		},
 		config = function()
@@ -226,7 +226,7 @@ local tbl = {
 			require("colorful-winsep").setup()
 		end,
 	},
-	{ "lervag/vimtex", config = function()
+	{ "lervag/vimtex", ft = { 'tex' }, config = function()
 		r('plugins.vimtex')
 	end
 	},
