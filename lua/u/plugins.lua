@@ -17,11 +17,10 @@ vim.opt.rtp:prepend(lazypath)
 
 local tbl = {
 	-- dependences
-	"folke/which-key.nvim",
-	{"nvim-lua/plenary.nvim", lazy=true},
-	{"RishabhRD/popfix", lazy=true},
-	{"kevinhwang91/promise-async", lazy=true},
-	{"MunifTanjim/nui.nvim", lazy=true},
+	{ "nvim-lua/plenary.nvim", lazy = true },
+	{ "RishabhRD/popfix", lazy = true },
+	{ "kevinhwang91/promise-async", lazy = true },
+	{ "MunifTanjim/nui.nvim", lazy = true },
 	"tpope/vim-repeat",
 	"navarasu/onedark.nvim",
 	"sainnhe/everforest",
@@ -35,6 +34,7 @@ local tbl = {
 	"xiyaowong/nvim-cursorword",
 	{
 		"TimUntersberger/neogit",
+		lazy = true,
 		config = function()
 			require("neogit").setup()
 		end,
@@ -52,15 +52,8 @@ local tbl = {
 	{ "famiu/bufdelete.nvim", cmd = "Bdelete" },
 	{ "kyazdani42/nvim-web-devicons" },
 	{
-		"lewis6991/impatient.nvim",
-		enable = not isMac,
-		config = function()
-			require("impatient")
-		end,
-	},
-	{
 		"glepnir/dashboard-nvim",
-		config = function ()
+		config = function()
 			r("plugins.dashboard")
 		end
 	},
@@ -97,7 +90,7 @@ local tbl = {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { "BufRead" },
+		event = { "BufReadPost" },
 		cmd = { "Gitsigns" },
 		config = function()
 			r("plugins.gitsign")
@@ -150,7 +143,9 @@ local tbl = {
 	},
 	{
 		"nvim-pack/nvim-spectre",
-		event = "BufRead",
+		cmd={
+			'Spectre'
+		},
 		config = function()
 			require("spectre").setup()
 		end,
@@ -238,7 +233,15 @@ local tbl = {
 }
 
 
-require("lazy").setup(tbl, {
+require("lazy").setup(vim.tbl_map(function(record)
+	if type(record) == 'string' then
+		return {
+			record,
+			lazy = true
+		}
+	end
+	return record;
+end, tbl), {
 	performance = {
 		enable = true,
 	},
