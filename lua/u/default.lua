@@ -9,10 +9,10 @@ pcall(function()
 	-- vim.g.sonokai_better_performance = 1
 	-- vim.cmd [[colorscheme sonokai]]
 
-	vim.g.onedark_config = {
-		style = "deep",
-	}
-	vim.cmd([[colorscheme onedark]])
+	-- vim.g.onedark_config = {
+	-- 	style = "deep",
+	-- }
+	-- vim.cmd([[colorscheme onedark]])
 
 	-- vim.cmd([[colorscheme deus]])
 
@@ -28,8 +28,8 @@ pcall(function()
 
 	-- vim.cmd([[colorscheme tokyodark]])
 
-	-- vim.opt.background = "dark"
-	-- vim.cmd("colorscheme tundra")
+	vim.opt.background = "dark"
+	vim.cmd("colorscheme tundra")
 
 	-- vim.cmd([[colorscheme noctis]])
 

@@ -51,6 +51,12 @@ local tbl = {
 	{ "catppuccin/nvim", as = "catppuccin" },
 	{ "famiu/bufdelete.nvim", cmd = "Bdelete" },
 	{ "kyazdani42/nvim-web-devicons" },
+	{ "glepnir/hlsearch.nvim",
+		event = 'BufRead',
+		config = function()
+			require('hlsearch').setup()
+		end
+	},
 	{
 		"glepnir/dashboard-nvim",
 		config = function()
@@ -71,7 +77,6 @@ local tbl = {
 	},
 	{
 		"tpope/vim-surround",
-		keys = { "c", "d" },
 	},
 	{
 		"numToStr/Comment.nvim",
@@ -150,12 +155,12 @@ local tbl = {
 			require("spectre").setup()
 		end,
 	},
-	{
-		"ggandor/leap.nvim",
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-	},
+	-- {
+	-- 	"ggandor/leap.nvim",
+	-- 	config = function()
+	-- 		require("leap").add_default_mappings()
+	-- 	end,
+	-- },
 	{ "skywind3000/asynctasks.vim", lazy = true, requires = { "skywind3000/asyncrun.vim", lazy = true } },
 	-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 	{

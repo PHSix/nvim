@@ -2,7 +2,7 @@ vim.g.lightline = {
 	colorscheme = "one",
 	tabline = {
 		left = { { "buffers" } },
-		right = { { "close" } },
+		right = {  },
 	},
 	component_expand = {
 		buffers = "lightline#bufferline#buffers",
@@ -19,8 +19,8 @@ vim.g.lightline = {
 		buffers = "tabsel",
 	},
 }
-vim.call("lightline#coc#register")
 vim.g["lightline#bufferline#show_number"] = 2
+vim.call("lightline#coc#register")
 
 -- vim.cmd([[
 -- " let g:lightline = {

@@ -79,7 +79,7 @@ wk.register({
 		-- y = { "<Cmd>Clap yanks<CR>", "Find Yanks" },
 		-- r = { "<Cmd>Clap registers<CR>", "Find Registers" },
 
-		n = { "<Cmd>CocCommand explorer<CR>", "File Tree Broswer" },
+		n = { "<Cmd>CocCommand explorer --position floating<CR>", "File Floating Tree Broswer " },
 	},
 
 	t = {
