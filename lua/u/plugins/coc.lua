@@ -14,6 +14,20 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 		\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 ]])
 
+vim.api.nvim_create_augroup('vimrc_autocmd', { clear = true })
+
+vim.api.nvim_create_autocmd({ "ModeChanged" }, {
+	group = "vimrc_autocmd",
+	pattern = "*",
+	callback = function()
+		if vim.fn.mode() == "s" then
+			local key = vim.api.nvim_replace_termcodes("<C-r>_", true, false, true)
+			vim.api.nvim_feedkeys(key, "s", false)
+		end
+	end,
+	once = false,
+})
+
 vim.g.coc_global_extensions = {
 	"coc-sumneko-lua",
 	"coc-json",
@@ -27,7 +41,15 @@ vim.g.coc_global_extensions = {
 	"coc-pairs",
 }
 
-vim.api.nvim_set_keymap("n", "<C-n>", "<CMD>CocCommand explorer<CR>", { silent = true })
+local function toggle_tree() 
+	if vim.bo.filetype == 'dashboard' then
+		return "<Cmd>CocCommand explorer --position floating<CR>"
+	end
+
+	return "<CMD>CocCommand explorer<CR>"
+end
+
+vim.keymap.set("n", "<C-n>", toggle_tree, { silent = true, expr=true })
 
 vim.cmd([[
 	command! -nargs=0 CocFormat :call CocActionAsync('format')

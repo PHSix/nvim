@@ -86,6 +86,7 @@ local tbl = {
 					basic = true,
 					extra = false,
 				},
+				pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 			})
 		end,
 	},
@@ -149,10 +150,16 @@ local tbl = {
 	{
 		"nvim-pack/nvim-spectre",
 		cmd = {
-			'Spectre'
+			'SpectreSearch'
 		},
 		config = function()
 			require("spectre").setup()
+
+			vim.api.nvim_create_user_command("SpectreSearch", function()
+				require('spectre').open_visual({
+					cwd = utils.getCwd(),
+				})
+			end, { desc = "Spectre search width coc" })
 		end,
 	},
 	-- {
@@ -182,9 +189,11 @@ local tbl = {
 			r("plugins.indentline")
 		end,
 	},
+	{ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
+	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "v0.8.0",
+		-- branch = "v0.8.0",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
@@ -205,6 +214,17 @@ local tbl = {
 					disable = { "c", "rust" },
 					additional_vim_regex_highlighting = false,
 				},
+				context_commentstring = {
+					enable = true,
+				},
+				rainbow = {
+					enable = true,
+					-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+					extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+					max_file_lines = nil, -- Do not enable for files with more than n lines, int
+					-- colors = {}, -- table of hex strings
+					-- termcolors = {} -- table of colour name strings
+				}
 			})
 		end,
 	},
@@ -234,6 +254,12 @@ local tbl = {
 	{ "lervag/vimtex", ft = { 'tex' }, config = function()
 		r('plugins.vimtex')
 	end
+	},
+	{ "norcalli/nvim-colorizer.lua",
+		event = { "BufRead" },
+		config = function()
+			require 'colorizer'.setup()
+		end
 	},
 }
 

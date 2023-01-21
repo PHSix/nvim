@@ -32,4 +32,26 @@ function M.push_async_task(callback, obj)
 	async_task:send()
 end
 
+
+M.getCwd = function()
+	local is_success, ret = pcall(function()
+		local folders = vim.g.WorkspaceFolders
+		local path = nil
+		local buffer_path = vim.fn.expand("%:p")
+		for _, folder in ipairs(folders) do
+			if string.match(buffer_path, folder) then
+				if not path or folder.length > path.length then
+					path = folder
+				end
+			end
+		end
+
+		return path
+	end)
+	if not is_success then
+		ret = nil
+	end
+	return ret
+end
+
 return M

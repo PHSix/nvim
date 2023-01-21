@@ -50,9 +50,11 @@ wk.register({
 	f = {
 		name = "Finder",
 
-		d = { "<Cmd>Telescope workspace_diagnostics<CR>", "Find workspace diagnostics" },
+		d = { "<Cmd>Telescope coc workspace_diagnostics<CR>", "Find Workspace Diagnostics" },
 
 		o = { "<Cmd>Telescope oldfiles<CR>", "Recently Open Files" },
+
+		r = { "<Cmd>Telescope resume<CR>", "Resume Action" },
 		f = {
 			function()
 				builtin.find_files({ cwd = getCwd() })
@@ -67,7 +69,7 @@ wk.register({
 		},
 		b = { "<Cmd>Telescope buffers<CR>", "Find Buffer" },
 		h = { "<Cmd>Telescope help_tags<CR>", "Find Help Doc" },
-		r = { "<Cmd>Telescope registers<CR>", "Find Registers" },
+		y = { "<Cmd>Telescope registers<CR>", "Find Yank Registers" },
 		c = { "<Cmd>Telescope git_bcommits<CR>", "Find Buffer Commits" },
 		C = { "<Cmd>Telescope git_commits<CR>", "Find All Commits" },
 

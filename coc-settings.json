@@ -43,7 +43,7 @@
   "hover.floatConfig": { "border": true, "title": "LSP Hover Doc" },
   "signature.floatConfig": { "border": true, "title": "LSP Signature" },
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
-  "semanticTokens.enable": true,
+  "semanticTokens.enable": false,
   "coc.preferences.formatOnSave": false,
   "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
@@ -54,4 +54,7 @@
   "explorer.git.enable": false,
   "explorer.width": 35,
   "colors.enable": true,
+
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets"
+  
 }
