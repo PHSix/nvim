@@ -1,4 +1,5 @@
 {
+  "npm.binPath": "pnpm",
   "suggest.enablePreselect": true,
   "suggest.noselect": false,
   "diagnostic.errorSign": " ",
@@ -56,5 +57,4 @@
   "colors.enable": true,
 
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets"
-  
 }

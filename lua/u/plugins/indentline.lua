@@ -43,7 +43,7 @@ vim.g.indent_blankline_context_patterns = {
 vim.o.list = true
 -- vim.opt.listchars:append("eol:↴,space: ")
 vim.opt.list = true
-vim.opt.listchars:append("eol:↴")
+-- vim.opt.listchars:append("eol:↴")
 
 -- vim.opt.listchars:append("tab:|")
 
