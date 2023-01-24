@@ -1,7 +1,6 @@
 local utils = r("utils")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-local isMac = vim.loop.os_uname().system == "Darwin"
 
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({

@@ -31,8 +31,6 @@ vim.o.backup = false
 vim.wo.signcolumn = "yes"
 
 -- syntax
-local tab_width = 4
-
 vim.bo.syntax = "on"
 
 -- mouse control
@@ -43,6 +41,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- tab width
+local tab_width = 4
 vim.bo.shiftwidth = tab_width
 vim.bo.softtabstop = tab_width
 vim.bo.tabstop = tab_width
@@ -84,8 +83,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-if vim.loop.os_uname().sysname == "Darwin" then
-	vim.cmd([[language en_US]])
-else
+if vim.loop.os_uname().sysname == "Linux" then
 	vim.cmd([[language en_US.utf8]])
 end
