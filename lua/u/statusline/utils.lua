@@ -86,5 +86,12 @@ return {
 			cmd = cmd .. string.format(" guibg=%s", t.bg)
 		end
 		vim.cmd(cmd)
+	end,
+
+	--- clone deep table
+	--- @parma t table
+	--- @return table
+	cloneDeep = function(t)
+		return vim.tbl_deep_extend("keep", {}, t)
 	end
 }
