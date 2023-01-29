@@ -14,10 +14,10 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 		\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 ]])
 
-vim.api.nvim_create_augroup('vimrc_autocmd', { clear = true })
+vim.api.nvim_create_augroup('coc_patch_autocmd', { clear = true })
 
 vim.api.nvim_create_autocmd({ "ModeChanged" }, {
-	group = "vimrc_autocmd",
+	group = "coc_patch_autocmd",
 	pattern = "*",
 	callback = function()
 		if vim.fn.mode() == "s" then
@@ -27,6 +27,38 @@ vim.api.nvim_create_autocmd({ "ModeChanged" }, {
 	end,
 	once = false,
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	group = "coc_patch_autocmd",
+	pattern = "*",
+	callback = function()
+		vim.defer_fn(
+			function()
+				if vim.bo.filetype == 'coc-explorer' and vim.api.nvim_win_get_config(0).relative ~= "" then
+					vim.api.nvim_win_set_config(0, {
+						zindex = 10
+					})
+				end
+			end, 100)
+	end
+})
+
+-- vim.api.nvim_create_autocmd({"WinLeave"}, {
+-- 	group = "coc_patch_autocmd",
+-- 	pattern = "*",
+-- 	callback = function ()
+-- 		if vim.bo.filetype =='coc-explorer' then
+-- 			local winid = vim.api.nvim_win_get_number(0)
+-- 			vim.notify(vim.api.nvim_win_is_valid(winid), vim.log.levels.DEBUG)
+-- 			vim.defer_fn(function ()
+-- 				if not vim.api.nvim_win_is_valid(winid) then
+-- 					return
+-- 				end
+-- 				vim.api.nvim_win_close(winid)
+-- 			end, 30)
+-- 		end
+-- 	end
+-- })
 
 vim.g.coc_global_extensions = {
 	"coc-sumneko-lua",
@@ -41,17 +73,21 @@ vim.g.coc_global_extensions = {
 	"coc-pairs",
 }
 
-local function toggle_tree() 
-	if vim.bo.filetype == 'dashboard' then
-		return "<Cmd>CocCommand explorer --position floating<CR>"
-	end
+vim.keymap.set("n", "<C-n>", "<Cmd>CocTree<CR>", { silent = true })
 
-	return "<CMD>CocCommand explorer<CR>"
-end
+vim.api.nvim_create_user_command("CocTree", function()
+	vim.cmd [[CocCommand explorer --position floating --floating-position right-center --floating-width 60]]
+end, {
+	desc = "Open Coc Explorer"
+})
+vim.api.nvim_create_user_command("CocFormat", function()
+	vim.fn.CocActionAsync('format')
+end, {
+	desc = "coc lsp format with async"
+})
 
-vim.keymap.set("n", "<C-n>", toggle_tree, { silent = true, expr=true })
-
-vim.cmd([[
-	command! -nargs=0 CocFormat :call CocActionAsync('format')
-	command! -nargs=0 CocMarketplace :CocList marketplace<CR>
-]])
+vim.api.nvim_create_user_command("CocMarketplace", function()
+	vim.cmd [[CocList marketplace]]
+end, {
+	desc = "open coc marketplace"
+})

@@ -1,91 +1,43 @@
-local dashboard = require("dashboard")
-
--- "Telescope find_files find_command=rg,--hidden,--files"
-local cmds = {
-	file_recent = "Telescope oldfiles",
-	find_files = "Telescope find_files",
-	live_grep = "Telescope live_grep",
-}
-dashboard.custom_center = {
-	{
-		icon = "  ",
-		desc = "Recently opened files                   ",
-		action = cmds.file_recent,
-		shortcut = "SPC f h",
+require("dashboard").setup({
+	theme = 'hyper',
+	config = {
+		shortcut = {
+			{ desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
+			{
+				desc = ' Files',
+				group = 'Label',
+				action = 'Telescope find_files',
+				key = 'f',
+			},
+			{
+				desc = ' Grep',
+				group = 'Number',
+				action = 'Telescope live_grep',
+				key = 'g',
+			},
+		},
+		project = { enable = false, limit = 0 }
 	},
-	{
-		icon = "  ",
-		desc = "Find  File                              ",
-		action = cmds.find_files,
-		shortcut = "SPC f f",
+	hide = {
+		statusline = true,
+		tabline = true,
+		winbar = true,
 	},
-	{
-		icon = "  ",
-		desc = "Find  word                              ",
-		aciton = cmds.live_grep,
-		shortcut = "SPC f w",
-	},
-}
+	-- preview = {
+	--   command       -- preview command
+	--   file_path     -- preview file path
+	--   file_height   -- preview file height
+	--   file_width    -- preview file width
+	-- },
+})
+local group = vim.api.nvim_create_augroup("dashboard_au", {clear = true})
+vim.api.nvim_create_autocmd({"Filetype"}, {
+	pattern = {"dashboard"},
+	callback = function ()
+		vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<Cmd>q<CR>',  {silent=true})
+	end,
+	group = group
+})
 
-local height = vim.fn.winheight(0)
-
-local fill_height = math.floor((height - #dashboard.default_banner - (#dashboard.custom_center + 1) * 2) / 3)
-local header = {}
 
 
--- local default_banner = {
--- 	" ██████╗  █████╗ ███████╗██╗  ██╗██████╗  ██████╗  █████╗ ██████╗ ██████╗  ",
--- 	" ██╔══██╗██╔══██╗██╔════╝██║  ██║██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗ ",
--- 	" ██║  ██║███████║███████╗███████║██████╔╝██║   ██║███████║██████╔╝██║  ██║ ",
--- 	" ██║  ██║██╔══██║╚════██║██╔══██║██╔══██╗██║   ██║██╔══██║██╔══██╗██║  ██║ ",
--- 	" ██████╔╝██║  ██║███████║██║  ██║██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝ ",
--- 	" ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ",
--- 	"",
--- 	"[ Hello, world! ]",
--- 	"",
--- }
-
-local footer = { "🎉 neovim is best editor for coding" }
-
-for _ = 0, fill_height, 1 do
-	table.insert(header, "")
-end
-
--- for _, v in ipairs(default_banner) do
--- 	table.insert(header, v)
--- end
-dashboard.custom_header = {
-[[                            .:=====-:..         ..................:-::]],
-[[      鸡你太美        ..... =####*##*+:        ................... ...]],
-[[                     .     .:+===-==:    .    ......................  ]],
-[[                  ... .-==:+%%#=-=++:-:.  ...... .....................]],
-[[                ..   :#%%@%=%@@@%#%@-#@%*:     .......................]],
-[[              ..  .-+%@@@%##%@%%@@%##%@@@@#+--:.    ..................]],
-[[            ..  :=#@@@%#**%@@@@@%+==:.:-=+*#%%%#**+:.  ...............]],
-[[           .  :*@@%#%%**%@@@@%*=.           ..:=*####+. ..............]],
-[[      ....  :*@%+-=+**########+- ........... :---::-=+: ..............]],
-[[....  ..  -*@*-.  =*************. ...........=++==++++: ..............]],
-[[::::.....:+#*. .. -++++**=***+++=: ...........-=+++=-.................]],
-[[:::::::.--.........++==+= :+#*++=+: ..........  ...   ................]],
-[[:::::::::::....... :+====.  :+++==+: .................................]],
-[[::::::::::::::.... :+===+: . .-+++++: ................................]],
-[[.::::::::::::::::..:++++=..... -**+*- ................................]],
-}
-dashboard.custom_footer = footer
-vim.defer_fn(function()
-	vim.cmd([[
-		hi DashboardHeader guifg=#F7144A
-		hi DashboardCenterIcon guifg=#64D494
-		hi DashboardShortCut guifg=#CAEDF8 gui=italic
-		hi DashboardCenter guifg=#44B0D7
-		hi DashboardFooter guifg=#FA3B07 gui=bold
-	]])
-	-- vim.cmd([[hi! link DashboardHeader Keyword]])
-	-- vim.cmd([[hi! link DashboardFooter Error]])
-	-- vim.cmd([[hi! link DashboardCenter GitSignsChange]])
-	-- vim.cmd([[hi! link DashboardCenterIcon GitSignsAdd]])
-	-- vim.cmd([[hi! link DashboardShortCut IndentBlankLineContextChar]])
-	-- vim.cmd([[hi! DashboardShortCut gui=bold]])
-end, 1)
-
-vim.cmd([[autocmd Filetype dashboard nmap <buffer><silent> q <Cmd>:q<CR>]])

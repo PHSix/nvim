@@ -30,7 +30,9 @@ local tbl = {
 	"sam4llis/nvim-tundra",
 	"folke/noice.nvim",
 	"romainl/vim-cool",
-	"xiyaowong/nvim-cursorword",
+	{
+		"xiyaowong/nvim-cursorword",
+	},
 	{
 		"TimUntersberger/neogit",
 		lazy = true,
@@ -64,8 +66,7 @@ local tbl = {
 	},
 	-- "mhinz/vim-startify",
 	{
-		"ethanholz/nvim-lastplace",
-		event = "BufRead",
+		"ethanholz/nvim-lastplace", event = "BufRead",
 		config = function()
 			require("nvim-lastplace").setup({
 				lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
@@ -121,20 +122,21 @@ local tbl = {
 			vim.api.nvim_set_keymap("v", "k", "<Plug>(faster_vmove_k)", { noremap = false, silent = true })
 		end,
 	},
-	{
-		"itchyny/lightline.vim",
-		dependencies = {
-			"mengelbrecht/lightline-bufferline",
-			"josa42/vim-lightline-coc",
-		},
-		config = function()
-			r("plugins.lightline")
-		end,
-	},
+	-- {
+	-- 	"itchyny/lightline.vim",
+	-- 	enabled = false,
+	-- 	dependencies = {
+	-- 		"josa42/vim-lightline-coc",
+	-- 	},
+	-- 	config = function()
+	-- 		r("plugins.lightline")
+	-- 	end,
+	-- },
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "fannheyward/telescope-coc.nvim", lazy = true },
 		cmd = "Telescope",
+		lazy = true,
 		config = function()
 			r("plugins.telescope")
 		end,
@@ -254,10 +256,23 @@ local tbl = {
 		r('plugins.vimtex')
 	end
 	},
-	{ "norcalli/nvim-colorizer.lua",
-		event = { "BufRead" },
+	{ "norcalli/nvim-colorizer.lua", event = { "BufRead" },
 		config = function()
 			require 'colorizer'.setup()
+		end
+	},
+	{
+		"jackMort/ChatGPT.nvim",
+		cmd = { "ChatGPT" },
+		config = function()
+			vim.cmd [[Lazy load telescope.nvim]]
+			require("chatgpt").setup({})
+		end
+	},
+	{
+		'akinsho/bufferline.nvim',
+		config = function()
+			r('plugins.bufferline')
 		end
 	},
 }
@@ -278,13 +293,3 @@ end, tbl), {
 })
 
 r("default")
--- config = {
--- 			compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
--- 			git = {
--- 				clone_timeout = 30,
--- 			},
--- 			profile = {
--- 				enable = true,
--- 				threshold = 3,
--- 			},
--- 		},

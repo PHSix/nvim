@@ -112,6 +112,10 @@ wk.register({
 			"<Cmd>CocFormat<CR>",
 			"LSP Code Format",
 		},
+		c = {
+			"<Cmd>ChatGPT<CR>",
+			"Open ChatGPT"
+		},
 	},
 
 	g = {
@@ -152,14 +156,24 @@ wk.register({
 		y = { "<Cmd>PackerComplie<CR>", "Packer Complie" },
 	},
 
-	["1"] = { "<Plug>lightline#bufferline#go(1)", "Goto Buffer 1" },
-	["2"] = { "<Plug>lightline#bufferline#go(2)", "Goto Buffer 2" },
-	["3"] = { "<Plug>lightline#bufferline#go(3)", "Goto Buffer 3" },
-	["4"] = { "<Plug>lightline#bufferline#go(4)", "Goto Buffer 4" },
-	["5"] = { "<Plug>lightline#bufferline#go(5)", "Goto Buffer 5" },
-	["6"] = { "<Plug>lightline#bufferline#go(6)", "Goto Buffer 6" },
-	["7"] = { "<Plug>lightline#bufferline#go(7)", "Goto Buffer 7" },
-	["8"] = { "<Plug>lightline#bufferline#go(8)", "Goto Buffer 8" },
+	-- ["1"] = { "<Plug>lightline#bufferline#go(1)", "Goto Buffer 1" },
+	-- ["2"] = { "<Plug>lightline#bufferline#go(2)", "Goto Buffer 2" },
+	-- ["3"] = { "<Plug>lightline#bufferline#go(3)", "Goto Buffer 3" },
+	-- ["4"] = { "<Plug>lightline#bufferline#go(4)", "Goto Buffer 4" },
+	-- ["5"] = { "<Plug>lightline#bufferline#go(5)", "Goto Buffer 5" },
+	-- ["6"] = { "<Plug>lightline#bufferline#go(6)", "Goto Buffer 6" },
+	-- ["7"] = { "<Plug>lightline#bufferline#go(7)", "Goto Buffer 7" },
+	-- ["8"] = { "<Plug>lightline#bufferline#go(8)", "Goto Buffer 8" },
+
+	["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "Goto Buffer 1" },
+	["2"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "Goto Buffer 2" },
+	["3"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "Goto Buffer 3" },
+	["4"] = { "<Cmd>BufferLineGoToBuffer 4<CR>", "Goto Buffer 4" },
+	["5"] = { "<Cmd>BufferLineGoToBuffer 5<CR>", "Goto Buffer 5" },
+	["6"] = { "<Cmd>BufferLineGoToBuffer 6<CR>", "Goto Buffer 6" },
+	["7"] = { "<Cmd>BufferLineGoToBuffer 7<CR>", "Goto Buffer 7" },
+	["8"] = { "<Cmd>BufferLineGoToBuffer 8<CR>", "Goto Buffer 8" },
+	["9"] = { "<Cmd>BufferLineGoToBuffer 9<CR>", "Goto Buffer 9" },
 }, { prefix = "<leader>" })
 
 wk.setup({
