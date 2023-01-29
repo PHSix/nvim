@@ -275,6 +275,12 @@ local tbl = {
 			r('plugins.bufferline')
 		end
 	},
+	{
+		"windwp/windline.nvim",
+		config = function ()
+			r("plugins.windline")
+		end
+	}
 }
 
 

@@ -74,6 +74,8 @@ return {
 	--- @param t table
 	hiTable = function(group, t)
 		local cmd = string.format('hi %s', group)
+		local default = vim.api.nvim_get_hl_by_name("StatusLine", true)
+		local fg
 		if t.style then
 			cmd = cmd .. string.format(" gui=%s", t.style)
 		end
