@@ -1,15 +1,27 @@
 vim.api.nvim_set_keymap("i", "<C-Space>", "coc#refresh()", { silent = true, expr = true })
-vim.api.nvim_set_keymap(
-	"i",
-	"<TAB>",
-	"pumvisible() ? '<C-n>' : '<TAB>'",
-	{ noremap = true, silent = true, expr = true }
-)
+-- vim.api.nvim_set_keymap(
+-- 	"i",
+-- 	"<TAB>",
+-- 	"pumvisible() ? '<C-n>' : '<TAB>'",
+-- 	{ noremap = true, silent = true, expr = true }
+-- )
 vim.api.nvim_set_keymap("i", "<S-TAB>", "pumvisible() ? '<C-p>' : '<C-h>'", { noremap = true, expr = true })
-vim.api.nvim_set_keymap("n", "K", ":call CocActionAsync('doHover')<CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "K", "<Cmd>call CocActionAsync('doHover')<CR>", { silent = true, noremap = true })
 vim.api.nvim_set_keymap("n", "<F2>", "<Plug>(coc-rename)", {})
 
 vim.cmd([[
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 		\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 ]])

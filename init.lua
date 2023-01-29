@@ -1,6 +1,5 @@
-local folder_name = "u"
-
--- @params path {string}
+--- @param path string
+--- @return table
 local r = function(path)
 	return require("u." .. path)
 end

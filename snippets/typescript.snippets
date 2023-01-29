@@ -1,0 +1,24 @@
+snippet imp "import module"
+	import { ${2} } from '${1:module}'
+
+snippet impt "import type module"
+	import type { ${2} } from '${1:module}'
+
+# snippet impd "import module default"
+# 	import 
+
+snippet inf "interface"
+	interface ${1:AnyType} {
+		${2}
+	}
+
+snippet exp "export module"
+	export {
+		${1}
+	}
+
+snippet expc "export const"
+	export const ${1:variable} = ${2}
+
+snippet expd "export default"
+	export default ${1}
