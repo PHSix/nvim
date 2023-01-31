@@ -93,5 +93,20 @@ return {
 	--- @return table
 	cloneDeep = function(t)
 		return vim.tbl_deep_extend("keep", {}, t)
+	end,
+
+	debounce = function(fn, wait)
+		local timer
+		local uv = vim.loop
+		return function(...)
+			if timer then
+				uv.timer.stop(timer)
+			end
+			timer = uv.timer.start(wait, 0, function()
+				fn(...)
+				timer = nil
+			end)
+		end
+
 	end
 }

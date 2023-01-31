@@ -16,22 +16,39 @@ vim.opt.rtp:prepend(lazypath)
 
 local tbl = {
 	-- dependences
-	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "RishabhRD/popfix", lazy = true },
-	{ "kevinhwang91/promise-async", lazy = true },
-	{ "MunifTanjim/nui.nvim", lazy = true },
+	"nvim-lua/plenary.nvim",
+	"RishabhRD/popfix",
+	"kevinhwang91/promise-async",
+	"MunifTanjim/nui.nvim",
 	"tpope/vim-repeat",
+
 	"navarasu/onedark.nvim",
 	"sainnhe/everforest",
 	"sainnhe/sonokai",
 	"tiagovla/tokyodark.nvim",
 	"marko-cerovac/material.nvim",
+	"kartikp10/noctis.nvim",
 	"Th3Whit3Wolf/one-nvim",
 	"sam4llis/nvim-tundra",
-	"folke/noice.nvim",
+	"projekt0n/github-nvim-theme",
+	"catppuccin/nvim", as = "catppuccin",
+	"kyazdani42/nvim-web-devicons",
+
+	{ "folke/noice.nvim",
+		event = { "VeryLazy" },
+		config = function()
+
+			require("noice").setup({
+				cmdline_popup = {
+					zindex = 100
+				}
+			})
+		end },
 	"romainl/vim-cool",
+	"rktjmp/lush.nvim",
 	{
 		"xiyaowong/nvim-cursorword",
+		event = { "VeryLazy" }
 	},
 	{
 		"TimUntersberger/neogit",
@@ -47,11 +64,7 @@ local tbl = {
 			r("plugins.hydra")
 		end,
 	},
-	{ "kartikp10/noctis.nvim", dependencies = { "rktjmp/lush.nvim" } },
-	{ "projekt0n/github-nvim-theme" },
-	{ "catppuccin/nvim", as = "catppuccin" },
 	{ "famiu/bufdelete.nvim", cmd = "Bdelete" },
-	{ "kyazdani42/nvim-web-devicons" },
 	{ "glepnir/hlsearch.nvim",
 		event = 'BufRead',
 		config = function()
@@ -77,9 +90,11 @@ local tbl = {
 	},
 	{
 		"tpope/vim-surround",
+		event = { "VeryLazy" }
 	},
 	{
 		"numToStr/Comment.nvim",
+		event = { "VeryLazy" },
 		config = function()
 			require("Comment").setup({
 				mappings = {
@@ -96,7 +111,7 @@ local tbl = {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPost" },
+		event = { "VeryLazy" },
 		cmd = { "Gitsigns" },
 		config = function()
 			r("plugins.gitsign")
@@ -114,7 +129,8 @@ local tbl = {
 	},
 	{
 		"PHSix/faster.nvim",
-		keys = { "j", "k" },
+		event = { "VeryLazy" },
+		-- keys = { "j", "k" },
 		config = function()
 			vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
 			vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
@@ -122,21 +138,10 @@ local tbl = {
 			vim.api.nvim_set_keymap("v", "k", "<Plug>(faster_vmove_k)", { noremap = false, silent = true })
 		end,
 	},
-	-- {
-	-- 	"itchyny/lightline.vim",
-	-- 	enabled = false,
-	-- 	dependencies = {
-	-- 		"josa42/vim-lightline-coc",
-	-- 	},
-	-- 	config = function()
-	-- 		r("plugins.lightline")
-	-- 	end,
-	-- },
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "fannheyward/telescope-coc.nvim", lazy = true },
 		cmd = "Telescope",
-		lazy = true,
 		config = function()
 			r("plugins.telescope")
 		end,
@@ -173,6 +178,7 @@ local tbl = {
 	-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 	{
 		"kevinhwang91/nvim-ufo",
+		event = { "VeryLazy" },
 		config = function()
 			r("plugins.ufo")
 		end,
@@ -180,21 +186,25 @@ local tbl = {
 	{
 		"neoclide/coc.nvim",
 		branch = "release",
+		event = { "VeryLazy" },
 		config = function()
 			r("plugins.coc")
 		end,
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		enabled = false,
+		-- event = { "VeryLazy" },
 		config = function()
 			r("plugins.indentline")
 		end,
 	},
 	{ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"nvim-treesitter/nvim-treesitter",
 		-- branch = "v0.8.0",
+		event = { "VeryLazy" },
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
@@ -248,6 +258,7 @@ local tbl = {
 	},
 	{
 		"nvim-zh/colorful-winsep.nvim",
+		event = { "VeryLazy" },
 		config = function()
 			require("colorful-winsep").setup()
 		end,
@@ -256,7 +267,8 @@ local tbl = {
 		r('plugins.vimtex')
 	end
 	},
-	{ "norcalli/nvim-colorizer.lua", event = { "BufRead" },
+	{ "norcalli/nvim-colorizer.lua",
+		event = { "VeryLazy" },
 		config = function()
 			require 'colorizer'.setup()
 		end
@@ -271,18 +283,25 @@ local tbl = {
 	},
 	{
 		'akinsho/bufferline.nvim',
+		event = { "BufEnter" },
 		config = function()
 			r('plugins.bufferline')
 		end
 	},
 	{
 		"windwp/windline.nvim",
-		config = function ()
+		config = function()
 			r("plugins.windline")
+		end
+	},
+	{
+		"Exafunction/codeium.vim",
+		enabled = false,
+		config = function ()
+			vim.g.codeium_disable_bindings = 1
 		end
 	}
 }
-
 
 require("lazy").setup(vim.tbl_map(function(record)
 	if type(record) == 'string' then
@@ -296,6 +315,9 @@ end, tbl), {
 	performance = {
 		enable = true,
 	},
+	git = {
+		timeout = 30
+	}
 })
 
 r("default")

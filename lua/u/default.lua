@@ -31,9 +31,4 @@ vim.cmd([[colorscheme everforest]])
 
 -- vim.cmd [[colorscheme tokyodark]]
 
-require("noice").setup({
-	cmdline_popup = {
-		zindex = 100
-	}
-})
 vim.g.exclude_ft = { "plaintext" }
