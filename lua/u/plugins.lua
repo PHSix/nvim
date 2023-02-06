@@ -32,6 +32,8 @@ local tbl = {
 	"sam4llis/nvim-tundra",
 	"projekt0n/github-nvim-theme",
 	"catppuccin/nvim", as = "catppuccin",
+	"sainnhe/gruvbox-material",
+
 	"kyazdani42/nvim-web-devicons",
 
 	{ "folke/noice.nvim",
@@ -193,8 +195,9 @@ local tbl = {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		enabled = false,
+		-- enabled = false,
 		-- event = { "VeryLazy" },
+		event = {"BufRead"},
 		config = function()
 			r("plugins.indentline")
 		end,

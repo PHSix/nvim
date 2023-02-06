@@ -7,3 +7,5 @@ _G.r = r
 
 r("opts")
 r("plugins")
+
+-- vim.cmd [[set rtp+=$HOME/projects/coc-solidity-vsc]]
