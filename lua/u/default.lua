@@ -1,8 +1,10 @@
 -- vim.g.material_style = "oceanic"
 -- vim.cmd("colorscheme material")
 
-vim.g.everforest_background = "soft"
-vim.cmd([[colorscheme everforest]])
+-- vim.g.everforest_background = "soft"
+-- vim.cmd([[colorscheme everforest]])
+
+vim.cmd [[colorscheme gruvbox-material]]
 
 -- vim.g.sonokai_style = 'atlantis'
 -- vim.g.sonokai_better_performance = 1
