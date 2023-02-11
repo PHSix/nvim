@@ -4,7 +4,7 @@
 -- vim.g.everforest_background = "soft"
 -- vim.cmd([[colorscheme everforest]])
 
-vim.cmd [[colorscheme gruvbox-material]]
+-- vim.cmd [[colorscheme gruvbox-material]]
 
 -- vim.g.sonokai_style = 'atlantis'
 -- vim.g.sonokai_better_performance = 1
@@ -15,16 +15,14 @@ vim.cmd [[colorscheme gruvbox-material]]
 -- }
 -- vim.cmd([[colorscheme onedark]])
 
--- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
--- require("catppuccin").setup()
--- vim.cmd([[colorscheme catppuccin]])
+vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
+require("catppuccin").setup()
+vim.cmd([[colorscheme catppuccin]])
 
 -- require("github-theme").setup()
 
 -- vim.cmd([[colorscheme dracula]])
 
--- vim.cmd([[colorscheme tokyodark]])
---
 -- vim.opt.background = "dark"
 -- require('nvim-tundra').setup({})
 -- vim.cmd("colorscheme tundra")

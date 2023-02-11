@@ -21,7 +21,6 @@ local tbl = {
 	"kevinhwang91/promise-async",
 	"MunifTanjim/nui.nvim",
 	"tpope/vim-repeat",
-
 	"navarasu/onedark.nvim",
 	"sainnhe/everforest",
 	"sainnhe/sonokai",
@@ -31,15 +30,13 @@ local tbl = {
 	"Th3Whit3Wolf/one-nvim",
 	"sam4llis/nvim-tundra",
 	"projekt0n/github-nvim-theme",
-	"catppuccin/nvim", as = "catppuccin",
+	"catppuccin/nvim",
+	as = "catppuccin",
 	"sainnhe/gruvbox-material",
-
 	"kyazdani42/nvim-web-devicons",
-
 	{ "folke/noice.nvim",
 		event = { "VeryLazy" },
 		config = function()
-
 			require("noice").setup({
 				cmdline_popup = {
 					zindex = 100
@@ -66,7 +63,7 @@ local tbl = {
 			r("plugins.hydra")
 		end,
 	},
-	{ "famiu/bufdelete.nvim", cmd = "Bdelete" },
+	{ "famiu/bufdelete.nvim",       cmd = "Bdelete" },
 	{ "glepnir/hlsearch.nvim",
 		event = 'BufRead',
 		config = function()
@@ -176,7 +173,7 @@ local tbl = {
 	-- 		require("leap").add_default_mappings()
 	-- 	end,
 	-- },
-	{ "skywind3000/asynctasks.vim", lazy = true, requires = { "skywind3000/asyncrun.vim", lazy = true } },
+	{ "skywind3000/asynctasks.vim", lazy = true,    requires = { "skywind3000/asyncrun.vim", lazy = true } },
 	-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 	{
 		"kevinhwang91/nvim-ufo",
@@ -197,7 +194,7 @@ local tbl = {
 		"lukas-reineke/indent-blankline.nvim",
 		-- enabled = false,
 		-- event = { "VeryLazy" },
-		event = {"BufRead"},
+		event = { "BufRead" },
 		config = function()
 			r("plugins.indentline")
 		end,
@@ -206,9 +203,11 @@ local tbl = {
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = { "RRethy/nvim-treesitter-textsubjects",  },
 		-- branch = "v0.8.0",
 		event = { "VeryLazy" },
 		config = function()
+			-- vim.cmd [[Lazy load nvim-treesitter-textsubjects]]
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"c",
@@ -220,6 +219,10 @@ local tbl = {
 					"vim",
 					"toml",
 					"json",
+					"bash",
+					"fish",
+					"haskell",
+					"nix",
 				},
 				sync_install = false,
 				auto_install = true,
@@ -231,15 +234,20 @@ local tbl = {
 				context_commentstring = {
 					enable = true,
 				},
-				rainbow = {
+				textsubjects = {
 					enable = true,
-					-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-					extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-					max_file_lines = nil, -- Do not enable for files with more than n lines, int
-					-- colors = {}, -- table of hex strings
-					-- termcolors = {} -- table of colour name strings
-				}
+					prev_selection = ',', -- (Optional) keymap to select the previous selection
+					keymaps = {
+						['<CR>'] = 'textsubjects-smart',
+						-- ['<CR>'] = 'textsubjects-container-outer',
+						['i;'] = 'textsubjects-container-inner',
+					},
+				},
 			})
+
+			vim.keymap.set("n", "<CR>", function ()
+				vim.fn.feedkeys("<CR>", "v")
+			end, {silent = true})
 		end,
 	},
 	{
@@ -300,7 +308,7 @@ local tbl = {
 	{
 		"Exafunction/codeium.vim",
 		enabled = false,
-		config = function ()
+		config = function()
 			vim.g.codeium_disable_bindings = 1
 		end
 	}

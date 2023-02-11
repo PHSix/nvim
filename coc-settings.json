@@ -56,6 +56,5 @@
   "explorer.width": 35,
   "colors.enable": true,
 
-  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
-  "pylsp.plugins.pycodestyle.maxLineLength": 130
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets"
 }

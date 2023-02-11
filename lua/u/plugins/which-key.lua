@@ -3,7 +3,7 @@ vim.cmd([[Lazy load telescope.nvim]])
 local builtin = require("telescope.builtin")
 
 local getCwd = function()
-	local is_success, ret = pcall(function()
+	local ok, ret = pcall(function()
 		local folders = vim.g.WorkspaceFolders
 		local path = nil
 		local buffer_path = vim.fn.expand("%:p")
@@ -17,7 +17,7 @@ local getCwd = function()
 
 		return path
 	end)
-	if not is_success then
+	if not ok then
 		ret = nil
 	end
 	return ret

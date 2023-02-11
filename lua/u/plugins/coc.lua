@@ -88,7 +88,8 @@ vim.g.coc_global_extensions = {
 vim.keymap.set("n", "<C-n>", "<Cmd>CocTree<CR>", { silent = true })
 
 vim.api.nvim_create_user_command("CocTree", function()
-	vim.cmd [[CocCommand explorer --position floating --floating-position right-center --floating-width 60]]
+	-- vim.cmd [[CocCommand explorer --position floating --floating-position right-center --floating-width 60]]
+	vim.cmd [[CocCommand explorer --position right]]
 end, {
 	desc = "Open Coc Explorer"
 })
@@ -103,3 +104,6 @@ vim.api.nvim_create_user_command("CocMarketplace", function()
 end, {
 	desc = "open coc marketplace"
 })
+
+vim.g.coc_quickfix_open_command = "vsplit"
+

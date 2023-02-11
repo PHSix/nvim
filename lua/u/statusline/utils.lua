@@ -103,7 +103,7 @@ return {
 				uv.timer.stop(timer)
 			end
 			timer = uv.timer.start(wait, 0, function()
-				fn(...)
+				-- fn(...)
 				timer = nil
 			end)
 		end
