@@ -32,3 +32,5 @@ vim.cmd([[colorscheme catppuccin]])
 -- vim.cmd [[colorscheme tokyodark]]
 
 vim.g.exclude_ft = { "plaintext" }
+
+-- vim.cmd [[set rtp+=/home/ph/projects/hardhat-coc]]

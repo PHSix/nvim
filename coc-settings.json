@@ -49,12 +49,14 @@
   "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
   "inlayHint.enable": false,
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
 
   "explorer.icon.enableNerdfont": true,
   "explorer.git.enable": false,
   "explorer.width": 35,
   "colors.enable": true,
 
-  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets"
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
+  "@ignored/coc-solidity.telemetry": true,
+  "snippets.textmateSnippetsRoots": ["~/.config/nvim/vsc-snippets"]
 }
