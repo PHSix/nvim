@@ -311,6 +311,10 @@ local tbl = {
 		config = function()
 			vim.g.codeium_disable_bindings = 1
 		end
+	},
+	{
+		"ii14/emmylua-nvim",
+		lazy = false
 	}
 }
 

@@ -2,7 +2,7 @@
 -- vim.cmd("colorscheme material")
 
 -- vim.g.everforest_background = "soft"
--- vim.cmd([[colorscheme everforest]])
+vim.cmd([[colorscheme everforest]])
 
 -- vim.cmd [[colorscheme gruvbox-material]]
 
@@ -15,9 +15,9 @@
 -- }
 -- vim.cmd([[colorscheme onedark]])
 
-vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
-require("catppuccin").setup()
-vim.cmd([[colorscheme catppuccin]])
+-- vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
+-- require("catppuccin").setup()
+-- vim.cmd([[colorscheme catppuccin]])
 
 -- require("github-theme").setup()
 
@@ -34,3 +34,5 @@ vim.cmd([[colorscheme catppuccin]])
 vim.g.exclude_ft = { "plaintext" }
 
 -- vim.cmd [[set rtp+=/home/ph/projects/hardhat-coc]]
+-- vim.cmd [[set rtp+=$HOME/projects/rl-nvim]]
+-- require("rl.presets.simple")
