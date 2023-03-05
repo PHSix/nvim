@@ -8,4 +8,9 @@ _G.r = r
 r("opts")
 r("plugins")
 
--- vim.cmd [[set rtp+=$HOME/projects/coc-solidity-vsc]]
+-- vim.cmd [[set rtp+=$HOME/projects/rl-nvim]]
+
+-- require("rl.presets.simple")
+-- vim.cmd [[
+-- autocmd BufHidden * lua print(vim.wo.statusline)
+-- ]]

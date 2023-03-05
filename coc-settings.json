@@ -58,5 +58,7 @@
 
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
   "@ignored/coc-solidity.telemetry": true,
-  "snippets.textmateSnippetsRoots": ["~/.config/nvim/vsc-snippets"]
+  "snippets.textmateSnippetsRoots": ["~/.config/nvim/vsc-snippets"],
+  "sumneko-lua.checkUpdate": false,
+  "sumneko-lua.enableNvimLuaDev": true
 }

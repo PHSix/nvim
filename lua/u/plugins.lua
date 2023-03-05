@@ -130,6 +130,7 @@ local tbl = {
 		"PHSix/faster.nvim",
 		event = { "VeryLazy" },
 		-- keys = { "j", "k" },
+		enabled = false,
 		config = function()
 			vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
 			vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
@@ -203,7 +204,7 @@ local tbl = {
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = { "RRethy/nvim-treesitter-textsubjects",  },
+		dependencies = { "RRethy/nvim-treesitter-textsubjects", },
 		-- branch = "v0.8.0",
 		event = { "VeryLazy" },
 		config = function()
@@ -245,9 +246,9 @@ local tbl = {
 				},
 			})
 
-			vim.keymap.set("n", "<CR>", function ()
+			vim.keymap.set("n", "<CR>", function()
 				vim.fn.feedkeys("<CR>", "v")
-			end, {silent = true})
+			end, { silent = true })
 		end,
 	},
 	{
@@ -301,6 +302,7 @@ local tbl = {
 	},
 	{
 		"windwp/windline.nvim",
+		-- enabled = false,
 		config = function()
 			r("plugins.windline")
 		end
@@ -315,7 +317,11 @@ local tbl = {
 	{
 		"ii14/emmylua-nvim",
 		lazy = false
-	}
+	},
+	{
+		"psliwka/vim-smoothie",
+		event = { "VeryLazy" },
+	},
 }
 
 require("lazy").setup(vim.tbl_map(function(record)
