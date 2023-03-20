@@ -75,6 +75,8 @@ vim.o.cmdheight = 0
 -- tabline
 vim.o.showtabline = 2
 
+vim.o.scrolloff = 4
+
 -- autocmd
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "help" },
