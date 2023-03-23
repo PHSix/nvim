@@ -140,7 +140,7 @@ wk.register({
 	b = {
 		name = "Buffer",
 
-		d = { "<Cmd>Bdelete", "Delete Current Buffer" },
+		d = { "<Cmd>Bdelete<CR>", "Delete Current Buffer" },
 
 		h = { "<Cmd>bp<CR>", "Goto Prev Buffer" },
 		l = { "<Cmd>bn<CR>", "Goto Next Buffer" },
