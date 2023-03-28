@@ -3,7 +3,7 @@
 return function(tbl, callback)
 	for index, value in ipairs(tbl) do
 		local t = callback(value, index, tbl)
-		if t == nil and t == false then
+		if t == nil or t == false then
 			return false
 		end
 	end

@@ -1,4 +1,5 @@
 local utils = r("utils")
+local map = require("ld.map")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -193,8 +194,6 @@ local tbl = {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		-- enabled = false,
-		-- event = { "VeryLazy" },
 		event = { "BufRead" },
 		config = function()
 			r("plugins.indentline")
@@ -205,10 +204,8 @@ local tbl = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = { "RRethy/nvim-treesitter-textsubjects", },
-		-- branch = "v0.8.0",
 		event = { "VeryLazy" },
 		config = function()
-			-- vim.cmd [[Lazy load nvim-treesitter-textsubjects]]
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"c",
@@ -286,14 +283,6 @@ local tbl = {
 		end
 	},
 	{
-		"jackMort/ChatGPT.nvim",
-		cmd = { "ChatGPT" },
-		config = function()
-			vim.cmd [[Lazy load telescope.nvim]]
-			require("chatgpt").setup({})
-		end
-	},
-	{
 		'akinsho/bufferline.nvim',
 		event = { "BufEnter" },
 		config = function()
@@ -322,9 +311,20 @@ local tbl = {
 		"psliwka/vim-smoothie",
 		event = { "VeryLazy" },
 	},
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = {
+			"tpope/vim-dadbod",
+		},
+		cmd = { "DBUIToggle" },
+		keys = { "<c-m>" },
+		config = function()
+			r('plugins.dadbob')
+		end
+	}
 }
 
-require("lazy").setup(vim.tbl_map(function(record)
+require("lazy").setup(map(tbl, function(record)
 	if type(record) == 'string' then
 		return {
 			record,
@@ -332,7 +332,7 @@ require("lazy").setup(vim.tbl_map(function(record)
 		}
 	end
 	return record;
-end, tbl), {
+end), {
 	performance = {
 		enable = true,
 	},

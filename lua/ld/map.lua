@@ -4,7 +4,7 @@
 --- @return table
 return function(tbl, callback)
 	assert(type(tbl) == "table" and type(callback) == "function")
-	local ret
+	local ret = {}
 
 	for index, value in ipairs(tbl) do
 		local t = callback(value, index, tbl)
