@@ -70,7 +70,7 @@ vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("v", "fy", '"+y', { noremap = false })
 
 vim.o.laststatus = 3
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 
 -- tabline
 vim.o.showtabline = 2

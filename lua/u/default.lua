@@ -2,7 +2,8 @@
 -- vim.cmd("colorscheme material")
 
 -- vim.g.everforest_background = "soft"
-vim.cmd([[colorscheme everforest]])
+-- vim.cmd([[colorscheme everforest]])
+vim.cmd [[colorscheme ayu]]
 
 -- vim.cmd [[colorscheme gruvbox-material]]
 

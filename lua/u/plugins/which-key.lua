@@ -91,7 +91,6 @@ wk.register({
 	m = {
 		name = "Misc",
 		v = { "<Cmd>Vista<CR>", "Symbol Outline(BY Visita)" },
-		t = { "<Cmd>TranslateW<CR>", "Translate in Window" },
 	},
 
 	r = {

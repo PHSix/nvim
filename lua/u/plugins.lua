@@ -16,14 +16,24 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local tbl = {
-	-- dependences
+	-- [[
+	--    dependences
+	-- ]]
 	"nvim-lua/plenary.nvim",
 	"RishabhRD/popfix",
 	"kevinhwang91/promise-async",
 	"MunifTanjim/nui.nvim",
 	"tpope/vim-repeat",
+	"kyazdani42/nvim-web-devicons",
+	"romainl/vim-cool",
+	"rktjmp/lush.nvim",
+	"JoosepAlviste/nvim-ts-context-commentstring",
+	-- [[
+	--    colorschemes
+	-- ]]
 	"navarasu/onedark.nvim",
 	"sainnhe/everforest",
+	"Shatur/neovim-ayu",
 	"sainnhe/sonokai",
 	"tiagovla/tokyodark.nvim",
 	"marko-cerovac/material.nvim",
@@ -31,21 +41,11 @@ local tbl = {
 	"Th3Whit3Wolf/one-nvim",
 	"sam4llis/nvim-tundra",
 	"projekt0n/github-nvim-theme",
-	"catppuccin/nvim",
-	as = "catppuccin",
+	{
+		"catppuccin/nvim",
+		as = "catppuccin",
+	},
 	"sainnhe/gruvbox-material",
-	"kyazdani42/nvim-web-devicons",
-	{ "folke/noice.nvim",
-		event = { "VeryLazy" },
-		config = function()
-			require("noice").setup({
-				cmdline_popup = {
-					zindex = 100
-				}
-			})
-		end },
-	"romainl/vim-cool",
-	"rktjmp/lush.nvim",
 	{
 		"xiyaowong/nvim-cursorword",
 		event = { "VeryLazy" }
@@ -58,14 +58,11 @@ local tbl = {
 		end,
 	},
 	{
-		"anuvyklack/hydra.nvim",
-		keys = { "<leader>g" },
-		config = function()
-			r("plugins.hydra")
-		end,
+		"famiu/bufdelete.nvim",
+		cmd = "Bdelete"
 	},
-	{ "famiu/bufdelete.nvim",       cmd = "Bdelete" },
-	{ "glepnir/hlsearch.nvim",
+	{
+		"glepnir/hlsearch.nvim",
 		event = 'BufRead',
 		config = function()
 			require('hlsearch').setup()
@@ -77,9 +74,9 @@ local tbl = {
 			r("plugins.dashboard")
 		end
 	},
-	-- "mhinz/vim-startify",
 	{
-		"ethanholz/nvim-lastplace", event = "BufRead",
+		"ethanholz/nvim-lastplace",
+		event = "BufRead",
 		config = function()
 			require("nvim-lastplace").setup({
 				lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
@@ -106,10 +103,6 @@ local tbl = {
 		end,
 	},
 	{
-		"voldikss/vim-translator",
-		cmd = { "TranslateW" },
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		event = { "VeryLazy" },
 		cmd = { "Gitsigns" },
@@ -125,18 +118,6 @@ local tbl = {
 		},
 		config = function()
 			r("plugins.which-key")
-		end,
-	},
-	{
-		"PHSix/faster.nvim",
-		event = { "VeryLazy" },
-		-- keys = { "j", "k" },
-		enabled = false,
-		config = function()
-			vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
-			vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
-			vim.api.nvim_set_keymap("v", "j", "<Plug>(faster_vmove_j)", { noremap = false, silent = true })
-			vim.api.nvim_set_keymap("v", "k", "<Plug>(faster_vmove_k)", { noremap = false, silent = true })
 		end,
 	},
 	{
@@ -169,13 +150,7 @@ local tbl = {
 			end, { desc = "Spectre search width coc" })
 		end,
 	},
-	-- {
-	-- 	"ggandor/leap.nvim",
-	-- 	config = function()
-	-- 		require("leap").add_default_mappings()
-	-- 	end,
-	-- },
-	{ "skywind3000/asynctasks.vim", lazy = true,    requires = { "skywind3000/asyncrun.vim", lazy = true } },
+	{ "skywind3000/asynctasks.vim", lazy = true,               requires = { "skywind3000/asyncrun.vim", lazy = true } },
 	-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
 	{
 		"kevinhwang91/nvim-ufo",
@@ -200,7 +175,6 @@ local tbl = {
 		end,
 	},
 	{ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-	"JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = { "RRethy/nvim-treesitter-textsubjects", },
@@ -272,11 +246,8 @@ local tbl = {
 			require("colorful-winsep").setup()
 		end,
 	},
-	{ "lervag/vimtex", ft = { 'tex' }, config = function()
-		r('plugins.vimtex')
-	end
-	},
-	{ "norcalli/nvim-colorizer.lua",
+	{
+		"norcalli/nvim-colorizer.lua",
 		event = { "VeryLazy" },
 		config = function()
 			require 'colorizer'.setup()
@@ -294,13 +265,6 @@ local tbl = {
 		-- enabled = false,
 		config = function()
 			r("plugins.windline")
-		end
-	},
-	{
-		"Exafunction/codeium.vim",
-		enabled = false,
-		config = function()
-			vim.g.codeium_disable_bindings = 1
 		end
 	},
 	{
