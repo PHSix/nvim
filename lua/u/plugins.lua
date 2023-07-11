@@ -136,23 +136,6 @@ local tbl = {
 		end,
 	},
 	{
-		"nvim-pack/nvim-spectre",
-		cmd = {
-			'SpectreSearch'
-		},
-		config = function()
-			require("spectre").setup()
-
-			vim.api.nvim_create_user_command("SpectreSearch", function()
-				require('spectre').open_visual({
-					cwd = utils.getCwd(),
-				})
-			end, { desc = "Spectre search width coc" })
-		end,
-	},
-	{ "skywind3000/asynctasks.vim", lazy = true,               requires = { "skywind3000/asyncrun.vim", lazy = true } },
-	-- use({ "romgrk/barbar.nvim", event = { "BufRead", "BufNewFile" } })
-	{
 		"kevinhwang91/nvim-ufo",
 		event = { "VeryLazy" },
 		config = function()
