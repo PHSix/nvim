@@ -119,10 +119,11 @@ wk.register({
 
 	g = {
 		name = "Git",
-		j = { "<Cmd>Gitsigns next_hunk<CR>", "Git Next Hunk" },
-		k = { "<Cmd>Gitsigns prev_hunk<CR>", "Git Prev Hunk" },
-		s = { "<Cmd>Gitsigns toggle_signs<CR>", "Git Toggle sign" },
-		t = { "<Cmd>Gitsigns toggle_current_line_blame<CR>", "Git Toggle Lime Blame" },
+		j = { "<Cmd>Gitsigns next_hunk<CR>", "Goto Next Hunk" },
+		k = { "<Cmd>Gitsigns prev_hunk<CR>", "Goto Prev Hunk" },
+		s = { "<Cmd>Gitsigns stage_hunk<CR>", "Stage this hunk" },
+		u = { "<Cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage this hunk" },
+		p = { "<Cmd>Gitsigns preview_hunk<CR>", "Preview this hunk" },
 		d = { "<Cmd>DiffviewFileHistory<CR>", "Git History Mode" },
 	},
 
