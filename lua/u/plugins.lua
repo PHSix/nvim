@@ -110,6 +110,11 @@ local tbl = {
 			r("plugins.gitsign")
 		end,
 	},
+
+	{
+		"kdheepak/lazygit.nvim",
+		cmd = { "LazyGitCurrentFile" }
+	},
 	{
 		"folke/which-key.nvim",
 		keys = {
