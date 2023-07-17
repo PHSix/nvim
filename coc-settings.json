@@ -46,7 +46,6 @@
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "semanticTokens.enable": false,
   "coc.preferences.formatOnSave": false,
-  "Lua.telemetry.enable": true,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
   "inlayHint.enable": false,
   "eslint.autoFixOnSave": false,
@@ -57,8 +56,9 @@
   "colors.enable": true,
 
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
-  "@ignored/coc-solidity.telemetry": true,
   "snippets.textmateSnippetsRoots": ["~/.config/nvim/vsc-snippets"],
   "sumneko-lua.checkUpdate": false,
+  "prettier.requireConfig": true,
+  
   "sumneko-lua.enableNvimLuaDev": true
 }

@@ -144,18 +144,8 @@ wk.register({
 
 		d = { "<Cmd>Bdelete<CR>", "Delete Current Buffer" },
 
-		h = { "<Cmd>bp<CR>", "Goto Prev Buffer" },
-		l = { "<Cmd>bn<CR>", "Goto Next Buffer" },
-	},
-
-	p = {
-		name = "packer",
-		i = { "<Cmd>PackerInstall<CR>", "Packer Install" },
-		u = { "<Cmd>PackerUpdate<CR>", "Packer Update" },
-		c = { "<Cmd>PackerClean<CR>", "Packer Clean" },
-		s = { "<Cmd>PackerSync<CR>", "Packer Sync" },
-		o = { "<Cmd>PackerStatus<CR>", "Packer Status" },
-		y = { "<Cmd>PackerComplie<CR>", "Packer Complie" },
+		h = { "<Cmd>BufferLineCloseLeft<CR>", "Close left buffers" },
+		l = { "<Cmd>BufferLineCloseRight<CR>", "Close right buffers" },
 	},
 
 	-- ["1"] = { "<Plug>lightline#bufferline#go(1)", "Goto Buffer 1" },

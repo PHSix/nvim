@@ -79,7 +79,7 @@ vim.g.coc_global_extensions = {
 	"coc-pairs",
 	"coc-marketplace",
 	"coc-eslint",
-	"coc-prettier",
+	-- "coc-prettier",
 	"coc-snippets",
 	"coc-explorer",
 	"coc-pairs",
