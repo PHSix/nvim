@@ -66,7 +66,7 @@ local options = {
 	},
 	extensions = {
 		coc = {
-			theme = "ivy",
+			-- theme = "ivy",
 			prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
 		},
 	},

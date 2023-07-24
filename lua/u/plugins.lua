@@ -230,6 +230,7 @@ local tbl = {
 	{
 		"nvim-zh/colorful-winsep.nvim",
 		event = { "VeryLazy" },
+    enabled = false,
 		config = function()
 			require("colorful-winsep").setup()
 		end,
@@ -303,6 +304,9 @@ local tbl = {
 				"Toggle Flash Search"
 			},
 		},
+	},
+	{
+		"gpanders/editorconfig.nvim",
 	}
 }
 

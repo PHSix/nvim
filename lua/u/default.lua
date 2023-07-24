@@ -3,6 +3,11 @@
 
 -- vim.g.everforest_background = "soft"
 -- vim.cmd([[colorscheme everforest]])
+require("ayu").setup({
+	overrides = {
+		VertSplit = { fg = "#A5ACB4", bg = "#0a0e14" }
+	}
+})
 vim.cmd [[colorscheme ayu]]
 
 -- vim.cmd [[colorscheme gruvbox-material]]

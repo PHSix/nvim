@@ -7,6 +7,7 @@
   "colorful-winsep.nvim": { "branch": "main", "commit": "e1b72c498f25c1fc37a7e9913332c137f753a90a" },
   "dashboard-nvim": { "branch": "master", "commit": "ab84915f7cfd7bc7a5bfe7409c3eccf8d09c162a" },
   "diffview.nvim": { "branch": "main", "commit": "b0cc22f5708f6b2b4f873b44fbc5eb93020f4e0c" },
+  "editorconfig.nvim": { "branch": "master", "commit": "5b9e303e1d6f7abfe616ce4cc8d3fffc554790bf" },
   "emmylua-nvim": { "branch": "master", "commit": "c92689295e1b5ab15e14cb3fcd2dba7e53fa9d15" },
   "everforest": { "branch": "master", "commit": "1db527e770deb8cbb3b5b60d8921f80bd2a4c12c" },
   "flash.nvim": { "branch": "main", "commit": "c92ecbff98fdc8770c283aa3934349e6889195dd" },

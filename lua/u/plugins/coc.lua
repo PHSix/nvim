@@ -1,3 +1,4 @@
+-- vim.cmd [[set rtp+=$HOME/Project/coc-prettier]]
 vim.api.nvim_set_keymap("i", "<C-Space>", "coc#refresh()", { silent = true, expr = true })
 -- vim.api.nvim_set_keymap(
 -- 	"i",
@@ -79,7 +80,7 @@ vim.g.coc_global_extensions = {
 	"coc-pairs",
 	"coc-marketplace",
 	"coc-eslint",
-	-- "coc-prettier",
+	"coc-prettier",
 	"coc-snippets",
 	"coc-explorer",
 	"coc-pairs",
@@ -88,7 +89,6 @@ vim.g.coc_global_extensions = {
 vim.keymap.set("n", "<C-n>", "<Cmd>CocTree<CR>", { silent = true })
 
 vim.api.nvim_create_user_command("CocTree", function()
-	-- vim.cmd [[CocCommand explorer --position floating --floating-position right-center --floating-width 60]]
 	vim.cmd [[CocCommand explorer --position right]]
 end, {
 	desc = "Open Coc Explorer"
@@ -106,4 +106,3 @@ end, {
 })
 
 vim.g.coc_quickfix_open_command = "vsplit"
-

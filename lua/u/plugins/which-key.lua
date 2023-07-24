@@ -25,16 +25,20 @@ end
 
 wk.register({
 	d = {
-		"<Plug>(coc-definition)",
+		"<Cmd>Telescope coc definitions<CR>",
 		"LSP goto definition",
 	},
 	i = {
-		"<Plug>(coc-implementation)",
+		"<Cmd>Telescope coc implementations<CR>",
 		"LSP goto implementation",
 	},
 	r = {
-		"<Plug>(coc-references)",
+		"<Cmd>Telescope coc references<CR>",
 		"LSP goto references",
+	},
+	y = {
+		"<Cmd>Telescope coc type_definitions<CR>",
+		"LSP goto type definition"
 	},
 	j = {
 		"<CMD>:Gitsigns next_hunk<CR>",
@@ -51,6 +55,7 @@ wk.register({
 		name = "Finder",
 
 		d = { "<Cmd>Telescope coc workspace_diagnostics<CR>", "Find Workspace Diagnostics" },
+		s = { "<Cmd>Telescope coc workspace_symbols<CR>", "Find Worksapce Symbols" },
 
 		o = { "<Cmd>Telescope oldfiles<CR>", "Recently Open Files" },
 
@@ -72,14 +77,6 @@ wk.register({
 		y = { "<Cmd>Telescope registers<CR>", "Find Yank Registers" },
 		c = { "<Cmd>Telescope git_bcommits<CR>", "Find Buffer Commits" },
 		C = { "<Cmd>Telescope git_commits<CR>", "Find All Commits" },
-
-		-- o = { "<Cmd>Clap history<CR>", "Recently Open Files" },
-		-- f = { "<Cmd>Clap files<CR>", "Find File" },
-		-- w = { "<Cmd>Clap grep2<CR>", "Live Grep" },
-		-- b = { "<Cmd>Clap buffers<CR>", "Find Buffer" },
-		-- h = { "<Cmd>Clap help_tags<CR>", "Find Help Doc" },
-		-- y = { "<Cmd>Clap yanks<CR>", "Find Yanks" },
-		-- r = { "<Cmd>Clap registers<CR>", "Find Registers" },
 
 		n = { "<Cmd>CocCommand explorer --position floating<CR>", "File Floating Tree Broswer " },
 	},
@@ -104,16 +101,12 @@ wk.register({
 	c = {
 		name = "Code",
 		a = {
-			"<Plug>(coc-codeaction)",
-			"LSP Code Action",
+			"<Cmd>Telescope coc line_code_actions<CR>",
+			"LSP Line Code Action",
 		},
 		f = {
 			"<Cmd>CocFormat<CR>",
 			"LSP Code Format",
-		},
-		c = {
-			"<Cmd>ChatGPT<CR>",
-			"Open ChatGPT"
 		},
 	},
 
@@ -124,7 +117,7 @@ wk.register({
 		s = { "<Cmd>Gitsigns stage_hunk<CR>", "Stage this hunk" },
 		u = { "<Cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage this hunk" },
 		p = { "<Cmd>Gitsigns preview_hunk<CR>", "Preview this hunk" },
-		d = { "<Cmd>DiffviewFileHistory<CR>", "Git History Mode" },
+		d = { "<Cmd>DiffviewFileHistory<CR>", "Git History" },
 
 		g = { "<Cmd>LazyGitCurrentFile<CR>", "Open LazyGit" },
 	},
@@ -148,15 +141,6 @@ wk.register({
 		l = { "<Cmd>BufferLineCloseRight<CR>", "Close right buffers" },
 	},
 
-	-- ["1"] = { "<Plug>lightline#bufferline#go(1)", "Goto Buffer 1" },
-	-- ["2"] = { "<Plug>lightline#bufferline#go(2)", "Goto Buffer 2" },
-	-- ["3"] = { "<Plug>lightline#bufferline#go(3)", "Goto Buffer 3" },
-	-- ["4"] = { "<Plug>lightline#bufferline#go(4)", "Goto Buffer 4" },
-	-- ["5"] = { "<Plug>lightline#bufferline#go(5)", "Goto Buffer 5" },
-	-- ["6"] = { "<Plug>lightline#bufferline#go(6)", "Goto Buffer 6" },
-	-- ["7"] = { "<Plug>lightline#bufferline#go(7)", "Goto Buffer 7" },
-	-- ["8"] = { "<Plug>lightline#bufferline#go(8)", "Goto Buffer 8" },
-
 	["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "Goto Buffer 1" },
 	["2"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "Goto Buffer 2" },
 	["3"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "Goto Buffer 3" },
@@ -167,6 +151,10 @@ wk.register({
 	["8"] = { "<Cmd>BufferLineGoToBuffer 8<CR>", "Goto Buffer 8" },
 	["9"] = { "<Cmd>BufferLineGoToBuffer 9<CR>", "Goto Buffer 9" },
 }, { prefix = "<leader>" })
+
+wk.register({
+	r = { "<Plug>(coc-codeaction-refactor-selected)", "Coc Code Refactor" },
+}, { mode = "x", prefix = "<leader>" })
 
 wk.setup({
 	plugins = {
