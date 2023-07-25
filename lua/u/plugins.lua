@@ -28,6 +28,7 @@ local tbl = {
 	"romainl/vim-cool",
 	"rktjmp/lush.nvim",
 	"JoosepAlviste/nvim-ts-context-commentstring",
+	{ "PHSix/coc-prettier",         build = "yarn && yarn prepare" },
 	-- [[
 	--    colorschemes
 	-- ]]
@@ -230,7 +231,7 @@ local tbl = {
 	{
 		"nvim-zh/colorful-winsep.nvim",
 		event = { "VeryLazy" },
-    enabled = false,
+		enabled = false,
 		config = function()
 			require("colorful-winsep").setup()
 		end,

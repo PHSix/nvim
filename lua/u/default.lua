@@ -40,5 +40,4 @@ vim.cmd [[colorscheme ayu]]
 vim.g.exclude_ft = { "plaintext" }
 
 -- vim.cmd [[set rtp+=/home/ph/projects/hardhat-coc]]
--- vim.cmd [[set rtp+=$HOME/projects/rl-nvim]]
 -- require("rl.presets.simple")

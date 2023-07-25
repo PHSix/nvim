@@ -1,4 +1,3 @@
--- vim.cmd [[set rtp+=$HOME/Project/coc-prettier]]
 vim.api.nvim_set_keymap("i", "<C-Space>", "coc#refresh()", { silent = true, expr = true })
 -- vim.api.nvim_set_keymap(
 -- 	"i",
@@ -80,7 +79,7 @@ vim.g.coc_global_extensions = {
 	"coc-pairs",
 	"coc-marketplace",
 	"coc-eslint",
-	"coc-prettier",
+	-- "coc-prettier",
 	"coc-snippets",
 	"coc-explorer",
 	"coc-pairs",

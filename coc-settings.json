@@ -53,6 +53,12 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.git.enable": false,
   "explorer.width": 35,
+  "explorer.sources": [
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
   "colors.enable": true,
 
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",

@@ -25,19 +25,19 @@ end
 
 wk.register({
 	d = {
-		"<Cmd>Telescope coc definitions<CR>",
+		"<Plug>(coc-definition)",
 		"LSP goto definition",
 	},
 	i = {
-		"<Cmd>Telescope coc implementations<CR>",
+		"<Plug>(coc-implementation)",
 		"LSP goto implementation",
 	},
 	r = {
-		"<Cmd>Telescope coc references<CR>",
+		"<Plug>(coc-references-used)",
 		"LSP goto references",
 	},
 	y = {
-		"<Cmd>Telescope coc type_definitions<CR>",
+		"<Plug>(coc-type-definition)",
 		"LSP goto type definition"
 	},
 	j = {
