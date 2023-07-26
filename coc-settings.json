@@ -1,6 +1,14 @@
 {
   "npm.binPath": "pnpm",
   "suggest.enablePreselect": true,
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "suggest.pumFloatConfig": {
+    "border": true,
+    "rounded": false
+  },
   "suggest.noselect": false,
   "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
@@ -65,6 +73,12 @@
   "snippets.textmateSnippetsRoots": ["~/.config/nvim/vsc-snippets"],
   "sumneko-lua.checkUpdate": false,
   "prettier.requireConfig": true,
+  "emmet.excludeLanguages": [
+    "markdown",
+    "typescriptreact",
+    "javascriptreact",
+    "typescript"
+  ],
   
   "sumneko-lua.enableNvimLuaDev": true
 }

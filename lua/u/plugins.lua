@@ -254,6 +254,7 @@ local tbl = {
 		"windwp/windline.nvim",
 		-- enabled = false,
 		config = function()
+			-- require('wlsample.evil_line')
 			r("plugins.windline")
 		end
 	},
