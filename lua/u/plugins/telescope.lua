@@ -69,9 +69,14 @@ local options = {
 			-- theme = "ivy",
 			prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
 		},
+		fzy_native = {
+			override_generic_sorter = false,
+			override_file_sorter = true,
+		}
 	},
 }
 
 telescope.setup(options)
 
 telescope.load_extension("coc")
+require('telescope').load_extension('fzy_native')

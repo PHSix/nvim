@@ -52,13 +52,6 @@ local tbl = {
 		event = { "VeryLazy" }
 	},
 	{
-		"TimUntersberger/neogit",
-		lazy = true,
-		config = function()
-			require("neogit").setup()
-		end,
-	},
-	{
 		"famiu/bufdelete.nvim",
 		cmd = "Bdelete"
 	},
@@ -128,17 +121,13 @@ local tbl = {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		dependencies = { "fannheyward/telescope-coc.nvim", lazy = true },
+		dependencies = {
+			{ "fannheyward/telescope-coc.nvim",          lazy = true },
+			{ "nvim-telescope/telescope-fzy-native.nvim" },
+		},
 		cmd = "Telescope",
 		config = function()
 			r("plugins.telescope")
-		end,
-	},
-	{
-		"sindrets/diffview.nvim",
-		cmd = { "DiffviewFileHistory", "DiffviewOpen" },
-		config = function()
-			r("plugins.diffview")
 		end,
 	},
 	{
