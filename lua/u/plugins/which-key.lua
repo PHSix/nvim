@@ -41,11 +41,11 @@ wk.register({
 		"LSP goto type definition"
 	},
 	j = {
-		"<CMD>:Gitsigns next_hunk<CR>",
+		"<CMD>Gitsigns next_hunk<CR>",
 		"Next Git Hunk",
 	},
 	k = {
-		"<CMD>:Gitsigns prev_hunk<CR>",
+		"<CMD>Gitsigns prev_hunk<CR>",
 		"Prev Git Hunk",
 	},
 }, { prefix = "g" })
@@ -73,10 +73,7 @@ wk.register({
 			"Live Grep",
 		},
 		b = { "<Cmd>Telescope buffers<CR>", "Find Buffer" },
-		h = { "<Cmd>Telescope help_tags<CR>", "Find Help Doc" },
 		y = { "<Cmd>Telescope registers<CR>", "Find Yank Registers" },
-		c = { "<Cmd>Telescope git_bcommits<CR>", "Find Buffer Commits" },
-		C = { "<Cmd>Telescope git_commits<CR>", "Find All Commits" },
 
 		n = { "<Cmd>CocCommand explorer --position floating<CR>", "File Floating Tree Broswer " },
 	},
