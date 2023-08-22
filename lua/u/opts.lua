@@ -85,6 +85,3 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-if vim.loop.os_uname().sysname == "Linux" then
-	vim.cmd([[language en_US.utf8]])
-end
