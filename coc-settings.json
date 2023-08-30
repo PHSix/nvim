@@ -55,6 +55,7 @@
   "semanticTokens.enable": false,
   "coc.preferences.formatOnSave": false,
   "Lua.diagnostics.globals": ["vim", "packer_plugins"],
+  "Lua.workspace.checkThirdParty": false,
   "inlayHint.enable": false,
   "eslint.autoFixOnSave": false,
 

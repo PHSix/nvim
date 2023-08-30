@@ -187,7 +187,7 @@ local tbl = {
 					enable = true,
 					prev_selection = ',', -- (Optional) keymap to select the previous selection
 					keymaps = {
-						['<CR>'] = 'textsubjects-smart',
+						-- ['<CR>'] = 'textsubjects-smart',
 						-- ['<CR>'] = 'textsubjects-container-outer',
 						['i;'] = 'textsubjects-container-inner',
 					},
@@ -231,13 +231,13 @@ local tbl = {
 			require 'colorizer'.setup()
 		end
 	},
-	{
-		'akinsho/bufferline.nvim',
-		event = { "BufEnter" },
-		config = function()
-			r('plugins.bufferline')
-		end
-	},
+	-- {
+	-- 	'akinsho/bufferline.nvim',
+	-- 	event = { "BufEnter" },
+	-- 	config = function()
+	-- 		r('plugins.bufferline')
+	-- 	end
+	-- },
 	{
 		"windwp/windline.nvim",
 		-- enabled = false,
@@ -297,7 +297,23 @@ local tbl = {
 	},
 	{
 		"gpanders/editorconfig.nvim",
+	},
+	{
+		"sustech-data/wildfire.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("wildfire").setup()
+		end,
 	}
+	-- {
+	-- 	"0x00-ketsu/autosave.nvim",
+	-- 	config = function()
+	-- 		require('autosave').setup({
+	-- 			debounce_delay = 1000
+	-- 		})
+	-- 	end
+	-- }
 }
 
 require("lazy").setup(map(tbl, function(record)

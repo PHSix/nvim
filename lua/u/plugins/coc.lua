@@ -29,30 +29,30 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 vim.api.nvim_create_augroup('coc_patch_autocmd', { clear = true })
 
 vim.api.nvim_create_autocmd({ "ModeChanged" }, {
-	group = "coc_patch_autocmd",
-	pattern = "*",
-	callback = function()
-		if vim.fn.mode() == "s" then
-			local key = vim.api.nvim_replace_termcodes("<C-r>_", true, false, true)
-			vim.api.nvim_feedkeys(key, "s", false)
-		end
-	end,
-	once = false,
+  group = "coc_patch_autocmd",
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() == "s" then
+      local key = vim.api.nvim_replace_termcodes("<C-r>_", true, false, true)
+      vim.api.nvim_feedkeys(key, "s", false)
+    end
+  end,
+  once = false,
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	group = "coc_patch_autocmd",
-	pattern = "*",
-	callback = function()
-		vim.defer_fn(
-			function()
-				if vim.bo.filetype == 'coc-explorer' and vim.api.nvim_win_get_config(0).relative ~= "" then
-					vim.api.nvim_win_set_config(0, {
-						zindex = 10
-					})
-				end
-			end, 100)
-	end
+  group = "coc_patch_autocmd",
+  pattern = "*",
+  callback = function()
+    vim.defer_fn(
+      function()
+        if vim.bo.filetype == 'coc-explorer' and vim.api.nvim_win_get_config(0).relative ~= "" then
+          vim.api.nvim_win_set_config(0, {
+            zindex = 10
+          })
+        end
+      end, 100)
+  end
 })
 
 -- vim.api.nvim_create_autocmd({"WinLeave"}, {
@@ -73,35 +73,37 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 -- })
 
 vim.g.coc_global_extensions = {
-	"coc-sumneko-lua",
-	"coc-json",
-	"coc-tsserver",
-	"coc-pairs",
-	"coc-marketplace",
-	"coc-eslint",
-	-- "coc-prettier",
-	"coc-snippets",
-	"coc-explorer",
-	"coc-pairs",
+  "coc-sumneko-lua",
+  "coc-json",
+  "coc-tsserver",
+  "coc-pairs",
+  "coc-marketplace",
+  "coc-eslint",
+  -- "coc-prettier",
+  "coc-snippets",
+  "coc-explorer",
+  "coc-pairs",
 }
 
 vim.keymap.set("n", "<C-n>", "<Cmd>CocTree<CR>", { silent = true })
 
+vim.keymap.set("n", "<M-x>", "<Cmd>Telescope coc commands<CR>", { silent = true })
+
 vim.api.nvim_create_user_command("CocTree", function()
-	vim.cmd [[CocCommand explorer --position right]]
+  vim.cmd [[CocCommand explorer --position right]]
 end, {
-	desc = "Open Coc Explorer"
+  desc = "Open Coc Explorer"
 })
 vim.api.nvim_create_user_command("CocFormat", function()
-	vim.fn.CocActionAsync('format')
+  vim.fn.CocActionAsync('format')
 end, {
-	desc = "coc lsp format with async"
+  desc = "coc lsp format with async"
 })
 
 vim.api.nvim_create_user_command("CocMarketplace", function()
-	vim.cmd [[CocList marketplace]]
+  vim.cmd [[CocList marketplace]]
 end, {
-	desc = "open coc marketplace"
+  desc = "open coc marketplace"
 })
 
 vim.g.coc_quickfix_open_command = "vsplit"
