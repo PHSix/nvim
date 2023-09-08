@@ -85,3 +85,4 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.o.guifont = "Maple Mono NF:h18"
