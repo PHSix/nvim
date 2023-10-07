@@ -1,33 +1,47 @@
-snippet imp "import module"
-	import { ${2} } from '${1:module}'
-
-snippet impt "import type module"
-	import type { ${2} } from '${1:module}'
-
-# snippet impd "import module default"
-# 	import 
-
-snippet inf "interface"
-	interface ${1:AnyType} {
-		${2}
-	}
-
-snippet exp "export module"
-	export {
-		${1}
-	}
-
-snippet expc "export const"
-	export const ${1:variable} = ${2}
-
-snippet expd "export default"
-	export default ${1}
-
-snippet clg "console.log()"
-	console.log(${1})
-
-snippet com "create a ts comment block"
+snippet com "Creata a block comment."
 	/**
-	 * ${1}
+	 * $0
 	 */
 
+snippet todo "Create a TODO comment"
+	/**
+	 * TODO: $0
+	 */
+
+snippet warn "Create a WARNING comment"
+	/**
+	 * WARNING: $0
+	 */
+
+snippet cfn "Const a arrow function"
+	const $1 = () => {
+		${0:// TODO: do something in here}
+	}
+
+snippet clg "Console log a Value with pre tag."
+	console.log('$0: ', ${0:})
+
+snippet tsi "Insert ts-ignore comment"
+	// @ts-ignore
+
+snippet fn "Create a function"
+	function $1($2) {
+		$0
+	}
+
+snippet efn "Create and export a function"
+	export function $1($2) {
+		$0
+	}
+
+snippet edfn "Create and export a function by default"
+	export function $1($2) {
+		$0
+	}
+
+snippet ecls "Export a class"
+	export class $1 {
+		constructor($2) {
+			$0
+		}
+	}

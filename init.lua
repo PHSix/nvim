@@ -1,16 +1,8 @@
---- @param path string
---- @return table
-local r = function(path)
-	return require("u." .. path)
-end
-_G.r = r
+require('core')
 
-r("opts")
-r("plugins")
-
--- vim.cmd [[set rtp+=$HOME/projects/rl-nvim]]
-
--- require("rl.presets.simple")
--- vim.cmd [[
--- autocmd BufHidden * lua print(vim.wo.statusline)
--- ]]
+vim.keymap.set('n', '<f2>', function()
+  vim.lsp.buf_request(0, 'textDocument/hover', vim.lsp.util.make_position_params(0, 'utf-8'), function(err, data)
+    print(vim.inspect(err))
+    print(vim.inspect(data))
+  end)
+end, {})

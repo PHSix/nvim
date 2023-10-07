@@ -1,0 +1,10 @@
+{
+  "workspace.checkThirdParty": false,
+  "diagnostics.disable": [
+    "undefined-field",
+    "missing-fields",
+    "assign-type-mismatch"
+  ],
+  "runtime.version": "LuaJIT",
+    "completion.autoRequire": false
+}
