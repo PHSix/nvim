@@ -55,6 +55,10 @@ function config.conform()
     vue = { 'prettier' },
   }
 
+  if vim.fn.executable('nixfmt') == 1 then
+    formatters_by_ft['nix'] = { 'nixfmt' }
+  end
+
   vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
   pcall(require, 'mason')

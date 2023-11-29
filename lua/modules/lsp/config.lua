@@ -41,6 +41,10 @@ local lsp_services = {
   { server = 'volar' },
 }
 
+if vim.fn.executable('nil') then
+  table.insert(lsp_services, { server = 'nil_ls' })
+end
+
 local else_dependences = {
   'stylua',
   'black',
