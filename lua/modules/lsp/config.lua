@@ -41,7 +41,7 @@ local lsp_services = {
   { server = 'volar' },
 }
 
-if vim.fn.executable('nil') then
+if vim.fn.executable('nil') == 1 then
   table.insert(lsp_services, { server = 'nil_ls' })
 end
 
