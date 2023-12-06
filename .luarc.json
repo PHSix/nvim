@@ -3,7 +3,8 @@
   "diagnostics.disable": [
     "undefined-field",
     "missing-fields",
-    "assign-type-mismatch"
+    "assign-type-mismatch",
+        "param-type-mismatch"
   ],
   "runtime.version": "LuaJIT",
     "completion.autoRequire": false

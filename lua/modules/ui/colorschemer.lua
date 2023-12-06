@@ -1,5 +1,5 @@
 local package = require('core.pack').package
-local spec_colorscheme = 'onedark'
+local spec_colorscheme = 'nordic'
 
 local use_light = false
 
@@ -49,7 +49,32 @@ return function()
       end,
       'onedark',
     },
-    { spec = 'AlexvZyl/nordic.nvim', 'nordic' },
+    {
+      spec = 'AlexvZyl/nordic.nvim',
+      'nordic',
+      config = function()
+        require('nordic').setup({
+          override = {
+            SpellBad = {
+              bg = '#2E3440',
+              sp = '#BF616A',
+              undercurl = true,
+              fg = '#BF616A',
+            },
+            SagaWinBarSep = {
+              bg = 'NONE',
+              fg = '#c0c8d8',
+            },
+            WinBar = {
+              bg = 'NONE',
+            },
+            WinBarNC = {
+              bg = 'NONE',
+            },
+          },
+        })
+      end,
+    },
     { spec = 'shaunsingh/moonlight.nvim', 'moonlight' },
     { spec = 'dasupradyumna/midnight.nvim', 'midnight' },
   }

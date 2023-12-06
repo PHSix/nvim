@@ -23,6 +23,8 @@ opt.redrawtime = 1500
 opt.ignorecase = true
 opt.smartcase = true
 opt.infercase = true
+opt.spell = true
+opt.spelllang = 'en,cjk'
 
 if vim.fn.executable('rg') == 1 then
   opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
@@ -86,3 +88,9 @@ if vim.loop.os_uname().sysname == 'Darwin' then
   vim.g.python3_host_prog = '/usr/local/bin/python3'
 end
 opt.cursorline = true
+
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end

@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 local keymap = require('core.keymap')
 local nmap, imap, cmap, xmap, tmap, vmap = keymap.nmap, keymap.imap, keymap.cmap, keymap.xmap, keymap.tmap, keymap.vmap
 local silent, noremap, expr = keymap.silent, keymap.noremap, keymap.expr
@@ -80,6 +81,7 @@ nmap({
   { '<leader>fs', cmd('Telescope lsp_dynamic_workspace_symbols'), opts(noremap, silent) },
   { '<leader>ft', cmd('Telescope todo-comments'), opts(noremap, silent) },
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
+  { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
   -- Neotree
   { '<C-n>', cmd('Neotree toggle reveal'), opts(noremap, silent) },
@@ -100,7 +102,7 @@ nmap({
   { '<C-t>', cmd('Lspsaga term_toggle'), opts(noremap, silent) },
 
   -- conform.nvim
-  { '<leader>cf', cmd('ConformFmt'), opts(noremap, silent) },
+  { '<leader>cf', cmd('LspFormat'), opts(noremap, silent) },
 
   -- Gitsigns
   { '<leader>gp', cmd('Gitsigns preview_hunk'), opts(noremap, silent) },

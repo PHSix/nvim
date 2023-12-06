@@ -1,5 +1,4 @@
 ---@diagnostic disable: inject-field
-local concat = require('ld.concat')
 local config = {}
 local lsp_services = {
   {
@@ -31,7 +30,18 @@ local lsp_services = {
       }
     end,
   },
-  { server = 'eslint' },
+  {
+    server = 'eslint',
+    opts = {
+      experimental = {
+        useFlatConfig = true,
+        codeActionOnSave = {
+          enable = true,
+          mode = 'all',
+        },
+      },
+    },
+  },
   { server = 'cssls' },
   { server = 'pyright' },
   { server = 'gopls', useLocal = true },
@@ -45,15 +55,23 @@ if vim.fn.executable('nil') == 1 then
   table.insert(lsp_services, { server = 'nil_ls' })
 end
 
-local else_dependences = {
-  'stylua',
-  'black',
-  'tsserver',
-}
-
 function config.mason()
   require('mason').setup()
-  require('mason-lspconfig').setup(concat({
+  local cmd_dependencies = {
+    'stylua',
+    'black',
+    'tsserver',
+    'eslint_d',
+    'cspell',
+  }
+
+  for _, cmd in ipairs(cmd_dependencies) do
+    if vim.fn.executable(cmd) == 0 then
+      vim.notify(string.format('%s not found, mason will installing.', cmd))
+      vim.cmd(string.format('MasonInstall %s', cmd))
+    end
+  end
+  require('mason-lspconfig').setup({
     ensure_installed = vim.tbl_map(
       function(s)
         return s.server
@@ -62,7 +80,7 @@ function config.mason()
         return not s.useLocal
       end, lsp_services)
     ),
-  }, else_dependences))
+  })
 end
 
 -- config server in this function
@@ -118,11 +136,31 @@ function config.nvim_lsp()
 
   vim.diagnostic.config({ virtual_text = false })
 
-  local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-  for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
+  config.none_ls()
+end
+
+function config.none_ls()
+  vim.env.ESLINT_USE_FLAT_CONFIG = true
+  local null_ls = require('null-ls')
+  -- local cspell = require('cspell')
+
+  null_ls.setup({
+    sources = {
+      null_ls.builtins.formatting.stylua,
+      null_ls.builtins.completion.spell,
+
+      -- null_ls.builtins.diagnostics.eslint,
+      -- null_ls.builtins.code_actions.eslint,
+      -- null_ls.builtins.formatting.eslint,
+
+      null_ls.builtins.formatting.gofmt,
+
+      null_ls.builtins.formatting.black,
+
+      -- cspell.diagnostics,
+      -- cspell.code_actions,
+    },
+  })
 end
 
 function config.coq()
@@ -301,6 +339,15 @@ function config.ufo()
   vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
   vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
   require('ufo').setup()
+end
+
+function config.fidget()
+  require('fidget').setup({
+    progress = {
+      ignore_empty_message = false,
+      ignore = { 'null-ls' },
+    },
+  })
 end
 
 return config

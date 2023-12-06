@@ -17,6 +17,8 @@ package({
     { 'b0o/schemastore.nvim', lazy = true },
     { 'pmizio/typescript-tools.nvim', lazy = true },
     { 'folke/neodev.nvim', lazy = true },
+    { 'nvimtools/none-ls.nvim', lazy = true },
+    { 'davidmh/cspell.nvim', lazy = true },
   },
   config = conf.nvim_lsp,
 })
@@ -118,11 +120,8 @@ package({
 
 package({
   'j-hui/fidget.nvim',
-  tag = 'legacy',
   event = 'LspAttach',
-  opts = {
-    -- options
-  },
+  config = conf.fidget,
 })
 
 package({

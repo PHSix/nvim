@@ -24,6 +24,14 @@ function config.telescope()
         },
       },
     },
+    pickers = {
+      live_grep = {
+        theme = 'ivy',
+      },
+      lsp_dynamic_workspace_symbols = {
+        theme = 'ivy',
+      },
+    },
     extensions = {
       fzy_native = {
         override_generic_sorter = false,
@@ -39,18 +47,50 @@ function config.pairs()
 end
 
 function config.conform()
+  local util = vim.lsp.util
+  local lsp = vim.lsp
+  local opts = { bufnr = 0 }
+  --- @type conform.FormatterConfigOverride
+  local function eslintFixAll()
+    local eslint_lsp_client = util.get_active_client_by_name(opts.bufnr, 'eslint')
+    if eslint_lsp_client == nil then
+      return
+    end
+
+    local request
+    if opts.sync then
+      request = function(bufnr, method, params)
+        eslint_lsp_client.request_sync(method, params, nil, bufnr)
+      end
+    else
+      request = function(bufnr, method, params)
+        eslint_lsp_client.request(method, params, nil, bufnr)
+      end
+    end
+
+    local bufnr = util.validate_bufnr(opts.bufnr or 0)
+    request(0, 'workspace/executeCommand', {
+      command = 'eslint.applyAllFixes',
+      arguments = {
+        {
+          uri = vim.uri_from_bufnr(bufnr),
+          version = lsp.util.buf_versions[bufnr],
+        },
+      },
+    })
+  end
   local formatters_by_ft = {
     lua = { 'stylua' },
-    json = { 'prettier' },
-    scss = { 'prettier' },
-    css = { 'prettier' },
+    json = { 'eslint' },
+    scss = { 'eslint' },
+    css = { 'eslint' },
     go = { 'gofmt' },
     python = { 'black' },
 
-    javascript = { 'prettier' },
-    javascriptreact = { 'prettier' },
-    typescript = { 'prettier' },
-    typescriptreact = { 'prettier' },
+    javascript = { 'eslint' },
+    javascriptreact = { 'eslint' },
+    typescript = { 'eslint' },
+    typescriptreact = { 'eslint' },
 
     vue = { 'prettier' },
   }
@@ -110,6 +150,10 @@ function config.comment_nvim()
     },
     pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
   })
+end
+
+function config.lsp_format()
+  require('lsp-format').setup({})
 end
 
 return config

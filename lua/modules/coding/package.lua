@@ -1,4 +1,3 @@
-local lazy = require('lazy')
 local package = require('core.pack').package
 local conf = require('modules.coding.config')
 
@@ -17,6 +16,7 @@ package({ 'echasnovski/mini.pairs', config = conf.pairs })
 package({
   'stevearc/conform.nvim',
   config = conf.conform,
+  enabled = false,
 })
 
 package({

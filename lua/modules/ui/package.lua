@@ -35,4 +35,9 @@ package({
   opts = {},
 })
 
+package({
+  'dstein64/nvim-scrollview',
+  config = true,
+})
+
 require('modules.ui.colorschemer')()
