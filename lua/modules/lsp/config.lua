@@ -52,7 +52,22 @@ local lsp_services = {
 }
 
 if vim.fn.executable('nil') == 1 then
-  table.insert(lsp_services, { server = 'nil_ls' })
+  table.insert(lsp_services, {
+    server = 'nil_ls',
+    opts = {
+      settings = {
+        ['nil'] = {
+          formatting = 'nixpkgs-fmt',
+
+          nix = {
+            flake = {
+              autoArchive = true,
+            },
+          },
+        },
+      },
+    },
+  })
 end
 
 function config.mason()
