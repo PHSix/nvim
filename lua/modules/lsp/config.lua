@@ -157,6 +157,8 @@ function config.none_ls()
 
       null_ls.builtins.formatting.black,
 
+      null_ls.builtins.formatting.nixfmt,
+
       -- cspell.diagnostics,
       -- cspell.code_actions,
     },

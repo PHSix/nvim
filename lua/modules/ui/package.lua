@@ -40,4 +40,10 @@ package({
   config = true,
 })
 
+package({
+  'NvChad/nvim-colorizer.lua',
+  event = { 'BufRead' },
+  config = true,
+})
+
 require('modules.ui.colorschemer')()
