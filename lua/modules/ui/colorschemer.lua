@@ -1,5 +1,5 @@
 local package = require('core.pack').package
-local spec_colorscheme = 'nordic'
+local spec_colorscheme = 'vitesse'
 
 local use_light = false
 

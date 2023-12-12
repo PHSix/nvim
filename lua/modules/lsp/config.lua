@@ -181,10 +181,17 @@ function config.none_ls()
 end
 
 function config.coq()
+  require('coq_3p')({
+    { src = 'nvimlua', short_name = 'nLUA' },
+  })
   vim.g.coq_settings = {
-    keymap = {
-      pre_select = true,
-    },
+    ['keymap.pre_select'] = true,
+    ['auto_start'] = true,
+    ['display.ghost_text.enabled'] = false,
+    ['display.pum.fast_close'] = false,
+    ['display.preview.border'] = 'single',
+    ['display.preview.positions'] = { north = 2, south = 4, west = 3, east = 1 },
+    ['display.icons.mode'] = 'long',
   }
 end
 
@@ -265,7 +272,7 @@ function config.nvim_cmp()
       { name = 'buffer' },
     }),
     mapping = nvim_cmp.mapping.preset.insert({
-      ['<C-d>'] = nvim_cmp.mapping.scroll_docs(-4),
+      ['C-d'] = nvim_cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = nvim_cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = nvim_cmp.mapping.complete(),
       ['<CR>'] = nvim_cmp.mapping.confirm({ select = true }),

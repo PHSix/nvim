@@ -71,6 +71,7 @@ package({
 package({
   'hrsh7th/nvim-cmp',
   config = conf.nvim_cmp,
+  enabled = true,
   event = 'InsertEnter',
   dependencies = {
     { 'hrsh7th/cmp-nvim-lsp', lazy = true },
