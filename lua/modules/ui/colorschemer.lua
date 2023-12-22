@@ -3,8 +3,6 @@ local spec_colorscheme = 'vitesse'
 
 local use_light = false
 
--- helgo worl
-
 --- random get one of list in day
 --- @generic T
 --- @param tbl T[]
@@ -23,7 +21,8 @@ return function()
   local dark_colorscheme_tbls = {
     { spec = 'NTBBloodbath/doom-one.nvim', 'doom-one' },
     { spec = 'nyoom-engineering/oxocarbon.nvim', 'oxocarbon' },
-    { spec = '2nthony/vitesse.nvim', 'vitesse' },
+    -- { spec = '2nthony/vitesse.nvim', 'vitesse' },
+    { spec = 'PHSix/vitesse.nvim', 'vitesse' },
     { spec = 'sainnhe/everforest', 'everforest' },
     {
       spec = 'olimorris/onedarkpro.nvim',
@@ -77,6 +76,11 @@ return function()
     },
     { spec = 'shaunsingh/moonlight.nvim', 'moonlight' },
     { spec = 'dasupradyumna/midnight.nvim', 'midnight' },
+    {
+      spec = 'sainnhe/edge',
+      'edge',
+    },
+    { spec = 'sainnhe/everforest', 'everforest' },
   }
 
   local light_colorscheme_tbls = {

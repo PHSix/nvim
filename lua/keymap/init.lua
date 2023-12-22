@@ -96,13 +96,13 @@ nmap({
   { 'gr', cmd('Glance references'), opts(noremap, silent) },
   -- { 'gr', cmd('Lspsaga finder'), opts(noremap, silent) },
   { 'K', vim.lsp.buf.hover, opts(noremap, silent) },
-  -- { 'K', cmd('Lspsaga hover_doc'), opts(noremap, silent) },
+  -- { 'K', cmd('Lspsaga peek_definition'), opts(noremap, silent) },
   { '<leader>rn', cmd('Lspsaga rename'), opts(noremap, silent) },
   { '<leader>ca', cmd('Lspsaga code_action'), opts(noremap, silent) },
   { '<C-t>', cmd('Lspsaga term_toggle'), opts(noremap, silent) },
 
   -- conform.nvim
-  { '<leader>cf', cmd('LspFormat'), opts(noremap, silent) },
+  { '<leader>cf', cmd('Format'), opts(noremap, silent) },
 
   -- Gitsigns
   { '<leader>gp', cmd('Gitsigns preview_hunk'), opts(noremap, silent) },

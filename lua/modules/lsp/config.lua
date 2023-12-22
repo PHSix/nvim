@@ -49,26 +49,8 @@ local lsp_services = {
   { server = 'angularls' },
   { server = 'html' },
   { server = 'volar' },
+  { server = 'kotlin_language_server' },
 }
-
-if vim.fn.executable('nil') == 1 then
-  table.insert(lsp_services, {
-    server = 'nil_ls',
-    opts = {
-      settings = {
-        ['nil'] = {
-          formatting = 'nixpkgs-fmt',
-
-          nix = {
-            flake = {
-              autoArchive = true,
-            },
-          },
-        },
-      },
-    },
-  })
-end
 
 function config.mason()
   require('mason').setup()
@@ -101,6 +83,33 @@ end
 -- config server in this function
 function config.nvim_lsp()
   pcall(require, 'mason')
+
+  if vim.fn.executable('nix') == 1 then
+    lsp_services = vim.tbl_filter(function(service)
+      local cmd = require(string.format('lspconfig.server_configurations.%s', service.server)).default_config.cmd[1]
+      return vim.fn.executable(cmd) == 1
+    end, lsp_services)
+
+    table.insert(lsp_services, {
+      server = 'nil_ls',
+      opts = {
+        settings = {
+          ['nil'] = {
+            formatting = 'nixpkgs-fmt',
+
+            nix = {
+              maxMemoryMB = 1024 * 8,
+              flake = {
+                autoArchive = true,
+                nixpkgsInputName = 'nixpkgs',
+              },
+            },
+          },
+        },
+      },
+    })
+  end
+
   local lspconfig = require('lspconfig')
 
   require('neodev').setup()
@@ -115,6 +124,10 @@ function config.nvim_lsp()
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client == nil then
+        return
+      end
+
       client.server_capabilities.semanticTokensProvider = nil
     end,
   })
@@ -151,33 +164,7 @@ function config.nvim_lsp()
 
   vim.diagnostic.config({ virtual_text = false })
 
-  config.none_ls()
-end
-
-function config.none_ls()
-  vim.env.ESLINT_USE_FLAT_CONFIG = true
-  local null_ls = require('null-ls')
-  -- local cspell = require('cspell')
-
-  null_ls.setup({
-    sources = {
-      null_ls.builtins.formatting.stylua,
-      null_ls.builtins.completion.spell,
-
-      -- null_ls.builtins.diagnostics.eslint,
-      -- null_ls.builtins.code_actions.eslint,
-      -- null_ls.builtins.formatting.eslint,
-
-      null_ls.builtins.formatting.gofmt,
-
-      null_ls.builtins.formatting.black,
-
-      null_ls.builtins.formatting.nixpkgs_fmt,
-
-      -- cspell.diagnostics,
-      -- cspell.code_actions,
-    },
-  })
+  -- config.none_ls()
 end
 
 function config.coq()

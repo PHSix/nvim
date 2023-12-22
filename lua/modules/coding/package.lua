@@ -16,7 +16,6 @@ package({ 'echasnovski/mini.pairs', config = conf.pairs })
 package({
   'stevearc/conform.nvim',
   config = conf.conform,
-  enabled = false,
 })
 
 package({
@@ -47,4 +46,10 @@ package({
   'nvim-pack/nvim-spectre',
   cmd = { 'Spectre' },
   config = conf.spectre,
+})
+
+package({
+  'simeji/winresizer',
+  key = '<C-t>',
+  config = conf.winresizer,
 })

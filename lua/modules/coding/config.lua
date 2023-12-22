@@ -47,50 +47,10 @@ function config.pairs()
 end
 
 function config.conform()
-  local util = vim.lsp.util
-  local lsp = vim.lsp
-  local opts = { bufnr = 0 }
-  --- @type conform.FormatterConfigOverride
-  local function eslintFixAll()
-    local eslint_lsp_client = util.get_active_client_by_name(opts.bufnr, 'eslint')
-    if eslint_lsp_client == nil then
-      return
-    end
-
-    local request
-    if opts.sync then
-      request = function(bufnr, method, params)
-        eslint_lsp_client.request_sync(method, params, nil, bufnr)
-      end
-    else
-      request = function(bufnr, method, params)
-        eslint_lsp_client.request(method, params, nil, bufnr)
-      end
-    end
-
-    local bufnr = util.validate_bufnr(opts.bufnr or 0)
-    request(0, 'workspace/executeCommand', {
-      command = 'eslint.applyAllFixes',
-      arguments = {
-        {
-          uri = vim.uri_from_bufnr(bufnr),
-          version = lsp.util.buf_versions[bufnr],
-        },
-      },
-    })
-  end
   local formatters_by_ft = {
     lua = { 'stylua' },
-    json = { 'eslint' },
-    scss = { 'eslint' },
-    css = { 'eslint' },
     go = { 'gofmt' },
     python = { 'black' },
-
-    javascript = { 'eslint' },
-    javascriptreact = { 'eslint' },
-    typescript = { 'eslint' },
-    typescriptreact = { 'eslint' },
 
     vue = { 'prettier' },
   }
@@ -105,13 +65,24 @@ function config.conform()
   require('conform').setup({
     formatters_by_ft = formatters_by_ft,
     format_after_save = {
-      lsp_fallback = true,
+      lsp_fallback = false,
     },
   })
 
-  vim.api.nvim_create_user_command('ConformFmt', function()
+  local function format()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local client_names = vim.tbl_map(function(client)
+      return client.name
+    end, clients)
+
+    if vim.tbl_contains(client_names, 'eslint') then
+      vim.cmd([[EslintFixAll]])
+      return
+    end
     require('conform').format({ bufnr = vim.api.nvim_get_current_buf() })
-  end, { desc = 'Map conform.nvim plugin format to `ConformFmt`' })
+  end
+
+  vim.api.nvim_create_user_command('Format', format, { desc = 'Map conform.nvim plugin format to `ConformFmt`' })
 end
 
 function config.comment()
@@ -154,6 +125,10 @@ end
 
 function config.lsp_format()
   require('lsp-format').setup({})
+end
+
+function config.winresizer()
+  vim.g.winresizer_start_key = '<C-e>'
 end
 
 return config

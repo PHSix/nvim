@@ -3,7 +3,7 @@ local conf = require('modules.ui.config')
 
 package({ 'glepnir/dashboard-nvim', config = conf.dashboard })
 
-package({ 'tjdevries/colorbuddy.nvim', lazy = true })
+-- package({ 'tjdevries/colorbuddy.nvim', lazy = true })
 
 package({
   'echasnovski/mini.indentscope',
