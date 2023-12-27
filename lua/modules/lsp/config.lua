@@ -57,7 +57,6 @@ function config.mason()
   local cmd_dependencies = {
     'stylua',
     'black',
-    'tsserver',
     'eslint_d',
     'cspell',
   }
