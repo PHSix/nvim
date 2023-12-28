@@ -53,3 +53,9 @@ package({
   key = '<C-t>',
   config = conf.winresizer,
 })
+
+package({
+  'vidocqh/auto-indent.nvim',
+  event = { 'InsertEnter' },
+  opts = {},
+})
