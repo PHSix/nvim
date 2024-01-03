@@ -64,11 +64,15 @@ function keymap.new_opts(...)
   return o.options
 end
 
+---@param str string
+---@return string
 function keymap.cmd(str)
   return '<cmd>' .. str .. '<CR>'
 end
 
--- visual
+--- visual
+---@param str string
+---@return string
 function keymap.cu(str)
   return '<C-u><cmd>' .. str .. '<CR>'
 end

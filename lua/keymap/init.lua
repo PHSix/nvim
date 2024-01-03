@@ -8,29 +8,13 @@ local cmd = keymap.cmd
 -- Use space as leader key
 vim.g.mapleader = ' '
 
--- leaderkey
-nmap({ ' ', '', opts(noremap) })
-xmap({ ' ', '', opts(noremap) })
 nmap({ ';', ':', opts(silent) })
 xmap({ ';', ':', opts(silent) })
-
--- copy to clipboard
--- xmap({ 'fy', '"+y', opts(silent) })
 
 -- buffer delete
 nmap({ '<leader>bd', cmd('Bdelete'), opts(noremap, silent) })
 
--- faster move keys
-nmap({ '<C-j>', '5j', opts(silent) })
-nmap({ '<C-k>', '5j', opts(silent) })
-vmap({ '<C-j>', '5j', opts(silent) })
-vmap({ '<C-k>', '5j', opts(silent) })
-
--- usage example
 nmap({
-  -- noremal remap
-  -- close buffer
-  { '<C-x>k', cmd('bdelete'), opts(noremap, silent) },
   -- save
   { '<C-s>', cmd('write'), opts(noremap) },
   -- yank
@@ -38,40 +22,18 @@ nmap({
   -- buffer jump
   { ']b', cmd('bn'), opts(noremap) },
   { '[b', cmd('bp'), opts(noremap) },
-  -- remove trailing white space
-  { '<Leader>t', cmd('TrimTrailingWhitespace'), opts(noremap) },
-  -- faster moving
-  { '<C-h>', '3h', opts(noremap) },
-  { '<C-l>', '3l', opts(noremap) },
-  { '<C-j>', '3j', opts(noremap) },
-  { '<C-k>', '3k', opts(noremap) },
 })
 
-vmap({
-  -- faster moving
-  { '<C-h>', '3h', opts(noremap) },
-  { '<C-l>', '3l', opts(noremap) },
-  { '<C-j>', '3j', opts(noremap) },
-  { '<C-k>', '3k', opts(noremap) },
+cmap({
+  { '<C-b>', '<Left>', opts(noremap) },
+  { '<C-f>', '<Right>', opts(noremap) },
 })
 
-imap({
-  -- insert mode
-  { '<C-h>', '<Bs>', opts(noremap) },
-  { '<C-e>', '<End>', opts(noremap) },
-})
-
--- commandline remap
-cmap({ '<C-b>', '<Left>', opts(noremap) })
 -- usage of plugins
 nmap({
   -- plugin manager: Lazy.nvim
   { '<Leader>pu', cmd('Lazy update'), opts(noremap, silent) },
   { '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
-  -- dashboard
-  { '<Leader>n', cmd('DashboardNewFile'), opts(noremap, silent) },
-  { '<Leader>ss', cmd('SessionSave'), opts(noremap, silent) },
-  { '<Leader>sl', cmd('SessionLoad'), opts(noremap, silent) },
   -- Telescope
   { '<Leader>fb', cmd('Telescope buffers'), opts(noremap, silent) },
   { '<Leader>fw', cmd('Telescope live_grep'), opts(noremap, silent) },
@@ -87,16 +49,12 @@ nmap({
   { '<C-n>', cmd('Neotree toggle reveal'), opts(noremap, silent) },
 
   -- Lspsaga
-  { '<leader>j', cmd('Lspsaga diagnostic_jump_next'), opts(noremap, silent) },
-  { '<leader>k', cmd('Lspsaga diagnostic_jump_prev'), opts(noremap, silent) },
-  { 'gd', cmd('Glance definitions'), opts(noremap, silent) },
-  -- { 'gd', cmd('Lspsaga goto_definition'), opts(noremap, silent) },
+  { ']d', cmd('Lspsaga diagnostic_jump_next'), opts(noremap, silent) },
+  { '[d', cmd('Lspsaga diagnostic_jump_prev'), opts(noremap, silent) },
+  { 'gd', cmd('Lspsaga peek_definition'), opts(noremap, silent) },
   { 'gy', cmd('Glance type_definitions'), opts(noremap, silent) },
-  -- { 'gy', cmd('Lspsaga goto_type_definition'), opts(noremap, silent) },
   { 'gr', cmd('Glance references'), opts(noremap, silent) },
-  -- { 'gr', cmd('Lspsaga finder'), opts(noremap, silent) },
-  { 'K', vim.lsp.buf.hover, opts(noremap, silent) },
-  -- { 'K', cmd('Lspsaga peek_definition'), opts(noremap, silent) },
+  { 'K', cmd('Lspsaga hover_doc'), opts(noremap, silent) },
   { '<leader>rn', cmd('Lspsaga rename'), opts(noremap, silent) },
   { '<leader>ca', cmd('Lspsaga code_action'), opts(noremap, silent) },
   { '<C-t>', cmd('Lspsaga term_toggle'), opts(noremap, silent) },
