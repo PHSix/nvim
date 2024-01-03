@@ -59,8 +59,3 @@ package({
   event = { 'InsertEnter' },
   opts = {},
 })
-
-package({
-  'wakatime/vim-wakatime',
-  event = { 'InsertEnter' },
-})
