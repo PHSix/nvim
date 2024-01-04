@@ -1,7 +1,7 @@
 local package = require('core.pack').package
-local spec_colorscheme = 'vitesse'
+local spec_colorscheme = nil
 
-local use_light = false
+local use_light = true
 
 --- random get one of list in day
 --- @generic T

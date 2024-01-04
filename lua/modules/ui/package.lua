@@ -9,6 +9,15 @@ package({
   'echasnovski/mini.indentscope',
   event = 'VeryLazy',
   config = conf.indentscope,
+  enabled = false,
+})
+
+package({
+  'lukas-reineke/indent-blankline.nvim',
+  main = 'ibl',
+  config = conf.indent_blankline,
+  event = 'VeryLazy',
+  dependencies = { 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim', lazy = true },
 })
 
 package({

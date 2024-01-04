@@ -15,6 +15,16 @@ xmap({ ';', ':', opts(silent) })
 nmap({ '<leader>bd', cmd('Bdelete'), opts(noremap, silent) })
 
 nmap({
+  { '<C-j>', '3j', opts(silent) },
+  { '<C-k>', '3k', opts(silent) },
+})
+
+vmap({
+  { '<C-j>', '3j', opts(silent) },
+  { '<C-k>', '3k', opts(silent) },
+})
+
+nmap({
   -- save
   { '<C-s>', cmd('write'), opts(noremap) },
   -- yank
@@ -54,7 +64,7 @@ nmap({
   { 'gd', cmd('Lspsaga peek_definition'), opts(noremap, silent) },
   { 'gy', cmd('Glance type_definitions'), opts(noremap, silent) },
   { 'gr', cmd('Glance references'), opts(noremap, silent) },
-  { 'K', cmd('Lspsaga hover_doc'), opts(noremap, silent) },
+  { 'K', vim.lsp.buf.hover, opts(noremap, silent) },
   { '<leader>rn', cmd('Lspsaga rename'), opts(noremap, silent) },
   { '<leader>ca', cmd('Lspsaga code_action'), opts(noremap, silent) },
   { '<C-t>', cmd('Lspsaga term_toggle'), opts(noremap, silent) },
