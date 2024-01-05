@@ -2,18 +2,16 @@ return {
   setup = function()
     local function format()
       local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-      local client_names = vim.tbl_map(function(client)
-        return client.name
-      end, clients)
 
-      if vim.tbl_contains(client_names, 'eslint') then
-        vim.cmd([[EslintFixAll]])
-        return
+      for _, client in ipairs(clients) do
+        if client.name == 'eslint' then
+          -- --- @type lsp.Client
+          -- local c = client
+          vim.cmd([[EslintFixAll]])
+          return
+        end
       end
-
-      vim.lsp.buf.format({ async = false })
     end
-    vim.api.nvim_create_user_command('LspFormat', format, {})
     local id
 
     local function auto()
@@ -22,7 +20,6 @@ return {
         callback = function()
           if vim.bo.modified then
             format()
-            -- vim.lsp.buf.format({ async = false })
           end
         end,
       })

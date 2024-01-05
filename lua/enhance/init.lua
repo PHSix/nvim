@@ -1,4 +1,5 @@
 require('enhance.habamax')
+require('enhance.eslint_auto_fix')
 -- require('enhance.lsp_auto_format').setup()
 
 vim.cmd([[

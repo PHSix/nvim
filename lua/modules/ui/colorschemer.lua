@@ -1,5 +1,5 @@
 local package = require('core.pack').package
-local spec_colorscheme = nil
+local spec_colorscheme = 'edge'
 
 local use_light = true
 

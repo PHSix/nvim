@@ -49,7 +49,6 @@ end
 function config.conform()
   local formatters_by_ft = {
     lua = { 'stylua' },
-    go = { 'gofmt' },
     python = { 'black' },
 
     vue = { 'prettier' },

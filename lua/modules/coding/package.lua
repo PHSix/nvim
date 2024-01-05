@@ -56,6 +56,8 @@ package({
 
 package({
   'vidocqh/auto-indent.nvim',
+  -- disable because it conflict with luasnip
+  enabled = false,
   event = { 'InsertEnter' },
   opts = {},
 })
