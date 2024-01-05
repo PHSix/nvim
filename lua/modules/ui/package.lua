@@ -3,34 +3,12 @@ local conf = require('modules.ui.config')
 
 package({ 'glepnir/dashboard-nvim', config = conf.dashboard })
 
--- package({ 'tjdevries/colorbuddy.nvim', lazy = true })
-
-package({
-  'echasnovski/mini.indentscope',
-  event = 'VeryLazy',
-  config = conf.indentscope,
-  enabled = false,
-})
-
 package({
   'lukas-reineke/indent-blankline.nvim',
   main = 'ibl',
   config = conf.indent_blankline,
   event = 'VeryLazy',
   dependencies = { 'https://gitlab.com/HiPhish/rainbow-delimiters.nvim', lazy = true },
-})
-
-package({
-  'nvim-lualine/lualine.nvim',
-  event = 'BufRead',
-  config = conf.lualine,
-  enabled = false,
-})
-
-package({
-  'sontungexpt/sttusline',
-  opts = {},
-  enabled = false,
 })
 
 package({
@@ -53,6 +31,30 @@ package({
   'NvChad/nvim-colorizer.lua',
   event = { 'BufRead' },
   config = true,
+})
+
+package({
+  'folke/noice.nvim',
+  opts = {
+    views = {
+      cmdline_popup = {
+        border = {
+          style = 'none',
+          padding = { 1, 3 },
+        },
+        filter_options = {},
+        win_options = {
+          winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+        },
+      },
+    },
+  },
+  dependencies = {
+    {
+      'MunifTanjim/nui.nvim',
+      lazy = true,
+    },
+  },
 })
 
 require('modules.ui.colorschemer')()

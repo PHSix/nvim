@@ -84,42 +84,11 @@ function config.conform()
   vim.api.nvim_create_user_command('Format', format, { desc = 'Map conform.nvim plugin format to `ConformFmt`' })
 end
 
-function config.comment()
-  require('mini.comment').setup({
-    options = {
-      custom_commentstring = function()
-        return require('ts_context_commentstring.internal').calculate_commentstring() or vim.bo.commentstring
-      end,
-    },
-    mappings = {
-      -- Toggle comment (like `gcip` - comment inner paragraph) for both
-      -- Normal and Visual modes
-      comment = 'gc',
-
-      -- Toggle comment on current line
-      comment_line = 'gcc',
-
-      -- Define 'comment' textobject (like `dgc` - delete whole comment block)
-      textobject = 'gc',
-    },
-  })
-end
-
 function config.spectre()
   require('spectre').setup()
   vim.api.nvim_create_user_command('Spectre', function()
     require('spectre').toggle()
   end, { desc = 'Wrap spectre lua callable function' })
-end
-
-function config.comment_nvim()
-  require('Comment').setup({
-    mappings = {
-      basic = true,
-      extra = false,
-    },
-    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-  })
 end
 
 function config.lsp_format()

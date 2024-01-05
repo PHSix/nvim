@@ -30,47 +30,8 @@ package({
 })
 
 package({
-  'ms-jpq/coq_nvim',
-  dependencies = {
-    {
-      'ms-jpq/coq.thirdparty',
-      branch = '3p',
-    },
-  },
-  enabled = false,
-  config = conf.coq,
-})
-
-package({
-  'Shougo/ddc.vim',
-  enabled = false,
-  config = conf.ddc,
-  dependencies = {
-    'vim-denops/denops.vim',
-    'matsui54/denops-popup-preview.vim',
-    'Shougo/ddc-source-nvim-lsp',
-  },
-})
-
-package({
-  'echasnovski/mini.completion',
-  version = '*',
-  opts = {},
-  enabled = false,
-  config = function()
-    require('mini.completion').setup({
-      window = {
-        info = { height = 25, width = 80, border = 'single' },
-        signature = { height = 25, width = 80, border = 'single' },
-      },
-    })
-  end,
-})
-
-package({
   'hrsh7th/nvim-cmp',
   config = conf.nvim_cmp,
-  enabled = true,
   event = 'InsertEnter',
   dependencies = {
     { 'hrsh7th/cmp-nvim-lsp', lazy = true },
@@ -122,21 +83,6 @@ package({
   'j-hui/fidget.nvim',
   event = 'LspAttach',
   config = conf.fidget,
-})
-
-package({
-  'VidocqH/lsp-lens.nvim',
-  event = 'LspAttach',
-  opts = {
-    enable = false,
-  },
-})
-
-package({
-  'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-  event = 'LspAttach',
-  enabled = false,
-  config = conf.lsp_lines,
 })
 
 package({

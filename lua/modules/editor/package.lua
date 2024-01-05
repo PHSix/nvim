@@ -114,12 +114,6 @@ package({
   config = true,
 })
 
-package({
-  'sindrets/diffview.nvim',
-  event = 'BufRead',
-  config = conf.diffview,
-})
-
 --- [[
 --- co — choose ours
 --- ct — choose theirs
@@ -128,7 +122,12 @@ package({
 --- ]x — move to previous conflict
 --- [x — move to next conflict
 --- ]]
-package({ 'akinsho/git-conflict.nvim', version = '*', config = true, event = 'BufRead' })
+package({
+  'akinsho/git-conflict.nvim',
+  version = '*',
+  config = true,
+  event = 'BufRead',
+})
 
 package({
   'ojroques/nvim-osc52',
@@ -139,4 +138,10 @@ package({
   'sontungexpt/stcursorword',
   event = 'VeryLazy',
   config = true,
+})
+
+package({
+  'numToStr/Comment.nvim',
+  config = conf.comment_nvim,
+  lazy = true,
 })

@@ -5,4 +5,3 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end,
 })
 
-_G.lazy_file_events = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }

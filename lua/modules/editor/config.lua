@@ -5,33 +5,19 @@ function config.nvim_treesitter()
   vim.api.nvim_command('set foldmethod=expr')
   vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
   require('nvim-treesitter.configs').setup({
-    ensure_installed = 'all',
-    ignore_install = { 'phpdoc' },
+    ensure_installed = { 'javascript', 'tsx', 'lua', 'markdown', 'go' },
+    auto_install = false,
     highlight = {
       enable = true,
-    },
-    disable = function(_, buf)
-      local max_filesize = 30 * 1024 -- 30 KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
-        return true
-      end
-    end,
-    textobjects = {
-      select = {
-        enable = true,
-        keymaps = {
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
-        },
-      },
+      disable = function(_, buf)
+        return vim.api.nvim_buf_line_count(buf) > 5000
+      end,
     },
   })
   vim.g.skip_ts_context_commentstring_module = true
+
   require('ts_context_commentstring').setup({ enable_autocmd = true })
-  require('wildfire').setup()
+
   lazy.load({
     plugins = { 'Comment.nvim' },
   })
@@ -111,8 +97,14 @@ function config.nvim_osc52()
   vim.keymap.set('v', 'fy', require('osc52').copy_visual)
 end
 
-function config.diffview()
-  require('diffview').setup()
+function config.comment_nvim()
+  require('Comment').setup({
+    mappings = {
+      basic = true,
+      extra = false,
+    },
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  })
 end
 
 return config

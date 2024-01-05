@@ -19,25 +19,6 @@ package({
 })
 
 package({
-  'echasnovski/mini.comment',
-  event = { 'VeryLazy' },
-  config = conf.comment,
-  enabled = false,
-})
-
-package({
-  'numToStr/Comment.nvim',
-  config = conf.comment_nvim,
-  lazy = true,
-})
-
-package({
-  'sustech-data/wildfire.nvim',
-  dependencies = { 'nvim-treesitter/nvim-treesitter' },
-  lazy = true,
-})
-
-package({
   'tpope/vim-surround',
   keys = { 'd', 'c' },
 })
@@ -52,12 +33,4 @@ package({
   'simeji/winresizer',
   key = '<C-t>',
   config = conf.winresizer,
-})
-
-package({
-  'vidocqh/auto-indent.nvim',
-  -- disable because it conflict with luasnip
-  enabled = false,
-  event = { 'InsertEnter' },
-  opts = {},
 })
