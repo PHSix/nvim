@@ -57,8 +57,6 @@ function config.mason()
   local cmd_dependencies = {
     'stylua',
     'black',
-    'eslint_d',
-    'cspell',
   }
 
   for _, cmd in ipairs(cmd_dependencies) do
@@ -127,7 +125,7 @@ function config.nvim_lsp()
         return
       end
 
-      client.server_capabilities.semanticTokensProvider = nil
+      -- client.server_capabilities.semanticTokensProvider = nil
     end,
   })
 
@@ -162,26 +160,7 @@ function config.nvim_lsp()
   })
 
   vim.diagnostic.config({ virtual_text = false })
-
-  -- config.none_ls()
 end
-
-function config.coq()
-  require('coq_3p')({
-    { src = 'nvimlua', short_name = 'nLUA' },
-  })
-  vim.g.coq_settings = {
-    ['keymap.pre_select'] = true,
-    ['auto_start'] = true,
-    ['display.ghost_text.enabled'] = false,
-    ['display.pum.fast_close'] = false,
-    ['display.preview.border'] = 'single',
-    ['display.preview.positions'] = { north = 2, south = 4, west = 3, east = 1 },
-    ['display.icons.mode'] = 'long',
-  }
-end
-
-function config.ddc() end
 
 function config.nvim_cmp()
   local nvim_cmp = require('cmp')
@@ -330,13 +309,9 @@ function config.lspsaga()
     },
     diagnostic = {
       diagnostic_only_current = true,
+      border_follow = false,
     },
   })
-end
-
-function config.lsp_lines()
-  require('lsp_lines').setup()
-  vim.diagnostic.config({ virtual_text = false })
 end
 
 function config.ufo()

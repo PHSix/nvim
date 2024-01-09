@@ -17,11 +17,15 @@ nmap({ '<leader>bd', cmd('Bdelete'), opts(noremap, silent) })
 nmap({
   { '<C-j>', '3j', opts(silent) },
   { '<C-k>', '3k', opts(silent) },
+  { '<C-h>', '4h', opts(silent) },
+  { '<C-l>', '4l', opts(silent) },
 })
 
 vmap({
   { '<C-j>', '3j', opts(silent) },
   { '<C-k>', '3k', opts(silent) },
+  { '<C-h>', '4h', opts(silent) },
+  { '<C-l>', '4l', opts(silent) },
 })
 
 nmap({
@@ -59,8 +63,8 @@ nmap({
   { '<C-n>', cmd('Neotree toggle reveal'), opts(noremap, silent) },
 
   -- Lspsaga
-  { ']d', cmd('Lspsaga diagnostic_jump_next'), opts(noremap, silent) },
-  { '[d', cmd('Lspsaga diagnostic_jump_prev'), opts(noremap, silent) },
+  { '<leader>j', cmd('Lspsaga diagnostic_jump_next'), opts(noremap, silent) },
+  { '<leader>k', cmd('Lspsaga diagnostic_jump_prev'), opts(noremap, silent) },
   { 'gd', cmd('Lspsaga peek_definition'), opts(noremap, silent) },
   { 'gy', cmd('Glance type_definitions'), opts(noremap, silent) },
   { 'gr', cmd('Glance references'), opts(noremap, silent) },
