@@ -111,7 +111,12 @@ function config.nvim_lsp()
 
   require('neodev').setup()
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local capabilities = vim.tbl_deep_extend(
+    'force',
+    vim.lsp.protocol.make_client_capabilities(),
+    {}
+    -- require('epo').register_cap()
+  )
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
@@ -129,6 +134,15 @@ function config.nvim_lsp()
     end,
   })
 
+  require('typescript-tools').setup({
+    settings = {
+      jsx_close_tag = {
+        enable = true,
+        filetypes = { 'javascriptreact', 'typescriptreact' },
+      },
+    },
+  })
+
   for _, service in ipairs(lsp_services) do
     local _opts = service.opts or {}
 
@@ -140,13 +154,8 @@ function config.nvim_lsp()
     }))
   end
 
-  require('typescript-tools').setup({
-    settings = {
-      jsx_close_tag = {
-        enable = true,
-        filetypes = { 'javascriptreact', 'typescriptreact' },
-      },
-    },
+  require('lspconfig')['typescript-tools'].setup({
+    capabilities = capabilities,
   })
 
   vim.lsp.handlers['textDocument/diagnostic'] = vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
@@ -160,141 +169,6 @@ function config.nvim_lsp()
   })
 
   vim.diagnostic.config({ virtual_text = false })
-end
-
-function config.nvim_cmp()
-  local nvim_cmp = require('cmp')
-  local kind_icons = {
-    Text = '',
-    Method = '󰆧',
-    Function = '󰊕',
-    Constructor = '',
-    Field = '󰇽',
-    Variable = '󰂡',
-    Class = '󰠱',
-    Interface = '',
-    Module = '',
-    Property = '󰜢',
-    Unit = '',
-    Value = '󰎠',
-    Enum = '',
-    Keyword = '󰌋',
-    Snippet = '',
-    Color = '󰏘',
-    File = '󰈙',
-    Reference = '',
-    Folder = '󰉋',
-    EnumMember = '',
-    Constant = '󰏿',
-    Struct = '',
-    Event = '',
-    Operator = '󰆕',
-    TypeParameter = '󰅲',
-  }
-
-  --- @type cmp.ComparatorFunction
-  local types = require('cmp.types')
-  local function keyword_up_compare(entry1, entry2)
-    local k1 = entry1:get_kind() == types.lsp.CompletionItemKind.Keyword
-    local k2 = entry2:get_kind() == types.lsp.CompletionItemKind.Keyword
-
-    if k1 and k2 then
-      return nil
-    elseif k1 then
-      return false
-    elseif k2 then
-      return true
-    end
-  end
-
-  nvim_cmp.setup({
-    enabled = function()
-      return vim.bo.buflisted
-    end,
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body)
-      end,
-    },
-    completion = {
-      completeopt = 'menu,menuone,noinsert',
-      keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
-    },
-    window = {
-      completion = nvim_cmp.config.window.bordered({ border = 'single' }),
-      documentation = nvim_cmp.config.window.bordered({ border = 'single' }),
-    },
-    sources = nvim_cmp.config.sources({
-      { name = 'luasnip' },
-      {
-        name = 'nvim_lsp',
-        entry_filter = function(entry, _)
-          return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
-        end,
-      },
-      { name = 'path' },
-      { name = 'nvim_lua' },
-      { name = 'buffer' },
-    }),
-    mapping = nvim_cmp.mapping.preset.insert({
-      ['C-d'] = nvim_cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = nvim_cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = nvim_cmp.mapping.complete(),
-      ['<CR>'] = nvim_cmp.mapping.confirm({ select = true }),
-    }),
-    formatting = {
-      format = function(entry, vim_item)
-        -- Kind icons
-        vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-        -- Source
-        vim_item.menu = ({
-          buffer = '[Buffer]',
-          nvim_lsp = '[LSP]',
-          luasnip = '[LuaSnip]',
-          nvim_lua = '[Lua]',
-          latex_symbols = '[LaTeX]',
-        })[entry.source.name]
-
-        return vim_item
-      end,
-    },
-    sorting = {
-      comparators = {
-        nvim_cmp.config.compare.offset,
-        nvim_cmp.config.compare.exact,
-        nvim_cmp.config.compare.score,
-        nvim_cmp.config.compare.recently_used,
-        nvim_cmp.config.compare.kind,
-        nvim_cmp.config.compare.order,
-
-        keyword_up_compare,
-      },
-    },
-  })
-end
-
-function config.luasnip()
-  local snip_path = '~/.config/nvim/luasnips'
-  require('luasnip.loaders.from_snipmate').load()
-  require('luasnip.loaders.from_lua').load({ paths = snip_path })
-  require('luasnip').filetype_extend('typescriptreact', { 'typescript', 'javascript' })
-  require('luasnip').filetype_extend('typescript', { 'javascript' })
-
-  vim.api.nvim_create_user_command('LuaSnipEdit', function()
-    local uv = vim.loop
-
-    uv.fs_access(
-      snip_path,
-      'R',
-      vim.schedule_wrap(function(err, permission)
-        if err ~= nil or permission == false then
-          vim.cmd(string.format('!touch %s/%s.lua', snip_path, vim.bo.filetype))
-          require('luasnip.loaders.from_lua').load({ paths = snip_path })
-        end
-        require('luasnip.loaders').edit_snippet_files()
-      end)
-    )
-  end, { desc = 'Edit LuaSnip in lua.' })
 end
 
 function config.lspsaga()
@@ -326,15 +200,6 @@ function config.ufo()
   require('ufo').setup()
 end
 
-function config.fidget()
-  require('fidget').setup({
-    progress = {
-      ignore_empty_message = false,
-      ignore = { 'null-ls' },
-    },
-  })
-end
-
 function config.go_nvim()
   require('go').setup()
 
@@ -348,6 +213,65 @@ function config.go_nvim()
     end,
     group = format_sync_grp,
   })
+end
+
+function config.epo()
+  -- suggested completeopt
+  vim.opt.completeopt = 'menu,menuone,noselect'
+
+  -- default settings
+  require('epo').setup({
+    -- fuzzy match
+    fuzzy = true,
+    -- increase this value can aviod trigger complete when delete character.
+    debounce = 50,
+    -- when completion confrim auto show a signature help floating window.
+    signature = false,
+    -- vscode style json snippet path
+    snippet_path = '/Users/ph/.config/nvim/vsc_snippets',
+    -- border for lsp signature popup, :h nvim_open_win
+    signature_border = 'rounded',
+    -- lsp kind formatting, k is kind string "Field", "Struct", "Keyword" etc.
+    kind_format = function(k)
+      return k
+    end,
+  })
+
+  -- For using enter as completion, may conflict with some autopair plugin
+  vim.keymap.set('i', '<cr>', function()
+    if vim.fn.pumvisible() == 1 then
+      return '<C-y>'
+    end
+
+    return '<cr>'
+  end, { expr = true, noremap = true })
+
+  vim.keymap.set('i', '<TAB>', function()
+    if vim.fn.pumvisible() == 1 then
+      return '<C-n>'
+    elseif vim.snippet.jumpable(1) then
+      return '<cmd>lua vim.snippet.jump(1)<cr>'
+    else
+      return '<TAB>'
+    end
+  end, { expr = true })
+
+  vim.keymap.set('i', '<S-TAB>', function()
+    if vim.fn.pumvisible() == 1 then
+      return '<C-p>'
+    elseif vim.snippet.jumpable(-1) then
+      return '<cmd>lua vim.snippet.jump(-1)<CR>'
+    else
+      return '<S-TAB>'
+    end
+  end, { expr = true })
+
+  vim.keymap.set('i', '<C-e>', function()
+    if vim.fn.pumvisible() == 1 then
+      require('epo').disable_trigger()
+    end
+    return '<C-e>'
+  end, { expr = true })
 end
 
 return config

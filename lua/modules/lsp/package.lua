@@ -21,6 +21,15 @@ package({
   config = conf.nvim_lsp,
 })
 
+vim.g.coq_settings = {
+  ['keymap.pre_select'] = true,
+  ['auto_start'] = true,
+}
+
+package({
+  'ms-jpq/coq_nvim',
+})
+
 package({
   'glepnir/lspsaga.nvim',
   event = 'BufRead',
@@ -29,59 +38,9 @@ package({
 })
 
 package({
-  'hrsh7th/nvim-cmp',
-  config = conf.nvim_cmp,
-  event = 'InsertEnter',
-  dependencies = {
-    { 'hrsh7th/cmp-nvim-lsp', lazy = true },
-    { 'hrsh7th/cmp-path', lazy = true },
-    { 'hrsh7th/cmp-buffer', lazy = true },
-    { 'hrsh7th/cmp-nvim-lua', lazy = true },
-    { 'saadparwaiz1/cmp_luasnip', lazy = true },
-  },
-})
-
-package({
-  'L3MON4D3/LuaSnip',
-  build = 'make install_jsregexp',
-  opts = {
-    history = true,
-    delete_check_events = 'TextChanged',
-  },
-  lazy = true,
-  cmd = { 'LuaSnipEdit' },
-  config = conf.luasnip,
-  keys = {
-    {
-      '<tab>',
-      function()
-        return require('luasnip').jumpable(1) and '<Plug>luasnip-jump-next' or '<tab>'
-      end,
-      expr = true,
-      silent = true,
-      mode = 'i',
-    },
-    {
-      '<tab>',
-      function()
-        require('luasnip').jump(1)
-      end,
-      mode = 's',
-    },
-    {
-      '<s-tab>',
-      function()
-        require('luasnip').jump(-1)
-      end,
-      mode = { 'i', 's' },
-    },
-  },
-})
-
-package({
-  'j-hui/fidget.nvim',
-  event = 'LspAttach',
-  config = conf.fidget,
+  'nvimdev/epo.nvim',
+  config = conf.epo,
+  enabled = false,
 })
 
 package({
