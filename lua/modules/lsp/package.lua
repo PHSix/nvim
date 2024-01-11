@@ -24,10 +24,17 @@ package({
 vim.g.coq_settings = {
   ['keymap.pre_select'] = true,
   ['auto_start'] = true,
+  ['display.pum.fast_close'] = false,
+  ['clients.tags.enabled'] = false,
+  ['clients.registers.enabled'] = false,
+  ['clients.tmux.enabled'] = false,
+  ['clients.buffers.enabled'] = false,
+  ['clients.tree_sitter.enabled'] = false,
 }
 
 package({
   'ms-jpq/coq_nvim',
+  enabled = false,
 })
 
 package({
@@ -40,7 +47,6 @@ package({
 package({
   'nvimdev/epo.nvim',
   config = conf.epo,
-  enabled = false,
 })
 
 package({

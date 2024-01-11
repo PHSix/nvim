@@ -114,8 +114,8 @@ function config.nvim_lsp()
   local capabilities = vim.tbl_deep_extend(
     'force',
     vim.lsp.protocol.make_client_capabilities(),
-    {}
-    -- require('epo').register_cap()
+    -- {}
+    require('epo').register_cap()
   )
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.foldingRange = {

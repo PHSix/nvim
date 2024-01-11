@@ -1,0 +1,11 @@
+{
+  "clg": {
+    "prefix": "clg",
+    "body": "console.log(${0})",
+    "description": ["console.log something."]
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": ["function ${1}(${2}) {\n${0} \n}"]
+  }
+}
