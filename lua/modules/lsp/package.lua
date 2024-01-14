@@ -16,7 +16,6 @@ package({
   dependencies = {
     { 'b0o/schemastore.nvim', lazy = true },
     { 'pmizio/typescript-tools.nvim', lazy = true },
-    { 'folke/neodev.nvim', lazy = true },
   },
   config = conf.nvim_lsp,
 })
@@ -45,7 +44,7 @@ package({
 })
 
 package({
-  'nvimdev/epo.nvim',
+  'PHSix/epo.nvim',
   config = conf.epo,
 })
 
