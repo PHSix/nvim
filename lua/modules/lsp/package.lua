@@ -45,11 +45,6 @@ package({
 })
 
 package({
-  'nvimdev/epo.nvim',
-  config = conf.epo,
-})
-
-package({
   'DNLHC/glance.nvim',
   cmd = { 'Glance' },
   config = true,

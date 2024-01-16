@@ -109,13 +109,10 @@ function config.nvim_lsp()
 
   local lspconfig = require('lspconfig')
 
-  require('neodev').setup()
-
   local capabilities = vim.tbl_deep_extend(
     'force',
     vim.lsp.protocol.make_client_capabilities(),
-    -- {}
-    require('epo').register_cap()
+    {}
   )
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.foldingRange = {
@@ -213,65 +210,6 @@ function config.go_nvim()
     end,
     group = format_sync_grp,
   })
-end
-
-function config.epo()
-  -- suggested completeopt
-  vim.opt.completeopt = 'menu,menuone,noselect'
-
-  -- default settings
-  require('epo').setup({
-    -- fuzzy match
-    fuzzy = true,
-    -- increase this value can aviod trigger complete when delete character.
-    debounce = 50,
-    -- when completion confrim auto show a signature help floating window.
-    signature = false,
-    -- vscode style json snippet path
-    snippet_path = '/Users/ph/.config/nvim/vsc_snippets',
-    -- border for lsp signature popup, :h nvim_open_win
-    signature_border = 'rounded',
-    -- lsp kind formatting, k is kind string "Field", "Struct", "Keyword" etc.
-    kind_format = function(k)
-      return k
-    end,
-  })
-
-  -- For using enter as completion, may conflict with some autopair plugin
-  vim.keymap.set('i', '<cr>', function()
-    if vim.fn.pumvisible() == 1 then
-      return '<C-y>'
-    end
-
-    return '<cr>'
-  end, { expr = true, noremap = true })
-
-  vim.keymap.set('i', '<TAB>', function()
-    if vim.fn.pumvisible() == 1 then
-      return '<C-n>'
-    elseif vim.snippet.jumpable(1) then
-      return '<cmd>lua vim.snippet.jump(1)<cr>'
-    else
-      return '<TAB>'
-    end
-  end, { expr = true })
-
-  vim.keymap.set('i', '<S-TAB>', function()
-    if vim.fn.pumvisible() == 1 then
-      return '<C-p>'
-    elseif vim.snippet.jumpable(-1) then
-      return '<cmd>lua vim.snippet.jump(-1)<CR>'
-    else
-      return '<S-TAB>'
-    end
-  end, { expr = true })
-
-  vim.keymap.set('i', '<C-e>', function()
-    if vim.fn.pumvisible() == 1 then
-      require('epo').disable_trigger()
-    end
-    return '<C-e>'
-  end, { expr = true })
 end
 
 return config

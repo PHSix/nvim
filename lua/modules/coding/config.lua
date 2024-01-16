@@ -63,9 +63,9 @@ function config.conform()
   pcall(require, 'mason')
   require('conform').setup({
     formatters_by_ft = formatters_by_ft,
-    format_after_save = {
-      lsp_fallback = false,
-    },
+    -- format_after_save = {
+    --   lsp_fallback = false,
+    -- },
   })
 
   local function format()
