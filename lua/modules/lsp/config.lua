@@ -3,19 +3,21 @@ local config = {}
 local lsp_services = {
   {
     server = 'lua_ls',
-    opts = {
-      settings = {
-        Lua = {
-          completion = {
-            callSnippet = 'Replace',
-          },
-          workspace = {
-
-            checkThirdParty = false,
+    opts = function()
+      return {
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = 'Replace',
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = vim.api.nvim_get_runtime_file('', true),
+            },
           },
         },
-      },
-    },
+      }
+    end,
   },
   {
     server = 'jsonls',
@@ -45,7 +47,7 @@ local lsp_services = {
   { server = 'cssls' },
   { server = 'pyright' },
   { server = 'gopls', useLocal = true },
-  { server = 'tailwindcss' },
+  -- { server = 'tailwindcss' },
   { server = 'angularls' },
   { server = 'html' },
   { server = 'volar' },
@@ -127,7 +129,7 @@ function config.nvim_lsp()
         return
       end
 
-      -- client.server_capabilities.semanticTokensProvider = nil
+      client.server_capabilities.semanticTokensProvider = true
     end,
   })
 
