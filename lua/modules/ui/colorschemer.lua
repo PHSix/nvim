@@ -1,7 +1,7 @@
 local package = require('core.pack').package
-local spec_colorscheme = 'edge'
+local spec_colorscheme = 'github_dark_default'
 
-local use_light = true
+local use_light = false
 
 --- random get one of list in day
 --- @generic T
@@ -24,6 +24,7 @@ return function()
     -- { spec = '2nthony/vitesse.nvim', 'vitesse' },
     { spec = 'PHSix/vitesse.nvim', 'vitesse' },
     { spec = 'sainnhe/everforest', 'everforest' },
+    { spec = 'projekt0n/github-nvim-theme', 'github_dark' },
     {
       spec = 'olimorris/onedarkpro.nvim',
       config = function()

@@ -44,4 +44,11 @@ package({
   },
 })
 
-require('modules.ui.colorschemer')()
+package({
+  'projekt0n/github-nvim-theme',
+  config = function()
+    vim.cmd([[colorscheme github_dark]])
+  end,
+})
+
+-- require('modules.ui.colorschemer')()
