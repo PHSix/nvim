@@ -28,8 +28,11 @@ function config.telescope()
       live_grep = {
         theme = 'ivy',
       },
-      lsp_dynamic_workspace_symbols = {
-        theme = 'ivy',
+      oldfiles = {
+        theme = 'ivy'
+      },
+      find_files = {
+        theme = 'ivy'
       },
     },
     extensions = {

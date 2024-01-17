@@ -14,6 +14,7 @@
   "semanticTokens.enable": true,
   "snippets.snipmate.enable": true,
   "explorer.position": "right",
+  "snippets.ultisnips.enable": false,
   "explorer.git.enable": false,
   "explorer.diagnostic.enableSubscriptNumber": false,
   "explorer.keyMappings.global": {
@@ -27,6 +28,5 @@
     }
   ],
   "explorer.icon.enableNerdfont": true,
-  "eslint.autoFixOnSave": true,
   "coc.preferences.formatOnSave": true
 }

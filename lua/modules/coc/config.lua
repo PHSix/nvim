@@ -11,17 +11,10 @@ vim.g.coc_global_extensions = {
   'coc-explorer',
   'coc-pairs',
   'coc-go',
-  'coc-eslint',
 }
 
 function config.coc()
   vim.api.nvim_set_keymap('i', '<C-Space>', 'coc#refresh()', { silent = true, expr = true })
-  -- vim.api.nvim_set_keymap(
-  -- 	"i",
-  -- 	"<TAB>",
-  -- 	"pumvisible() ? '<C-n>' : '<TAB>'",
-  -- 	{ noremap = true, silent = true, expr = true }
-  -- )
   vim.api.nvim_set_keymap('i', '<S-TAB>', "pumvisible() ? '<C-p>' : '<C-h>'", { noremap = true, expr = true })
   vim.api.nvim_set_keymap('n', 'K', "<Cmd>call CocActionAsync('doHover')<CR>", { silent = true, noremap = true })
   vim.api.nvim_set_keymap('n', '<F2>', '<Plug>(coc-rename)', {})
@@ -70,8 +63,6 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
       end, 100)
     end,
   })
-
-  vim.keymap.set('n', '<M-x>', '<Cmd>Telescope coc commands<CR>', { silent = true })
 
   vim.keymap.set("n", "<C-n>", "<Cmd>CocTree<CR>", {silent = true})
 

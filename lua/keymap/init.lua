@@ -53,8 +53,6 @@ nmap({
   { '<Leader>fw', cmd('Telescope live_grep'), opts(noremap, silent) },
   { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
   { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
-  { '<leader>fd', cmd('Telescope diagnostics'), opts(noremap, silent) },
-  -- { '<leader>fs', cmd('Telescope lsp_dynamic_workspace_symbols'), opts(noremap, silent) },
   { '<leader>ft', cmd('Telescope todo-comments'), opts(noremap, silent) },
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },

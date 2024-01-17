@@ -31,12 +31,6 @@ package({
 })
 
 package({
-  'ahmedkhalf/project.nvim',
-  event = 'BufRead',
-  config = conf.project,
-})
-
-package({
   'folke/flash.nvim',
   lazy = true,
   opts = {},
@@ -123,13 +117,14 @@ package({
 })
 
 package({
-  'sontungexpt/stcursorword',
-  event = 'VeryLazy',
-  config = true,
-})
-
-package({
   'numToStr/Comment.nvim',
   config = conf.comment_nvim,
   lazy = true,
+})
+
+vim.g.floaterm_keymap_toggle = "<C-t>"
+
+package({
+  'voldikss/vim-floaterm',
+  keys = "<C-t>",
 })

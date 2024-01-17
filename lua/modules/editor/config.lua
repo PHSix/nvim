@@ -25,23 +25,6 @@ function config.nvim_treesitter()
   })
 end
 
-function config.neo_tree()
-  require('neo-tree').setup({
-    close_if_last_window = true,
-    window = {
-      position = 'right',
-      width = 35,
-      mappings = {
-        ['o'] = { 'open' },
-      },
-    },
-  })
-end
-
-function config.project()
-  require('project_nvim').setup({})
-end
-
 function config.lastplace()
   require('nvim-lastplace').setup({
     lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
