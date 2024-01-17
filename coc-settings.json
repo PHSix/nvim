@@ -13,6 +13,13 @@
   },
   "semanticTokens.enable": true,
   "snippets.snipmate.enable": true,
+  "explorer.position": "right",
+  "explorer.git.enable": false,
+  "explorer.diagnostic.enableSubscriptNumber": false,
+  "explorer.keyMappings.global": {
+    "s": "open:vsplit",
+    "S": "open:split"
+  },
   "explorer.sources": [
     {
       "name": "file",
@@ -20,5 +27,6 @@
     }
   ],
   "explorer.icon.enableNerdfont": true,
-  "explorer.icon.source": "nvim-web-devicons"
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSave": true
 }

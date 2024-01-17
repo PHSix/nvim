@@ -10,6 +10,8 @@ vim.g.coc_global_extensions = {
   'coc-snippets',
   'coc-explorer',
   'coc-pairs',
+  'coc-go',
+  'coc-eslint',
 }
 
 function config.coc()
@@ -70,6 +72,8 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
   })
 
   vim.keymap.set('n', '<M-x>', '<Cmd>Telescope coc commands<CR>', { silent = true })
+
+  vim.keymap.set("n", "<C-n>", "<Cmd>CocTree<CR>", {silent = true})
 
   vim.api.nvim_create_user_command('CocTree', function()
     vim.cmd([[CocCommand explorer --position right]])

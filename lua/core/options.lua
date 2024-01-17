@@ -15,7 +15,7 @@ opt.history = 2000
 opt.ignorecase = true
 opt.smartcase = true
 opt.infercase = true
-opt.spell = true
+opt.spell = false
 opt.spelllang = 'en,cjk'
 
 if vim.fn.executable('rg') == 1 then

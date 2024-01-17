@@ -59,9 +59,6 @@ nmap({
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
-  -- Neotree
-  { '<C-n>', cmd('Neotree toggle reveal'), opts(noremap, silent) },
-
   -- Gitsigns
   { '<leader>gp', cmd('Gitsigns preview_hunk'), opts(noremap, silent) },
   { '<leader>gs', cmd('Gitsigns stage_hunk'), opts(noremap, silent) },
