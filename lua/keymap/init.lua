@@ -8,7 +8,7 @@ local cmd = keymap.cmd
 -- Use space as leader key
 vim.g.mapleader = ' '
 
-nmap({ ';', ':', opts(silent) })
+nmap({ ';', ':', opts() })
 xmap({ ';', ':', opts(silent) })
 
 -- buffer delete
@@ -54,27 +54,13 @@ nmap({
   { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
   { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
   { '<leader>fd', cmd('Telescope diagnostics'), opts(noremap, silent) },
-  { '<leader>fs', cmd('Telescope lsp_dynamic_workspace_symbols'), opts(noremap, silent) },
+  -- { '<leader>fs', cmd('Telescope lsp_dynamic_workspace_symbols'), opts(noremap, silent) },
   { '<leader>ft', cmd('Telescope todo-comments'), opts(noremap, silent) },
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
   -- Neotree
   { '<C-n>', cmd('Neotree toggle reveal'), opts(noremap, silent) },
-
-  -- Lspsaga
-  { '<leader>j', cmd('Lspsaga diagnostic_jump_next'), opts(noremap, silent) },
-  { '<leader>k', cmd('Lspsaga diagnostic_jump_prev'), opts(noremap, silent) },
-  { 'gd', cmd('Lspsaga peek_definition'), opts(noremap, silent) },
-  { 'gy', cmd('Glance type_definitions'), opts(noremap, silent) },
-  { 'gr', cmd('Glance references'), opts(noremap, silent) },
-  { 'K', vim.lsp.buf.hover, opts(noremap, silent) },
-  { '<leader>rn', cmd('Lspsaga rename'), opts(noremap, silent) },
-  { '<leader>ca', cmd('Lspsaga code_action'), opts(noremap, silent) },
-  { '<C-t>', cmd('Lspsaga term_toggle'), opts(noremap, silent) },
-
-  -- conform.nvim
-  { '<leader>cf', cmd('Format'), opts(noremap, silent) },
 
   -- Gitsigns
   { '<leader>gp', cmd('Gitsigns preview_hunk'), opts(noremap, silent) },
@@ -84,6 +70,17 @@ nmap({
 
   -- Spectre
   { '<leader>sw', cmd('Spectre'), opts(noremap, silent) },
+
+  -- coc
+  { "<leader>cf", cmd("CocFormat"), opts(noremap, silent) },
+  { "<leader>rn", '<Plug>(coc-rename)', opts(noremap, silent) },
+  { "<leader>ca", '<Plug>(coc-codeaction)', opts(noremap, silent) },
+  { "<leader>j", '<Plug>(coc-diagnostic-next)', opts(noremap, silent) },
+  { "<leader>k", '<Plug>(coc-diagnostic-prev)', opts(noremap, silent) },
+  { "gd", '<Plug>(coc-definition)', opts(noremap, silent) },
+  { "gr", '<Plug>(coc-references)', opts(noremap, silent) },
+  { "gy", '<Plug>(coc-type-definition)', opts(noremap, silent) },
+  { "gi", '<Plug>(coc-implementation)', opts(noremap, silent) },
 })
 
 tmap({ '<C-t>', '<C-\\><C-n><CMD>Lspsaga term_toggle<CR>' })

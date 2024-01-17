@@ -1,0 +1,24 @@
+{
+  "diagnostic.floatConfig": {
+    "border": true,
+    "title": "diagnostic",
+    "rounded": true
+  },
+  "hover.floatConfig": {
+    "border": true,
+    "title": "hover doc"
+  },
+  "signature.floatConfig": {
+    "shadow": true
+  },
+  "semanticTokens.enable": true,
+  "snippets.snipmate.enable": true,
+  "explorer.sources": [
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.source": "nvim-web-devicons"
+}

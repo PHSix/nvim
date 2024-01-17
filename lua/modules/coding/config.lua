@@ -42,10 +42,6 @@ function config.telescope()
   require('telescope').load_extension('fzy_native')
 end
 
-function config.pairs()
-  require('mini.pairs').setup()
-end
-
 function config.conform()
   local formatters_by_ft = {
     lua = { 'stylua' },

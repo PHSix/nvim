@@ -5,8 +5,6 @@ opt.termguicolors = true
 opt.hidden = true
 opt.magic = true
 opt.virtualedit = 'block'
--- opt.clipboard = 'unnamedplus'
-opt.wildignorecase = true
 opt.swapfile = false
 opt.directory = cache_dir .. 'swap/'
 opt.undodir = cache_dir .. 'undo/'
@@ -14,12 +12,6 @@ opt.backupdir = cache_dir .. 'backup/'
 opt.viewdir = cache_dir .. 'view/'
 opt.spellfile = cache_dir .. 'spell/en.uft-8.add'
 opt.history = 2000
--- opt.timeout = true
--- opt.ttimeout = true
--- opt.timeoutlen = 500
--- opt.ttimeoutlen = 10
--- opt.updatetime = 100
--- opt.redrawtime = 1500
 opt.ignorecase = true
 opt.smartcase = true
 opt.infercase = true
@@ -31,8 +23,7 @@ if vim.fn.executable('rg') == 1 then
   opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
 
--- opt.completeopt = 'menu,menuone'
-opt.showmode = false
+opt.showmode = true
 opt.shortmess = 'aoOTIcF'
 opt.scrolloff = 2
 opt.sidescrolloff = 5
@@ -86,7 +77,8 @@ if vim.loop.os_uname().sysname == 'Darwin' then
     cache_enabled = 0,
   }
   vim.g.python_host_prog = '/usr/bin/python'
-  vim.g.python3_host_prog = '/usr/local/bin/python3'
+  -- vim.g.python3_host_prog = '/usr/local/bin/python3'
+  vim.g.python3_host_prog = '/opt/homebrew/bin/python3'
 end
 opt.cursorline = true
 

@@ -35,7 +35,8 @@ package({
 
 package({
   'folke/noice.nvim',
-  config = conf.noice,
+  config       = conf.noice,
+  enabled      = false,
   dependencies = {
     {
       'MunifTanjim/nui.nvim',
@@ -45,9 +46,9 @@ package({
 })
 
 package({
-  'projekt0n/github-nvim-theme',
+  'NTBBloodbath/doom-one.nvim',
   config = function()
-    vim.cmd([[colorscheme github_dark]])
+    vim.cmd([[colorscheme doom-one]])
   end,
 })
 

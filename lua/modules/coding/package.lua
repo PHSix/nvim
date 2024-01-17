@@ -11,13 +11,6 @@ package({
   },
 })
 
-package({ 'echasnovski/mini.pairs', config = conf.pairs })
-
-package({
-  'stevearc/conform.nvim',
-  config = conf.conform,
-})
-
 package({
   'tpope/vim-surround',
   keys = { 'd', 'c' },
@@ -31,6 +24,6 @@ package({
 
 package({
   'simeji/winresizer',
-  key = '<C-t>',
+  key = '<C-e>',
   config = conf.winresizer,
 })
