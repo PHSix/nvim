@@ -34,6 +34,15 @@ function config.telescope()
       find_files = {
         theme = 'ivy'
       },
+      buffers = {
+        theme = 'ivy'
+      },
+      commands = {
+        theme = 'ivy'
+      },
+      ['todo-comments'] = {
+        theme = 'ivy'
+      },
     },
     extensions = {
       fzy_native = {

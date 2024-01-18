@@ -62,21 +62,12 @@
   "explorer.keyMappings.global": {
     "s": "open:vsplit",
     "S": "open:split",
-    "o": [
-      "wait",
-      "expandable?",
-      [
-        "expanded?",
-        "collapse",
-        "expand"
-      ],
-      "open"
-    ],
+    "o": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"],
 
     "d": "delete",
     "x": "cutFile",
 
-    "H": "toggleHidden",
+    "H": "toggleHidden"
   },
   "explorer.sources": [
     {
@@ -88,5 +79,5 @@
   "[go]": {
     "coc.preferences.formatOnSave": true
   },
-  "go.goplsPath": "/opt/homebrew/bin/gopls",
+  "nil.formatting.command": ["nixpkgs-fmt"],
 }
