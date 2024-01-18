@@ -50,7 +50,8 @@ opt.shiftwidth = 2
 
 -- wrap
 opt.linebreak = true
-opt.whichwrap = 'h,l,<,>,[,],~'
+-- opt.whichwrap = 'h,l,<,>,[,],~'
+opt.whichwrap = '<,>,[,],~'
 opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳ '
 
