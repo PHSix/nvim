@@ -19,7 +19,7 @@
   },
   "suggest.completionItemKindLabels": {
     "constructor": "\ufb25",
-    "keyword": "Keyword \uf1de",
+    "keyword": "\uf1de",
     "variable": "\ue79b",
     "value": "\uf89f",
     "operator": "\u03a8",
@@ -80,4 +80,5 @@
     "coc.preferences.formatOnSave": true
   },
   "nil.formatting.command": ["nixpkgs-fmt"],
+  "Lua.format.enable": false
 }
