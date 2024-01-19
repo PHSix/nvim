@@ -32,6 +32,7 @@ local ensure_installed_extensions = {
   'coc-pairs',
   'coc-go',
   'coc-sumneko-lua',
+  '@yaegassy/coc-volar',
 }
 
 local function executable(cmd)
@@ -75,25 +76,16 @@ vim.g.coc_global_extensions = ensure_installed_extensions
 function config.coc()
   vim.api.nvim_set_keymap('i', '<C-Space>', 'coc#refresh()', { silent = true, expr = true })
   vim.api.nvim_set_keymap('i', '<S-TAB>', "pumvisible() ? '<C-p>' : '<C-h>'", { noremap = true, expr = true })
-  vim.api.nvim_set_keymap('n', 'K', "<Cmd>call CocActionAsync('doHover')<CR>", { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<F2>', '<Plug>(coc-rename)', {})
 
-  vim.cmd([[
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ CheckBackspace() ? "\<TAB>" :
-      \ coc#refresh()
+  vim.keymap.set('i', '<Cr>', function()
+    if vim.fn['coc#pum#visible']() == 1 then
+      return vim.fn['coc#pum#confirm']()
+    else
+      return '<Cr>'
+    end
+  end, { silent = true, noremap = true, expr = true })
 
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-		\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-]])
+  vim.g.coc_snippet_next = "<tab>"
 
   vim.api.nvim_create_augroup('coc_patch_autocmd', { clear = true })
 
@@ -129,9 +121,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
     end,
   })
 
-  vim.keymap.set('n', '<C-n>', '<Cmd>CocTree<CR>', { silent = true })
-
-  vim.api.nvim_create_user_command('CocTree', function()
+  vim.api.nvim_create_user_command('CocExplorer', function()
     vim.cmd([[CocCommand explorer --position right]])
   end, {
     desc = 'Open Coc Explorer',

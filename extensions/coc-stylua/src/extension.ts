@@ -1,4 +1,5 @@
 import {
+  CancellationToken,
   DocumentSelector,
   executable,
   ExtensionContext,
