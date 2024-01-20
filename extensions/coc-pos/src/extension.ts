@@ -7,10 +7,12 @@ import {
   TextDocument,
   events,
   languages,
+  nvim,
+  window,
   workspace,
 } from "coc.nvim";
 import debounce from "debounce";
-import { getSymbolPath } from "./utils";
+import { getFilename, getSymbolPath } from "./utils";
 
 interface GetSymbolable {
   getDocumentSymbol(
@@ -58,6 +60,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
             kind: symbol.kind,
             name: symbol.name,
           }));
+          const filename = getFilename(document.textDocument.uri);
+
+          const winbarPrefix = `%#WinBar%#WinBarPrefix %*#WinBarFilename ${filename} %*`;
 
           log.info(
             `getSymbolPath result: ${JSON.stringify(
@@ -67,6 +72,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
               }))
             )}`
           );
+
+          const winbar = symbolPath.reduce((winbar, symbol) => {
+            return winbar + `%#WinBarSep A %* ${symbol.name} `;
+          }, winbarPrefix);
+          // log.info(winbar)
+
+          // (await nvim.window).setOption("winbar", winbar);
+
           // log.info(`getSymbolPath pattern: ${JSON.stringify(symbols)}`);
         } catch (err: any) {
           log.debug(`winbar catch some error : ${err.toString()}`);

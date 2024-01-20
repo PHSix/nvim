@@ -30,7 +30,7 @@
       "type": "object",
       "title": "coc-stylua configuration",
       "properties": {
-        "coc-stylua.enabled": {
+        "coc-stylua.enable": {
           "type": "boolean",
           "default": true,
           "description": "Enable coc-stylua extension"

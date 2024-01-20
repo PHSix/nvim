@@ -149,6 +149,9 @@ function getSymbolPath(row, col, symbols, result = [], depth = 0) {
   }
   return result;
 }
+function getFilename(uri) {
+  return uri.split("/").pop() || "";
+}
 
 // src/extension.ts
 var cancelTokenSource;
@@ -178,6 +181,8 @@ async function activate(context) {
             kind: symbol.kind,
             name: symbol.name
           }));
+          const filename = getFilename(document.textDocument.uri);
+          const winbarPrefix = `%#WinBar%#WinBarPrefix %*#WinBarFilename ${filename} %*`;
           log.info(
             `getSymbolPath result: ${JSON.stringify(
               symbolPath.map((r) => ({
@@ -186,6 +191,10 @@ async function activate(context) {
               }))
             )}`
           );
+          const winbar = symbolPath.reduce((winbar2, symbol) => {
+            return winbar2 + `%#WinBarSep A %* ${symbol.name} `;
+          }, winbarPrefix);
+          log.info(winbar);
         } catch (err) {
           log.debug(`winbar catch some error : ${err.toString()}`);
         }

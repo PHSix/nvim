@@ -1,5 +1,4 @@
 import {
-  CancellationToken,
   DocumentSelector,
   executable,
   ExtensionContext,
@@ -20,46 +19,59 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   const log = context.logger;
   const selector: DocumentSelector = ["lua"];
+  let enable = true;
 
-  if (executable("stylua")) {
-    context.subscriptions.push(
-      languages.registerDocumentFormatProvider(
-        selector,
-        {
-          provideDocumentFormattingEdits(textDocument, _, token) {
-            const document = workspace.getDocument(textDocument.uri);
-            const text = textDocument.getText();
-            const activeTextEditor = window.activeTextEditor;
+  workspace.onDidChangeConfiguration(() => {
+    const value = workspace
+      .getConfiguration()
+      .get<boolean>("coc-stylua.enable");
 
-            if (activeTextEditor === void 0) return;
+    if (value) {
+      enable = value;
+    }
+  });
 
-            const folder = workspace.getWorkspaceFolder(
-              activeTextEditor.document.uri
-            );
-            const cwd = folder ? Uri.parse(folder.uri).fsPath : void 0;
+  context.subscriptions.push(
+    languages.registerDocumentFormatProvider(
+      selector,
+      {
+        provideDocumentFormattingEdits(textDocument, _, token) {
+          if (enable === false) return;
 
-            return doFormat(text, cwd)
-              .then((result) => {
-                if (token.isCancellationRequested) return void 0;
+          const document = workspace.getDocument(textDocument.uri);
+          const text = textDocument.getText();
+          const activeTextEditor = window.activeTextEditor;
 
-                const endLine = document.lineCount - 1;
-                const range = Range.create(
-                  { character: 0, line: 0 },
-                  { character: document.getline(endLine).length, line: endLine }
-                );
+          if (activeTextEditor === void 0) return;
 
-                return [TextEdit.replace(range, result)];
-              })
-              .catch(() => {
-                log.warn("stylua format failed");
-                return void 0;
-              });
-          },
+          const folder = workspace.getWorkspaceFolder(
+            activeTextEditor.document.uri
+          );
+          const cwd = folder ? Uri.parse(folder.uri).fsPath : void 0;
+
+          const binPath = workspace
+            .getConfiguration()
+            .get<string>("coc-stylua.binPath");
+
+          return doFormat(text, { cwd, binPath })
+            .then((result) => {
+              if (token.isCancellationRequested) return void 0;
+
+              const endLine = document.lineCount - 1;
+              const range = Range.create(
+                { character: 0, line: 0 },
+                { character: document.getline(endLine).length, line: endLine }
+              );
+
+              return [TextEdit.replace(range, result)];
+            })
+            .catch(() => {
+              log.warn("stylua format failed");
+              return void 0;
+            });
         },
-        999
-      )
-    );
-  } else {
-    window.showInformationMessage("not founded stylua bin in PATH");
-  }
+      },
+      999
+    )
+  );
 }

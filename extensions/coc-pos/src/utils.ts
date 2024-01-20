@@ -54,3 +54,7 @@ export function getSymbolPath(
 
   return result;
 }
+
+export function getFilename(uri: string): string {
+  return uri.split("/").pop() || "";
+}

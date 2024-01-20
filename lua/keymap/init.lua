@@ -79,3 +79,4 @@ nmap({
   { 'gy', '<Plug>(coc-type-definition)', opts(noremap, silent) },
   { 'gi', '<Plug>(coc-implementation)', opts(noremap, silent) },
 })
+
