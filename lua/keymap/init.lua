@@ -69,7 +69,7 @@ nmap({
   -- coc
   { '<leader>cf', cmd('CocFormat'), opts(noremap, silent) },
   { '<leader>rn', '<Plug>(coc-rename)', opts(noremap, silent) },
-  { '<leader>ca', '<Plug>(coc-codeaction)', opts(noremap, silent) },
+  { '<leader>ca', '<Plug>(coc-codeaction-line)', opts(noremap, silent) },
   { '<leader>j', '<Plug>(coc-diagnostic-next)', opts(noremap, silent) },
   { '<leader>k', '<Plug>(coc-diagnostic-prev)', opts(noremap, silent) },
   { '<C-n>', cmd('CocExplorer'), opts(noremap, silent) },

@@ -1,49 +1,44 @@
 {
-  "name": "coc-pos",
-  "version": "0.1.0",
-  "description": "",
-  "author": "ph <chenyi.ph@outlook.com>",
-  "license": "MIT",
-  "main": "out.js",
-  "keywords": [
-    "coc.nvim"
-  ],
-  "engines": {
-    "coc": "^0.0.82"
-  },
-  "scripts": {
-    "watch": "node esbuild.mjs --watch",
-    "build": "node esbuild.mjs",
-    "prepare": "node esbuild.mjs"
-  },
-  "devDependencies": {
-    "coc.nvim": "^0.0.83-next.18",
-    "esbuild": "^0.19.8",
-    "typescript": "^5.3.3"
-  },
-  "activationEvents": [
-    "*"
-  ],
-  "contributes": {
-    "configuration": {
-      "type": "object",
-      "title": "coc-winbar configuration",
-      "properties": {
-        "coc-winbar.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable coc-winbar extension"
-        }
-      }
-    },
-    "commands": [
-      {
-        "command": "coc-winbar.Command",
-        "title": "coc-winbar command title"
-      }
-    ]
-  },
-  "dependencies": {
-    "debounce": "^2.0.0"
-  }
+	"name": "coc-pos",
+	"version": "0.1.0",
+	"description": "",
+	"author": "ph <chenyi.ph@outlook.com>",
+	"license": "MIT",
+	"main": "out.js",
+	"keywords": [
+		"coc.nvim"
+	],
+	"engines": {
+		"coc": "^0.0.82"
+	},
+	"scripts": {
+		"watch": "node esbuild.mjs --watch",
+		"build": "node esbuild.mjs",
+		"prepare": "node esbuild.mjs"
+	},
+	"devDependencies": {
+		"coc.nvim": "^0.0.83-next.18",
+		"esbuild": "^0.19.8",
+		"typescript": "^5.3.3"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "coc-winbar configuration",
+			"properties": {
+				"coc-pos.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable coc-pos extension"
+				}
+			}
+		},
+		"commands": []
+	},
+	"dependencies": {
+		"debounce": "^2.0.0"
+	}
 }

@@ -113,7 +113,7 @@ __export(extension_exports, {
   activate: () => activate
 });
 module.exports = __toCommonJS(extension_exports);
-var import_coc = require("coc.nvim");
+var import_coc2 = require("coc.nvim");
 var import_debounce = __toESM(require_debounce());
 
 // src/utils.ts
@@ -153,52 +153,89 @@ function getFilename(uri) {
   return uri.split("/").pop() || "";
 }
 
+// src/render.ts
+var import_coc = require("coc.nvim");
+var iconMap = {
+  [import_coc.SymbolKind.File]: { icon: "\u{F0219} ", key: "File" },
+  [import_coc.SymbolKind.Module]: { icon: "\uE624 ", key: "Module" },
+  [import_coc.SymbolKind.Namespace]: { icon: "\u{F0317} ", key: "Namespace" },
+  [import_coc.SymbolKind.Package]: { icon: "\uE624 ", key: "Package" },
+  [import_coc.SymbolKind.Class]: { icon: "\u{F0317} ", key: "Class" },
+  [import_coc.SymbolKind.Method]: { icon: "\u{F01A7} ", key: "Method" },
+  [import_coc.SymbolKind.Property]: { icon: "\uE79B ", key: "Property" },
+  [import_coc.SymbolKind.Field]: { icon: "\uE716 ", key: "Field" },
+  [import_coc.SymbolKind.Constructor]: { icon: "\uF425 ", key: "Constructor" },
+  [import_coc.SymbolKind.Enum]: { icon: "\u{F0558} ", key: "Enum" },
+  [import_coc.SymbolKind.Interface]: { icon: "\u{F0558} ", key: "Interface" },
+  [import_coc.SymbolKind.Function]: { icon: "\u{F0295} ", key: "Function" },
+  [import_coc.SymbolKind.Variable]: { icon: "\u{F01A7} ", key: "Variable" },
+  [import_coc.SymbolKind.Constant]: { icon: "\u{F03FF} ", key: "Constant" },
+  [import_coc.SymbolKind.String]: { icon: "\u{F002C} ", key: "String" },
+  [import_coc.SymbolKind.Number]: { icon: "\u{F03A0} ", key: "Number" },
+  [import_coc.SymbolKind.Boolean]: { icon: "\u25E9 ", key: "Boolean" },
+  [import_coc.SymbolKind.Array]: { icon: "\u{F016A} ", key: "Array" },
+  [import_coc.SymbolKind.Object]: { icon: "\u{F0169} ", key: "Object" },
+  [import_coc.SymbolKind.Key]: { icon: "\u{F030B} ", key: "Key" },
+  [import_coc.SymbolKind.Null]: { icon: "\u{F07E2} ", key: "Null" },
+  [import_coc.SymbolKind.EnumMember]: { icon: "\uF15D ", key: "EnumMember" },
+  [import_coc.SymbolKind.Struct]: { icon: "\u{F0317} ", key: "Struct" },
+  [import_coc.SymbolKind.Event]: { icon: "\uF0E7 ", key: "Event" },
+  [import_coc.SymbolKind.Operator]: { icon: "\u{F0195} ", key: "Operator" },
+  [import_coc.SymbolKind.TypeParameter]: { icon: "\u{F0284} ", key: "TypeParameter" }
+};
+function renderWinbarString(prefix, symbolPath) {
+  let symbolLink = "";
+  for (const symbol of symbolPath) {
+    const { icon, key } = iconMap[symbol.kind];
+    symbolLink += ` %#VertSplit#\uF105 %#CocSymbol${key}#${icon}${symbol.name}`;
+  }
+  return "%#CocSymbolFile#" + prefix + symbolLink;
+}
+
 // src/extension.ts
 var cancelTokenSource;
 async function activate(context) {
+  const enabled = import_coc2.workspace.getConfiguration().get("coc-pos.enabled");
+  if (enabled === false)
+    return;
   const log = context.logger;
   context.subscriptions.push(
-    import_coc.events.on(
+    import_coc2.events.on(
       "CursorMoved",
       (0, import_debounce.default)(async (bufnr, cursor) => {
-        const document = import_coc.workspace.getDocument(bufnr);
-        if (!document || !document.attached || !document.textDocument || !import_coc.languages.hasProvider(
-          import_coc.ProviderName.DocumentSymbol,
+        const document = import_coc2.workspace.getDocument(bufnr);
+        if (!document || !document.attached || !document.textDocument || !import_coc2.languages.hasProvider(
+          import_coc2.ProviderName.DocumentSymbol,
           document.textDocument
         ))
           return;
         cancelTokenSource?.cancel();
-        cancelTokenSource = new import_coc.CancellationTokenSource();
-        const symbols = await import_coc.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+        cancelTokenSource = new import_coc2.CancellationTokenSource();
+        const symbols = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
         if (!symbols)
+          return;
+        const folderUri = import_coc2.workspace.getWorkspaceFolder(
+          document.textDocument.uri
+        )?.uri;
+        if (!folderUri)
           return;
         try {
           const symbolPath = getSymbolPath(
             cursor[0] - 1,
             cursor[1] - 1,
             symbols
-          ).map((symbol) => ({
-            kind: symbol.kind,
-            name: symbol.name
-          }));
-          const filename = getFilename(document.textDocument.uri);
-          const winbarPrefix = `%#WinBar%#WinBarPrefix %*#WinBarFilename ${filename} %*`;
-          log.info(
-            `getSymbolPath result: ${JSON.stringify(
-              symbolPath.map((r) => ({
-                name: r.name,
-                kind: r.kind
-              }))
-            )}`
           );
-          const winbar = symbolPath.reduce((winbar2, symbol) => {
-            return winbar2 + `%#WinBarSep A %* ${symbol.name} `;
-          }, winbarPrefix);
-          log.info(winbar);
+          const filename = getFilename(folderUri);
+          const winbar = renderWinbarString(filename, symbolPath);
+          import_coc2.nvim.request("nvim_set_option_value", [
+            "winbar",
+            winbar,
+            { buf: bufnr }
+          ]);
         } catch (err) {
-          log.debug(`winbar catch some error : ${err.toString()}`);
+          log.debug(`coc-pos catch some error : ${err.toString()}`);
         }
-      }, 100)
+      }, 70)
     )
   );
 }

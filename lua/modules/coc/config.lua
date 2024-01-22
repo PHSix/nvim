@@ -7,7 +7,7 @@ local getCwd = function()
     local buffer_path = vim.fn.expand('%:p')
     for _, folder in ipairs(folders) do
       if string.match(buffer_path, folder) then
-        if not path or folder.length > path.length then
+        if path == nil or folder.length > path.length then
           path = folder
         end
       end
@@ -15,9 +15,11 @@ local getCwd = function()
 
     return path
   end)
+
   if not ok then
-    ret = nil
+    return nil
   end
+
   return ret
 end
 
@@ -33,6 +35,8 @@ local ensure_installed_extensions = {
   'coc-go',
   'coc-sumneko-lua',
   '@yaegassy/coc-volar',
+  'coc-eslint',
+  'coc-prettier',
 }
 
 local function executable(cmd)
@@ -119,6 +123,19 @@ function config.coc()
         vim.cmd(string.format('cd %s', cwd))
       end
     end,
+  })
+
+  vim.api.nvim_create_autocmd({"BufRead"}, {
+    group = 'coc_patch_autocmd',
+    pattern = "*",
+    callback = function ()
+      local cwd = getCwd()
+
+      if cwd ~= nil then
+        print(cwd)
+        vim.cmd(string.format('cd %s', cwd))
+      end
+    end
   })
 
   vim.api.nvim_create_user_command('CocExplorer', function()

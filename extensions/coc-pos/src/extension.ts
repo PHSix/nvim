@@ -1,90 +1,86 @@
 import {
-  CancellationToken,
-  CancellationTokenSource,
-  DocumentSymbol,
-  ExtensionContext,
-  ProviderName,
-  TextDocument,
-  events,
-  languages,
-  nvim,
-  window,
-  workspace,
+	CancellationToken,
+	CancellationTokenSource,
+	DocumentSymbol,
+	ExtensionContext,
+	ProviderName,
+	TextDocument,
+	events,
+	languages,
+	workspace,
+	nvim,
 } from "coc.nvim";
 import debounce from "debounce";
 import { getFilename, getSymbolPath } from "./utils";
+import { renderWinbarString } from "./render";
 
 interface GetSymbolable {
-  getDocumentSymbol(
-    document: TextDocument,
-    token: CancellationToken
-  ): Promise<DocumentSymbol[] | null>;
+	getDocumentSymbol(
+		document: TextDocument,
+		token: CancellationToken
+	): Promise<DocumentSymbol[] | null>;
 }
 
 let cancelTokenSource: CancellationTokenSource;
 
 export async function activate(context: ExtensionContext): Promise<void> {
-  const log = context.logger;
-  context.subscriptions.push(
-    events.on(
-      "CursorMoved",
-      debounce(async (bufnr, cursor) => {
-        const document = workspace.getDocument(bufnr);
-        // const document = window.activeTextEditor?.document;
-        if (
-          !document ||
-          !document.attached ||
-          !document.textDocument ||
-          !languages.hasProvider(
-            ProviderName.DocumentSymbol,
-            document.textDocument
-          )
-        )
-          return;
+	const enabled = workspace.getConfiguration().get("coc-pos.enabled");
 
-        cancelTokenSource?.cancel();
-        cancelTokenSource = new CancellationTokenSource();
+	if (enabled === false) return;
 
-        const symbols = await (
-          languages as any as GetSymbolable
-        ).getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+	const log = context.logger;
 
-        if (!symbols) return;
+	context.subscriptions.push(
+		events.on(
+			"CursorMoved",
+			debounce(async (bufnr: number, cursor: [number, number]) => {
+				const document = workspace.getDocument(bufnr);
 
-        try {
-          const symbolPath = getSymbolPath(
-            cursor[0] - 1,
-            cursor[1] - 1,
-            symbols
-          ).map((symbol) => ({
-            kind: symbol.kind,
-            name: symbol.name,
-          }));
-          const filename = getFilename(document.textDocument.uri);
+				if (
+					!document ||
+					!document.attached ||
+					!document.textDocument ||
+					!languages.hasProvider(
+						ProviderName.DocumentSymbol,
+						document.textDocument
+					)
+				)
+					return;
 
-          const winbarPrefix = `%#WinBar%#WinBarPrefix %*#WinBarFilename ${filename} %*`;
+				cancelTokenSource?.cancel();
+				cancelTokenSource = new CancellationTokenSource();
 
-          log.info(
-            `getSymbolPath result: ${JSON.stringify(
-              symbolPath.map((r) => ({
-                name: r.name,
-                kind: r.kind,
-              }))
-            )}`
-          );
+				const symbols = await (
+					languages as any as GetSymbolable
+				).getDocumentSymbol(document.textDocument, cancelTokenSource.token);
 
-          const winbar = symbolPath.reduce((winbar, symbol) => {
-            return winbar + `%#WinBarSep A %* ${symbol.name} `;
-          }, winbarPrefix);
-          // log.info(winbar)
+				if (!symbols) return;
 
-          // (await nvim.window).setOption("winbar", winbar);
+				const folderUri = workspace.getWorkspaceFolder(
+					document.textDocument.uri
+				)?.uri;
 
-          // log.info(`getSymbolPath pattern: ${JSON.stringify(symbols)}`);
-        } catch (err: any) {
-          log.debug(`winbar catch some error : ${err.toString()}`);
-        }
-      }, 100)
-    )
-  );
+				if (!folderUri) return;
+
+				try {
+					const symbolPath = getSymbolPath(
+						cursor[0] - 1,
+						cursor[1] - 1,
+						symbols
+					);
+					const filename = getFilename(folderUri);
+
+					const winbar = renderWinbarString(filename, symbolPath);
+
+					nvim.request("nvim_set_option_value", [
+						"winbar",
+						winbar,
+						{ buf: bufnr },
+					]);
+				} catch (err: any) {
+					log.debug(`coc-pos catch some error : ${err.toString()}`);
+				}
+			}, 70)
+		)
+	);
 }

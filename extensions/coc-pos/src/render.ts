@@ -1,58 +1,48 @@
-import { SymbolKind } from "coc.nvim";
+import { DocumentSymbol, SymbolKind } from "coc.nvim";
 
-const IconMap = {
-  File: 1,
-  Module: 2,
-  Namespace: 3,
-  Package: 4,
-  Class: 5,
-  Method: 6,
-  Property: 7,
-  Field: 8,
-  Constructor: 9,
-  Enum: 10,
-  Interface: 11,
-  Function: 12,
-  Variable: 13,
-  Constant: 14,
-  String: 15,
-  Number: 16,
-  Boolean: 17,
-  Array: 18,
-  Object: 19,
-  Key: 20,
-  Null: 21,
-  EnumMember: 22,
-  Struct: 23,
-  Event: 24,
-  Operator: 25,
-  TypeParameter: 26,
+const iconMap = {
+	[SymbolKind.File]: { icon: "󰈙 ", key: "File" },
+	[SymbolKind.Module]: { icon: " ", key: "Module" },
+	[SymbolKind.Namespace]: { icon: "󰌗 ", key: "Namespace" },
+	[SymbolKind.Package]: { icon: " ", key: "Package" },
+	[SymbolKind.Class]: { icon: "󰌗 ", key: "Class" },
+	[SymbolKind.Method]: { icon: "󰆧 ", key: "Method" },
+	[SymbolKind.Property]: { icon: " ", key: "Property" },
+	[SymbolKind.Field]: { icon: " ", key: "Field" },
+	[SymbolKind.Constructor]: { icon: " ", key: "Constructor" },
+	[SymbolKind.Enum]: { icon: "󰕘 ", key: "Enum" },
+	[SymbolKind.Interface]: { icon: "󰕘 ", key: "Interface" },
+	[SymbolKind.Function]: { icon: "󰊕 ", key: "Function" },
+	[SymbolKind.Variable]: { icon: "󰆧 ", key: "Variable" },
+	[SymbolKind.Constant]: { icon: "󰏿 ", key: "Constant" },
+	[SymbolKind.String]: { icon: "󰀬 ", key: "String" },
+	[SymbolKind.Number]: { icon: "󰎠 ", key: "Number" },
+	[SymbolKind.Boolean]: { icon: "◩ ", key: "Boolean" },
+	[SymbolKind.Array]: { icon: "󰅪 ", key: "Array" },
+	[SymbolKind.Object]: { icon: "󰅩 ", key: "Object" },
+	[SymbolKind.Key]: { icon: "󰌋 ", key: "Key" },
+	[SymbolKind.Null]: { icon: "󰟢 ", key: "Null" },
+	[SymbolKind.EnumMember]: { icon: " ", key: "EnumMember" },
+	[SymbolKind.Struct]: { icon: "󰌗 ", key: "Struct" },
+	[SymbolKind.Event]: { icon: " ", key: "Event" },
+	[SymbolKind.Operator]: { icon: "󰆕 ", key: "Operator" },
+	[SymbolKind.TypeParameter]: { icon: "󰊄 ", key: "TypeParameter" },
 };
 
-const a = {
-  constructor: "\ufb25",
-  keyword: "\uf1de",
-  variable: "\ue79b",
-  value: "\uf89f",
-  operator: "\u03a8",
-  function: "\u0192",
-  reference: "\ufa46",
-  constant: "\uf8fe",
-  method: "\uf09a",
-  struct: "\ufb44",
-  class: "\uf0e8",
-  interface: "\uf417",
-  text: "\ue612",
-  enum: "\uf435",
-  enumMember: "\uf02b",
-  module: "\uf40d",
-  color: "\ue22b",
-  property: "\ue624",
-  field: "\uf9be",
-  unit: "\uf475",
-  event: "\ufacd",
-  file: "\uf723",
-  folder: "\uf114",
-  snippet: "\ue60b",
-  typeParameter: "\uf728",
-};
+export function renderWinbarString(
+	prefix: string,
+	symbolPath: DocumentSymbol[]
+) {
+	let symbolLink = "";
+	for (const symbol of symbolPath) {
+		const { icon, key } = iconMap[symbol.kind];
+		symbolLink += ` %#VertSplit# %#CocSymbol${key}#${icon}${symbol.name}`;
+	}
+
+	return "%#CocSymbolFile#" + prefix + symbolLink;
+}
+
+export function setupHighlightCmd() {
+	return `
+  `;
+}

@@ -2,7 +2,7 @@
   "semanticTokens.enable": true,
   "snippets.snipmate.enable": true,
   "snippets.ultisnips.enable": false,
-  "coc.preferences.formatOnSave": false,
+  "coc.preferences.formatOnSave": true,
   "coc.preferences.enableMessageDialog": true,
   "outline.autoPreview": true,
   "diagnostic.floatConfig": {
@@ -80,5 +80,9 @@
     "coc.preferences.formatOnSave": true
   },
   "nil.formatting.command": ["nixpkgs-fmt"],
-  "Lua.format.enable": false
+  "Lua.format.enable": false,
+  "prettier.requireConfig": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "prettier.enable": true,
 }
