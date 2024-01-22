@@ -189,7 +189,7 @@ function renderWinbarString(prefix, symbolPath) {
     const { icon, key } = iconMap[symbol.kind];
     symbolLink += ` %#VertSplit#\uF105 %#CocSymbol${key}#${icon}${symbol.name}`;
   }
-  return "%#CocSymbolFile#" + prefix + symbolLink;
+  return " %#CocSymbolFile#" + prefix + symbolLink;
 }
 
 // src/extension.ts

@@ -57,6 +57,14 @@ nmap({
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
+  -- leaderf
+  -- { '<Leader>fb', cmd('LeaderF buffer'), opts(noremap, silent) },
+  -- { '<Leader>fw', cmd('LeaderF rg'), opts(noremap, silent) },
+  -- { '<Leader>ff', cmd('LeaderF file'), opts(noremap, silent) },
+  -- { '<Leader>fo', cmd('LeaderF mru'), opts(noremap, silent) },
+  -- -- { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
+  -- { '<M-x>', cmd('LeaderF command'), opts(noremap, silent) },
+
   -- Gitsigns
   { '<leader>gp', cmd('Gitsigns preview_hunk'), opts(noremap, silent) },
   { '<leader>gs', cmd('Gitsigns stage_hunk'), opts(noremap, silent) },

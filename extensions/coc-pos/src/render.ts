@@ -39,7 +39,7 @@ export function renderWinbarString(
 		symbolLink += ` %#VertSplit# %#CocSymbol${key}#${icon}${symbol.name}`;
 	}
 
-	return "%#CocSymbolFile#" + prefix + symbolLink;
+	return " %#CocSymbolFile#" + prefix + symbolLink;
 }
 
 export function setupHighlightCmd() {
