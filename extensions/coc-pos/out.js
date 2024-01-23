@@ -117,40 +117,31 @@ var import_coc2 = require("coc.nvim");
 var import_debounce = __toESM(require_debounce());
 
 // src/utils.ts
-function getSymbolPath(row, col, symbols, result = [], depth = 0) {
-  if (depth === 100) {
-    throw Error("getPath too depth");
-  }
-  for (const symbol of symbols) {
-    switch (true) {
-      case (symbol.range.start.line < row && symbol.range.end.line > row): {
+function getSymbolPath(pos, docuemntSymbols, maxTravelDepth) {
+  const result = [];
+  let travelDepth = 0;
+  let symbols = docuemntSymbols;
+  while (symbols !== void 0 && travelDepth < maxTravelDepth) {
+    travelDepth++;
+    const len = result.length;
+    for (const symbol of symbols) {
+      if (posInRange(pos, symbol.range)) {
+        symbols = symbol.children;
         result.push(symbol);
-        return !!symbol.children ? getSymbolPath(row, col, symbol.children, result, depth + 1) : result;
-      }
-      case symbol.range.start.line === symbol.range.end.line: {
-        if (col >= symbol.range.start.character && col <= symbol.range.end.character) {
-          return !!symbol.children ? getSymbolPath(row, col, symbol.children, result, depth + 1) : result;
-        }
-        break;
-      }
-      case symbol.range.start.line === row: {
-        if (col >= symbol.range.start.character) {
-          return !!symbol.children ? getSymbolPath(row, col, symbol.children, result, depth + 1) : result;
-        }
-        break;
-      }
-      case symbol.range.end.line === row: {
-        if (col <= symbol.range.end.character) {
-          return !!symbol.children ? getSymbolPath(row, col, symbol.children, result, depth + 1) : result;
-        }
         break;
       }
     }
+    if (len === result.length) {
+      return [result, travelDepth];
+    }
   }
-  return result;
+  return [result, travelDepth];
 }
 function getFilename(uri) {
   return uri.split("/").pop() || "";
+}
+function posInRange(pos, range) {
+  return (pos.line < range.end.line || pos.line === range.end.line && pos.character <= range.end.character) && (pos.line > range.start.line || pos.line === range.start.line && pos.character >= range.start.character);
 }
 
 // src/render.ts
@@ -194,10 +185,21 @@ function renderWinbarString(prefix, symbolPath) {
 
 // src/extension.ts
 var cancelTokenSource;
+function getMaxTravelDepth() {
+  const depth = import_coc2.workspace.getConfiguration().get("coc-pos.maxTravelDepth");
+  if (typeof depth !== "number" || isNaN(depth)) {
+    return 30;
+  }
+  return depth;
+}
 async function activate(context) {
   const enabled = import_coc2.workspace.getConfiguration().get("coc-pos.enabled");
   if (enabled === false)
     return;
+  let maxTravelDepth = getMaxTravelDepth();
+  import_coc2.workspace.onDidChangeConfiguration(() => {
+    maxTravelDepth = getMaxTravelDepth();
+  });
   const log = context.logger;
   context.subscriptions.push(
     import_coc2.events.on(
@@ -209,21 +211,25 @@ async function activate(context) {
           document.textDocument
         ))
           return;
-        cancelTokenSource?.cancel();
-        cancelTokenSource = new import_coc2.CancellationTokenSource();
-        const symbols = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
-        if (!symbols)
-          return;
         const folderUri = import_coc2.workspace.getWorkspaceFolder(
           document.textDocument.uri
         )?.uri;
         if (!folderUri)
           return;
+        cancelTokenSource?.cancel();
+        cancelTokenSource?.dispose();
+        cancelTokenSource = new import_coc2.CancellationTokenSource();
+        const symbols = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+        if (!symbols)
+          return;
         try {
-          const symbolPath = getSymbolPath(
-            cursor[0] - 1,
-            cursor[1] - 1,
-            symbols
+          const [symbolPath] = getSymbolPath(
+            {
+              line: cursor[0] - 1,
+              character: cursor[1] - 1
+            },
+            symbols,
+            maxTravelDepth
           );
           const filename = getFilename(folderUri);
           const winbar = renderWinbarString(filename, symbolPath);

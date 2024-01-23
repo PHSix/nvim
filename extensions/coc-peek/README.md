@@ -1,8 +1,18 @@
-# coc-pos
+# coc-peek
+
+
 
 ## Install
 
-`:CocInstall coc-pos`
+`:CocInstall coc-peek`
+
+## Keymaps
+
+`nmap <silent> <C-l> <Plug>(coc-coc-peek-keymap)`
+
+## Lists
+
+`:CocList demo_list`
 
 ## License
 

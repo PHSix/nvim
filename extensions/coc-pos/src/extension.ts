@@ -23,10 +23,27 @@ interface GetSymbolable {
 
 let cancelTokenSource: CancellationTokenSource;
 
+function getMaxTravelDepth() {
+	const depth = workspace
+		.getConfiguration()
+		.get<number>("coc-pos.maxTravelDepth");
+	if (typeof depth !== "number" || isNaN(depth)) {
+		return 30;
+	}
+
+	return depth;
+}
+
 export async function activate(context: ExtensionContext): Promise<void> {
 	const enabled = workspace.getConfiguration().get("coc-pos.enabled");
 
 	if (enabled === false) return;
+
+	let maxTravelDepth = getMaxTravelDepth();
+
+	workspace.onDidChangeConfiguration(() => {
+		maxTravelDepth = getMaxTravelDepth();
+	});
 
 	const log = context.logger;
 
@@ -47,7 +64,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
 				)
 					return;
 
+				const folderUri = workspace.getWorkspaceFolder(
+					document.textDocument.uri
+				)?.uri;
+
+				if (!folderUri) return;
+
 				cancelTokenSource?.cancel();
+				cancelTokenSource?.dispose();
 				cancelTokenSource = new CancellationTokenSource();
 
 				const symbols = await (
@@ -56,17 +80,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 				if (!symbols) return;
 
-				const folderUri = workspace.getWorkspaceFolder(
-					document.textDocument.uri
-				)?.uri;
-
-				if (!folderUri) return;
-
 				try {
-					const symbolPath = getSymbolPath(
-						cursor[0] - 1,
-						cursor[1] - 1,
-						symbols
+					const [symbolPath] = getSymbolPath(
+						{
+							line: cursor[0] - 1,
+							character: cursor[1] - 1,
+						},
+						symbols,
+						maxTravelDepth
 					);
 					const filename = getFilename(folderUri);
 

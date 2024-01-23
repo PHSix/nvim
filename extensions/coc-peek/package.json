@@ -1,10 +1,10 @@
 {
-	"name": "coc-pos",
-	"version": "0.1.0",
+	"name": "coc-peek",
+	"version": "0.0.0-development",
 	"description": "",
 	"author": "ph <chenyi.ph@outlook.com>",
 	"license": "MIT",
-	"main": "out.js",
+	"main": "lib/index.js",
 	"keywords": [
 		"coc.nvim"
 	],
@@ -27,23 +27,20 @@
 	"contributes": {
 		"configuration": {
 			"type": "object",
-			"title": "coc-pos configuration",
+			"title": "coc-peek configuration",
 			"properties": {
-				"coc-pos.enable": {
+				"coc-peek.enabled": {
 					"type": "boolean",
 					"default": true,
-					"description": "Enable coc-pos extension.(no support hot reload)"
-				},
-				"coc-pos.maxTravelDepth": {
-					"type": "number",
-					"default": 30,
-					"description": "Get symbol path limit max travel depth."
+					"description": "Enable coc-peek extension"
 				}
 			}
 		},
-		"commands": []
-	},
-	"dependencies": {
-		"debounce": "^2.0.0"
+		"commands": [
+			{
+				"command": "coc-peek.peek-definition",
+				"title": "peek definition"
+			}
+		]
 	}
 }

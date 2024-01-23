@@ -3,32 +3,13 @@ local config = {}
 function config.dashboard()
   local db = require('dashboard')
   db.setup({
-    theme = 'hyper',
+    theme = 'doom',
     config = {
       week_header = {
         enable = true,
       },
-      shortcut = {
-        { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
-        {
-          desc = ' Files',
-          group = 'Label',
-          action = 'Telescope find_files',
-          key = 'f',
-        },
-        {
-          desc = ' Apps',
-          group = 'DiagnosticHint',
-          action = 'Telescope app',
-          key = 'a',
-        },
-        {
-          desc = ' dotfiles',
-          group = 'Number',
-          action = 'Telescope dotfiles',
-          key = 'd',
-        },
-      },
+      center = {},
+      footer = {},
     },
   })
 end
@@ -99,10 +80,12 @@ function config.indent_blankline()
   vim.g.rainbow_delimiters = { highlight = highlight }
   require('ibl').setup({
     scope = { highlight = highlight },
-    exclude = { filetypes = {
-      'dashboard',
-      'help',
-    } },
+    exclude = {
+      filetypes = {
+        'dashboard',
+        'help',
+      },
+    },
   })
 
   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)

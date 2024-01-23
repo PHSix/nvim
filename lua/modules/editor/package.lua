@@ -5,7 +5,6 @@ package({
   'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
   config = conf.nvim_treesitter,
-  event = { 'BufRead' },
   dependencies = {
     {
       'JoosepAlviste/nvim-ts-context-commentstring',
@@ -16,13 +15,11 @@ package({
 
 package({
   'folke/todo-comments.nvim',
-  event = 'BufRead',
   config = true,
 })
 
 package({
   'psliwka/vim-smoothie',
-  event = { 'BufRead' },
 })
 
 package({
@@ -86,29 +83,12 @@ package({
 
 package({
   'lewis6991/gitsigns.nvim',
-  event = 'BufRead',
   config = conf.gitsigns,
 })
 
 package({
   'nvimdev/hlsearch.nvim',
-  event = 'BufRead',
   config = true,
-})
-
---- [[
---- co — choose ours
---- ct — choose theirs
---- cb — choose both
---- c0 — choose none
---- ]x — move to previous conflict
---- [x — move to next conflict
---- ]]
-package({
-  'akinsho/git-conflict.nvim',
-  version = '*',
-  config = true,
-  event = 'BufRead',
 })
 
 package({
@@ -122,9 +102,10 @@ package({
   lazy = true,
 })
 
-vim.g.floaterm_keymap_toggle = "<C-t>"
+vim.g.floaterm_keymap_toggle = '<C-t>'
 
 package({
   'voldikss/vim-floaterm',
-  keys = "<C-t>",
+  keys = '<C-t>',
 })
+

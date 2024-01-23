@@ -89,7 +89,7 @@ function config.coc()
     end
   end, { silent = true, noremap = true, expr = true })
 
-  vim.g.coc_snippet_next = "<tab>"
+  vim.g.coc_snippet_next = '<tab>'
 
   vim.api.nvim_create_augroup('coc_patch_autocmd', { clear = true })
 
@@ -125,17 +125,17 @@ function config.coc()
     end,
   })
 
-  vim.api.nvim_create_autocmd({"BufRead"}, {
+  vim.api.nvim_create_autocmd({ 'BufRead' }, {
     group = 'coc_patch_autocmd',
-    pattern = "*",
-    callback = function ()
+    pattern = '*',
+    callback = function()
       local cwd = getCwd()
 
       if cwd ~= nil then
         print(cwd)
         vim.cmd(string.format('cd %s', cwd))
       end
-    end
+    end,
   })
 
   vim.api.nvim_create_user_command('CocExplorer', function()
