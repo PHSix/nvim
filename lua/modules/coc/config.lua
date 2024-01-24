@@ -6,10 +6,11 @@ local getCwd = function()
     local path = nil
     local buffer_path = vim.fn.expand('%:p')
     for _, folder in ipairs(folders) do
-      if string.match(buffer_path, folder) then
-        if path == nil or folder.length > path.length then
-          path = folder
-        end
+      local start = string.find(buffer_path, folder)
+      if start ~= 1 then
+        -- noting to do
+      elseif path == nil or folder.length > path.length then
+        path = folder
       end
     end
 
