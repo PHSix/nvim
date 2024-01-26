@@ -8,8 +8,16 @@ function config.dashboard()
       week_header = {
         enable = true,
       },
-      center = {},
-      footer = {},
+      center = {
+        {
+          icon = '[  ]',
+          icon_hl = 'DashboardShortCut',
+          desc = ' Talk is cheap, show me your code.',
+          desc_hl = 'DashboardShortCut',
+          key_hl = 'DashboardShortCut',
+          action = '',
+        },
+      },
     },
   })
 end

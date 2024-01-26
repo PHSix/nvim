@@ -3,7 +3,11 @@ local conf = require('modules.ui.config')
 
 package({ 'nvim-tree/nvim-web-devicons', lazy = true })
 
--- package({ 'glepnir/dashboard-nvim', config = conf.dashboard, d = false })
+package({
+  'eoh-bse/minintro.nvim',
+  config = true,
+  lazy = false,
+})
 
 package({
   'lukas-reineke/indent-blankline.nvim',

@@ -1,0 +1,35 @@
+{
+	"name": "coc-improve",
+	"version": "0.0.0-development",
+	"description": "",
+	"author": "ph <chenyi.ph@outlook.com>",
+	"license": "MIT",
+	"main": "out.js",
+	"keywords": [
+		"coc.nvim"
+	],
+	"engines": {
+		"coc": "^0.0.82"
+	},
+	"scripts": {
+		"watch": "node esbuild.mjs --watch",
+		"build": "node esbuild.mjs",
+		"prepare": "node esbuild.mjs"
+	},
+	"devDependencies": {
+		"coc.nvim": "^0.0.83-next.18",
+		"esbuild": "^0.19.8",
+		"typescript": "^5.3.3"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "coc-improve configuration",
+			"properties": {}
+		},
+		"commands": []
+	}
+}

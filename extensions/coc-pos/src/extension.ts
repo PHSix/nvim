@@ -9,9 +9,10 @@ import {
 	languages,
 	workspace,
 	nvim,
+	Uri,
 } from "coc.nvim";
 import debounce from "debounce";
-import { getFilename, getSymbolPath } from "./utils";
+import { getComponentName, getFilename, getSymbolPath } from "./utils";
 import { renderWinbarString } from "./render";
 
 interface GetSymbolable {
@@ -90,14 +91,22 @@ export async function activate(context: ExtensionContext): Promise<void> {
 						maxTravelDepth
 					);
 					const filename = getFilename(folderUri);
+					const componentName = getComponentName(
+						Uri.parse(document.uri).fsPath
+					);
 
-					const winbar = renderWinbarString(filename, symbolPath);
+					const winbar = renderWinbarString(
+						!!componentName ? `${filename}:${componentName}` : filename,
+						symbolPath
+					);
 
-					nvim.request("nvim_set_option_value", [
-						"winbar",
-						winbar,
-						{ buf: bufnr },
-					]);
+					if ((await nvim.buffer).id === bufnr) {
+						nvim.request("nvim_set_option_value", [
+							"winbar",
+							winbar,
+							{ scope: "local" },
+						]);
+					}
 				} catch (err: any) {
 					log.debug(`coc-pos catch some error : ${err.toString()}`);
 				}

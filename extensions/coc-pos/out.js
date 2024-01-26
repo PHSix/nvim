@@ -117,6 +117,23 @@ var import_coc2 = require("coc.nvim");
 var import_debounce = __toESM(require_debounce());
 
 // src/utils.ts
+var INVALID_NAMING = /* @__PURE__ */ new Set([
+  "index.ts",
+  "index.tsx",
+  "index.js",
+  "index.jsx",
+  "index.cjs",
+  "index.mjs",
+  "index.css",
+  "index.less",
+  "index.sass",
+  "index.scss",
+  "index.module.css",
+  "index.module.less",
+  "index.module.sass",
+  "index.module.scss",
+  "init.lua"
+]);
 function getSymbolPath(pos, docuemntSymbols, maxTravelDepth) {
   const result = [];
   let travelDepth = 0;
@@ -139,6 +156,15 @@ function getSymbolPath(pos, docuemntSymbols, maxTravelDepth) {
 }
 function getFilename(uri) {
   return uri.split("/").pop() || "";
+}
+function getComponentName(uri) {
+  const filePath = uri.split("/").filter((s) => s !== "");
+  if (filePath.length === 0)
+    return "";
+  if (INVALID_NAMING.has(filePath[filePath.length - 1])) {
+    return `${filePath[filePath.length - 2]}/${filePath[filePath.length - 1]}`;
+  }
+  return filePath[filePath.length - 1];
 }
 function posInRange(pos, range) {
   return (pos.line < range.end.line || pos.line === range.end.line && pos.character <= range.end.character) && (pos.line > range.start.line || pos.line === range.start.line && pos.character >= range.start.character);
@@ -232,12 +258,20 @@ async function activate(context) {
             maxTravelDepth
           );
           const filename = getFilename(folderUri);
-          const winbar = renderWinbarString(filename, symbolPath);
-          import_coc2.nvim.request("nvim_set_option_value", [
-            "winbar",
-            winbar,
-            { buf: bufnr }
-          ]);
+          const componentName = getComponentName(
+            import_coc2.Uri.parse(document.uri).fsPath
+          );
+          const winbar = renderWinbarString(
+            !!componentName ? `${filename}:${componentName}` : filename,
+            symbolPath
+          );
+          if ((await import_coc2.nvim.buffer).id === bufnr) {
+            import_coc2.nvim.request("nvim_set_option_value", [
+              "winbar",
+              winbar,
+              { scope: "local" }
+            ]);
+          }
         } catch (err) {
           log.debug(`coc-pos catch some error : ${err.toString()}`);
         }

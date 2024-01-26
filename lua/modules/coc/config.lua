@@ -117,12 +117,6 @@ function config.coc()
           })
         end
       end, 100)
-
-      local cwd = getCwd()
-
-      if cwd ~= nil then
-        vim.cmd(string.format('cd %s', cwd))
-      end
     end,
   })
 

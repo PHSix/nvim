@@ -1,0 +1,28 @@
+snippet dfn "defer fn"
+	defer (func() {
+		$1
+	})()
+
+
+snippet main "package main"
+	package main
+
+	func main() {
+		$1
+	}
+
+snippet if "if condition"
+	if $1 {
+		${2:${VISUAL}}
+	}
+
+snippet loop "for loop"
+	for ${1}{
+		${0:${VISUAL}}
+	}
+
+snippet fun "function"
+	func ${1:funcName}(${2}) ${3:error} {
+		${4}
+	}
+	${0}
