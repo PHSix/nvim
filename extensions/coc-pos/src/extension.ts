@@ -48,6 +48,14 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 	const log = context.logger;
 
+	const symbolsCache = new Map<
+		number,
+		{
+			changedtick: number;
+			symbols: DocumentSymbol[];
+		}
+	>();
+
 	context.subscriptions.push(
 		events.on(
 			"CursorMoved",
@@ -71,15 +79,35 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 				if (!folderUri) return;
 
-				cancelTokenSource?.cancel();
-				cancelTokenSource?.dispose();
-				cancelTokenSource = new CancellationTokenSource();
+				const changedtick = await nvim.call("nvim_buf_get_var", [
+					bufnr,
+					"changedtick",
+				]);
 
-				const symbols = await (
-					languages as any as GetSymbolable
-				).getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+				let symbols: DocumentSymbol[];
 
-				if (!symbols) return;
+				const cache = symbolsCache.get(bufnr);
+
+				if (cache && cache.changedtick === changedtick) {
+					symbols = cache.symbols;
+				} else {
+					cancelTokenSource?.cancel();
+					cancelTokenSource?.dispose();
+					cancelTokenSource = new CancellationTokenSource();
+
+					const res = await (
+						languages as any as GetSymbolable
+					).getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+
+					if (!res) return;
+
+					symbols = res;
+
+					symbolsCache.set(bufnr, {
+						changedtick,
+						symbols,
+					});
+				}
 
 				try {
 					const [symbolPath] = getSymbolPath(
@@ -110,7 +138,20 @@ export async function activate(context: ExtensionContext): Promise<void> {
 				} catch (err: any) {
 					log.debug(`coc-pos catch some error : ${err.toString()}`);
 				}
-			}, 70)
+			}, 70),
+			workspace.registerAutocmd({
+				event: ["BufDelete", "BufWipeout"],
+				pattern: "*",
+				callback: (args: any) => {
+					try {
+						if (args && args.buf && symbolsCache.has(args.buf)) {
+							symbolsCache.delete(args.buf);
+						}
+					} catch (err) {
+						log.error(Object.toString.call(err));
+					}
+				},
+			})
 		)
 	);
 }

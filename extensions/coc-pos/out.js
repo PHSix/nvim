@@ -227,6 +227,7 @@ async function activate(context) {
     maxTravelDepth = getMaxTravelDepth();
   });
   const log = context.logger;
+  const symbolsCache = /* @__PURE__ */ new Map();
   context.subscriptions.push(
     import_coc2.events.on(
       "CursorMoved",
@@ -242,12 +243,27 @@ async function activate(context) {
         )?.uri;
         if (!folderUri)
           return;
-        cancelTokenSource?.cancel();
-        cancelTokenSource?.dispose();
-        cancelTokenSource = new import_coc2.CancellationTokenSource();
-        const symbols = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
-        if (!symbols)
-          return;
+        const changedtick = await import_coc2.nvim.call("nvim_buf_get_var", [
+          bufnr,
+          "changedtick"
+        ]);
+        let symbols;
+        const cache = symbolsCache.get(bufnr);
+        if (cache && cache.changedtick === changedtick) {
+          symbols = cache.symbols;
+        } else {
+          cancelTokenSource?.cancel();
+          cancelTokenSource?.dispose();
+          cancelTokenSource = new import_coc2.CancellationTokenSource();
+          const res = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+          if (!res)
+            return;
+          symbols = res;
+          symbolsCache.set(bufnr, {
+            changedtick,
+            symbols
+          });
+        }
         try {
           const [symbolPath] = getSymbolPath(
             {
@@ -275,7 +291,20 @@ async function activate(context) {
         } catch (err) {
           log.debug(`coc-pos catch some error : ${err.toString()}`);
         }
-      }, 70)
+      }, 70),
+      import_coc2.workspace.registerAutocmd({
+        event: ["BufDelete", "BufWipeout"],
+        pattern: "*",
+        callback: (args) => {
+          try {
+            if (args && args.buf && symbolsCache.has(args.buf)) {
+              symbolsCache.delete(args.buf);
+            }
+          } catch (err) {
+            log.error(Object.toString.call(err));
+          }
+        }
+      })
     )
   );
 }

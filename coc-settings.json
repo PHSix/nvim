@@ -84,6 +84,6 @@
 	"Lua.format.enable": false,
 	"prettier.requireConfig": true,
 	"eslint.autoFixOnSave": true,
-	"eslint.format.enable": true,
+	"eslint.format.enable": false,
 	"prettier.enable": true
 }
