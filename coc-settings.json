@@ -85,5 +85,7 @@
 	"prettier.requireConfig": true,
 	"eslint.autoFixOnSave": true,
 	"eslint.format.enable": false,
-	"prettier.enable": true
+	"prettier.enable": true,
+	"colors.enable": true,
+	"tailwindCSS.colorDecorators": true
 }

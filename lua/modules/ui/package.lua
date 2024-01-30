@@ -4,9 +4,13 @@ local conf = require('modules.ui.config')
 package({ 'nvim-tree/nvim-web-devicons', lazy = true })
 
 package({
-  'eoh-bse/minintro.nvim',
-  config = true,
-  lazy = false,
+  'nvimdev/dashboard-nvim',
+  event = 'VimEnter',
+  config = function()
+    require('dashboard').setup({
+      theme = 'hyper',
+    })
+  end,
 })
 
 package({
