@@ -79,6 +79,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 				if (!folderUri) return;
 
+				// last change doucment tick
 				const changedtick = await nvim.call("nvim_buf_get_var", [
 					bufnr,
 					"changedtick",
@@ -89,8 +90,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
 				const cache = symbolsCache.get(bufnr);
 
 				if (cache && cache.changedtick === changedtick) {
+					// get symbols from cache
 					symbols = cache.symbols;
 				} else {
+					// request and cached symbols
 					cancelTokenSource?.cancel();
 					cancelTokenSource?.dispose();
 					cancelTokenSource = new CancellationTokenSource();
@@ -124,10 +127,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
 					);
 
 					const winbar = renderWinbarString(
-						!!componentName ? `${filename}:${componentName}` : filename,
+						!!componentName
+							? ` ${filename}:${componentName}`
+							: ` ${filename}`,
 						symbolPath
 					);
 
+					// check current buffer is not changed
 					if ((await nvim.buffer).id === bufnr) {
 						nvim.request("nvim_set_option_value", [
 							"winbar",

@@ -1,6 +1,8 @@
 import { DocumentSymbol, SymbolKind } from "coc.nvim";
 
-const iconMap = {
+type IconMap = Record<SymbolKind, { icon: string; key: string }>;
+
+const iconMap: IconMap = {
 	[SymbolKind.File]: { icon: "󰈙 ", key: "File" },
 	[SymbolKind.Module]: { icon: " ", key: "Module" },
 	[SymbolKind.Namespace]: { icon: "󰌗 ", key: "Namespace" },
@@ -40,9 +42,4 @@ export function renderWinbarString(
 	}
 
 	return " %#CocSymbolFile#" + prefix + symbolLink;
-}
-
-export function setupHighlightCmd() {
-	return `
-  `;
 }

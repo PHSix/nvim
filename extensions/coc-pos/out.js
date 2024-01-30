@@ -278,7 +278,7 @@ async function activate(context) {
             import_coc2.Uri.parse(document.uri).fsPath
           );
           const winbar = renderWinbarString(
-            !!componentName ? `${filename}:${componentName}` : filename,
+            !!componentName ? `\uE624 ${filename}:${componentName}` : `\uE624 ${filename}`,
             symbolPath
           );
           if ((await import_coc2.nvim.buffer).id === bufnr) {
