@@ -1,43 +1,21 @@
 local config = {}
 
-local getCwd = function()
-  local ok, ret = pcall(function()
-    local folders = vim.g.WorkspaceFolders
-    local path = nil
-    local buffer_path = vim.fn.expand('%:p')
-    for _, folder in ipairs(folders) do
-      local start = string.find(buffer_path, folder)
-      if start ~= 1 then
-        -- noting to do
-      elseif path == nil or folder.length > path.length then
-        path = folder
-      end
-    end
-
-    return path
-  end)
-
-  if not ok then
-    return nil
-  end
-
-  return ret
-end
-
 vim.g.coc_data_home = '~/.config/coc_nvim'
 
 local ensure_installed_extensions = {
   'coc-json',
   'coc-tsserver',
+  'coc-css',
+  '@yaegassy/coc-volar',
+  'coc-eslint',
+  'coc-prettier',
+  'coc-vimlsp',
   'coc-marketplace',
   'coc-snippets',
   'coc-explorer',
   'coc-pairs',
   'coc-go',
   'coc-sumneko-lua',
-  '@yaegassy/coc-volar',
-  'coc-eslint',
-  'coc-prettier',
 }
 
 local function executable(cmd)
@@ -117,19 +95,6 @@ function config.coc()
           })
         end
       end, 100)
-    end,
-  })
-
-  vim.api.nvim_create_autocmd({ 'BufRead' }, {
-    group = 'coc_patch_autocmd',
-    pattern = '*',
-    callback = function()
-      local cwd = getCwd()
-
-      if cwd ~= nil then
-        print(cwd)
-        vim.cmd(string.format('cd %s', cwd))
-      end
     end,
   })
 
