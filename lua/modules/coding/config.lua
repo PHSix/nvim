@@ -29,19 +29,16 @@ function config.telescope()
         theme = 'ivy',
       },
       oldfiles = {
-        theme = 'ivy'
+        theme = 'ivy',
       },
       find_files = {
-        theme = 'ivy'
+        theme = 'ivy',
       },
       buffers = {
-        theme = 'ivy'
+        theme = 'ivy',
       },
       commands = {
-        theme = 'ivy'
-      },
-      ['todo-comments'] = {
-        theme = 'ivy'
+        theme = 'ivy',
       },
     },
     extensions = {
@@ -108,3 +105,4 @@ function config.winresizer()
 end
 
 return config
+

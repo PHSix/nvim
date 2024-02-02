@@ -16,6 +16,7 @@ local ensure_installed_extensions = {
   'coc-pairs',
   'coc-go',
   'coc-sumneko-lua',
+  'coc-git',
 }
 
 local function executable(cmd)
@@ -117,6 +118,14 @@ function config.coc()
   })
 
   vim.g.coc_quickfix_open_command = 'vsplit'
+
+  vim.cmd([[
+    hi link CocGitAddedSign GitNew
+    hi link CocGitRemovedSign GitDeleted
+    hi link CocGitTopRemovedSign GitDeleted
+    hi link CocGitChangeRemovedSign GitDeleted
+    hi link CocGitChangedSign GitDirty
+  ]])
 end
 
 function config.ufo()

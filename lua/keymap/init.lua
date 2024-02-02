@@ -53,7 +53,6 @@ nmap({
   { '<Leader>fw', cmd('Telescope live_grep'), opts(noremap, silent) },
   { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
   { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
-  { '<leader>ft', cmd('Telescope todo-comments'), opts(noremap, silent) },
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
@@ -65,11 +64,11 @@ nmap({
   -- -- { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   -- { '<M-x>', cmd('LeaderF command'), opts(noremap, silent) },
 
-  -- Gitsigns
-  { '<leader>gp', cmd('Gitsigns preview_hunk'), opts(noremap, silent) },
-  { '<leader>gs', cmd('Gitsigns stage_hunk'), opts(noremap, silent) },
-  { 'gj', cmd('Gitsigns next_hunk'), opts(noremap, silent) },
-  { 'gk', cmd('Gitsigns prev_hunk'), opts(noremap, silent) },
+  -- coc-git
+  { '<leader>gp', '<Plug>(coc-git-chunkinfo)', opts(noremap, silent) },
+  { '<leader>gs', cmd('CocCommand git.chunkStage'), opts(noremap, silent) },
+  { 'gj', '<Plug>(coc-git-nextchunk)', opts(noremap, silent) },
+  { 'gk', '<Plug>(coc-git-prevchunk)', opts(noremap, silent) },
 
   -- Spectre
   { '<leader>sw', cmd('Spectre'), opts(noremap, silent) },

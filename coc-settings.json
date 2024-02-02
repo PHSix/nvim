@@ -95,5 +95,10 @@
 		"javascriptreact",
 		"javascript",
 		"typescript"
-	]
+	],
+	"git.addedSign.text": "│",
+	"git.changedSign.text": "│",
+	"git.removedSign.text": "│",
+	"git.changeRemovedSign.text": "│",
+	"git.topRemovedSign.text": "│"
 }

@@ -45,13 +45,11 @@
 | Comment.nvim                  |
 | dashboard-nvim                |
 | dressing.nvim                 |
-| gitsigns.nvim                 |
 | hlsearch.nvim                 |
 | indent-blankline.nvim         |
 | lazy.nvim                     |
 | LeaderF                       |
 | midnight.nvim                 |
-| nvim-colorizer.lua            |
 | nvim-lastplace                |
 | nvim-osc52                    |
 | nvim-scrollview               |
@@ -64,7 +62,6 @@
 | rainbow-delimiters.nvim       |
 | telescope-fzy-native.nvim     |
 | telescope.nvim                |
-| todo-comments.nvim            |
 | vim-smoothie                  |
 | windline.nvim                 |
 | winresizer                    |

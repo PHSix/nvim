@@ -14,11 +14,6 @@ package({
 })
 
 package({
-  'folke/todo-comments.nvim',
-  config = true,
-})
-
-package({
   'psliwka/vim-smoothie',
 })
 
@@ -30,7 +25,6 @@ package({
 package({
   'folke/flash.nvim',
   lazy = true,
-  opts = {},
   keys = {
     {
       's',
@@ -79,11 +73,6 @@ package({
 package({
   'ethanholz/nvim-lastplace',
   config = conf.lastplace,
-})
-
-package({
-  'lewis6991/gitsigns.nvim',
-  config = conf.gitsigns,
 })
 
 package({

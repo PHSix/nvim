@@ -35,7 +35,7 @@ return function()
             treesitter = true,
             dashboard = true,
             flash_nvim = true,
-            gitsigns = true,
+            gitsigns = false,
             lsp_saga = true,
             neo_tree = true,
             nvim_cmp = true,
@@ -148,3 +148,4 @@ return function()
     )
   )
 end
+

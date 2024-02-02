@@ -37,11 +37,6 @@ package({
 })
 
 package({
-  'NvChad/nvim-colorizer.lua',
-  config = true,
-})
-
-package({
   'dasupradyumna/midnight.nvim',
   config = function()
     vim.cmd([[colorscheme midnight]])
