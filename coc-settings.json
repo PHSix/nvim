@@ -87,5 +87,13 @@
 	"eslint.format.enable": false,
 	"prettier.enable": true,
 	"colors.enable": true,
-	"tailwindCSS.colorDecorators": true
+	"tailwindCSS.colorDecorators": true,
+	"go.checkForUpdates": "disabled",
+	"emmet.excludeLanguages": [
+		"markdown",
+		"typescriptreact",
+		"javascriptreact",
+		"javascript",
+		"typescript"
+	]
 }
