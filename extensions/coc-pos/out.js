@@ -117,7 +117,7 @@ var import_coc2 = require("coc.nvim");
 var import_debounce = __toESM(require_debounce());
 
 // src/utils.ts
-var INVALID_NAMING = /* @__PURE__ */ new Set([
+var invaildNames = /* @__PURE__ */ new Set([
   "index.ts",
   "index.tsx",
   "index.js",
@@ -142,7 +142,7 @@ function getSymbolPath(pos, docuemntSymbols, maxTravelDepth) {
     travelDepth++;
     const len = result.length;
     for (const symbol of symbols) {
-      if (posInRange(pos, symbol.range)) {
+      if (rangeContains(symbol.range, pos)) {
         symbols = symbol.children;
         result.push(symbol);
         break;
@@ -161,13 +161,13 @@ function getComponentName(uri) {
   const filePath = uri.split("/").filter((s) => s !== "");
   if (filePath.length === 0)
     return "";
-  if (INVALID_NAMING.has(filePath[filePath.length - 1])) {
+  if (invaildNames.has(filePath[filePath.length - 1])) {
     return `${filePath[filePath.length - 2]}/${filePath[filePath.length - 1]}`;
   }
   return filePath[filePath.length - 1];
 }
-function posInRange(pos, range) {
-  return (pos.line < range.end.line || pos.line === range.end.line && pos.character <= range.end.character) && (pos.line > range.start.line || pos.line === range.start.line && pos.character >= range.start.character);
+function rangeContains(range, position) {
+  return (position.line < range.end.line || position.line === range.end.line && position.character <= range.end.character) && (position.line > range.start.line || position.line === range.start.line && position.character >= range.start.character);
 }
 
 // src/render.ts
@@ -219,7 +219,8 @@ function getMaxTravelDepth() {
   return depth;
 }
 async function activate(context) {
-  const enabled = import_coc2.workspace.getConfiguration().get("coc-pos.enabled");
+  const config = import_coc2.workspace.getConfiguration("coc-pos");
+  const enabled = config.get("enabled", true);
   if (enabled === false)
     return;
   let maxTravelDepth = getMaxTravelDepth();
@@ -292,6 +293,7 @@ async function activate(context) {
           log.debug(`coc-pos catch some error : ${err.toString()}`);
         }
       }, 70),
+      // clear cache.
       import_coc2.workspace.registerAutocmd({
         event: ["BufDelete", "BufWipeout"],
         pattern: "*",

@@ -1,6 +1,6 @@
 import { DocumentSymbol, Position, Range } from "coc.nvim";
 
-const INVALID_NAMING = new Set([
+const invaildNames = new Set([
 	"index.ts",
 	"index.tsx",
 	"index.js",
@@ -31,7 +31,7 @@ export function getSymbolPath(
 		travelDepth++;
 		const len = result.length;
 		for (const symbol of symbols) {
-			if (posInRange(pos, symbol.range)) {
+			if (rangeContains(symbol.range, pos)) {
 				symbols = symbol.children;
 				result.push(symbol);
 				break;
@@ -55,18 +55,20 @@ export function getComponentName(uri: string) {
 
 	if (filePath.length === 0) return "";
 
-	if (INVALID_NAMING.has(filePath[filePath.length - 1])) {
+	if (invaildNames.has(filePath[filePath.length - 1])) {
 		return `${filePath[filePath.length - 2]}/${filePath[filePath.length - 1]}`;
 	}
 
 	return filePath[filePath.length - 1];
 }
 
-export function posInRange(pos: Position, range: Range) {
+export function rangeContains(range: Range, position: Position) {
 	return (
-		(pos.line < range.end.line ||
-			(pos.line === range.end.line && pos.character <= range.end.character)) &&
-		(pos.line > range.start.line ||
-			(pos.line === range.start.line && pos.character >= range.start.character))
+		(position.line < range.end.line ||
+			(position.line === range.end.line &&
+				position.character <= range.end.character)) &&
+		(position.line > range.start.line ||
+			(position.line === range.start.line &&
+				position.character >= range.start.character))
 	);
 }

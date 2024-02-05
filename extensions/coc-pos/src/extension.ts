@@ -36,7 +36,8 @@ function getMaxTravelDepth() {
 }
 
 export async function activate(context: ExtensionContext): Promise<void> {
-	const enabled = workspace.getConfiguration().get("coc-pos.enabled");
+	const config = workspace.getConfiguration("coc-pos");
+	const enabled = config.get<boolean>("enabled", true);
 
 	if (enabled === false) return;
 
@@ -145,6 +146,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 					log.debug(`coc-pos catch some error : ${err.toString()}`);
 				}
 			}, 70),
+			// clear cache.
 			workspace.registerAutocmd({
 				event: ["BufDelete", "BufWipeout"],
 				pattern: "*",
