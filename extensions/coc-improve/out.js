@@ -26,13 +26,23 @@ module.exports = __toCommonJS(extension_exports);
 var import_coc = require("coc.nvim");
 async function activate(context) {
   context.subscriptions.push(
-    import_coc.window.onDidChangeActiveTextEditor((e) => {
+    import_coc.window.onDidChangeActiveTextEditor(async (e) => {
       if (e) {
         const folder = import_coc.workspace.getWorkspaceFolder(e.document.uri);
-        if (folder) {
-          context.logger.info(`cd ${import_coc.Uri.parse(folder.uri).fsPath}`);
-          import_coc.nvim.exec(`cd ${import_coc.Uri.parse(folder.uri).fsPath}`);
+        if (!folder)
+          return;
+        const workspacePath = import_coc.Uri.parse(folder.uri).fsPath;
+        const cwd = await import_coc.nvim.call("getcwd");
+        if (workspacePath === cwd) {
+          return;
         }
+        if (workspacePath.includes(cwd)) {
+          const etcPath = workspacePath.slice(cwd.length);
+          if (etcPath.split("/").every((item) => !item.startsWith("."))) {
+            return;
+          }
+        }
+        import_coc.nvim.exec(`cd ${workspacePath}`);
       }
     })
   );

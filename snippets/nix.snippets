@@ -12,7 +12,9 @@ snippet flake "flake template with flake-parts."
 				];
 				perSystem = { pkgs,config, ... }: {
 					devShells = {
-						default = pkgs.mkShell {}
+						default = pkgs.mkShell {
+							packages = with pkgs; [];
+						};
 					};
 				};
 
