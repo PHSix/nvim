@@ -1,12 +1,14 @@
 import { spawn } from "child_process";
 import { resolve } from "path";
 import { access } from "fs";
+import { Logger } from "coc.nvim";
 
 export async function doFormat(
   code: string,
   opts: {
     cwd?: string;
     binPath?: string;
+    logger?: Logger;
   } = {}
 ) {
   const args: string[] = [];
@@ -14,14 +16,20 @@ export async function doFormat(
 
   if (cwd) {
     await new Promise((res) => {
-      access(resolve(cwd, "stylua.toml"), (err) => {
-        if (!!err) {
-          args.push("-f", "stylua.toml");
+      const styluaToml = resolve(cwd, "stylua.toml");
+      access(styluaToml, (err) => {
+        if (err === null) {
+          args.push("-f", styluaToml);
         }
 
         res(void 0);
       });
     });
+  }
+  opts.logger?.info(JSON.stringify(args));
+
+  if (args.length === 0) {
+    return void 0;
   }
 
   args.push("-");

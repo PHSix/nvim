@@ -1,6 +1,5 @@
 import {
   DocumentSelector,
-  executable,
   ExtensionContext,
   languages,
   Range,
@@ -17,7 +16,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
-  const log = context.logger;
   const selector: DocumentSelector = ["lua"];
   let enable = true;
 
@@ -53,20 +51,24 @@ export async function activate(context: ExtensionContext): Promise<void> {
             .getConfiguration()
             .get<string>("coc-stylua.binPath");
 
-          return doFormat(text, { cwd, binPath })
+          return doFormat(text, { cwd, binPath, logger: context.logger })
             .then((result) => {
+              if (result === void 0) return void 0;
               if (token.isCancellationRequested) return void 0;
 
               const endLine = document.lineCount - 1;
               const range = Range.create(
                 { character: 0, line: 0 },
-                { character: document.getline(endLine).length, line: endLine }
+                {
+                  character: document.getline(endLine).length,
+                  line: endLine,
+                }
               );
 
               return [TextEdit.replace(range, result)];
             })
-            .catch(() => {
-              log.warn("stylua format failed");
+            .catch((err) => {
+              window.showErrorMessage(Object.toString.call(err));
               return void 0;
             });
         },
