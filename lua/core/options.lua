@@ -42,11 +42,11 @@ opt.pumblend = 10
 opt.winblend = 10
 opt.undofile = true
 
-opt.smarttab = true
-opt.expandtab = true
+opt.smarttab = false
+opt.expandtab = false
 opt.autoindent = true
-opt.tabstop = 2
-opt.shiftwidth = 2
+opt.tabstop = 4
+opt.shiftwidth = 4
 
 -- wrap
 opt.linebreak = true
