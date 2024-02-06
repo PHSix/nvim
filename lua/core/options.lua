@@ -56,7 +56,7 @@ opt.breakindentopt = 'shift:2,min:20'
 opt.showbreak = '↳ '
 
 opt.foldlevelstart = 99
-opt.foldmethod = 'marker'
+opt.foldmethod = 'manual'
 
 opt.number = true
 opt.signcolumn = 'yes'
@@ -88,3 +88,4 @@ for type, icon in pairs(signs) do
   local hl = 'DiagnosticSign' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
