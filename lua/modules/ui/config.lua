@@ -100,4 +100,3 @@ function config.indent_blankline()
 end
 
 return config
-

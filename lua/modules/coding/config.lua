@@ -105,4 +105,3 @@ function config.winresizer()
 end
 
 return config
-

@@ -32,4 +32,3 @@ package({
   key = '<C-e>',
   config = conf.winresizer,
 })
-

@@ -45,4 +45,3 @@ package({
 })
 
 -- require('modules.ui.colorschemer')()
-

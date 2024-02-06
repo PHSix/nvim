@@ -1,9 +1,9 @@
-local package = require("core.pack").package
-local conf = require("modules.coc.config")
+local package = require('core.pack').package
+local conf = require('modules.coc.config')
 
 package({
-  "neoclide/coc.nvim",
-  branch = "release",
+  'neoclide/coc.nvim',
+  branch = 'release',
   config = conf.coc,
   init = function()
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-improve]])
@@ -14,10 +14,9 @@ package({
 })
 
 package({
-  "kevinhwang91/nvim-ufo",
+  'kevinhwang91/nvim-ufo',
   -- dir = '~/repos/nvim-ufo',
-  events = { "BufRead" },
-  dependencies = "kevinhwang91/promise-async",
+  events = { 'BufRead' },
+  dependencies = 'kevinhwang91/promise-async',
   config = conf.ufo,
 })
-

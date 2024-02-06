@@ -249,4 +249,3 @@ M.change_color = function(bgcolor, fgcolor)
 end
 
 return M
-
