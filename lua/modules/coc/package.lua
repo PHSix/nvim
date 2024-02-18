@@ -9,7 +9,7 @@ package({
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-improve]])
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-stylua]])
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-pos]])
-    vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-peek]])
+    -- vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-eslint-tools]])
   end,
 })
 
@@ -20,3 +20,4 @@ package({
   dependencies = 'kevinhwang91/promise-async',
   config = conf.ufo,
 })
+

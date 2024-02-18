@@ -8,12 +8,12 @@ function config.nvim_treesitter()
     ensure_installed = { 'javascript', 'typescript', 'tsx', 'lua', 'markdown', 'go' },
     auto_install = false,
     highlight = {
-      disable = function(lang, buf)
-        if lang == 'help' then
-          return true
-        end
-        return vim.api.nvim_buf_line_count(buf) > 5000
-      end,
+      -- disable = function(lang, buf)
+      --   if lang == 'help' then
+      --     return true
+      --   end
+      --   return vim.api.nvim_buf_line_count(buf) > 5000
+      -- end,
     },
   })
   vim.g.skip_ts_context_commentstring_module = true
@@ -61,3 +61,4 @@ function config.comment_nvim()
 end
 
 return config
+

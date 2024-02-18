@@ -7,8 +7,8 @@ local ensure_installed_extensions = {
   'coc-tsserver',
   'coc-css',
   '@yaegassy/coc-volar',
-  'coc-eslint',
-  'coc-prettier',
+  -- 'coc-eslint',
+  -- 'coc-prettier',
   'coc-vimlsp',
   'coc-marketplace',
   'coc-snippets',
@@ -141,3 +141,4 @@ function config.ufo()
 end
 
 return config
+
