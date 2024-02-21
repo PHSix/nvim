@@ -4,6 +4,7 @@ local conf = require('modules.coc.config')
 package({
   'neoclide/coc.nvim',
   branch = 'release',
+  dependencies = { 'PHSix/coc-eslint-tools' },
   config = conf.coc,
   init = function()
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-improve]])

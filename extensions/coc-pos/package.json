@@ -1,51 +1,51 @@
 {
-	"name": "coc-pos",
-	"version": "0.1.0",
-	"description": "A document symbol path show in winbar extension.",
-	"author": "ph <chenyi.ph@outlook.com>",
-	"license": "MIT",
-	"main": "out.js",
-	"keywords": [
-		"coc.nvim"
-	],
-	"engines": {
-		"coc": "^0.0.82"
-	},
-	"scripts": {
-		"watch": "node esbuild.mjs --watch",
-		"build": "node esbuild.mjs",
-		"prepare": "node esbuild.mjs"
-	},
-	"devDependencies": {
-		"@antfu/eslint-config": "^2.6.4",
-		"coc.nvim": "^0.0.83-next.18",
-		"esbuild": "^0.19.8",
-		"eslint": "^8.56.0",
-		"typescript": "^5.3.3"
-	},
-	"activationEvents": [
-		"*"
-	],
-	"contributes": {
-		"configuration": {
-			"type": "object",
-			"title": "coc-pos configuration",
-			"properties": {
-				"coc-pos.enable": {
-					"type": "boolean",
-					"default": true,
-					"description": "Enable coc-pos extension."
-				},
-				"coc-pos.maxTravelDepth": {
-					"type": "number",
-					"default": 30,
-					"description": "Get symbol path limit max travel depth."
-				}
-			}
-		},
-		"commands": []
-	},
-	"dependencies": {
-		"debounce": "^2.0.0"
-	}
+  "name": "coc-pos",
+  "version": "0.1.0",
+  "description": "A document symbol path show in winbar extension.",
+  "author": "ph <chenyi.ph@outlook.com>",
+  "license": "MIT",
+  "keywords": [
+    "coc.nvim"
+  ],
+  "main": "out.js",
+  "engines": {
+    "coc": "^0.0.82"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-pos configuration",
+      "properties": {
+        "coc-pos.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable coc-pos extension."
+        },
+        "coc-pos.maxTravelDepth": {
+          "type": "number",
+          "default": 30,
+          "description": "Get symbol path limit max travel depth."
+        }
+      }
+    },
+    "commands": []
+  },
+  "scripts": {
+    "watch": "node esbuild.mjs --watch",
+    "build": "node esbuild.mjs",
+    "prepare": "node esbuild.mjs"
+  },
+  "dependencies": {
+    "debounce": "^2.0.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.6.4",
+    "coc.nvim": "^0.0.83-next.18",
+    "esbuild": "^0.19.8",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
 }

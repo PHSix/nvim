@@ -1,7 +1,5 @@
 # coc-stylua
 
-
-
 ## Install
 
 `:CocInstall coc-stylua`

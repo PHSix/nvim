@@ -17,8 +17,7 @@ if (process.argv.length > 2 && process.argv[2] === '--watch') {
   const ctx = await esbuild.context(options)
   await ctx.watch()
   console.log('watching...')
-}
-else {
+} else {
   const result = await esbuild.build(options)
   if (result.errors.length)
     console.error(result.errors)
