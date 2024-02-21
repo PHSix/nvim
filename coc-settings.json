@@ -85,6 +85,7 @@
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": true,
   "eslint.format.enable": false,
+  "eslint.experimental.useFlatConfig": true,
   "prettier.enable": true,
   "colors.enable": true,
   "tailwindCSS.colorDecorators": true,
@@ -100,5 +101,6 @@
   "git.changedSign.text": "│",
   "git.removedSign.text": "│",
   "git.changeRemovedSign.text": "│",
-  "git.topRemovedSign.text": "│"
+  "git.topRemovedSign.text": "│",
+  "git.blameUseRealTime": true
 }

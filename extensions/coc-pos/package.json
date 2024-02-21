@@ -5,7 +5,6 @@
 	"author": "ph <chenyi.ph@outlook.com>",
 	"license": "MIT",
 	"main": "out.js",
-	"type": "module",
 	"keywords": [
 		"coc.nvim"
 	],
@@ -35,7 +34,7 @@
 				"coc-pos.enable": {
 					"type": "boolean",
 					"default": true,
-					"description": "Enable coc-pos extension.(no support hot reload)"
+					"description": "Enable coc-pos extension."
 				},
 				"coc-pos.maxTravelDepth": {
 					"type": "number",

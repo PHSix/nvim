@@ -1,10 +1,11 @@
 import type { DocumentSymbol, Position, Range } from 'coc.nvim'
 
-const invaildNames = new Set([
+const invaildFileName = new Set([
   'index.ts',
   'index.tsx',
   'index.js',
   'index.jsx',
+  'index.vue',
   'index.cjs',
   'index.mjs',
   'index.css',
@@ -17,6 +18,7 @@ const invaildNames = new Set([
   'index.module.scss',
   'init.lua',
   'index.d.ts',
+  'init.go',
 ])
 
 export function getSymbolPath(
@@ -28,7 +30,7 @@ export function getSymbolPath(
   let travelDepth = 0
   let symbols: DocumentSymbol[] | undefined = docuemntSymbols
 
-  while (symbols !== void 0 && travelDepth < maxTravelDepth) {
+  while (symbols !== void 0 && symbols.length !== 0 && travelDepth < maxTravelDepth) {
     travelDepth++
     const len = result.length
     for (const symbol of symbols) {
@@ -54,9 +56,9 @@ export function getComponentName(uri: string) {
   const filePath = uri.split('/').filter(s => s !== '')
 
   if (filePath.length === 0)
-    return ''
+    return undefined
 
-  if (invaildNames.has(filePath[filePath.length - 1]))
+  if (invaildFileName.has(filePath[filePath.length - 1]) && filePath.length > 1)
     return `${filePath[filePath.length - 2]}/${filePath[filePath.length - 1]}`
 
   return filePath[filePath.length - 1]

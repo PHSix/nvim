@@ -1,7 +1,6 @@
 import {
   CancellationTokenSource,
   ProviderName,
-  Uri,
   events,
   languages,
   nvim,
@@ -10,6 +9,7 @@ import {
 
 import type {
   CancellationToken,
+  Disposable,
   DocumentSymbol,
   ExtensionContext,
   TextDocument,
@@ -27,6 +27,15 @@ interface GetSymbolable {
 }
 
 let cancelTokenSource: CancellationTokenSource
+let eventDisposable: Disposable | undefined
+let maxTravelDepth: number
+const symbolsCache = new Map<
+    number,
+    {
+      changedtick: number
+      symbols: DocumentSymbol[]
+    }
+  >()
 
 function getMaxTravelDepth() {
   const depth = workspace
@@ -38,136 +47,147 @@ function getMaxTravelDepth() {
   return depth
 }
 
-export async function activate(context: ExtensionContext): Promise<void> {
-  const config = workspace.getConfiguration('coc-pos')
-  const enabled = config.get<boolean>('enabled', true)
-
-  if (enabled === false)
-    return
-
-  let maxTravelDepth = getMaxTravelDepth()
-
-  workspace.onDidChangeConfiguration(() => {
-    maxTravelDepth = getMaxTravelDepth()
-  })
-
+function createEventListen(context: ExtensionContext) {
+  maxTravelDepth = getMaxTravelDepth()
   const log = context.logger
 
-  const symbolsCache = new Map<
-    number,
-    {
-      changedtick: number
-      symbols: DocumentSymbol[]
-    }
-  >()
+  eventDisposable = events.on(
+    'CursorMoved',
+    debounce(async (bufnr: number, cursor: [number, number]) => {
+      const document = workspace.getDocument(bufnr)
 
-  context.subscriptions.push(
-    events.on(
-      'CursorMoved',
-      debounce(async (bufnr: number, cursor: [number, number]) => {
-        const document = workspace.getDocument(bufnr)
-
-        if (
-          !document
-          || !document.attached
-          || !document.textDocument
-          || !languages.hasProvider(
-            ProviderName.DocumentSymbol,
-            document.textDocument,
-          )
+      if (
+        !document
+        || !document.attached
+        || !document.textDocument
+        || !languages.hasProvider(
+          ProviderName.DocumentSymbol,
+          document.textDocument,
         )
+      )
+        return
+
+      const folderUri = workspace.getWorkspaceFolder(
+        document.textDocument.uri,
+      )?.uri
+
+      if (!folderUri)
+        return
+
+      // last change doucment tick
+      const changedtick = await nvim.call('nvim_buf_get_var', [
+        bufnr,
+        'changedtick',
+      ])
+
+      let symbols: DocumentSymbol[]
+
+      const cache = symbolsCache.get(bufnr)
+
+      if (cache && cache.changedtick === changedtick) {
+        // get symbols from cache
+        symbols = cache.symbols
+      } else {
+        // request and cached symbols
+        cancelTokenSource?.cancel()
+        cancelTokenSource?.dispose()
+        cancelTokenSource = new CancellationTokenSource()
+
+        const res = await (
+          languages as any as GetSymbolable
+        ).getDocumentSymbol(document.textDocument, cancelTokenSource.token)
+
+        if (!res)
           return
 
-        const folderUri = workspace.getWorkspaceFolder(
-          document.textDocument.uri,
-        )?.uri
+        symbols = res
 
-        if (!folderUri)
-          return
+        symbolsCache.set(bufnr, {
+          changedtick,
+          symbols,
+        })
+      }
 
-        // last change doucment tick
-        const changedtick = await nvim.call('nvim_buf_get_var', [
-          bufnr,
-          'changedtick',
-        ])
+      try {
+        const [symbolPath] = getSymbolPath(
+          {
+            line: cursor[0] - 1,
+            character: cursor[1] - 1,
+          },
+          symbols,
+          maxTravelDepth,
+        )
+        const filename = getFilename(folderUri)
+        const componentName = getComponentName(
+          document.uri.slice(folderUri.length),
+        )
 
-        let symbols: DocumentSymbol[]
+        const winbar = renderWinbarString(
+          componentName
+            ? ` ${filename}:${componentName}`
+            : ` ${filename}`,
+          symbolPath,
+        )
 
-        const cache = symbolsCache.get(bufnr)
-
-        if (cache && cache.changedtick === changedtick) {
-          // get symbols from cache
-          symbols = cache.symbols
+        // check current buffer is not changed
+        if ((await nvim.buffer).id === bufnr) {
+          nvim.request('nvim_set_option_value', [
+            'winbar',
+            winbar,
+            { scope: 'local' },
+          ])
         }
-        else {
-          // request and cached symbols
-          cancelTokenSource?.cancel()
-          cancelTokenSource?.dispose()
-          cancelTokenSource = new CancellationTokenSource()
-
-          const res = await (
-            languages as any as GetSymbolable
-          ).getDocumentSymbol(document.textDocument, cancelTokenSource.token)
-
-          if (!res)
-            return
-
-          symbols = res
-
-          symbolsCache.set(bufnr, {
-            changedtick,
-            symbols,
-          })
-        }
-
+      } catch (err: any) {
+        log.debug(`coc-pos catch some error : ${err.toString()}`)
+      }
+    }, 70),
+    // clear cache.
+    workspace.registerAutocmd({
+      event: ['BufDelete', 'BufWipeout'],
+      pattern: '*',
+      callback: (args: any) => {
         try {
-          const [symbolPath] = getSymbolPath(
-            {
-              line: cursor[0] - 1,
-              character: cursor[1] - 1,
-            },
-            symbols,
-            maxTravelDepth,
-          )
-          const filename = getFilename(folderUri)
-          const componentName = getComponentName(
-            Uri.parse(document.uri).fsPath,
-          )
-
-          const winbar = renderWinbarString(
-            componentName
-              ? ` ${filename}:${componentName}`
-              : ` ${filename}`,
-            symbolPath,
-          )
-
-          // check current buffer is not changed
-          if ((await nvim.buffer).id === bufnr) {
-            nvim.request('nvim_set_option_value', [
-              'winbar',
-              winbar,
-              { scope: 'local' },
-            ])
-          }
+          if (args && args.buf && symbolsCache.has(args.buf))
+            symbolsCache.delete(args.buf)
+        } catch (err) {
+          log.error(Object.toString.call(err))
         }
-        catch (err: any) {
-          log.debug(`coc-pos catch some error : ${err.toString()}`)
-        }
-      }, 70),
-      // clear cache.
-      workspace.registerAutocmd({
-        event: ['BufDelete', 'BufWipeout'],
-        pattern: '*',
-        callback: (args: any) => {
-          try {
-            if (args && args.buf && symbolsCache.has(args.buf))
-              symbolsCache.delete(args.buf)
-          }
-          catch (err) {
-            log.error(Object.toString.call(err))
-          }
-        },
-      }),
-    ),
+      },
+    }),
   )
+
+  context.subscriptions.push(eventDisposable)
+}
+
+export async function activate(context: ExtensionContext): Promise<void> {
+  const config = workspace.getConfiguration('coc-pos')
+  const enable = config.get<boolean>('enable', true)
+
+  if (enable === true)
+    createEventListen(context)
+
+  context.subscriptions.push(workspace.onDidChangeConfiguration((e) => {
+    if (e.affectsConfiguration('coc-pos.enable')) {
+      if (config.get('enable', true)) {
+        createEventListen(context)
+      } else {
+        eventDisposable?.dispose()
+        context.subscriptions = context.subscriptions.filter(s => s !== eventDisposable)
+        for (const buf of symbolsCache.keys()) {
+          symbolsCache.delete(buf)
+          nvim.request('nvim_set_option_value', ['winbar', '', { buf }])
+        }
+      }
+    }
+
+    if (e.affectsConfiguration('coc-pos.maxTravelDepth'))
+      maxTravelDepth = getMaxTravelDepth()
+  }))
+}
+
+export function deactivate() {
+  eventDisposable?.dispose()
+
+  for (const key of symbolsCache.keys())
+    symbolsCache.delete(key)
 }

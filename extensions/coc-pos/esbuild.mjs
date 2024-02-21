@@ -1,4 +1,5 @@
-import * as esbuild from 'esbuild';
+import process from 'node:process'
+import * as esbuild from 'esbuild'
 
 const options = {
   entryPoints: ['src/extension.ts'],
@@ -10,15 +11,15 @@ const options = {
   platform: 'node',
   target: 'node18',
   outfile: 'out.js',
-};
+}
 
 if (process.argv.length > 2 && process.argv[2] === '--watch') {
-  const ctx = await esbuild.context(options);
-  await ctx.watch();
-  console.log('watching...');
-} else {
-  const result = await esbuild.build(options);
-  if (result.errors.length) {
-    console.error(result.errors);
-  }
+  const ctx = await esbuild.context(options)
+  await ctx.watch()
+  console.log('watching...')
+}
+else {
+  const result = await esbuild.build(options)
+  if (result.errors.length)
+    console.error(result.errors)
 }
