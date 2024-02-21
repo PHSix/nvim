@@ -85,6 +85,14 @@ function config.coc()
     once = false,
   })
 
+  vim.api.nvim_create_autocmd({ 'User' }, {
+    group = 'coc_patch_autocmd',
+    pattern = { 'CocStatusChange', 'CocDiagnosticChange' },
+    callback = function()
+      vim.opt.statusline = vim.opt.statusline
+    end,
+  })
+
   vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     group = 'coc_patch_autocmd',
     pattern = '*',

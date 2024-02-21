@@ -141,7 +141,7 @@ function createEventListen(context: ExtensionContext) {
         log.debug(`coc-pos catch some error : ${err.toString()}`)
       }
     }, 70),
-    // clear cache.
+    // delete cache.
     workspace.registerAutocmd({
       event: ['BufDelete', 'BufWipeout'],
       pattern: '*',

@@ -101,6 +101,5 @@
   "git.changedSign.text": "│",
   "git.removedSign.text": "│",
   "git.changeRemovedSign.text": "│",
-  "git.topRemovedSign.text": "│",
-  "git.blameUseRealTime": true
+  "git.topRemovedSign.text": "│"
 }
