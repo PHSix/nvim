@@ -17,13 +17,15 @@
 		"prepare": "node esbuild.mjs"
 	},
 	"devDependencies": {
+		"@antfu/eslint-config": "^2.6.4",
 		"@types/node": "^20.11.5",
 		"coc.nvim": "^0.0.83-next.18",
 		"esbuild": "^0.19.8",
+		"eslint": "^8.56.0",
 		"typescript": "^5.3.3"
 	},
 	"activationEvents": [
-		"*"
+		"onLanguage:lua"
 	],
 	"contributes": {
 		"configuration": {

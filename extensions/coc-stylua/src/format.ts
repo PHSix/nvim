@@ -1,78 +1,76 @@
-import { spawn } from "child_process";
-import { resolve } from "path";
-import { access } from "fs";
-import { Logger } from "coc.nvim";
+import { spawn } from 'node:child_process'
+import { resolve } from 'node:path'
+import { access } from 'node:fs'
+import process from 'node:process'
+import type { Logger } from 'coc.nvim'
 
 export async function doFormat(
   code: string,
   opts: {
-    cwd?: string;
-    binPath?: string;
-    logger?: Logger;
-  } = {}
+    cwd?: string
+    binPath?: string
+    logger?: Logger
+  } = {},
 ) {
-  const args: string[] = [];
-  const { cwd, binPath } = opts;
+  const args: string[] = []
+  const { cwd, binPath } = opts
 
   if (cwd) {
     await new Promise((res) => {
-      const styluaToml = resolve(cwd, "stylua.toml");
+      const styluaToml = resolve(cwd, 'stylua.toml')
       access(styluaToml, (err) => {
-        if (err === null) {
-          args.push("-f", styluaToml);
-        }
+        if (err === null)
+          args.push('-f', styluaToml)
 
-        res(void 0);
-      });
-    });
+        res(void 0)
+      })
+    })
   }
-  opts.logger?.info(JSON.stringify(args));
+  opts.logger?.info(JSON.stringify(args))
 
-  if (args.length === 0) {
-    return void 0;
-  }
+  if (args.length === 0)
+    return void 0
 
-  args.push("-");
+  args.push('-')
 
   return new Promise<string>((res, reject) => {
-    let result: string = "";
-    const env = !!binPath
+    let result: string = ''
+    const env = binPath
       ? {
-          PATH: process.env["PATH"] + `:${absolutePath(binPath)}`,
+          PATH: `${process.env.PATH}:${absolutePath(binPath)}`,
         }
-      : void 0;
+      : void 0
 
-    const child = spawn("stylua", args, {
+    const child = spawn('stylua', args, {
       cwd,
       env,
-    });
+    })
 
-    child.stdout.on("data", (data) => {
-      result += data.toString();
-    });
+    child.stdout.on('data', (data) => {
+      result += data.toString()
+    })
 
-    child.stderr.on("data", (data) => {
-      reject(data);
-    });
+    child.stderr.on('data', (data) => {
+      reject(data)
+    })
 
-    child.on("error", () => {
-      reject("child on error");
-    });
+    child.on('error', () => {
+      reject(Error('child on error'))
+    })
 
-    child.stdout.on("close", () => {
-      res(result);
-    });
+    child.stdout.on('close', () => {
+      res(result)
+    })
 
-    child.stdin.write(code);
+    child.stdin.write(code)
 
-    child.stdin.end();
-  });
+    child.stdin.end()
+  })
 }
 
 function absolutePath(p: string) {
-  if (p.startsWith("~")) {
-    return process.env.HOME + p.slice(1);
-  }
+  if (p.startsWith('~'))
+    return process.env.HOME + p.slice(1)
 
-  return p;
+  return p
 }

@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/extension.ts
@@ -26,34 +36,33 @@ module.exports = __toCommonJS(extension_exports);
 var import_coc = require("coc.nvim");
 
 // src/format.ts
-var import_child_process = require("child_process");
-var import_path = require("path");
-var import_fs = require("fs");
+var import_node_child_process = require("node:child_process");
+var import_node_path = require("node:path");
+var import_node_fs = require("node:fs");
+var import_node_process = __toESM(require("node:process"));
 async function doFormat(code, opts = {}) {
   const args = [];
   const { cwd, binPath } = opts;
   if (cwd) {
     await new Promise((res) => {
-      const styluaToml = (0, import_path.resolve)(cwd, "stylua.toml");
-      (0, import_fs.access)(styluaToml, (err) => {
-        if (err === null) {
+      const styluaToml = (0, import_node_path.resolve)(cwd, "stylua.toml");
+      (0, import_node_fs.access)(styluaToml, (err) => {
+        if (err === null)
           args.push("-f", styluaToml);
-        }
         res(void 0);
       });
     });
   }
   opts.logger?.info(JSON.stringify(args));
-  if (args.length === 0) {
+  if (args.length === 0)
     return void 0;
-  }
   args.push("-");
   return new Promise((res, reject) => {
     let result = "";
-    const env = !!binPath ? {
-      PATH: process.env["PATH"] + `:${absolutePath(binPath)}`
+    const env = binPath ? {
+      PATH: `${import_node_process.default.env.PATH}:${absolutePath(binPath)}`
     } : void 0;
-    const child = (0, import_child_process.spawn)("stylua", args, {
+    const child = (0, import_node_child_process.spawn)("stylua", args, {
       cwd,
       env
     });
@@ -64,7 +73,7 @@ async function doFormat(code, opts = {}) {
       reject(data);
     });
     child.on("error", () => {
-      reject("child on error");
+      reject(Error("child on error"));
     });
     child.stdout.on("close", () => {
       res(result);
@@ -74,26 +83,22 @@ async function doFormat(code, opts = {}) {
   });
 }
 function absolutePath(p) {
-  if (p.startsWith("~")) {
-    return process.env.HOME + p.slice(1);
-  }
+  if (p.startsWith("~"))
+    return import_node_process.default.env.HOME + p.slice(1);
   return p;
 }
 
 // src/extension.ts
 async function activate(context) {
   const config = import_coc.workspace.getConfiguration("coc-stylua");
-  if (config.get("enabled") === false) {
+  if (config.get("enabled") === false)
     return;
-  }
-  const log = context.logger;
   const selector = ["lua"];
   let enable = true;
   import_coc.workspace.onDidChangeConfiguration(() => {
     const value = import_coc.workspace.getConfiguration().get("coc-stylua.enable");
-    if (value) {
+    if (value)
       enable = value;
-    }
   });
   context.subscriptions.push(
     import_coc.languages.registerDocumentFormatProvider(
