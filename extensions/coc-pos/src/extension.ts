@@ -1,116 +1,123 @@
 import {
-  CancellationToken,
   CancellationTokenSource,
-  DocumentSymbol,
-  ExtensionContext,
   ProviderName,
-  TextDocument,
+  Uri,
   events,
   languages,
-  workspace,
   nvim,
-  Uri,
-} from "coc.nvim";
-import debounce from "debounce";
-import { getComponentName, getFilename, getSymbolPath } from "./utils";
-import { renderWinbarString } from "./render";
+  workspace,
+} from 'coc.nvim'
+
+import type {
+  CancellationToken,
+  DocumentSymbol,
+  ExtensionContext,
+  TextDocument,
+} from 'coc.nvim'
+
+import debounce from 'debounce'
+import { getComponentName, getFilename, getSymbolPath } from './utils'
+import { renderWinbarString } from './render'
 
 interface GetSymbolable {
-  getDocumentSymbol(
+  getDocumentSymbol: (
     document: TextDocument,
     token: CancellationToken,
-  ): Promise<DocumentSymbol[] | null>;
+  ) => Promise<DocumentSymbol[] | null>
 }
 
-let cancelTokenSource: CancellationTokenSource;
+let cancelTokenSource: CancellationTokenSource
 
 function getMaxTravelDepth() {
   const depth = workspace
     .getConfiguration()
-    .get<number>("coc-pos.maxTravelDepth");
-  if (typeof depth !== "number" || isNaN(depth)) {
-    return 30;
-  }
+    .get<number>('coc-pos.maxTravelDepth')
+  if (typeof depth !== 'number' || Number.isNaN(depth))
+    return 30
 
-  return depth;
+  return depth
 }
 
 export async function activate(context: ExtensionContext): Promise<void> {
-  const config = workspace.getConfiguration("coc-pos");
-  const enabled = config.get<boolean>("enabled", true);
+  const config = workspace.getConfiguration('coc-pos')
+  const enabled = config.get<boolean>('enabled', true)
 
-  if (enabled === false) return;
+  if (enabled === false)
+    return
 
-  let maxTravelDepth = getMaxTravelDepth();
+  let maxTravelDepth = getMaxTravelDepth()
 
   workspace.onDidChangeConfiguration(() => {
-    maxTravelDepth = getMaxTravelDepth();
-  });
+    maxTravelDepth = getMaxTravelDepth()
+  })
 
-  const log = context.logger;
+  const log = context.logger
 
   const symbolsCache = new Map<
     number,
     {
-      changedtick: number;
-      symbols: DocumentSymbol[];
+      changedtick: number
+      symbols: DocumentSymbol[]
     }
-  >();
+  >()
 
   context.subscriptions.push(
     events.on(
-      "CursorMoved",
+      'CursorMoved',
       debounce(async (bufnr: number, cursor: [number, number]) => {
-        const document = workspace.getDocument(bufnr);
+        const document = workspace.getDocument(bufnr)
 
         if (
-          !document ||
-          !document.attached ||
-          !document.textDocument ||
-          !languages.hasProvider(
+          !document
+          || !document.attached
+          || !document.textDocument
+          || !languages.hasProvider(
             ProviderName.DocumentSymbol,
             document.textDocument,
           )
         )
-          return;
+          return
 
         const folderUri = workspace.getWorkspaceFolder(
           document.textDocument.uri,
-        )?.uri;
+        )?.uri
 
-        if (!folderUri) return;
+        if (!folderUri)
+          return
 
         // last change doucment tick
-        const changedtick = await nvim.call("nvim_buf_get_var", [
+        const changedtick = await nvim.call('nvim_buf_get_var', [
           bufnr,
-          "changedtick",
-        ]);
+          'changedtick',
+        ])
 
-        let symbols: DocumentSymbol[];
+        let symbols: DocumentSymbol[]
 
-        const cache = symbolsCache.get(bufnr);
+        const cache = symbolsCache.get(bufnr)
 
         if (cache && cache.changedtick === changedtick) {
           // get symbols from cache
-          symbols = cache.symbols;
-        } else {
+          symbols = cache.symbols
+        }
+        else {
           // request and cached symbols
-          cancelTokenSource?.cancel();
-          cancelTokenSource?.dispose();
-          cancelTokenSource = new CancellationTokenSource();
+          cancelTokenSource?.cancel()
+          cancelTokenSource?.dispose()
+          cancelTokenSource = new CancellationTokenSource()
 
           const res = await (
             languages as any as GetSymbolable
-          ).getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+          ).getDocumentSymbol(document.textDocument, cancelTokenSource.token)
 
-          if (!res) return;
+          if (!res)
+            return
 
-          symbols = res;
+          symbols = res
 
           symbolsCache.set(bufnr, {
             changedtick,
             symbols,
-          });
+          })
         }
 
         try {
@@ -121,45 +128,46 @@ export async function activate(context: ExtensionContext): Promise<void> {
             },
             symbols,
             maxTravelDepth,
-          );
-          const filename = getFilename(folderUri);
+          )
+          const filename = getFilename(folderUri)
           const componentName = getComponentName(
             Uri.parse(document.uri).fsPath,
-          );
+          )
 
           const winbar = renderWinbarString(
-            !!componentName
+            componentName
               ? ` ${filename}:${componentName}`
               : ` ${filename}`,
             symbolPath,
-          );
+          )
 
           // check current buffer is not changed
           if ((await nvim.buffer).id === bufnr) {
-            nvim.request("nvim_set_option_value", [
-              "winbar",
+            nvim.request('nvim_set_option_value', [
+              'winbar',
               winbar,
-              { scope: "local" },
-            ]);
+              { scope: 'local' },
+            ])
           }
-        } catch (err: any) {
-          log.debug(`coc-pos catch some error : ${err.toString()}`);
+        }
+        catch (err: any) {
+          log.debug(`coc-pos catch some error : ${err.toString()}`)
         }
       }, 70),
       // clear cache.
       workspace.registerAutocmd({
-        event: ["BufDelete", "BufWipeout"],
-        pattern: "*",
+        event: ['BufDelete', 'BufWipeout'],
+        pattern: '*',
         callback: (args: any) => {
           try {
-            if (args && args.buf && symbolsCache.has(args.buf)) {
-              symbolsCache.delete(args.buf);
-            }
-          } catch (err) {
-            log.error(Object.toString.call(err));
+            if (args && args.buf && symbolsCache.has(args.buf))
+              symbolsCache.delete(args.buf)
+          }
+          catch (err) {
+            log.error(Object.toString.call(err))
           }
         },
       }),
     ),
-  );
+  )
 }
