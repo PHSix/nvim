@@ -10,13 +10,11 @@ package({
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-improve]])
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-stylua]])
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-pos]])
-    -- vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-eslint-tools]])
   end,
 })
 
 package({
   'kevinhwang91/nvim-ufo',
-  -- dir = '~/repos/nvim-ufo',
   events = { 'BufRead' },
   dependencies = 'kevinhwang91/promise-async',
   config = conf.ufo,

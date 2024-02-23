@@ -8,7 +8,7 @@ local ensure_installed_extensions = {
   'coc-css',
   '@yaegassy/coc-volar',
   -- 'coc-eslint',
-  -- 'coc-prettier',
+  'coc-prettier',
   'coc-vimlsp',
   'coc-marketplace',
   'coc-snippets',
@@ -17,6 +17,7 @@ local ensure_installed_extensions = {
   'coc-go',
   'coc-sumneko-lua',
   'coc-git',
+  '@yaegassy/coc-astro',
 }
 
 local function executable(cmd)

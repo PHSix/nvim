@@ -2,8 +2,6 @@ local config = {}
 
 function config.nvim_treesitter()
   local lazy = require('lazy')
-  vim.api.nvim_command('set foldmethod=expr')
-  vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()')
   require('nvim-treesitter.configs').setup({
     ensure_installed = { 'javascript', 'typescript', 'tsx', 'lua', 'markdown', 'go' },
     auto_install = false,

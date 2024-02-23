@@ -58,7 +58,7 @@
   "typescript.format.enable": false,
   "explorer.position": "right",
   "explorer.git.enable": false,
-  "explorer.trash.command": "rm -rf %s",
+  "explorer.trash.command": "nodejs:module",
   "explorer.diagnostic.enableSubscriptNumber": false,
   "explorer.keyMappings.global": {
     "s": "open:vsplit",
@@ -77,6 +77,7 @@
     }
   ],
   "explorer.icon.enableNerdfont": true,
+  "explorer.enableFloatinput": true,
   "[go]": {
     "coc.preferences.formatOnSave": true
   },
