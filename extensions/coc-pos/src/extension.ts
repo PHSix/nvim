@@ -4,6 +4,7 @@ import {
   events,
   languages,
   nvim,
+  window,
   workspace,
 } from 'coc.nvim'
 
@@ -55,17 +56,27 @@ function createEventListen(context: ExtensionContext) {
     'CursorMoved',
     debounce(async (bufnr: number, cursor: [number, number]) => {
       const document = workspace.getDocument(bufnr)
+      const w = window.activeTextEditor?.winid !== void 0 ? nvim.createWindow(window.activeTextEditor.winid) : undefined
 
       if (
         !document
         || !document.attached
         || !document.textDocument
+        || document.winid === -1
+        || !w
+        || await document.buffer.getOption('bufhidden') !== ''
         || !languages.hasProvider(
           ProviderName.DocumentSymbol,
           document.textDocument,
         )
       )
         return
+
+      const windowConfig = await nvim.createWindow(document.winid).getConfig()
+
+      if (windowConfig.relative)
+        return
+      context.logger.info(windowConfig)
 
       const folderUri = workspace.getWorkspaceFolder(
         document.textDocument.uri,
@@ -130,13 +141,8 @@ function createEventListen(context: ExtensionContext) {
         )
 
         // check current buffer is not changed
-        if ((await nvim.buffer).id === bufnr) {
-          nvim.request('nvim_set_option_value', [
-            'winbar',
-            winbar,
-            { scope: 'local' },
-          ])
-        }
+        if ((await nvim.window).id === w.id)
+          w.setOption('winbar', winbar)
       } catch (err: any) {
         log.debug(`coc-pos catch some error : ${err.toString()}`)
       }

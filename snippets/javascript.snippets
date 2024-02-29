@@ -1,0 +1,50 @@
+snippet com "Creata a block comment."
+	/**
+	 * $0
+	 */
+
+snippet todo "Create a TODO comment"
+	/**
+	 * TODO: $0
+	 */
+
+snippet warn "Create a WARNING comment"
+	/**
+	 * WARNING: $0
+	 */
+
+snippet cfn "Const a arrow function"
+	const $1 = () => {
+		${0:// TODO: do something in here}
+	}
+
+snippet clg "Console log a Value with pre tag."
+	console.log('$0: ', ${0:})
+
+snippet fn "Create a function"
+	function $1($2) {
+		$0
+	}
+
+snippet efn "Create and export a function"
+	export function $1($2) {
+		$0
+	}
+
+snippet edfn "Create and export a function by default"
+	export default function $1($2) {
+		$0
+	}
+
+snippet ecls "Export a class"
+	export class $1 {
+		constructor($2) {
+			$0
+		}
+	}
+
+snippet eafn "Export a async function"
+	export async function $1($2) {
+		$0 
+	}
+	

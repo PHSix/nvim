@@ -152,7 +152,7 @@ basic.line_col_right = {
   end,
 }
 
-basic.lsp_name = {
+basic.lsp_status = {
   width = medium_width,
   name = 'lsp_name',
   text = function()
@@ -205,7 +205,7 @@ local default = {
     { vim_components.search_count() },
     basic.divider,
 
-    basic.lsp_name,
+    basic.lsp_status,
     { ' ' },
     basic.git_branch,
     { ' ' },

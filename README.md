@@ -48,7 +48,6 @@
 | hlsearch.nvim                 |
 | indent-blankline.nvim         |
 | lazy.nvim                     |
-| LeaderF                       |
 | midnight.nvim                 |
 | nvim-lastplace                |
 | nvim-osc52                    |
@@ -69,5 +68,6 @@
 | nvim-spectre                  |
 | vim-floaterm                  |
 | vim-surround                  |
+| todo-comments.nvim            |
 
 ## License MIT

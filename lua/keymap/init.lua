@@ -56,14 +56,6 @@ nmap({
   { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
   { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
-  -- leaderf
-  -- { '<Leader>fb', cmd('LeaderF buffer'), opts(noremap, silent) },
-  -- { '<Leader>fw', cmd('LeaderF rg'), opts(noremap, silent) },
-  -- { '<Leader>ff', cmd('LeaderF file'), opts(noremap, silent) },
-  -- { '<Leader>fo', cmd('LeaderF mru'), opts(noremap, silent) },
-  -- -- { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
-  -- { '<M-x>', cmd('LeaderF command'), opts(noremap, silent) },
-
   -- coc-git
   { '<leader>gp', '<Plug>(coc-git-chunkinfo)', opts(noremap, silent) },
   { '<leader>gs', cmd('CocCommand git.chunkStage'), opts(noremap, silent) },
@@ -85,4 +77,6 @@ nmap({
   { 'gr', '<Plug>(coc-references)', opts(noremap, silent) },
   { 'gy', '<Plug>(coc-type-definition)', opts(noremap, silent) },
   { 'gi', '<Plug>(coc-implementation)', opts(noremap, silent) },
+  { 'gp', cmd('CocCommand coc-plus.peek-defintion'), opts(noremap, silent) },
 })
+

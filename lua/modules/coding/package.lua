@@ -12,11 +12,6 @@ package({
 })
 
 package({
-  'Yggdroot/LeaderF',
-  build = ':LeaderfInstallCExtension',
-})
-
-package({
   'tpope/vim-surround',
   keys = { 'd', 'c' },
 })
@@ -32,3 +27,4 @@ package({
   key = '<C-e>',
   config = conf.winresizer,
 })
+
