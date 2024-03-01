@@ -45,8 +45,8 @@ opt.undofile = true
 opt.smarttab = false
 opt.expandtab = false
 opt.autoindent = true
-opt.tabstop = 4
-opt.shiftwidth = 4
+opt.tabstop = 2
+opt.shiftwidth = 2
 
 -- wrap
 opt.linebreak = true
@@ -83,8 +83,3 @@ if vim.loop.os_uname().sysname == 'Darwin' then
 end
 opt.cursorline = true
 
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end

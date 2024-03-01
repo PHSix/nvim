@@ -22,14 +22,6 @@ function config.dashboard()
   })
 end
 
-function config.indentscope()
-  require('mini.indentscope').setup({})
-end
-
-function config.lualine()
-  require('lualine').setup({})
-end
-
 function config.windline()
   require('modules.ui.windline')
 end
@@ -100,3 +92,4 @@ function config.indent_blankline()
 end
 
 return config
+

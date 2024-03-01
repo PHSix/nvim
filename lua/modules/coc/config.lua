@@ -7,6 +7,9 @@ local ensure_installed_extensions = {
   'coc-tsserver',
   'coc-css',
   '@yaegassy/coc-volar',
+  '@yaegassy/coc-tailwindcss3',
+  '@yaegassy/coc-astro',
+  'coc-emmet',
   -- 'coc-eslint',
   'coc-prettier',
   'coc-vimlsp',
@@ -17,7 +20,6 @@ local ensure_installed_extensions = {
   'coc-go',
   'coc-sumneko-lua',
   'coc-git',
-  '@yaegassy/coc-astro',
 }
 
 local function executable(cmd)
@@ -156,10 +158,11 @@ function config.bqf()
       vsplit = '<C-v>',
     },
   })
+  local cmd, fn, api = vim.cmd, vim.fn, vim.api
 
-  local cmd = vim.cmd
-  local fn = vim.fn
-  local api = vim.api
+  -- local cmd = vim.cmd
+  -- local fn = vim.fn
+  -- local api = vim.api
   -- https://github.com/neoclide/coc.nvim
   -- if you use coc-fzf, you should disable its CocLocationsChange event
   -- to make bqf work for <Plug>(coc-references)
@@ -173,12 +176,12 @@ function config.bqf()
         au!
         au User CocLocationsChange lua _G.jumpToLoc()
     aug END
-]])
+  ]])
 
   cmd([[
     nmap <silent> gr <Plug>(coc-references)
     nnoremap <silent> <leader>qd <Cmd>lua _G.diagnostic()<CR>
-]])
+  ]])
 
   -- just use `_G` prefix as a global function for a demo
   -- please use module instead in reality
