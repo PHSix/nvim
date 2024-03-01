@@ -229,13 +229,13 @@ function createEventListen(context) {
     "CursorMoved",
     (0, import_debounce.default)(async (bufnr, cursor) => {
       const document = import_coc2.workspace.getDocument(bufnr);
-      const w = import_coc2.window.activeTextEditor?.winid !== void 0 ? import_coc2.nvim.createWindow(import_coc2.window.activeTextEditor.winid) : void 0;
-      if (!document || !document.attached || !document.textDocument || document.winid === -1 || !w || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
+      const win = import_coc2.window.activeTextEditor?.winid !== void 0 ? import_coc2.nvim.createWindow(import_coc2.window.activeTextEditor.winid) : void 0;
+      if (!document || !document.attached || !document.textDocument || document.winid === -1 || !win || !await win.valid || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
         import_coc2.ProviderName.DocumentSymbol,
         document.textDocument
       ))
         return;
-      const windowConfig = await import_coc2.nvim.createWindow(document.winid).getConfig();
+      const windowConfig = await win.getConfig();
       if (windowConfig.relative)
         return;
       context.logger.info(windowConfig);
@@ -282,8 +282,8 @@ function createEventListen(context) {
           componentName ? `\uE624 ${filename}:${componentName}` : `\uE624 ${filename}`,
           symbolPath
         );
-        if ((await import_coc2.nvim.window).id === w.id)
-          w.setOption("winbar", winbar);
+        if ((await import_coc2.nvim.window).id === win.id)
+          win.setOption("winbar", winbar);
       } catch (err) {
         log.debug(`coc-pos catch some error : ${err.toString()}`);
       }

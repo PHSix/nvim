@@ -20,3 +20,8 @@ package({
   config = conf.ufo,
 })
 
+package({
+  'kevinhwang91/nvim-bqf',
+  config = conf.bqf,
+})
+
