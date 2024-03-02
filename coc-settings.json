@@ -78,9 +78,6 @@
   ],
   "explorer.icon.enableNerdfont": true,
   "explorer.enableFloatinput": true,
-  "[go]": {
-    "coc.preferences.formatOnSave": true
-  },
   "nil.formatting.command": ["nixpkgs-fmt"],
   "Lua.format.enable": false,
   "prettier.requireConfig": true,
@@ -102,5 +99,11 @@
   "git.changedSign.text": "│",
   "git.removedSign.text": "│",
   "git.changeRemovedSign.text": "│",
-  "git.topRemovedSign.text": "│"
+  "git.topRemovedSign.text": "│",
+  "[go]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "[markdown]": {
+    "coc.preferences.formatOnSave": false 
+  }
 }
