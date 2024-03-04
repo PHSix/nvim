@@ -26,6 +26,10 @@ local function executable(cmd)
   return vim.fn.executable(cmd) == 1
 end
 
+local coc_user_config = {
+  ['Lua.workspace.library'] = { vim.fn.expand('$VIMRUNTIME') },
+}
+
 if executable('nix') then
   if executable('nil') then
     table.insert(ensure_installed_extensions, 'coc-nil')
@@ -41,7 +45,7 @@ if executable('nix') then
       local match = string.match(path, [[lua.language.server]])
       if match ~= nil then
         serverDir = path:sub(0, string.len(path) - 4)
-        vim.g.coc_user_config = {
+        coc_user_config = vim.tbl_extend('force', coc_user_config, {
           ['Lua.misc.parameters'] = {
             '--metapath',
             '~/.cache/sumneko_lua/meta',
@@ -49,7 +53,7 @@ if executable('nix') then
             '~/.cache/sumneko_lua/log',
           },
           ['sumneko-lua.serverDir'] = serverDir,
-        }
+        })
         goto break_out
       end
     end
@@ -59,6 +63,8 @@ if executable('nix') then
 end
 
 vim.g.coc_global_extensions = ensure_installed_extensions
+
+vim.g.coc_user_config = coc_user_config
 
 function config.coc()
   vim.api.nvim_set_keymap('i', '<C-Space>', 'coc#refresh()', { silent = true, expr = true })

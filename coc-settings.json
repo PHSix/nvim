@@ -102,5 +102,5 @@
   "git.changedSign.text": "│",
   "git.removedSign.text": "│",
   "git.changeRemovedSign.text": "│",
-  "git.topRemovedSign.text": "│"
+  "git.topRemovedSign.text": "│",
 }
