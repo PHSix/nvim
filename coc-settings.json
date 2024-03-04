@@ -63,11 +63,18 @@
   "explorer.keyMappings.global": {
     "s": "open:vsplit",
     "S": "open:split",
-    "o": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"],
-
+    "o": [
+      "wait",
+      "expandable?",
+      [
+        "expanded?",
+        "collapse",
+        "expand"
+      ],
+      "open"
+    ],
     "d": "delete",
     "x": "cutFile",
-
     "H": "toggleHidden"
   },
   "explorer.sources": [
@@ -78,10 +85,9 @@
   ],
   "explorer.icon.enableNerdfont": true,
   "explorer.enableFloatinput": true,
-  "[go]": {
-    "coc.preferences.formatOnSave": true
-  },
-  "nil.formatting.command": ["nixpkgs-fmt"],
+  "nil.formatting.command": [
+    "nixpkgs-fmt"
+  ],
   "Lua.format.enable": false,
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": true,
@@ -103,4 +109,10 @@
   "git.removedSign.text": "│",
   "git.changeRemovedSign.text": "│",
   "git.topRemovedSign.text": "│",
+  "[go]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "[markdown]": {
+    "coc.preferences.formatOnSave": false
+  }
 }
