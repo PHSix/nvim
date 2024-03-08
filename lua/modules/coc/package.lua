@@ -7,7 +7,7 @@ package({
   dependencies = { 'PHSix/coc-eslint-tools' },
   config = conf.coc,
   init = function()
-    vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-improve]])
+    vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-plus]])
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-stylua]])
     vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-pos]])
   end,

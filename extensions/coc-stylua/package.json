@@ -24,11 +24,6 @@
           "default": true,
           "description": "Enable coc-stylua extension"
         },
-        "coc-stylua.binPath": {
-          "type": "string",
-          "default": "",
-          "description": "Stylua binary path."
-        },
         "coc-stylua.requireConfigFile": {
           "type": "boolean",
           "default": true,

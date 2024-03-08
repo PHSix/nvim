@@ -1,4 +1,5 @@
 import type {
+  Disposable,
   DocumentSelector,
   ExtensionContext,
 } from 'coc.nvim'
@@ -6,6 +7,7 @@ import {
   Range,
   TextEdit,
   Uri,
+  executable,
   languages,
   window,
   workspace,
@@ -14,29 +16,17 @@ import { doFormat } from './format'
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const config = workspace.getConfiguration('coc-stylua')
-  if (config.get('enabled') === false)
+  if (!config.get('enable') || !executable('stylua'))
     return
 
   const selector: DocumentSelector = ['lua']
-  let enable = true
+  let provider: Disposable | undefined
 
-  workspace.onDidChangeConfiguration(() => {
-    const value = workspace
-      .getConfiguration()
-      .get<boolean>('coc-stylua.enable')
-
-    if (value)
-      enable = value
-  })
-
-  context.subscriptions.push(
-    languages.registerDocumentFormatProvider(
+  function registerProvider() {
+    provider = languages.registerDocumentFormatProvider(
       selector,
       {
         provideDocumentFormattingEdits(textDocument, _, token) {
-          if (enable === false)
-            return
-
           const document = workspace.getDocument(textDocument.uri)
           const text = textDocument.getText()
           const activeTextEditor = window.activeTextEditor
@@ -49,11 +39,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
           )
           const cwd = folder ? Uri.parse(folder.uri).fsPath : void 0
 
-          const binPath = workspace
-            .getConfiguration()
-            .get<string>('coc-stylua.binPath')
-
-          return doFormat(text, { cwd, binPath, logger: context.logger })
+          return doFormat(text, { cwd, logger: context.logger })
             .then((result) => {
               if (result === void 0)
                 return void 0
@@ -78,6 +64,25 @@ export async function activate(context: ExtensionContext): Promise<void> {
         },
       },
       999,
-    ),
-  )
+    )
+  }
+
+  workspace.onDidChangeConfiguration(() => {
+    const value = workspace
+      .getConfiguration()
+      .get<boolean>('coc-stylua.enable')
+
+    if (value && !provider) {
+      registerProvider()
+      context.subscriptions = [provider!]
+    } else {
+      provider?.dispose()
+      provider = undefined
+      context.subscriptions = []
+    }
+  })
+
+  registerProvider()
+
+  context.subscriptions = [provider!]
 }

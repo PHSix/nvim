@@ -1,19 +1,17 @@
 import { spawn } from 'node:child_process'
 import { resolve } from 'node:path'
 import { access } from 'node:fs'
-import process from 'node:process'
 import type { Logger } from 'coc.nvim'
 
 export async function doFormat(
   code: string,
   opts: {
     cwd?: string
-    binPath?: string
     logger?: Logger
   } = {},
 ) {
   const args: string[] = []
-  const { cwd, binPath } = opts
+  const { cwd } = opts
 
   if (cwd) {
     await new Promise((res) => {
@@ -35,15 +33,9 @@ export async function doFormat(
 
   return new Promise<string>((res, reject) => {
     let result: string = ''
-    const env = binPath
-      ? {
-          PATH: `${process.env.PATH}:${absolutePath(binPath)}`,
-        }
-      : void 0
 
     const child = spawn('stylua', args, {
       cwd,
-      env,
     })
 
     child.stdout.on('data', (data) => {
@@ -66,11 +58,4 @@ export async function doFormat(
 
     child.stdin.end()
   })
-}
-
-function absolutePath(p: string) {
-  if (p.startsWith('~'))
-    return process.env.HOME + p.slice(1)
-
-  return p
 }

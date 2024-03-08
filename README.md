@@ -15,7 +15,6 @@
 ├── coc-settings.json                       # global coc.nvim config
 ├── extensions                              # some local extensions for coc.nvim
 │  ├── coc-improve
-│  ├── coc-peek                             # [WIP extension]
 │  ├── coc-pos
 │  └── coc-stylua
 ├── init.lua

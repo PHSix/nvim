@@ -1,6 +1,4 @@
 import {
-  Disposable,
-  events,
   ExtensionContext,
   nvim,
   Uri,

@@ -1,5 +1,5 @@
 {
-	"name": "coc-improve",
+	"name": "coc-plus",
 	"version": "0.0.0-development",
 	"description": "",
 	"author": "ph <chenyi.ph@outlook.com>",
@@ -27,7 +27,7 @@
 	"contributes": {
 		"configuration": {
 			"type": "object",
-			"title": "coc-improve configuration",
+			"title": "coc-plus configuration",
 			"properties": {}
 		},
 		"commands": []
