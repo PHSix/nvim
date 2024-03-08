@@ -44,10 +44,10 @@ cmap({
 })
 
 imap({
-	{'<C-f>', '<Right>', opts()},
-	{'<C-b>', '<Left>', opts()},
-	-- {'<C-n>', '<Down>', opts()},
-	-- {'<C-p>', '<Up>', opts()},
+  { '<C-f>', '<Right>', opts() },
+  { '<C-b>', '<Left>', opts() },
+  -- {'<C-n>', '<Down>', opts()},
+  -- {'<C-p>', '<Up>', opts()},
 })
 
 -- usage of plugins

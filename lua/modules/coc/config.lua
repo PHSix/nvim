@@ -200,6 +200,8 @@ function config.bqf()
     else
       api.nvim_set_current_win(winid)
     end
+
+    cmd('noremap <buffer> q <Cmd>q<CR>')
   end
 
   function _G.diagnostic()
