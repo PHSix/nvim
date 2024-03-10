@@ -1,4 +1,5 @@
 require('enhance.habamax')
+require('enhance.stsline')
 
 vim.cmd([[
   hi WinBar guibg=NONE
@@ -30,3 +31,4 @@ vim.cmd([[
 --   end,
 -- })
 --
+

@@ -10,3 +10,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     vim.cmd([[hi! DiffChange guifg=#bcbcbc guibg=#5f5f5f gui=NONE cterm=NONE]])
   end,
 })
+

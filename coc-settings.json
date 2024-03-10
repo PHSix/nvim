@@ -89,6 +89,7 @@
     "nixpkgs-fmt"
   ],
   "Lua.format.enable": false,
+  "Lua.hint.enable": false,
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": true,
   "eslint.format.enable": false,

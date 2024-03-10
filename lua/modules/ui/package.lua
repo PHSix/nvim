@@ -22,11 +22,6 @@ package({
 })
 
 package({
-  'windwp/windline.nvim',
-  config = conf.windline,
-})
-
-package({
   'stevearc/dressing.nvim',
   opts = {},
 })
@@ -44,4 +39,3 @@ package({
   end,
 })
 
--- require('modules.ui.colorschemer')()
