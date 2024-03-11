@@ -11,6 +11,7 @@ local ensure_installed_extensions = {
   '@yaegassy/coc-astro',
   'coc-emmet',
   -- 'coc-eslint',
+  'coc-floatinput',
   'coc-prettier',
   'coc-vimlsp',
   'coc-marketplace',
@@ -98,11 +99,11 @@ function config.coc()
     group = 'coc_patch_autocmd',
     pattern = { 'CocStatusChange', 'CocDiagnosticChange' },
     callback = function()
-      vim.opt.statusline = vim.opt.statusline
+      -- vim.opt.statusline = vim.opt.statusline
     end,
   })
 
-  vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  vim.api.nvim_create_autocmd({ 'WinEnter' }, {
     group = 'coc_patch_autocmd',
     pattern = '*',
     callback = function()
@@ -196,12 +197,15 @@ function config.bqf()
     fn.setloclist(0, {}, ' ', { title = 'CocLocationList', items = locs })
     local winid = fn.getloclist(0, { winid = 0 }).winid
     if winid == 0 then
-      cmd('abo lw')
+      cmd('bo lw')
     else
       api.nvim_set_current_win(winid)
     end
 
-    cmd('noremap <buffer> q <Cmd>q<CR>')
+    vim.defer_fn(function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      vim.keymap.set('n', 'q', '<CMD>q<CR>', { buffer = bufnr })
+    end, 10)
   end
 
   function _G.diagnostic()
@@ -231,6 +235,7 @@ function config.bqf()
       end
     end)
   end
+
   -- you can also subscribe User `CocDiagnosticChange` event to reload your diagnostic in quickfix
   -- dynamically, enjoy yourself :)
 end
