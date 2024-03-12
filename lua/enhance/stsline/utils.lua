@@ -4,24 +4,6 @@
 
 local _update = function() end
 
-local function throttle(callback, ms)
-  local timer = nil
-  local args = {}
-
-  return function(...)
-    args = { ... }
-
-    if timer ~= nil then
-      return
-    end
-
-    timer = vim.defer_fn(function()
-      timer = nil
-      callback(unpack(args))
-    end, ms)
-  end
-end
-
 local function trigger()
   _update()
 end
@@ -47,15 +29,10 @@ local function ref(value)
 end
 
 ---@param callback fun()
----@param ms number | nil
-local function render(callback, ms)
-  if ms == nil then
-    ms = 50
-  end
+local function render(callback)
   callback()
-  local fn = throttle(callback, ms)
 
-  _update = fn
+  _update = callback
 end
 
 --@param callback fun()

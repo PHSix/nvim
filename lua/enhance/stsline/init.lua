@@ -2,11 +2,13 @@ local events = {}
 local utils = require('enhance.stsline.utils')
 local ref, render, then_call, tbl_get, encode_value =
   utils.ref, utils.render, utils.then_call, utils.tbl_get, utils.encode_value
+local fn, api, notify, log_levels = vim.fn, vim.api, vim.notify, vim.log.levels
 
 local sep = '  '
+local SKIP_SYMBOL = { SKIP = true }
 
 ---@class ComponentOption
----@field fetcher fun(): string | nil
+---@field fetcher fun(params: any): string | nil
 ---@field events string[]
 ---@class Component
 ---@field source_opt ComponentOption
@@ -19,40 +21,50 @@ local function create_component(opt)
     ref = ref(opt.fetcher()),
   }
 
+  local function fecher_callback()
+    local result = opt.fetcher()
+    if result ~= SKIP_SYMBOL then
+      component.ref.set(result)
+    end
+  end
+
   for _, event in ipairs(opt.events) do
     if events[event] == nil then
       events[event] = {}
     end
 
-    table.insert(events[event], function()
-      component.ref.set(opt.fetcher())
-    end)
+    table.insert(events[event], fecher_callback)
   end
 
   return component
 end
 
 local function subscribe()
-  local id = vim.api.nvim_create_augroup('stsline', { clear = true })
+  local id = api.nvim_create_augroup('stsline', { clear = true })
+  local p = nil
+  local tasks = {}
 
   for event, callbacks in pairs(events) do
     local pattern = '*'
-    local p
 
     if string.match(event, '^Coc') then
       pattern = event
       event = 'User'
     end
 
-    vim.api.nvim_create_autocmd(event, {
+    api.nvim_create_autocmd(event, {
       group = id,
       pattern = pattern,
       callback = function()
+        for _, cb in ipairs(callbacks) do
+          table.insert(tasks, cb)
+        end
         if p == nil then
           p = then_call(function()
-            for _, cb in ipairs(callbacks) do
-              cb()
+            for _, t in ipairs(tasks) do
+              t()
             end
+            tasks = {}
             p = nil
           end)
         end
@@ -95,17 +107,17 @@ local function setup()
     ['nt'] = { '-- Terminal --', 'Command' },
   }
   local mode_comp = create_component({
-    events = { 'ModeChanged' },
+    events = { 'ModeChanged', 'BufEnter' },
     fetcher = function()
-      return mode_map[vim.fn.mode()][1]
+      return mode_map[fn.mode()][1]
     end,
   })
 
   local file_comp = create_component({
     events = { 'BufEnter', 'OptionSet' },
     fetcher = function()
-      local filename = vim.fn.expand('%:t')
-      local buf = vim.api.nvim_get_current_buf()
+      local filename = fn.expand('%:t')
+      local buf = api.nvim_get_current_buf()
 
       if vim.bo[buf].modified and vim.bo[buf].modifiable then
         return string.format('%s  ', filename)
@@ -161,25 +173,25 @@ local function setup()
   local git_comp = create_component({
     events = { 'CocGitStatusChange', 'BufEnter' },
     fetcher = function()
-      return vim.b.coc_git_status or ''
+      return (vim.g.coc_git_status or '') .. (vim.b.coc_git_status or '')
     end,
   })
 
   local cursor_pos_comp = create_component({
     events = { 'CursorMoved', 'CursorMovedI', 'BufEnter' },
     fetcher = function()
-      return string.format('Ln %d, Col %d', vim.fn.line('.'), vim.fn.col('.'))
+      return string.format('Ln %d, Col %d', fn.line('.'), fn.col('.'))
     end,
   })
 
   local fileencoding_comp = create_component({
     events = { 'BufEnter', 'OptionSet' },
     fetcher = function()
-      local cur_buf = vim.api.nvim_get_current_buf()
+      local cur_buf = api.nvim_get_current_buf()
       return string.format(
-        'Spaces: %s  %s ',
-        vim.api.nvim_get_option_value('shiftwidth', { buf = cur_buf }),
-        string.upper(vim.api.nvim_get_option_value('fileencoding', {
+        'Spaces: %s  %s',
+        api.nvim_get_option_value('shiftwidth', { buf = cur_buf }),
+        string.upper(api.nvim_get_option_value('fileencoding', {
           buf = cur_buf,
         }))
       )
@@ -203,34 +215,37 @@ local function setup()
 
   render(function()
     local stl_tbl = {}
-    for _, comp in ipairs(comps) do
-      if type(comp) == 'string' then
-        table.insert(stl_tbl, comp)
+    for _, c in ipairs(comps) do
+      if type(c) == 'string' then
+        table.insert(stl_tbl, c)
       else
-        table.insert(stl_tbl, comp.ref.get())
+        table.insert(stl_tbl, c.ref.get())
       end
     end
 
-    local stl = '%#StsLine# '
+    local stl = '%#StsLine#  '
       .. table.concat(
         vim.tbl_filter(function(s)
           return s ~= nil and s ~= ''
         end, stl_tbl),
         sep
       )
-      .. ' %*'
+      .. '  %*'
 
-    local ok, result = pcall(vim.api.nvim_get_option_value, 'laststatus', { scope = 'global' })
+    local ok, result = pcall(api.nvim_get_option_value, 'laststatus', { scope = 'global' })
     if not ok or result ~= 3 then
+      if result == 2 then
+        notify('stsline only support laststatus=3 (global statusline mode)', log_levels.WARN)
+      end
       return
     end
 
     -- vim.notify(stl, vim.log.levels.TRACE)
-    ok, result = pcall(vim.api.nvim_set_option_value, 'statusline', stl, { scope = 'global' })
+    ok, result = pcall(api.nvim_set_option_value, 'statusline', stl, { scope = 'global' })
     if ok == false or ok == nil then
-      vim.notify(stl, vim.log.levels.ERROR)
+      notify(stl, log_levels.ERROR)
     end
-  end, 50)
+  end)
 end
 
 vim.defer_fn(setup, 100)

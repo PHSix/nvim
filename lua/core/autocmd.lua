@@ -4,3 +4,4 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     vim.keymap.set('n', 'q', '<Cmd>q<CR>', { silent = true, buffer = true })
   end,
 })
+
