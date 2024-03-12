@@ -39,8 +39,12 @@ export function renderWinbarString(
   let symbolLink = ''
   for (const symbol of symbolPath) {
     const { icon, key } = iconMap[symbol.kind]
-    symbolLink += ` %#VertSplit# %#CocSymbol${key}#${icon}${symbol.name}`
+    symbolLink += ` %#VertSplit# %#CocSymbol${key}#${icon}${ec(symbol.name)}`
   }
 
-  return ` %#CocSymbolFile#${prefix}${symbolLink}`
+  return ` %#CocSymbolFile#${ec(prefix)}${symbolLink}%*`
+}
+
+function ec(str: string) {
+  return str.replace('%', '%%')
 }

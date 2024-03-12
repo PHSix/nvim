@@ -206,9 +206,12 @@ function renderWinbarString(prefix, symbolPath) {
   let symbolLink = "";
   for (const symbol of symbolPath) {
     const { icon, key } = iconMap[symbol.kind];
-    symbolLink += ` %#VertSplit#\uF105 %#CocSymbol${key}#${icon}${symbol.name}`;
+    symbolLink += ` %#VertSplit#\uF105 %#CocSymbol${key}#${icon}${ec(symbol.name)}`;
   }
-  return ` %#CocSymbolFile#${prefix}${symbolLink}`;
+  return ` %#CocSymbolFile#${ec(prefix)}${symbolLink}%*`;
+}
+function ec(str) {
+  return str.replace("%", "%%");
 }
 
 // src/extension.ts
@@ -282,8 +285,13 @@ function createEventListen(context) {
           componentName ? `\uE624 ${filename}:${componentName}` : `\uE624 ${filename}`,
           symbolPath
         );
-        if ((await import_coc2.nvim.window).id === win.id)
-          win.setOption("winbar", winbar);
+        if ((await import_coc2.nvim.window).id === win.id) {
+          win.setOption("winbar", winbar).catch(
+            (err) => {
+              log.error(err, winbar);
+            }
+          );
+        }
       } catch (err) {
         log.debug(`coc-pos catch some error : ${err.toString()}`);
       }

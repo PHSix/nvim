@@ -142,8 +142,13 @@ function createEventListen(context: ExtensionContext) {
         )
 
         // check current buffer is not changed
-        if ((await nvim.window).id === win.id)
-          win.setOption('winbar', winbar)
+        if ((await nvim.window).id === win.id) {
+          win.setOption('winbar', winbar).catch(
+            (err) => {
+              log.error(err, winbar)
+            },
+          )
+        }
       } catch (err: any) {
         log.debug(`coc-pos catch some error : ${err.toString()}`)
       }
