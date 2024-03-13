@@ -56,12 +56,20 @@ nmap({
   { '<Leader>pu', cmd('Lazy update'), opts(noremap, silent) },
   { '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
   -- Telescope
-  { '<Leader>fb', cmd('Telescope buffers'), opts(noremap, silent) },
-  { '<Leader>fw', cmd('Telescope live_grep'), opts(noremap, silent) },
-  { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
-  { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
-  { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
-  { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
+  -- { '<Leader>fb', cmd('Telescope buffers'), opts(noremap, silent) },
+  -- { '<Leader>fw', cmd('Telescope live_grep'), opts(noremap, silent) },
+  -- { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
+  -- { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
+  -- { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
+  -- { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
+
+  -- fzf-lua
+  { '<Leader>fb', cmd('FzfLua buffers'), opts(noremap, silent) },
+  { '<Leader>fw', cmd('FzfLua live_grep'), opts(noremap, silent) },
+  { '<Leader>ff', cmd('FzfLua files'), opts(noremap, silent) },
+  { '<Leader>fo', cmd('FzfLua oldfiles'), opts(noremap, silent) },
+  { '<leader>fr', cmd('FzfLua resume'), opts(noremap, silent) },
+  { '<M-x>', cmd('Fzflua commands'), opts(noremap, silent) },
 
   -- coc-git
   { '<leader>gp', '<Plug>(coc-git-chunkinfo)', opts(noremap, silent) },

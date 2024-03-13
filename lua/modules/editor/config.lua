@@ -3,7 +3,7 @@ local config = {}
 function config.nvim_treesitter()
   local lazy = require('lazy')
   require('nvim-treesitter.configs').setup({
-    ensure_installed = { 'javascript', 'typescript', 'tsx', 'lua', 'markdown', 'go' },
+    ensure_installed = { 'javascript', 'typescript', 'tsx', 'lua', 'markdown', 'go', 'css', 'scss' },
     auto_install = true,
     highlight = {
       enable = true,
@@ -53,6 +53,15 @@ function config.comment_nvim()
       extra = false,
     },
     pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  })
+end
+
+function config.fzf_lua()
+  require('fzf-lua').setup({
+    winopts = {
+      height = 0.65,
+      row = 0.7,
+    },
   })
 end
 
