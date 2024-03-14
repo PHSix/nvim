@@ -1,30 +1,29 @@
 local events = {}
 local utils = require('enhance.stsline.utils')
-local ref, render, then_call, tbl_get, encode_value =
-  utils.ref, utils.render, utils.then_call, utils.tbl_get, utils.encode_value
+local then_call, tbl_get, encode_value = utils.then_call, utils.tbl_get, utils.encode_value
 local fn, api, notify, log_levels = vim.fn, vim.api, vim.notify, vim.log.levels
 
 local sep = '  '
-local SKIP_SYMBOL = { SKIP = true }
+local SKIP = { SKIP_SYMBOL = true }
 
 ---@class ComponentOption
 ---@field fetcher fun(params: any): string | nil
 ---@field events string[]
 ---@class Component
 ---@field source_opt ComponentOption
----@field ref Ref
+---@field value string
 ---@param opt ComponentOption
 ---@return Component
 local function create_component(opt)
   local component = {
     source_opt = opt,
-    ref = ref(opt.fetcher()),
+    value = opt.fetcher(),
   }
 
   local function fecher_callback()
     local result = opt.fetcher()
-    if result ~= SKIP_SYMBOL then
-      component.ref.set(result)
+    if result ~= SKIP then
+      component.value = result
     end
   end
 
@@ -39,7 +38,7 @@ local function create_component(opt)
   return component
 end
 
-local function subscribe()
+local function subscribe(render_callback)
   local id = api.nvim_create_augroup('stsline', { clear = true })
   local p = nil
   local tasks = {}
@@ -64,6 +63,7 @@ local function subscribe()
             for _, t in ipairs(tasks) do
               t()
             end
+            render_callback()
             tasks = {}
             p = nil
           end)
@@ -71,6 +71,8 @@ local function subscribe()
       end,
     })
   end
+
+  render_callback()
 end
 
 local function setup()
@@ -209,28 +211,18 @@ local function setup()
     fileencoding_comp,
   }
 
-  subscribe()
-
   vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
 
-  render(function()
+  local render_callback = function()
     local stl_tbl = {}
     for _, c in ipairs(comps) do
-      if type(c) == 'string' then
-        table.insert(stl_tbl, c)
-      else
-        table.insert(stl_tbl, c.ref.get())
+      local value = type(c) == 'string' and c or c.value
+      if value ~= nil and value ~= SKIP then
+        table.insert(stl_tbl, value)
       end
     end
 
-    local stl = '%#StsLine#  '
-      .. table.concat(
-        vim.tbl_filter(function(s)
-          return s ~= nil and s ~= ''
-        end, stl_tbl),
-        sep
-      )
-      .. '  %*'
+    local stl = '%#StsLine#  ' .. table.concat(stl_tbl, sep) .. '  %*'
 
     local ok, result = pcall(api.nvim_get_option_value, 'laststatus', { scope = 'global' })
     if not ok or result ~= 3 then
@@ -240,12 +232,13 @@ local function setup()
       return
     end
 
-    -- vim.notify(stl, vim.log.levels.TRACE)
     ok, result = pcall(api.nvim_set_option_value, 'statusline', stl, { scope = 'global' })
     if ok == false or ok == nil then
       notify(stl, log_levels.ERROR)
     end
-  end)
+  end
+
+  subscribe(render_callback)
 end
 
 vim.defer_fn(setup, 100)
