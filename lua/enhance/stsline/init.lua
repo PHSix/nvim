@@ -211,7 +211,9 @@ local function setup()
     fileencoding_comp,
   }
 
-  vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
+  vim.cmd([[hi link StsLine StatusLine]])
+  vim.cmd([[hi! StsLine guifg=#928b95]])
+  -- vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
 
   local render_callback = function()
     local stl_tbl = {}

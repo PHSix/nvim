@@ -31,11 +31,18 @@ package({
   config = true,
 })
 
+-- package({
+--   'dasupradyumna/midnight.nvim',
+--   config = function()
+--     vim.cmd([[colorscheme midnight]])
+--     vim.cmd([[hi ScrollView guibg=#878d96]])
+--   end,
+-- })
+
 package({
-  'dasupradyumna/midnight.nvim',
+  'PHSix/vitesse.nvim',
   config = function()
-    vim.cmd([[colorscheme midnight]])
-    vim.cmd([[hi ScrollView guibg=#878d96]])
+    vim.cmd([[colorscheme vitesse]])
   end,
 })
 
