@@ -241,7 +241,6 @@ function createEventListen(context) {
       const windowConfig = await win.getConfig();
       if (windowConfig.relative)
         return;
-      context.logger.info(windowConfig);
       const folderUri = import_coc2.workspace.getWorkspaceFolder(
         document.textDocument.uri
       )?.uri;

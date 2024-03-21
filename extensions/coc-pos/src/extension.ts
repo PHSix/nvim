@@ -77,7 +77,6 @@ function createEventListen(context: ExtensionContext) {
 
       if (windowConfig.relative)
         return
-      context.logger.info(windowConfig)
 
       const folderUri = workspace.getWorkspaceFolder(
         document.textDocument.uri,

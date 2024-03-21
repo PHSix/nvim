@@ -62,6 +62,7 @@ function config.fzf_lua()
       height = 0.65,
       row = 0.7,
     },
+    grep = {},
   })
 end
 

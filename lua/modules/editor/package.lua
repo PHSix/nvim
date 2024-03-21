@@ -4,6 +4,7 @@ local conf = require('modules.editor.config')
 package({
   'nvim-treesitter/nvim-treesitter',
   run = ':TSUpdate',
+  commit = 'f5062ebc8d5c0542465c6e2432d6cd544a92f348',
   config = conf.nvim_treesitter,
   dependencies = {
     {

@@ -1,38 +1,30 @@
-local events = {}
+local events = {
+  BufEnter = true,
+  WinEnter = true,
+  BufWinEnter = true,
+}
 local utils = require('enhance.stsline.utils')
 local then_call, tbl_get, encode_value = utils.then_call, utils.tbl_get, utils.encode_value
 local fn, api, notify, log_levels = vim.fn, vim.api, vim.notify, vim.log.levels
 
 local sep = '  '
-local SKIP = { SKIP_SYMBOL = true }
 
 ---@class ComponentOption
 ---@field fetcher fun(params: any): string | nil
 ---@field events string[]
 ---@class Component
 ---@field source_opt ComponentOption
----@field value string
+---@field fetcher fun(params: any): string | nil
 ---@param opt ComponentOption
 ---@return Component
 local function create_component(opt)
   local component = {
     source_opt = opt,
-    value = opt.fetcher(),
+    fetcher = opt.fetcher,
   }
 
-  local function fecher_callback()
-    local result = opt.fetcher()
-    if result ~= SKIP then
-      component.value = result
-    end
-  end
-
-  for _, event in ipairs(opt.events) do
-    if events[event] == nil then
-      events[event] = {}
-    end
-
-    table.insert(events[event], fecher_callback)
+  for _, ev in ipairs(opt.events) do
+    events[ev] = true
   end
 
   return component
@@ -41,9 +33,8 @@ end
 local function subscribe(render_callback)
   local id = api.nvim_create_augroup('stsline', { clear = true })
   local p = nil
-  local tasks = {}
 
-  for event, callbacks in pairs(events) do
+  for event, _ in pairs(events) do
     local pattern = '*'
 
     if string.match(event, '^Coc') then
@@ -54,17 +45,10 @@ local function subscribe(render_callback)
     api.nvim_create_autocmd(event, {
       group = id,
       pattern = pattern,
-      callback = function()
-        for _, cb in ipairs(callbacks) do
-          table.insert(tasks, cb)
-        end
+      callback = function(args)
         if p == nil then
           p = then_call(function()
-            for _, t in ipairs(tasks) do
-              t()
-            end
-            render_callback()
-            tasks = {}
+            render_callback(args)
             p = nil
           end)
         end
@@ -72,7 +56,7 @@ local function subscribe(render_callback)
     })
   end
 
-  render_callback()
+  -- render_callback()
 end
 
 local function setup()
@@ -109,17 +93,21 @@ local function setup()
     ['nt'] = { '-- Terminal --', 'Command' },
   }
   local mode_comp = create_component({
-    events = { 'ModeChanged', 'BufEnter' },
+    events = { 'ModeChanged' },
     fetcher = function()
       return mode_map[fn.mode()][1]
     end,
   })
 
   local file_comp = create_component({
-    events = { 'BufEnter', 'OptionSet' },
+    events = { 'BufModifiedSet' },
     fetcher = function()
       local filename = fn.expand('%:t')
       local buf = api.nvim_get_current_buf()
+
+      -- if filename:match('explorer') then
+      --   notify(string.format('filename: %s, buffer: %d', filename, buf), log_levels.TRACE)
+      -- end
 
       if vim.bo[buf].modified and vim.bo[buf].modifiable then
         return string.format('%s  ', filename)
@@ -147,7 +135,7 @@ local function setup()
   end
 
   local lsp_diags_comp = create_component({
-    events = { 'CocDiagnosticChange', 'BufEnter' },
+    events = { 'CocDiagnosticChange' },
     fetcher = function()
       local diags = get_diags()
       if diags.is_nil then
@@ -161,7 +149,7 @@ local function setup()
   local divider_comp = '%='
 
   local coc_status_comp = create_component({
-    events = { 'CocStatusChange', 'BufEnter' },
+    events = { 'CocStatusChange' },
     fetcher = function()
       local status = vim.g.coc_status or ''
       if string.len(status) > 50 then
@@ -173,21 +161,21 @@ local function setup()
   })
 
   local git_comp = create_component({
-    events = { 'CocGitStatusChange', 'BufEnter' },
+    events = { 'CocGitStatusChange' },
     fetcher = function()
       return (vim.g.coc_git_status or '') .. (vim.b.coc_git_status or '')
     end,
   })
 
   local cursor_pos_comp = create_component({
-    events = { 'CursorMoved', 'CursorMovedI', 'BufEnter' },
+    events = { 'CursorMoved', 'CursorMovedI' },
     fetcher = function()
       return string.format('Ln %d, Col %d', fn.line('.'), fn.col('.'))
     end,
   })
 
   local fileencoding_comp = create_component({
-    events = { 'BufEnter', 'OptionSet' },
+    events = { 'OptionSet' },
     fetcher = function()
       local cur_buf = api.nvim_get_current_buf()
       return string.format(
@@ -211,17 +199,18 @@ local function setup()
     fileencoding_comp,
   }
 
-  vim.cmd([[hi link StsLine StatusLine]])
-  vim.cmd([[hi! StsLine guifg=#928b95]])
-  -- vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
+  -- vim.cmd([[hi link StsLine StatusLine]])
+  -- vim.cmd([[hi! StsLine guifg=#928b95]])
+  vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
 
-  local render_callback = function()
+  local render_callback = function(args)
     local stl_tbl = {}
     for _, c in ipairs(comps) do
-      local value = type(c) == 'string' and c or c.value
-      if value ~= nil and value ~= SKIP then
-        table.insert(stl_tbl, value)
+      local value = type(c) == 'string' and c or c.fetcher(args)
+      if value == nil then
+        value = ''
       end
+      table.insert(stl_tbl, value)
     end
 
     local stl = '%#StsLine#  ' .. table.concat(stl_tbl, sep) .. '  %*'
