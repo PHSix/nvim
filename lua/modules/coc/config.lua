@@ -1,4 +1,5 @@
 local config = {}
+local cmd, fn, api = vim.cmd, vim.fn, vim.api
 
 vim.g.coc_data_home = '~/.config/coc_nvim'
 
@@ -95,10 +96,20 @@ function config.coc()
     once = false,
   })
 
-  vim.api.nvim_create_autocmd({ 'User' }, {
+  vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     group = 'coc_patch_autocmd',
-    pattern = { 'CocStatusChange', 'CocDiagnosticChange' },
+    pattern = '*',
     callback = function()
+      local file = fn.expand('%:p')
+      if fn.exists('g:WorkspaceFolders') == 1 then
+        for _, f in ipairs(vim.g.WorkspaceFolders) do
+          if fn.match(file, f, 0) == 1 then
+            api.nvim_set_current_dir(f)
+            -- vim.cmd(string.format([[cd %s]], f))
+            return
+          end
+        end
+      end
       -- vim.opt.statusline = vim.opt.statusline
     end,
   })
@@ -165,7 +176,6 @@ function config.bqf()
       vsplit = '<C-v>',
     },
   })
-  local cmd, fn, api = vim.cmd, vim.fn, vim.api
 
   -- local cmd = vim.cmd
   -- local fn = vim.fn
