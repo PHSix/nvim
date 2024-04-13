@@ -1,11 +1,6 @@
-local events = {
-  BufEnter = true,
-  WinEnter = true,
-  BufWinEnter = true,
-}
 local utils = require('enhance.stsline.utils')
-local then_call, tbl_get, encode_value = utils.then_call, utils.tbl_get, utils.encode_value
-local fn, api, notify, log_levels = vim.fn, vim.api, vim.notify, vim.log.levels
+local tbl_get, encode_value = utils.tbl_get, utils.encode_value
+local fn, api = vim.fn, vim.api
 
 local sep = '  '
 
@@ -23,40 +18,7 @@ local function create_component(opt)
     fetcher = opt.fetcher,
   }
 
-  for _, ev in ipairs(opt.events) do
-    events[ev] = true
-  end
-
   return component
-end
-
-local function subscribe(render_callback)
-  local id = api.nvim_create_augroup('stsline', { clear = true })
-  local p = nil
-
-  for event, _ in pairs(events) do
-    local pattern = '*'
-
-    if string.match(event, '^Coc') then
-      pattern = event
-      event = 'User'
-    end
-
-    api.nvim_create_autocmd(event, {
-      group = id,
-      pattern = pattern,
-      callback = function(args)
-        if p == nil then
-          p = then_call(function()
-            render_callback(args)
-            p = nil
-          end)
-        end
-      end,
-    })
-  end
-
-  -- render_callback()
 end
 
 local function setup()
@@ -93,14 +55,12 @@ local function setup()
     ['nt'] = { '-- Terminal --', 'Command' },
   }
   local mode_comp = create_component({
-    events = { 'ModeChanged' },
     fetcher = function()
       return mode_map[fn.mode()][1]
     end,
   })
 
   local file_comp = create_component({
-    events = { 'BufModifiedSet' },
     fetcher = function()
       local filename = fn.expand('%:t')
       local buf = api.nvim_get_current_buf()
@@ -135,7 +95,6 @@ local function setup()
   end
 
   local lsp_diags_comp = create_component({
-    events = { 'CocDiagnosticChange' },
     fetcher = function()
       local diags = get_diags()
       if diags.is_nil then
@@ -149,7 +108,6 @@ local function setup()
   local divider_comp = '%='
 
   local coc_status_comp = create_component({
-    events = { 'CocStatusChange' },
     fetcher = function()
       local status = vim.g.coc_status or ''
       if string.len(status) > 50 then
@@ -161,21 +119,18 @@ local function setup()
   })
 
   local git_comp = create_component({
-    events = { 'CocGitStatusChange' },
     fetcher = function()
       return (vim.g.coc_git_status or '') .. (vim.b.coc_git_status or '')
     end,
   })
 
   local cursor_pos_comp = create_component({
-    events = { 'CursorMoved', 'CursorMovedI' },
     fetcher = function()
       return string.format('Ln %d, Col %d', fn.line('.'), fn.col('.'))
     end,
   })
 
   local fileencoding_comp = create_component({
-    events = { 'OptionSet' },
     fetcher = function()
       local cur_buf = api.nvim_get_current_buf()
       return string.format(
@@ -215,21 +170,12 @@ local function setup()
 
     local stl = '%#StsLine#  ' .. table.concat(stl_tbl, sep) .. '  %*'
 
-    local ok, result = pcall(api.nvim_get_option_value, 'laststatus', { scope = 'global' })
-    if not ok or result ~= 3 then
-      if result == 2 then
-        notify('stsline only support laststatus=3 (global statusline mode)', log_levels.WARN)
-      end
-      return
-    end
-
-    ok, result = pcall(api.nvim_set_option_value, 'statusline', stl, { scope = 'global' })
-    if ok == false or ok == nil then
-      notify(stl, log_levels.ERROR)
-    end
+    return stl
   end
 
-  subscribe(render_callback)
+  _G.StslineRender = render_callback
+
+  vim.o.statusline = '%!v:lua.StslineRender()'
 end
 
 vim.defer_fn(setup, 100)

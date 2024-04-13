@@ -24,8 +24,8 @@ local ensure_installed_extensions = {
   'coc-git',
 }
 
-local function executable(cmd)
-  return vim.fn.executable(cmd) == 1
+local function executable(c)
+  return vim.fn.executable(c) == 1
 end
 
 local coc_user_config = {
