@@ -12,7 +12,7 @@ local ensure_installed_extensions = {
   '@yaegassy/coc-astro',
   'coc-emmet',
   -- 'coc-eslint',
-  'coc-floatinput',
+  -- 'coc-floatinput',
   'coc-prettier',
   'coc-vimlsp',
   'coc-marketplace',
