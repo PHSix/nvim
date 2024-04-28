@@ -41,8 +41,14 @@ package({
 
 package({
   'PHSix/vitesse.nvim',
+  lazy = true,
+})
+
+vim.o.background = 'light'
+package({
+  'sainnhe/edge',
   config = function()
-    vim.cmd([[colorscheme vitesse]])
+    vim.cmd([[colorscheme edge]])
   end,
 })
 
