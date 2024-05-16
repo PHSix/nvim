@@ -17,6 +17,7 @@
   "signature.floatConfig": {
     "shadow": true
   },
+  "suggest.removeDuplicateItems": true,
   "suggest.completionItemKindLabels": {
     "constructor": "\ufb25",
     "keyword": "\uf1de",
