@@ -6,6 +6,7 @@ package({ 'nvim-tree/nvim-web-devicons', lazy = true })
 package({
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
+  enabled = false,
   config = function()
     require('dashboard').setup({
       theme = 'hyper',
@@ -31,24 +32,10 @@ package({
   config = true,
 })
 
--- package({
---   'dasupradyumna/midnight.nvim',
---   config = function()
---     vim.cmd([[colorscheme midnight]])
---     vim.cmd([[hi ScrollView guibg=#878d96]])
---   end,
--- })
-
 package({
   'PHSix/vitesse.nvim',
-  lazy = true,
-})
-
-vim.o.background = 'light'
-package({
-  'sainnhe/edge',
   config = function()
-    vim.cmd([[colorscheme edge]])
+    vim.cmd([[colorscheme vitesse]])
   end,
 })
 
