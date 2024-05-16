@@ -45,8 +45,9 @@ opt.undofile = true
 opt.smarttab = false
 opt.expandtab = false
 opt.autoindent = true
-opt.tabstop = 2
-opt.shiftwidth = 2
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
 
 -- wrap
 opt.linebreak = true
