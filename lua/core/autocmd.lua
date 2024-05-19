@@ -34,10 +34,10 @@ vim.api.nvim_create_autocmd('BufEnter', {
     local buf = args and args.buf or 0
     local ft = vim.bo[buf].filetype
     if vim.list_contains(use_space_tab_filetypes, ft) then
-      vim.api.nvim_set_option_value('shiftwidth', 2, 'local')
-      vim.api.nvim_set_option_value('softtabstop', 2, 'local')
-      vim.api.nvim_set_option_value('tabstop', 2, 'local')
-      vim.api.nvim_set_option_value('expandtab', true, 'local')
+      vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' })
+      vim.api.nvim_set_option_value('softtabstop', 2, { scope = 'local' })
+      vim.api.nvim_set_option_value('tabstop', 2, { scope = 'local' })
+      vim.api.nvim_set_option_value('expandtab', true, { scope = 'local' })
     end
   end,
 })
