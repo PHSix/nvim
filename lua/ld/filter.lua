@@ -4,15 +4,15 @@
 --- @param callback fun(value: T,index?:  number, sel?: T[]): boolean
 --- @return T[]
 return function(tbl, callback)
-  local ret = {}
+    local ret = {}
 
-  for index, value in ipairs(tbl) do
-    local t = callback(value, index, tbl)
-    assert(type(t) == 'boolean', 'filter callback need return a boolean')
-    if t == true then
-      table.insert(ret, value)
+    for index, value in ipairs(tbl) do
+        local t = callback(value, index, tbl)
+        assert(type(t) == 'boolean', 'filter callback need return a boolean')
+        if t == true then
+            table.insert(ret, value)
+        end
     end
-  end
 
-  return ret
+    return ret
 end
