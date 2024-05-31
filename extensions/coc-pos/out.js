@@ -136,7 +136,9 @@ var invaildFileName = /* @__PURE__ */ new Set([
   "index.module.scss",
   "init.lua",
   "index.d.ts",
-  "init.go"
+  "init.go",
+  "page.tsx",
+  "route.ts"
 ]);
 function getSymbolPath(pos, docuemntSymbols, maxTravelDepth2) {
   const result = [];

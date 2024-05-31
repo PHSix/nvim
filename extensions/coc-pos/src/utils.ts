@@ -19,6 +19,8 @@ const invaildFileName = new Set([
   'init.lua',
   'index.d.ts',
   'init.go',
+  'page.tsx',
+  'route.ts',
 ])
 
 export function getSymbolPath(
