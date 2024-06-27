@@ -51,7 +51,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
                 { character: 0, line: 0 },
                 {
                   character: document.getline(endLine).length,
-                  line: endLine,
+                  line: endLine + 1,
                 },
               )
 

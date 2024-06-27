@@ -92,13 +92,6 @@ package({
     lazy = true,
 })
 
-vim.g.floaterm_keymap_toggle = '<C-t>'
-
-package({
-    'voldikss/vim-floaterm',
-    keys = '<C-t>',
-})
-
 package({
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },

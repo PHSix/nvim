@@ -22,6 +22,7 @@ local ensure_installed_extensions = {
     'coc-go',
     'coc-sumneko-lua',
     'coc-git',
+    'coc-basedpyright',
 }
 
 local function executable(c)
@@ -149,12 +150,12 @@ function config.coc()
     vim.g.coc_quickfix_open_command = 'vsplit'
 
     vim.cmd([[
-    hi link CocGitAddedSign GitNew
-    hi link CocGitRemovedSign GitDeleted
-    hi link CocGitTopRemovedSign GitDeleted
-    hi link CocGitChangeRemovedSign GitDeleted
-    hi link CocGitChangedSign GitDirty
-  ]])
+		hi link CocGitAddedSign GitNew
+		hi link CocGitRemovedSign GitDeleted
+		hi link CocGitTopRemovedSign GitDeleted
+		hi link CocGitChangeRemovedSign GitDeleted
+		hi link CocGitChangedSign GitDirty
+	]])
 end
 
 function config.ufo()

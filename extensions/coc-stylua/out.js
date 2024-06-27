@@ -71,7 +71,7 @@ async function doFormat(code, opts = {}) {
 // src/extension.ts
 async function activate(context) {
   const config = import_coc.workspace.getConfiguration("coc-stylua");
-  if (config.get("enable") === false || (0, import_coc.executable)("stylua") === false)
+  if (!config.get("enable") || !(0, import_coc.executable)("stylua"))
     return;
   const selector = ["lua"];
   let provider;
@@ -99,7 +99,7 @@ async function activate(context) {
               { character: 0, line: 0 },
               {
                 character: document.getline(endLine).length,
-                line: endLine
+                line: endLine + 1
               }
             );
             return [import_coc.TextEdit.replace(range, result)];

@@ -46,8 +46,6 @@ g.loaded_netrwPlugin = 1
 g.loaded_netrwSettings = 1
 g.loaded_netrwFileHandlers = 1
 
--- vim.cmd([[set rtp+=/Users/ph/Project/bc.vim]])
--- require('bc')
 require('core.pack'):boot_strap()
 require('core.options')
 require('core.autocmd')

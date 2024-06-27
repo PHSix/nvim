@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     group = id,
 })
 
-local use_space_tab_filetypes = {
+local use_double_space_tab_filetypes = {
     'astro',
     'c',
     'cpp',
@@ -20,11 +20,11 @@ local use_space_tab_filetypes = {
     'less',
     'nix',
     'python',
-    'rust',
     'scss',
     'typescript',
     'typescriptreact',
     'vue',
+    'dart',
 }
 
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     callback = function(args)
         local buf = args and args.buf or 0
         local ft = vim.bo[buf].filetype
-        if vim.list_contains(use_space_tab_filetypes, ft) == true then
+        if vim.list_contains(use_double_space_tab_filetypes, ft) == true then
             vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' })
             vim.api.nvim_set_option_value('softtabstop', 2, { scope = 'local' })
             vim.api.nvim_set_option_value('tabstop', 2, { scope = 'local' })

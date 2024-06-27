@@ -24,7 +24,7 @@ if vim.fn.executable('rg') == 1 then
 end
 
 opt.showmode = true
-opt.shortmess = 'aoOTIcF'
+-- opt.shortmess = 'aoOTIcF'
 opt.scrolloff = 2
 opt.sidescrolloff = 5
 opt.ruler = false
