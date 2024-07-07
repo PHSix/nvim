@@ -118,28 +118,6 @@ var import_coc2 = require("coc.nvim");
 var import_debounce = __toESM(require_debounce());
 
 // src/utils.ts
-var invaildFileName = /* @__PURE__ */ new Set([
-  "index.ts",
-  "index.tsx",
-  "index.js",
-  "index.jsx",
-  "index.vue",
-  "index.cjs",
-  "index.mjs",
-  "index.css",
-  "index.less",
-  "index.sass",
-  "index.scss",
-  "index.module.css",
-  "index.module.less",
-  "index.module.sass",
-  "index.module.scss",
-  "init.lua",
-  "index.d.ts",
-  "init.go",
-  "page.tsx",
-  "route.ts"
-]);
 function getSymbolPath(pos, docuemntSymbols, maxTravelDepth2) {
   const result = [];
   let travelDepth = 0;
@@ -161,14 +139,6 @@ function getSymbolPath(pos, docuemntSymbols, maxTravelDepth2) {
 }
 function getFilename(uri) {
   return uri.split("/").pop() || "";
-}
-function getComponentName(uri) {
-  const filePath = uri.split("/").filter((s) => s !== "");
-  if (filePath.length === 0)
-    return void 0;
-  if (invaildFileName.has(filePath[filePath.length - 1]) && filePath.length > 1)
-    return `${filePath[filePath.length - 2]}/${filePath[filePath.length - 1]}`;
-  return filePath[filePath.length - 1];
 }
 function rangeContain(range, position) {
   return (position.line < range.end.line || position.line === range.end.line && position.character <= range.end.character) && (position.line > range.start.line || position.line === range.start.line && position.character >= range.start.character);
@@ -215,10 +185,16 @@ function renderWinbarString(prefix, symbolPath) {
 function ec(str) {
   return str.replace("%", "%%");
 }
+var FOLDER_ICON = "\u{F024B} ";
+var FILE_ICON = "\u{F0219} ";
+function renderWinbar(pathFragments) {
+  const content = pathFragments.map((item, index, self) => index === self.length - 1 ? `%#CocSymbolFile#${FILE_ICON}${item}` : `%#CocSymbolFolder#${FOLDER_ICON}${item}`).join("%#VertSplit# / ");
+  return ` %#WinBar#${content}%*`;
+}
 
 // src/extension.ts
 var cancelTokenSource;
-var eventDisposable;
+var canDisposable;
 var maxTravelDepth;
 var symbolsCache = /* @__PURE__ */ new Map();
 function getMaxTravelDepth() {
@@ -228,20 +204,18 @@ function getMaxTravelDepth() {
   return depth;
 }
 function createEventListen(context) {
+  import_coc2.nvim.setOption("showtabline", 2);
+  import_coc2.nvim.setOption("tabline", "");
   maxTravelDepth = getMaxTravelDepth();
   const log = context.logger;
-  eventDisposable = import_coc2.events.on(
+  const symbolEvent = import_coc2.events.on(
     "CursorMoved",
     (0, import_debounce.default)(async (bufnr, cursor) => {
       const document = import_coc2.workspace.getDocument(bufnr);
-      const win = import_coc2.window.activeTextEditor?.winid !== void 0 ? import_coc2.nvim.createWindow(import_coc2.window.activeTextEditor.winid) : void 0;
-      if (!document || !document.attached || !document.textDocument || document.winid === -1 || !win || !await win.valid || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
+      if (!document || !document.attached || !document.textDocument || document.winid === -1 || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
         import_coc2.ProviderName.DocumentSymbol,
         document.textDocument
       ))
-        return;
-      const windowConfig = await win.getConfig();
-      if (windowConfig.relative)
         return;
       const folderUri = import_coc2.workspace.getWorkspaceFolder(
         document.textDocument.uri
@@ -278,25 +252,34 @@ function createEventListen(context) {
           symbols,
           maxTravelDepth
         );
-        const filename = getFilename(folderUri);
-        const componentName = getComponentName(
-          document.uri.slice(folderUri.length)
-        );
-        const winbar = renderWinbarString(
-          componentName ? `\uE624 ${filename}:${componentName}` : `\uE624 ${filename}`,
-          symbolPath
-        );
-        if ((await import_coc2.nvim.window).id === win.id) {
-          win.setOption("winbar", winbar).catch(
-            (err) => {
-              log.error(err, winbar);
-            }
-          );
-        }
+        const projectName = getFilename(folderUri);
+        const tabline = renderWinbarString(`\uE624 ${projectName}`, symbolPath);
+        import_coc2.nvim.setOption("tabline", tabline);
       } catch (err) {
         log.debug(`coc-pos catch some error : ${err.toString()}`);
       }
-    }, 70),
+    }, 70)
+  );
+  const winbarHandler = (0, import_debounce.default)(async () => {
+    const editor = import_coc2.window.activeTextEditor;
+    if (!editor)
+      return;
+    const uri = editor.document.uri;
+    const winid = editor.winid;
+    const folder = import_coc2.workspace.getWorkspaceFolder(uri);
+    if (!folder)
+      return;
+    const winbar = renderWinbar(uri.slice(folder.uri.length).split("/").filter((item) => !!item));
+    const win = import_coc2.nvim.createWindow(winid);
+    if (await win.valid)
+      await win.setOption("winbar", winbar).catch(() => {
+      });
+  }, 70);
+  const timer = setTimeout(() => {
+    winbarHandler();
+  }, 1e3);
+  const eventListeners = [
+    symbolEvent,
     // delete cache.
     import_coc2.workspace.registerAutocmd({
       event: ["BufDelete", "BufWipeout"],
@@ -309,9 +292,23 @@ function createEventListen(context) {
           log.error(Object.toString.call(err));
         }
       }
+    }),
+    // events.on('WinEnter', winbarHandler),
+    // events.on('WinLeave', winbarHandler),
+    // events.on('BufEnter', winbarHandler),
+    // events.on('Enter', winbarHandler),
+    import_coc2.Disposable.create(() => {
+      clearTimeout(timer);
+    }),
+    import_coc2.workspace.registerAutocmd({
+      event: ["BufReadPost", "BufEnter"],
+      callback: winbarHandler
     })
-  );
-  context.subscriptions.push(eventDisposable);
+  ];
+  canDisposable = import_coc2.Disposable.create(() => {
+    (0, import_coc2.disposeAll)(eventListeners);
+  });
+  context.subscriptions.push(canDisposable);
 }
 async function activate(context) {
   const config = import_coc2.workspace.getConfiguration("coc-pos");
@@ -323,8 +320,7 @@ async function activate(context) {
       if (config.get("enable", true)) {
         createEventListen(context);
       } else {
-        eventDisposable?.dispose();
-        context.subscriptions = context.subscriptions.filter((s) => s !== eventDisposable);
+        canDisposable?.dispose();
         for (const buf of symbolsCache.keys()) {
           symbolsCache.delete(buf);
           import_coc2.nvim.request("nvim_set_option_value", ["winbar", "", { buf }]);
@@ -336,7 +332,6 @@ async function activate(context) {
   }));
 }
 function deactivate() {
-  eventDisposable?.dispose();
   for (const key of symbolsCache.keys())
     symbolsCache.delete(key);
 }

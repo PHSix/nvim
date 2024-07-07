@@ -34,7 +34,7 @@ local coc_user_config = {
 }
 
 if executable('nix') then
-    if executable('nil') then
+	if executable('nil') then
         table.insert(ensure_installed_extensions, 'coc-nil')
     end
 
@@ -156,6 +156,8 @@ function config.coc()
 		hi link CocGitChangeRemovedSign GitDeleted
 		hi link CocGitChangedSign GitDirty
 	]])
+
+    vim.keymap.set('n', '<leader>fs', '<CMD>CocList symbols<CR>', { silent = true, noremap = true })
 end
 
 function config.ufo()
@@ -196,10 +198,9 @@ function config.bqf()
     aug END
   ]])
 
-    cmd([[
-    nmap <silent> gr <Plug>(coc-references)
-    nnoremap <silent> <leader>qd <Cmd>lua _G.diagnostic()<CR>
-  ]])
+    --   cmd([[
+    --   nnoremap <silent> <leader>qd <Cmd>lua _G.diagnostic()<CR>
+    -- ]])
 
     -- just use `_G` prefix as a global function for a demo
     -- please use module instead in reality
@@ -246,6 +247,8 @@ function config.bqf()
             end
         end)
     end
+
+    vim.keymap.set('n', '<leader>qd', _G.diagnostic, { silent = true, noremap = true })
 
     -- you can also subscribe User `CocDiagnosticChange` event to reload your diagnostic in quickfix
     -- dynamically, enjoy yourself :)

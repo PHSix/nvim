@@ -37,6 +37,7 @@ export function renderWinbarString(
   symbolPath: DocumentSymbol[],
 ) {
   let symbolLink = ''
+
   for (const symbol of symbolPath) {
     const { icon, key } = iconMap[symbol.kind]
     symbolLink += ` %#VertSplit# %#CocSymbol${key}#${icon}${ec(symbol.name)}`
@@ -47,4 +48,13 @@ export function renderWinbarString(
 
 function ec(str: string) {
   return str.replace('%', '%%')
+}
+
+const FOLDER_ICON = '󰉋 '
+const FILE_ICON = '󰈙 '
+
+export function renderWinbar(pathFragments: string[]) {
+  const content = pathFragments.map((item, index, self) => index === self.length - 1 ? `%#CocSymbolFile#${FILE_ICON}${item}` : `%#CocSymbolFolder#${FOLDER_ICON}${item}`).join('%#VertSplit# / ')
+
+  return ` %#WinBar#${content}%*`
 }

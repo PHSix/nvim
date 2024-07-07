@@ -1,6 +1,14 @@
+import type {
+  CancellationToken,
+  DocumentSymbol,
+  ExtensionContext,
+  TextDocument,
+} from 'coc.nvim'
 import {
   CancellationTokenSource,
+  Disposable,
   ProviderName,
+  disposeAll,
   events,
   languages,
   nvim,
@@ -8,17 +16,9 @@ import {
   workspace,
 } from 'coc.nvim'
 
-import type {
-  CancellationToken,
-  Disposable,
-  DocumentSymbol,
-  ExtensionContext,
-  TextDocument,
-} from 'coc.nvim'
-
 import debounce from 'debounce'
-import { getComponentName, getFilename, getSymbolPath } from './utils'
-import { renderWinbarString } from './render'
+import { getFilename, getSymbolPath } from './utils'
+import { renderWinbar, renderWinbarString } from './render'
 
 interface GetSymbolable {
   getDocumentSymbol: (
@@ -28,7 +28,7 @@ interface GetSymbolable {
 }
 
 let cancelTokenSource: CancellationTokenSource
-let eventDisposable: Disposable | undefined
+let canDisposable: Disposable | undefined
 let maxTravelDepth: number
 const symbolsCache = new Map<
     number,
@@ -49,33 +49,28 @@ function getMaxTravelDepth() {
 }
 
 function createEventListen(context: ExtensionContext) {
+  nvim.setOption('showtabline', 2)
+  nvim.setOption('tabline', '')
+
   maxTravelDepth = getMaxTravelDepth()
   const log = context.logger
 
-  eventDisposable = events.on(
+  const symbolEvent = events.on(
     'CursorMoved',
     debounce(async (bufnr: number, cursor: [number, number]) => {
       const document = workspace.getDocument(bufnr)
-      const win = window.activeTextEditor?.winid !== void 0 ? nvim.createWindow(window.activeTextEditor.winid) : undefined
 
       if (
         !document
         || !document.attached
         || !document.textDocument
         || document.winid === -1
-        || !win
-        || !(await win.valid)
         || await document.buffer.getOption('bufhidden') !== ''
         || !languages.hasProvider(
           ProviderName.DocumentSymbol,
           document.textDocument,
         )
       )
-        return
-
-      const windowConfig = await win.getConfig()
-
-      if (windowConfig.relative)
         return
 
       const folderUri = workspace.getWorkspaceFolder(
@@ -128,30 +123,39 @@ function createEventListen(context: ExtensionContext) {
           symbols,
           maxTravelDepth,
         )
-        const filename = getFilename(folderUri)
-        const componentName = getComponentName(
-          document.uri.slice(folderUri.length),
-        )
+        const projectName = getFilename(folderUri)
 
-        const winbar = renderWinbarString(
-          componentName
-            ? ` ${filename}:${componentName}`
-            : ` ${filename}`,
-          symbolPath,
-        )
+        const tabline = renderWinbarString(` ${projectName}`, symbolPath)
 
-        // check current buffer is not changed
-        if ((await nvim.window).id === win.id) {
-          win.setOption('winbar', winbar).catch(
-            (err) => {
-              log.error(err, winbar)
-            },
-          )
-        }
+        nvim.setOption('tabline', tabline)
       } catch (err: any) {
         log.debug(`coc-pos catch some error : ${err.toString()}`)
       }
     }, 70),
+  )
+
+  const winbarHandler = debounce(async () => {
+    const editor = window.activeTextEditor
+    if (!editor)
+      return
+    const uri = editor.document.uri
+    const winid = editor.winid
+    const folder = workspace.getWorkspaceFolder(uri)
+    if (!folder)
+      return
+
+    const winbar = renderWinbar(uri.slice(folder.uri.length).split('/').filter(item => !!item))
+    const win = nvim.createWindow(winid)
+    if (await win.valid)
+      await win.setOption('winbar', winbar).catch(() => {})
+  }, 70)
+
+  const timer = setTimeout(() => {
+    winbarHandler()
+  }, 1000)
+
+  const eventListeners = [
+    symbolEvent,
     // delete cache.
     workspace.registerAutocmd({
       event: ['BufDelete', 'BufWipeout'],
@@ -165,9 +169,24 @@ function createEventListen(context: ExtensionContext) {
         }
       },
     }),
-  )
+    // events.on('WinEnter', winbarHandler),
+    // events.on('WinLeave', winbarHandler),
+    // events.on('BufEnter', winbarHandler),
+    // events.on('Enter', winbarHandler),
+    Disposable.create(() => {
+      clearTimeout(timer)
+    }),
+    workspace.registerAutocmd({
+      event: ['BufReadPost', 'BufEnter'],
+      callback: winbarHandler,
+    }),
+  ]
 
-  context.subscriptions.push(eventDisposable)
+  canDisposable = Disposable.create(() => {
+    disposeAll(eventListeners)
+  })
+
+  context.subscriptions.push(canDisposable)
 }
 
 export async function activate(context: ExtensionContext): Promise<void> {
@@ -182,8 +201,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
       if (config.get('enable', true)) {
         createEventListen(context)
       } else {
-        eventDisposable?.dispose()
-        context.subscriptions = context.subscriptions.filter(s => s !== eventDisposable)
+        canDisposable?.dispose()
         for (const buf of symbolsCache.keys()) {
           symbolsCache.delete(buf)
           nvim.request('nvim_set_option_value', ['winbar', '', { buf }])
@@ -197,8 +215,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
 }
 
 export function deactivate() {
-  eventDisposable?.dispose()
-
   for (const key of symbolsCache.keys())
     symbolsCache.delete(key)
 }

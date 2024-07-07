@@ -21,6 +21,7 @@ const invaildFileName = new Set([
   'init.go',
   'page.tsx',
   'route.ts',
+  'page.tsx',
 ])
 
 export function getSymbolPath(
@@ -54,16 +55,16 @@ export function getFilename(uri: string): string {
   return uri.split('/').pop() || ''
 }
 
-export function getComponentName(uri: string) {
-  const filePath = uri.split('/').filter(s => s !== '')
+const fileIcon = '󰈙 '
+const folderIcon = '󰉋 '
 
-  if (filePath.length === 0)
+export function getFilePath(uri: string): string | undefined {
+  const fileSegements = uri.split('/').filter(s => s !== '')
+
+  if (fileSegements.length === 0)
     return undefined
 
-  if (invaildFileName.has(filePath[filePath.length - 1]) && filePath.length > 1)
-    return `${filePath[filePath.length - 2]}/${filePath[filePath.length - 1]}`
-
-  return filePath[filePath.length - 1]
+  return fileSegements.slice(Math.max(fileSegements.length - 3, 0)).map((item, index, self) => `${index !== self.length - 1 ? folderIcon : fileIcon}${item}`).join('/')
 }
 
 export function rangeContain(range: Range, position: Position) {

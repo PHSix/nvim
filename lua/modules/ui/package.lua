@@ -6,9 +6,12 @@ package({
     'shellRaining/hlchunk.nvim',
     config = function()
         require('hlchunk').setup({
-            indent = {
-                enable = true,
-            },
+            -- indent = {
+            --     enable = true,
+            --     exclude_filetypes = {
+            --         ['coc-explorer'] = true,
+            --     },
+            -- },
             chunk = {
                 enable = true,
             },
@@ -28,7 +31,15 @@ package({
 
 package({
     'PHSix/vitesse.nvim',
+    enabled = false,
     config = function()
         vim.cmd([[colorscheme vitesse]])
+    end,
+})
+
+package({
+    'olimorris/onedarkpro.nvim',
+    config = function()
+        vim.cmd([[colorscheme onedark]])
     end,
 })

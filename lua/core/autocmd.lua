@@ -1,6 +1,6 @@
 local id = vim.api.nvim_create_augroup('patch_augroup', { clear = true })
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-    pattern = { 'help', 'dashboard' },
+    pattern = { 'help', 'dashboard', 'coctree' },
     callback = function()
         vim.keymap.set('n', 'q', '<Cmd>q<CR>', { silent = true, buffer = true })
     end,
@@ -25,6 +25,7 @@ local use_double_space_tab_filetypes = {
     'typescriptreact',
     'vue',
     'dart',
+    'coc-explorer',
 }
 
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -37,7 +38,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
             vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' })
             vim.api.nvim_set_option_value('softtabstop', 2, { scope = 'local' })
             vim.api.nvim_set_option_value('tabstop', 2, { scope = 'local' })
-            vim.api.nvim_set_option_value('expandtab', true, { scope = 'local' })
+            vim.api.nvim_set_option_value('expandtab', false, { scope = 'local' })
         end
     end,
 })
