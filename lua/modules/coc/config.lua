@@ -5,7 +5,6 @@ vim.g.coc_data_home = '~/.config/coc_nvim'
 
 local ensure_installed_extensions = {
     'coc-json',
-    'coc-tsserver',
     'coc-css',
     '@yaegassy/coc-volar',
     '@yaegassy/coc-tailwindcss3',
