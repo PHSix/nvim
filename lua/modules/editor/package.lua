@@ -92,26 +92,27 @@ package({
     lazy = true,
 })
 
-package({
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {},
-})
+-- package({
+--     'folke/todo-comments.nvim',
+--     dependencies = { 'nvim-lua/plenary.nvim' },
+--     opts = {},
+-- })
 
-package({
-    'kawre/leetcode.nvim',
-    build = ':TSUpdate html',
-    dependencies = {
-        'MunifTanjim/nui.nvim',
-    },
-    opts = {
-        -- 配置放在这里
-        cn = {
-            enabled = true,
-        },
-        lang = 'typescript',
-    },
-})
+-- package({
+--     'kawre/leetcode.nvim',
+--     build = ':TSUpdate html',
+--     dependencies = {
+--         'MunifTanjim/nui.nvim',
+--         'nvim-lua/plenary.nvim'
+--     },
+--     opts = {
+--         -- 配置放在这里
+--         cn = {
+--             enabled = true,
+--         },
+--         lang = 'typescript',
+--     },
+-- })
 
 package({
     'ibhagwan/fzf-lua',
@@ -120,18 +121,6 @@ package({
 })
 
 package({
-    'toppair/peek.nvim',
-    cmd = 'PeekOpen',
-    enabled = vim.fn.executable('deno') == 1,
-    build = 'deno task --quiet build:fast',
-    config = function()
-        require('peek').setup()
-        vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
-        vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
-    end,
-})
-
-package({
     'h-hg/fcitx.nvim',
-    enabled = vim.fn.executable('fcitx5'),
+    enabled = vim.fn.executable('fcitx5') == 1,
 })

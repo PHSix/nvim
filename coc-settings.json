@@ -129,5 +129,12 @@
     "coc.preferences.formatOnSave": false
   },
   "git.enableGutters": true,
-  "volar.tsLocale": "en"
+  "volar.tsLocale": "en",
+	"typescript.locale": "en",
+	"eslint.rules.customizations": [
+		{"rule": "react-hooks/exhaustive-deps", "severity": "off"}
+	],
+	"vtsls.experimental.completion.entriesLimit": 10,
+	"vtsls.experimental.completion.enableServerSideFuzzyMatch": true,
+	"suggest.triggerCompletionWait": 50
 }

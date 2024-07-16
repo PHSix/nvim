@@ -37,36 +37,31 @@
 
 # installed plugins
 
-| Plugin Name                   |
-| ----------------------------- |
-| bufdelete.nvim                |
-| coc.nvim                      |
-| Comment.nvim                  |
-| dashboard-nvim                |
-| dressing.nvim                 |
-| hlsearch.nvim                 |
-| indent-blankline.nvim         |
-| lazy.nvim                     |
-| midnight.nvim                 |
-| nvim-lastplace                |
-| nvim-osc52                    |
-| nvim-scrollview               |
-| nvim-treesitter               |
-| nvim-ts-context-commentstring |
-| nvim-ufo                      |
-| nvim-web-devicons             |
-| plenary.nvim                  |
-| promise-async                 |
-| rainbow-delimiters.nvim       |
-| telescope-fzy-native.nvim     |
-| telescope.nvim                |
-| vim-smoothie                  |
-| windline.nvim                 |
-| winresizer                    |
-| flash.nvim                    |
-| nvim-spectre                  |
-| vim-floaterm                  |
-| vim-surround                  |
-| todo-comments.nvim            |
+| Count | Plugin Name                   |
+| ----- | ----------------------------- |
+| 1     | bufdelete.nvim                |
+| 2     | coc-eslint-tools              |
+| 3     | coc.nvim                      |
+| 4     | Comment.nvim                  |
+| 5     | dressing.nvim                 |
+| 6     | flash.nvim                    |
+| 7     | fzf-lua                       |
+| 8     | hlchunk.nvim                  |
+| 9     | hlsearch.nvim                 |
+| 10    | nvim-bqf                      |
+| 11    | nvim-lastplace                |
+| 12    | nvim-osc52                    |
+| 13    | nvim-scrollview               |
+| 14    | nvim-spectre                  |
+| 15    | nvim-treesitter               |
+| 16    | nvim-ts-context-commentstring |
+| 17    | nvim-ufo                      |
+| 18    | nvim-web-devicons             |
+| 19    | onedarkpro.nvim               |
+| 20    | promise-async                 |
+| 21    | vim-smoothie                  |
+| 22    | vim-surround                  |
+| 23    | lazy.nvim                     |
+| 24    | fcitx.nvim                    |
 
 ## License MIT

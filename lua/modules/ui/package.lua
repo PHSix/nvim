@@ -29,13 +29,13 @@ package({
     config = true,
 })
 
-package({
-    'PHSix/vitesse.nvim',
-    enabled = false,
-    config = function()
-        vim.cmd([[colorscheme vitesse]])
-    end,
-})
+-- package({
+--     'PHSix/vitesse.nvim',
+--     enabled = false,
+--     config = function()
+--         vim.cmd([[colorscheme vitesse]])
+--     end,
+-- })
 
 package({
     'olimorris/onedarkpro.nvim',

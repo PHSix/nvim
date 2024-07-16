@@ -34,7 +34,7 @@ function pack:boot_strap()
     local lazy_path = self.helper.path_join(self.data_path, 'lazy', 'lazy.nvim')
     local state = uv.fs_stat(lazy_path)
     if not state then
-        local cmd = '!git clone https://github.com/folke/lazy.nvim ' .. lazy_path
+        local cmd = '!git clone https://github.com/folke/lazy.nvim.git ' .. lazy_path
         api.nvim_command(cmd)
     end
     vim.opt.runtimepath:prepend(lazy_path)
