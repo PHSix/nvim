@@ -40,6 +40,6 @@ package({
 package({
     'olimorris/onedarkpro.nvim',
     config = function()
-        vim.cmd([[colorscheme onedark]])
+        vim.cmd([[colorscheme onelight]])
     end,
 })

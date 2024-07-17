@@ -196,6 +196,7 @@ function renderWinbar(pathFragments) {
 var cancelTokenSource;
 var canDisposable;
 var maxTravelDepth;
+var defualtTabline = "Neovim is the best editor in the world.";
 var symbolsCache = /* @__PURE__ */ new Map();
 function getMaxTravelDepth() {
   const depth = import_coc2.workspace.getConfiguration().get("coc-pos.maxTravelDepth");
@@ -205,59 +206,63 @@ function getMaxTravelDepth() {
 }
 function createEventListen(context) {
   import_coc2.nvim.setOption("showtabline", 2);
-  import_coc2.nvim.setOption("tabline", "");
+  import_coc2.nvim.setOption("tabline", defualtTabline);
   maxTravelDepth = getMaxTravelDepth();
   const log = context.logger;
   const symbolEvent = import_coc2.events.on(
     "CursorMoved",
     (0, import_debounce.default)(async (bufnr, cursor) => {
       const document = import_coc2.workspace.getDocument(bufnr);
+      let tabline = "";
       if (!document || !document.attached || !document.textDocument || document.winid === -1 || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
         import_coc2.ProviderName.DocumentSymbol,
         document.textDocument
-      ))
-        return;
-      const folderUri = import_coc2.workspace.getWorkspaceFolder(
-        document.textDocument.uri
-      )?.uri;
-      if (!folderUri)
-        return;
-      const changedtick = await import_coc2.nvim.call("nvim_buf_get_var", [
-        bufnr,
-        "changedtick"
-      ]);
-      let symbols;
-      const cache = symbolsCache.get(bufnr);
-      if (cache && cache.changedtick === changedtick) {
-        symbols = cache.symbols;
+      )) {
+        tabline = defualtTabline;
       } else {
-        cancelTokenSource?.cancel();
-        cancelTokenSource?.dispose();
-        cancelTokenSource = new import_coc2.CancellationTokenSource();
-        const res = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
-        if (!res)
+        const folderUri = import_coc2.workspace.getWorkspaceFolder(
+          document.textDocument.uri
+        )?.uri;
+        if (!folderUri)
           return;
-        symbols = res;
-        symbolsCache.set(bufnr, {
-          changedtick,
-          symbols
-        });
+        const changedtick = await import_coc2.nvim.call("nvim_buf_get_var", [
+          bufnr,
+          "changedtick"
+        ]);
+        let symbols;
+        const cache = symbolsCache.get(bufnr);
+        if (cache && cache.changedtick === changedtick) {
+          symbols = cache.symbols;
+        } else {
+          cancelTokenSource?.cancel();
+          cancelTokenSource?.dispose();
+          cancelTokenSource = new import_coc2.CancellationTokenSource();
+          const res = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+          if (!res)
+            return;
+          symbols = res;
+          symbolsCache.set(bufnr, {
+            changedtick,
+            symbols
+          });
+        }
+        try {
+          const [symbolPath] = getSymbolPath(
+            {
+              line: cursor[0] - 1,
+              character: cursor[1] - 1
+            },
+            symbols,
+            maxTravelDepth
+          );
+          const projectName = getFilename(folderUri);
+          tabline = renderWinbarString(`\uE624 ${projectName}`, symbolPath);
+        } catch (err) {
+          log.error(`coc-pos catch some error : ${err.toString()}`);
+        }
       }
-      try {
-        const [symbolPath] = getSymbolPath(
-          {
-            line: cursor[0] - 1,
-            character: cursor[1] - 1
-          },
-          symbols,
-          maxTravelDepth
-        );
-        const projectName = getFilename(folderUri);
-        const tabline = renderWinbarString(`\uE624 ${projectName}`, symbolPath);
-        import_coc2.nvim.setOption("tabline", tabline);
-      } catch (err) {
-        log.debug(`coc-pos catch some error : ${err.toString()}`);
-      }
+      await import_coc2.nvim.setOption("tabline", tabline).catch(() => {
+      });
     }, 70)
   );
   const winbarHandler = (0, import_debounce.default)(async () => {
@@ -269,7 +274,9 @@ function createEventListen(context) {
     const folder = import_coc2.workspace.getWorkspaceFolder(uri);
     if (!folder)
       return;
-    const winbar = renderWinbar(uri.slice(folder.uri.length).split("/").filter((item) => !!item));
+    const winbar = renderWinbar(
+      uri.slice(folder.uri.length).split("/").filter((item) => !!item)
+    );
     const win = import_coc2.nvim.createWindow(winid);
     if (await win.valid)
       await win.setOption("winbar", winbar).catch(() => {
@@ -315,21 +322,23 @@ async function activate(context) {
   const enable = config.get("enable", true);
   if (enable === true)
     createEventListen(context);
-  context.subscriptions.push(import_coc2.workspace.onDidChangeConfiguration((e) => {
-    if (e.affectsConfiguration("coc-pos.enable")) {
-      if (config.get("enable", true)) {
-        createEventListen(context);
-      } else {
-        canDisposable?.dispose();
-        for (const buf of symbolsCache.keys()) {
-          symbolsCache.delete(buf);
-          import_coc2.nvim.request("nvim_set_option_value", ["winbar", "", { buf }]);
+  context.subscriptions.push(
+    import_coc2.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration("coc-pos.enable")) {
+        if (config.get("enable", true)) {
+          createEventListen(context);
+        } else {
+          canDisposable?.dispose();
+          for (const buf of symbolsCache.keys()) {
+            symbolsCache.delete(buf);
+            import_coc2.nvim.request("nvim_set_option_value", ["winbar", "", { buf }]);
+          }
         }
       }
-    }
-    if (e.affectsConfiguration("coc-pos.maxTravelDepth"))
-      maxTravelDepth = getMaxTravelDepth();
-  }));
+      if (e.affectsConfiguration("coc-pos.maxTravelDepth"))
+        maxTravelDepth = getMaxTravelDepth();
+    })
+  );
 }
 function deactivate() {
   for (const key of symbolsCache.keys())

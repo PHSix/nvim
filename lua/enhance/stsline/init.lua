@@ -156,7 +156,20 @@ local function setup()
 
     -- vim.cmd([[hi link StsLine StatusLine]])
     -- vim.cmd([[hi! StsLine guifg=#928b95]])
-    vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
+    local function set_hi_group()
+        if vim.opt.background == 'dark' then
+            vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
+        else
+            vim.cmd([[hi! link StsLine NormalFloat]])
+        end
+    end
+
+    set_hi_group()
+    vim.api.nvim_create_augroup('stsline_augroup', { clear = true })
+    vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        callback = set_hi_group,
+    })
     -- vim.cmd([[hi! link StsLine StatusLine]])
 
     local render_callback = function(args)

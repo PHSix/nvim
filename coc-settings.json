@@ -136,5 +136,6 @@
 	],
 	"vtsls.experimental.completion.entriesLimit": 10,
 	"vtsls.experimental.completion.enableServerSideFuzzyMatch": true,
-	"suggest.triggerCompletionWait": 50
+	"suggest.triggerCompletionWait": 50,
+	"eslint.experimental.useFlatConfig": true
 }
