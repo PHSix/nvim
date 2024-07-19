@@ -4,6 +4,24 @@ local nmap, imap, cmap, xmap, tmap, vmap = keymap.nmap, keymap.imap, keymap.cmap
 local silent, noremap, expr = keymap.silent, keymap.noremap, keymap.expr
 local opts = keymap.new_opts
 local cmd = keymap.cmd
+local fn, api = vim.fn, vim.api
+
+local function find_cwd()
+    local file = fn.expand('%:p')
+    if fn.exists('g:WorkspaceFolders') == 0 then
+        return
+    end
+    for _, f in ipairs(vim.g.WorkspaceFolders) do
+        if fn.match(file, f, 0) == 1 then
+            return f
+        end
+    end
+end
+
+local function wrap_fzf_cwd(command)
+    local cwd = find_cwd()
+    -- vim.cmd(command .. ' cwd=${}')
+end
 
 -- Use space as leader key
 vim.g.mapleader = ' '
@@ -93,4 +111,5 @@ nmap({
     { 'gy', '<Plug>(coc-type-definition)', opts(noremap, silent) },
     { 'gi', '<Plug>(coc-implementation)', opts(noremap, silent) },
     { 'gp', cmd('CocCommand coc-plus.peek-defintion'), opts(noremap, silent) },
+    { '<leader>fs', cmd('CocList symbols'), opts(noremap, silent) },
 })

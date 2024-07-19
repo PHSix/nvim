@@ -33,7 +33,7 @@ local coc_user_config = {
 }
 
 if executable('nix') then
-	if executable('nil') then
+    if executable('nil') then
         table.insert(ensure_installed_extensions, 'coc-nil')
     end
 
@@ -156,7 +156,22 @@ function config.coc()
 		hi link CocGitChangedSign GitDirty
 	]])
 
-    vim.keymap.set('n', '<leader>fs', '<CMD>CocList symbols<CR>', { silent = true, noremap = true })
+    local function coc_symbols()
+        local success, fzf = pcall(require, 'fzf-lua')
+        if success == false then
+            return
+        end
+        local action = vim.fn.CocActionAsync
+        local co = coroutine
+
+        local function search_symbols(query)
+            action('getWorkspaceSymbols', query, function() end)
+            co.yield()
+        end
+
+        -- fzf.fzf_live(function(query) end)
+    end
+    vim.api.nvim_create_user_command('CocFindSymbols', coc_symbols, {})
 end
 
 function config.ufo()

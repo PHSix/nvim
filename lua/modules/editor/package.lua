@@ -11,6 +11,7 @@ package({
             'JoosepAlviste/nvim-ts-context-commentstring',
             lazy = true,
         },
+        'rescript-lang/tree-sitter-rescript',
     },
 })
 
