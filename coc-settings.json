@@ -134,7 +134,7 @@
   "eslint.rules.customizations": [
     { "rule": "react-hooks/exhaustive-deps", "severity": "off" }
   ],
-  "vtsls.experimental.completion.entriesLimit": 10,
+  "vtsls.experimental.completion.entriesLimit": 20,
   "vtsls.experimental.completion.enableServerSideFuzzyMatch": true,
   "suggest.triggerCompletionWait": 50,
   "eslint.experimental.useFlatConfig": true,
@@ -150,5 +150,13 @@
       "filetypes": ["rescript"],
       "rootPatterns": ["rescript.json", "bsconfig.json"]
     }
-  }
+  },
+	"pairs.enableCharacters": [
+		"(",
+		"[",
+		"{",
+		"'",
+		"\"",
+		"`"
+	]
 }

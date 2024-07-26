@@ -128,12 +128,6 @@ function config.coc()
         end,
     })
 
-    vim.api.nvim_create_user_command('CocExplorer', function()
-        vim.cmd([[CocCommand explorer --position right]])
-    end, {
-        desc = 'Open Coc Explorer',
-    })
-
     vim.api.nvim_create_user_command('CocFormat', function()
         vim.fn.CocActionAsync('format')
     end, {
@@ -149,29 +143,37 @@ function config.coc()
     vim.g.coc_quickfix_open_command = 'vsplit'
 
     vim.cmd([[
-		hi link CocGitAddedSign GitNew
-		hi link CocGitRemovedSign GitDeleted
-		hi link CocGitTopRemovedSign GitDeleted
-		hi link CocGitChangeRemovedSign GitDeleted
-		hi link CocGitChangedSign GitDirty
-	]])
+        hi link CocGitAddedSign GitNew
+        hi link CocGitRemovedSign GitDeleted
+        hi link CocGitTopRemovedSign GitDeleted
+        hi link CocGitChangeRemovedSign GitDeleted
+        hi link CocGitChangedSign GitDirty
+    ]])
 
-    local function coc_symbols()
-        local success, fzf = pcall(require, 'fzf-lua')
-        if success == false then
-            return
+    local explorer_size = 40
+    local function resize_handler(num)
+        return function()
+            if explorer_size <= 5 then
+                return
+            end
+
+            explorer_size = explorer_size + 5
+            vim.cmd([[vertical resize ]] .. string.format(num > 0 and '+%d' or '%d', num))
         end
-        local action = vim.fn.CocActionAsync
-        local co = coroutine
-
-        local function search_symbols(query)
-            action('getWorkspaceSymbols', query, function() end)
-            co.yield()
-        end
-
-        -- fzf.fzf_live(function(query) end)
     end
-    vim.api.nvim_create_user_command('CocFindSymbols', coc_symbols, {})
+    vim.api.nvim_create_autocmd('filetype', {
+        group = 'coc_patch_autocmd',
+        pattern = 'coc-explorer',
+        callback = function()
+            vim.keymap.set('n', '-', resize_handler(-5), { buffer = true })
+            vim.keymap.set('n', '=', resize_handler(5), { buffer = true })
+        end,
+    })
+    vim.api.nvim_create_user_command('CocExplorer', function()
+        vim.cmd(string.format([[CocCommand explorer --position right --width %d]], explorer_size))
+    end, {
+        desc = 'Open Coc Explorer',
+    })
 end
 
 function config.ufo()

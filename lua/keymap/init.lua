@@ -1,6 +1,7 @@
 ---@diagnostic disable: unused-local
 local keymap = require('core.keymap')
-local nmap, imap, cmap, xmap, tmap, vmap = keymap.nmap, keymap.imap, keymap.cmap, keymap.xmap, keymap.tmap, keymap.vmap
+local nmap, imap, cmap, xmap, tmap, vmap, omap =
+    keymap.nmap, keymap.imap, keymap.cmap, keymap.xmap, keymap.tmap, keymap.vmap, keymap.omap
 local silent, noremap, expr = keymap.silent, keymap.noremap, keymap.expr
 local opts = keymap.new_opts
 local cmd = keymap.cmd
@@ -87,7 +88,7 @@ nmap({
     { '<Leader>ff', cmd('FzfLua files'), opts(noremap, silent) },
     { '<Leader>fo', cmd('FzfLua oldfiles'), opts(noremap, silent) },
     { '<leader>fr', cmd('FzfLua resume'), opts(noremap, silent) },
-    { '<M-x>', cmd('Fzflua commands'), opts(noremap, silent) },
+    { '<M-x>', cmd('FzfLua commands'), opts(noremap, silent) },
 
     -- coc-git
     { '<leader>gp', '<Plug>(coc-git-chunkinfo)', opts(noremap, silent) },
@@ -112,4 +113,18 @@ nmap({
     { 'gi', '<Plug>(coc-implementation)', opts(noremap, silent) },
     { 'gp', cmd('CocCommand coc-plus.peek-defintion'), opts(noremap, silent) },
     { '<leader>fs', cmd('CocList symbols'), opts(noremap, silent) },
+})
+
+xmap({
+    { 'if', '<Plug>(coc-funcobj-i)', opts(silent) },
+    { 'af', '<Plug>(coc-funcobj-a)', opts(silent) },
+    { 'ic', '<Plug>(coc-classobj-i)', opts(silent) },
+    { 'ac', '<Plug>(coc-classobj-a)', opts(silent) },
+})
+
+omap({
+    { 'if', '<Plug>(coc-funcobj-i)', opts(silent) },
+    { 'af', '<Plug>(coc-funcobj-a)', opts(silent) },
+    { 'ic', '<Plug>(coc-classobj-i)', opts(silent) },
+    { 'ac', '<Plug>(coc-classobj-a)', opts(silent) },
 })

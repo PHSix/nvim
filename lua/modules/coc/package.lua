@@ -10,6 +10,7 @@ package({
         vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-stylua]])
         vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-pos]])
         vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-vtsls]])
+        vim.cmd([[set rtp+=~/.config/nvim/extensions/coc-fzf-lua]])
     end,
 })
 

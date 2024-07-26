@@ -43,3 +43,18 @@ package({
         vim.cmd([[colorscheme onelight]])
     end,
 })
+-- package({
+--     'sainnhe/everforest',
+--     config = function()
+--         vim.g.everforest_better_performance = 1
+--         vim.g.everforest_background = 'hard'
+--         vim.cmd([[colorscheme everforest]])
+--     end,
+-- })
+
+-- package({
+--     'NTBBloodbath/doom-one.nvim',
+--     config = function()
+--         vim.cmd([[colorscheme doom-one]])
+--     end,
+-- })
