@@ -158,5 +158,20 @@
 		"'",
 		"\"",
 		"`"
-	]
+	],
+	"typescript.implementationsCodeLens.enabled": false,
+	"typescript.referencesCodeLens.enabled": false,
+	// some modules contain many useless types especially aws-sdk, will make auto complete list very long and slow
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "node_modules/@iconify-json",
+    "node_modules/@@google-cloud",
+    "node_modules/@mui/icons-material",
+    "node_modules/@mui/lab",
+    "node_modules/@mui/system",
+    "node_modules/@mui/x-*/**",
+    "node_modules/**/internals",
+    "node_modules/aws-sdk",
+    "node_modules/framer-motion",
+    "node_modules/typescript"
+  ]
 }
