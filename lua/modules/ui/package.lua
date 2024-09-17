@@ -40,9 +40,10 @@ package({
 package({
     'olimorris/onedarkpro.nvim',
     config = function()
-        vim.cmd([[colorscheme onelight]])
+        vim.cmd([[colorscheme onedark]])
     end,
 })
+
 -- package({
 --     'sainnhe/everforest',
 --     config = function()
