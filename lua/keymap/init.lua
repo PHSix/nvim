@@ -113,6 +113,9 @@ nmap({
     { 'gi', '<Plug>(coc-implementation)', opts(noremap, silent) },
     { 'gp', cmd('CocCommand coc-plus.peek-defintion'), opts(noremap, silent) },
     { '<leader>fs', cmd('CocList symbols'), opts(noremap, silent) },
+
+    -- LazyGit
+    { '<leader>lg', cmd('LazyGit'), opts(noremap, silent) },
 })
 
 xmap({
