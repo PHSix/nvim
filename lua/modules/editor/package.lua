@@ -142,3 +142,31 @@ package({
         vim.keymap.set('t', '<C-t>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
     end,
 })
+
+package({
+    'supermaven-inc/supermaven-nvim',
+    config = function()
+        require('supermaven-nvim').setup({})
+    end,
+})
+
+package({
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+        'LazyGit',
+        'LazyGitConfig',
+        'LazyGitCurrentFile',
+        'LazyGitFilter',
+        'LazyGitFilterCurrentFile',
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+        { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
+})

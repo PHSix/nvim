@@ -37,6 +37,18 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 	)
 
+	window.onDidChangeActiveTextEditor(() => {
+		const uri = window.activeTextEditor?.document.uri
+		if (!uri) return
+
+		const folder = workspace.getWorkspaceFolder(uri)
+
+		if (!folder) return
+		const rootPath = Uri.parse(folder.uri).fsPath
+
+		nvim.command(`cd ${rootPath}`)
+	})
+
 	setTimeout(() => {
 		nvim.setKeymap('n', '<leader>ff', '<Cmd>CocCommand fzfLua.findFile<CR>', {
 			silent: true,

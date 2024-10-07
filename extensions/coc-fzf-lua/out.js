@@ -54,6 +54,16 @@ async function activate(context) {
       import_coc.nvim.command([cmd, ...args].join(" "));
     })
   );
+  import_coc.window.onDidChangeActiveTextEditor(() => {
+    const uri = import_coc.window.activeTextEditor?.document.uri;
+    if (!uri)
+      return;
+    const folder = import_coc.workspace.getWorkspaceFolder(uri);
+    if (!folder)
+      return;
+    const rootPath = import_coc.Uri.parse(folder.uri).fsPath;
+    import_coc.nvim.command(`cd ${rootPath}`);
+  });
   setTimeout(() => {
     import_coc.nvim.setKeymap("n", "<leader>ff", "<Cmd>CocCommand fzfLua.findFile<CR>", {
       silent: true,

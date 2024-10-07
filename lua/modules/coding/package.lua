@@ -20,6 +20,10 @@ package({
     'nvim-pack/nvim-spectre',
     cmd = { 'Spectre' },
     config = conf.spectre,
+
+    dependencies = {
+        { 'nvim-lua/plenary.nvim' },
+    },
 })
 
 -- package({
