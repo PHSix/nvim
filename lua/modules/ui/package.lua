@@ -24,10 +24,10 @@ package({
     opts = {},
 })
 
-package({
-    'dstein64/nvim-scrollview',
-    config = true,
-})
+-- package({
+--     'dstein64/nvim-scrollview',
+--     config = true,
+-- })
 
 -- package({
 --     'PHSix/vitesse.nvim',
