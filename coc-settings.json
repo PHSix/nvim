@@ -75,6 +75,28 @@
       "expand": true
     }
   ],
+  "explorer.icon.customIcons": {
+    "icons": {
+      "nix": {
+        "code": "",
+        "color": "#3f5d72"
+      },
+      "justfile": {
+        "code": "",
+        "color": "#526064"
+      }
+    },
+    "extensions": {
+      "nix": "nix"
+    },
+    "filenames": {
+      "vimrc": "vim",
+      "justfile": "justfile"
+    },
+    "dirnames": {},
+    "patternMatches": {},
+    "dirPatternMatches": {}
+  },
   "explorer.icon.enableNerdfont": true,
   "explorer.enableFloatinput": true,
   "nil.formatting.command": ["nixpkgs-fmt"],
@@ -122,9 +144,6 @@
   "git.changeRemovedSign.text": "│",
   "git.topRemovedSign.text": "│",
   "git.addGBlameToVirtualText": true,
-  "[go]": {
-    "coc.preferences.formatOnSave": true
-  },
   "[markdown]": {
     "coc.preferences.formatOnSave": false
   },
@@ -151,17 +170,10 @@
       "rootPatterns": ["rescript.json", "bsconfig.json"]
     }
   },
-	"pairs.enableCharacters": [
-		"(",
-		"[",
-		"{",
-		"'",
-		"\"",
-		"`"
-	],
-	"typescript.implementationsCodeLens.enabled": false,
-	"typescript.referencesCodeLens.enabled": false,
-	// some modules contain many useless types especially aws-sdk, will make auto complete list very long and slow
+  "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+  "typescript.implementationsCodeLens.enabled": false,
+  "typescript.referencesCodeLens.enabled": false,
+  // some modules contain many useless types especially aws-sdk, will make auto complete list very long and slow
   "typescript.preferences.autoImportFileExcludePatterns": [
     "node_modules/@iconify-json",
     "node_modules/@@google-cloud",
