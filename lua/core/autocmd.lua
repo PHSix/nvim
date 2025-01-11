@@ -28,6 +28,10 @@ local use_double_space_tab_filetypes = {
     'coc-explorer',
 }
 
+local use_tab_expand_filetypes = {
+    'nix',
+}
+
 vim.api.nvim_create_autocmd('BufEnter', {
     pattern = '*',
     group = id,
@@ -38,7 +42,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
             vim.api.nvim_set_option_value('shiftwidth', 2, { scope = 'local' })
             vim.api.nvim_set_option_value('softtabstop', 2, { scope = 'local' })
             vim.api.nvim_set_option_value('tabstop', 2, { scope = 'local' })
-            vim.api.nvim_set_option_value('expandtab', false, { scope = 'local' })
+            local use_expand_tab = vim.list_contains(use_tab_expand_filetypes, ft)
+            vim.api.nvim_set_option_value('expandtab', use_expand_tab, { scope = 'local' })
         end
     end,
 })

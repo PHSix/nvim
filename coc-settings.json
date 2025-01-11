@@ -185,5 +185,7 @@
     "node_modules/aws-sdk",
     "node_modules/framer-motion",
     "node_modules/typescript"
-  ]
+  ],
+	"typescript.suggestionActions.enabled": false,
+	"javascript.suggestionActions.enabled": false
 }
