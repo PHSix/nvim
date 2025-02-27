@@ -49,7 +49,7 @@
   "suggest.pumFloatConfig": {
     "border": true
   },
-  "suggest.virtualText": true,
+  "suggest.virtualText": false,
   "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
   "diagnostic.hintSign": " ",
@@ -187,5 +187,5 @@
     "node_modules/typescript"
   ],
 	"typescript.suggestionActions.enabled": false,
-	"javascript.suggestionActions.enabled": false
+	"javascript.suggestionActions.enabled": false,
 }
