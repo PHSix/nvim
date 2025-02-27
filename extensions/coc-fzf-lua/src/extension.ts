@@ -6,7 +6,7 @@ function getCwd() {
 
 		const cwd = workspace.getWorkspaceFolder(uri)?.uri
 
-		if (cwd) return cwd
+		if (cwd) return Uri.parse(cwd).fsPath
 
 		const fsp = Uri.parse(uri).fsPath.split('/')
 		fsp.pop()

@@ -30,7 +30,7 @@ function getCwd() {
     return;
   const cwd = import_coc.workspace.getWorkspaceFolder(uri)?.uri;
   if (cwd)
-    return cwd;
+    return import_coc.Uri.parse(cwd).fsPath;
   const fsp = import_coc.Uri.parse(uri).fsPath.split("/");
   fsp.pop();
   return fsp.join("/");
