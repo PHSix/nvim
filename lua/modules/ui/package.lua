@@ -37,10 +37,18 @@ package({
 --     end,
 -- })
 
+-- package({
+--     'olimorris/onedarkpro.nvim',
+--     config = function()
+--         vim.cmd([[colorscheme onedark]])
+--     end,
+-- })
+
 package({
-    'olimorris/onedarkpro.nvim',
+    'rose-pine/neovim',
+    name = 'rose-pine',
     config = function()
-        vim.cmd([[colorscheme onedark]])
+        vim.cmd('colorscheme rose-pine')
     end,
 })
 
