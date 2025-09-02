@@ -185,18 +185,11 @@ function renderWinbarString(prefix, symbolPath) {
 function ec(str) {
   return str.replace("%", "%%");
 }
-var FOLDER_ICON = "\u{F024B} ";
-var FILE_ICON = "\u{F0219} ";
-function renderWinbar(pathFragments) {
-  const content = pathFragments.map((item, index, self) => index === self.length - 1 ? `%#CocSymbolFile#${FILE_ICON}${item}` : `%#CocSymbolFolder#${FOLDER_ICON}${item}`).join("%#VertSplit# / ");
-  return ` %#WinBar#${content}%*`;
-}
 
 // src/extension.ts
 var cancelTokenSource;
 var canDisposable;
 var maxTravelDepth;
-var defualtTabline = "Neovim is the best editor in the world.";
 var symbolsCache = /* @__PURE__ */ new Map();
 function getMaxTravelDepth() {
   const depth = import_coc2.workspace.getConfiguration().get("coc-pos.maxTravelDepth");
@@ -205,86 +198,68 @@ function getMaxTravelDepth() {
   return depth;
 }
 function createEventListen(context) {
-  import_coc2.nvim.setOption("showtabline", 2);
-  import_coc2.nvim.setOption("tabline", defualtTabline);
   maxTravelDepth = getMaxTravelDepth();
   const log = context.logger;
+  let showedTabline = false;
   const symbolEvent = import_coc2.events.on(
     "CursorMoved",
     (0, import_debounce.default)(async (bufnr, cursor) => {
       const document = import_coc2.workspace.getDocument(bufnr);
-      let tabline = "";
+      let winbar = "";
       if (!document || !document.attached || !document.textDocument || document.winid === -1 || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
         import_coc2.ProviderName.DocumentSymbol,
         document.textDocument
       )) {
-        tabline = defualtTabline;
-      } else {
-        const folderUri = import_coc2.workspace.getWorkspaceFolder(
-          document.textDocument.uri
-        )?.uri;
-        if (!folderUri)
-          return;
-        const changedtick = await import_coc2.nvim.call("nvim_buf_get_var", [
-          bufnr,
-          "changedtick"
-        ]);
-        let symbols;
-        const cache = symbolsCache.get(bufnr);
-        if (cache && cache.changedtick === changedtick) {
-          symbols = cache.symbols;
-        } else {
-          cancelTokenSource?.cancel();
-          cancelTokenSource?.dispose();
-          cancelTokenSource = new import_coc2.CancellationTokenSource();
-          const res = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
-          if (!res)
-            return;
-          symbols = res;
-          symbolsCache.set(bufnr, {
-            changedtick,
-            symbols
-          });
-        }
-        try {
-          const [symbolPath] = getSymbolPath(
-            {
-              line: cursor[0] - 1,
-              character: cursor[1] - 1
-            },
-            symbols,
-            maxTravelDepth
-          );
-          const projectName = getFilename(folderUri);
-          tabline = renderWinbarString(`\uE624 ${projectName}`, symbolPath);
-        } catch (err) {
-          log.error(`coc-pos catch some error : ${err.toString()}`);
-        }
+        return;
       }
-      await import_coc2.nvim.setOption("tabline", tabline).catch(() => {
-      });
-    }, 70)
+      const win = import_coc2.nvim.createWindow(document.winid);
+      const folderUri = import_coc2.workspace.getWorkspaceFolder(
+        document.textDocument.uri
+      )?.uri;
+      if (!folderUri)
+        return;
+      const changedtick = await import_coc2.nvim.call("nvim_buf_get_var", [
+        bufnr,
+        "changedtick"
+      ]);
+      let symbols;
+      const cache = symbolsCache.get(bufnr);
+      if (cache && cache.changedtick === changedtick) {
+        symbols = cache.symbols;
+      } else {
+        cancelTokenSource?.cancel();
+        cancelTokenSource?.dispose();
+        cancelTokenSource = new import_coc2.CancellationTokenSource();
+        const res = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+        if (!res)
+          return;
+        symbols = res;
+        symbolsCache.set(bufnr, {
+          changedtick,
+          symbols
+        });
+      }
+      try {
+        const [symbolPath] = getSymbolPath(
+          {
+            line: cursor[0] - 1,
+            character: cursor[1] - 1
+          },
+          symbols,
+          maxTravelDepth
+        );
+        const projectName = getFilename(folderUri);
+        winbar = renderWinbarString(`\uE624 ${projectName}`, symbolPath);
+      } catch (err) {
+        log.error(`coc-pos catch some error : ${err.toString()}`);
+      }
+      if (winbar) {
+        await win.setOption("winbar", winbar).catch(() => {
+        });
+      } else {
+      }
+    }, 200)
   );
-  const winbarHandler = (0, import_debounce.default)(async () => {
-    const editor = import_coc2.window.activeTextEditor;
-    if (!editor)
-      return;
-    const uri = editor.document.uri;
-    const winid = editor.winid;
-    const folder = import_coc2.workspace.getWorkspaceFolder(uri);
-    if (!folder)
-      return;
-    const winbar = renderWinbar(
-      uri.slice(folder.uri.length).split("/").filter((item) => !!item)
-    );
-    const win = import_coc2.nvim.createWindow(winid);
-    if (await win.valid)
-      await win.setOption("winbar", winbar).catch(() => {
-      });
-  }, 70);
-  const timer = setTimeout(() => {
-    winbarHandler();
-  }, 1e3);
   const eventListeners = [
     symbolEvent,
     // delete cache.
@@ -299,18 +274,18 @@ function createEventListen(context) {
           log.error(Object.toString.call(err));
         }
       }
-    }),
+    })
     // events.on('WinEnter', winbarHandler),
     // events.on('WinLeave', winbarHandler),
     // events.on('BufEnter', winbarHandler),
     // events.on('Enter', winbarHandler),
-    import_coc2.Disposable.create(() => {
-      clearTimeout(timer);
-    }),
-    import_coc2.workspace.registerAutocmd({
-      event: ["BufReadPost", "BufEnter"],
-      callback: winbarHandler
-    })
+    // Disposable.create(() => {
+    //   clearTimeout(timer);
+    // }),
+    // workspace.registerAutocmd({
+    //   event: ["BufReadPost", "BufEnter"],
+    //   callback: winbarHandler,
+    // }),
   ];
   canDisposable = import_coc2.Disposable.create(() => {
     (0, import_coc2.disposeAll)(eventListeners);

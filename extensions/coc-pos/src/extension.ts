@@ -12,13 +12,12 @@ import {
   events,
   languages,
   nvim,
-  window,
   workspace,
 } from "coc.nvim";
 
 import debounce from "debounce";
 import { getFilename, getSymbolPath } from "./utils";
-import { renderWinbar, renderWinbarString } from "./render";
+import {  renderWinbarString } from "./render";
 
 interface GetSymbolable {
   getDocumentSymbol: (
@@ -30,7 +29,6 @@ interface GetSymbolable {
 let cancelTokenSource: CancellationTokenSource;
 let canDisposable: Disposable | undefined;
 let maxTravelDepth: number;
-let defualtTabline = "Neovim is the best editor in the world.";
 const symbolsCache = new Map<
   number,
   {
@@ -49,9 +47,6 @@ function getMaxTravelDepth() {
 }
 
 function createEventListen(context: ExtensionContext) {
-  nvim.setOption("showtabline", 2);
-  nvim.setOption("tabline", defualtTabline);
-
   maxTravelDepth = getMaxTravelDepth();
   const log = context.logger;
 
@@ -59,7 +54,7 @@ function createEventListen(context: ExtensionContext) {
     "CursorMoved",
     debounce(async (bufnr: number, cursor: [number, number]) => {
       const document = workspace.getDocument(bufnr);
-      let tabline = "";
+      let winbar = "";
 
       if (
         !document ||
@@ -72,8 +67,11 @@ function createEventListen(context: ExtensionContext) {
           document.textDocument,
         )
       ) {
-        tabline = defualtTabline;
-      } else {
+				return
+      }
+
+			const win = nvim.createWindow(document.winid)
+
         const folderUri = workspace.getWorkspaceFolder(
           document.textDocument.uri,
         )?.uri;
@@ -124,36 +122,15 @@ function createEventListen(context: ExtensionContext) {
           );
           const projectName = getFilename(folderUri);
 
-          tabline = renderWinbarString(` ${projectName}`, symbolPath);
+          winbar = renderWinbarString(` ${projectName}`, symbolPath);
         } catch (err: any) {
           log.error(`coc-pos catch some error : ${err.toString()}`);
         }
-      }
-      await nvim.setOption("tabline", tabline).catch(() => {});
-    }, 70),
+			if (winbar){
+				await win.setOption("winbar", winbar).catch(() => {});
+			}
+    }, 200),
   );
-
-  const winbarHandler = debounce(async () => {
-    const editor = window.activeTextEditor;
-    if (!editor) return;
-    const uri = editor.document.uri;
-    const winid = editor.winid;
-    const folder = workspace.getWorkspaceFolder(uri);
-    if (!folder) return;
-
-    const winbar = renderWinbar(
-      uri
-        .slice(folder.uri.length)
-        .split("/")
-        .filter((item) => !!item),
-    );
-    const win = nvim.createWindow(winid);
-    if (await win.valid) await win.setOption("winbar", winbar).catch(() => {});
-  }, 70);
-
-  const timer = setTimeout(() => {
-    winbarHandler();
-  }, 1000);
 
   const eventListeners = [
     symbolEvent,
@@ -169,17 +146,6 @@ function createEventListen(context: ExtensionContext) {
           log.error(Object.toString.call(err));
         }
       },
-    }),
-    // events.on('WinEnter', winbarHandler),
-    // events.on('WinLeave', winbarHandler),
-    // events.on('BufEnter', winbarHandler),
-    // events.on('Enter', winbarHandler),
-    Disposable.create(() => {
-      clearTimeout(timer);
-    }),
-    workspace.registerAutocmd({
-      event: ["BufReadPost", "BufEnter"],
-      callback: winbarHandler,
     }),
   ];
 
