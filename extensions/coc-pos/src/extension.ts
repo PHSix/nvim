@@ -17,7 +17,7 @@ import {
 
 import debounce from "debounce";
 import { getFilename, getSymbolPath } from "./utils";
-import {  renderWinbarString } from "./render";
+import { renderWinbarString } from "./render";
 
 interface GetSymbolable {
   getDocumentSymbol: (
@@ -67,68 +67,69 @@ function createEventListen(context: ExtensionContext) {
           document.textDocument,
         )
       ) {
-				return
+        return;
       }
 
-			const win = nvim.createWindow(document.winid)
+      const win = nvim.createWindow(document.winid);
 
-        const folderUri = workspace.getWorkspaceFolder(
-          document.textDocument.uri,
-        )?.uri;
+      const folderUri = workspace.getWorkspaceFolder(
+        document.textDocument.uri,
+      )?.uri;
 
-        if (!folderUri) return;
+      if (!folderUri) return;
 
-        // last change doucment tick
-        const changedtick = await nvim.call("nvim_buf_get_var", [
-          bufnr,
-          "changedtick",
-        ]);
+      // last change doucment tick
+      const changedtick = await nvim.call("nvim_buf_get_var", [
+        bufnr,
+        "changedtick",
+      ]);
 
-        let symbols: DocumentSymbol[];
+      let symbols: DocumentSymbol[];
 
-        const cache = symbolsCache.get(bufnr);
+      const cache = symbolsCache.get(bufnr);
 
-        if (cache && cache.changedtick === changedtick) {
-          // get symbols from cache
-          symbols = cache.symbols;
-        } else {
-          // request and cached symbols
-          cancelTokenSource?.cancel();
-          cancelTokenSource?.dispose();
-          cancelTokenSource = new CancellationTokenSource();
+      if (cache && cache.changedtick === changedtick) {
+        // get symbols from cache
+        symbols = cache.symbols;
+      } else {
+        // request and cached symbols
+        cancelTokenSource?.cancel();
+        cancelTokenSource?.dispose();
+        cancelTokenSource = new CancellationTokenSource();
 
-          const res = await (
-            languages as any as GetSymbolable
-          ).getDocumentSymbol(document.textDocument, cancelTokenSource.token);
+        const res = await (languages as any as GetSymbolable).getDocumentSymbol(
+          document.textDocument,
+          cancelTokenSource.token,
+        );
 
-          if (!res) return;
+        if (!res) return;
 
-          symbols = res;
+        symbols = res;
 
-          symbolsCache.set(bufnr, {
-            changedtick,
-            symbols,
-          });
-        }
+        symbolsCache.set(bufnr, {
+          changedtick,
+          symbols,
+        });
+      }
 
-        try {
-          const [symbolPath] = getSymbolPath(
-            {
-              line: cursor[0] - 1,
-              character: cursor[1] - 1,
-            },
-            symbols,
-            maxTravelDepth,
-          );
-          const projectName = getFilename(folderUri);
+      try {
+        const [symbolPath] = getSymbolPath(
+          {
+            line: cursor[0] - 1,
+            character: cursor[1] - 1,
+          },
+          symbols,
+          maxTravelDepth,
+        );
+        const projectName = getFilename(folderUri);
 
-          winbar = renderWinbarString(` ${projectName}`, symbolPath);
-        } catch (err: any) {
-          log.error(`coc-pos catch some error : ${err.toString()}`);
-        }
-			if (winbar){
-				await win.setOption("winbar", winbar).catch(() => {});
-			}
+        winbar = renderWinbarString(` ${projectName}`, symbolPath);
+      } catch (err: any) {
+        log.error(`coc-pos catch some error : ${err.toString()}`);
+      }
+      if (winbar) {
+        await win.setOption("winbar", winbar).catch(() => {});
+      }
     }, 200),
   );
 

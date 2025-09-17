@@ -5,42 +5,62 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
+var __commonJS = (cb, mod) =>
+  function __require() {
+    return (
+      mod ||
+        (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod),
+      mod.exports
+    );
+  };
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === "object") || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __toESM = (mod, isNodeMode, target) => (
+  (target = mod != null ? __create(__getProtoOf(mod)) : {}),
+  __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule
+      ? __defProp(target, "default", { value: mod, enumerable: true })
+      : target,
+    mod,
+  )
+);
+var __toCommonJS = (mod) =>
+  __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/.pnpm/debounce@2.0.0/node_modules/debounce/index.js
 var require_debounce = __commonJS({
-  "node_modules/.pnpm/debounce@2.0.0/node_modules/debounce/index.js"(exports2, module2) {
+  "node_modules/.pnpm/debounce@2.0.0/node_modules/debounce/index.js"(
+    exports2,
+    module2,
+  ) {
     function debounce2(function_, wait = 100, options = {}) {
       if (typeof function_ !== "function") {
-        throw new TypeError(`Expected the first parameter to be a function, got \`${typeof function_}\`.`);
+        throw new TypeError(
+          `Expected the first parameter to be a function, got \`${typeof function_}\`.`,
+        );
       }
       if (wait < 0) {
         throw new RangeError("`wait` must not be negative.");
       }
-      const { immediate } = typeof options === "boolean" ? { immediate: options } : options;
+      const { immediate } =
+        typeof options === "boolean" ? { immediate: options } : options;
       let storedContext;
       let storedArguments;
       let timeoutId;
@@ -61,7 +81,7 @@ var require_debounce = __commonJS({
           }
         }
       }
-      const debounced = function(...arguments_) {
+      const debounced = function (...arguments_) {
         if (storedContext && this !== storedContext) {
           throw new Error("Debounced method called with different contexts.");
         }
@@ -104,14 +124,14 @@ var require_debounce = __commonJS({
     }
     module2.exports.debounce = debounce2;
     module2.exports = debounce2;
-  }
+  },
 });
 
 // src/extension.ts
 var extension_exports = {};
 __export(extension_exports, {
   activate: () => activate,
-  deactivate: () => deactivate
+  deactivate: () => deactivate,
 });
 module.exports = __toCommonJS(extension_exports);
 var import_coc2 = require("coc.nvim");
@@ -122,7 +142,11 @@ function getSymbolPath(pos, docuemntSymbols, maxTravelDepth2) {
   const result = [];
   let travelDepth = 0;
   let symbols = docuemntSymbols;
-  while (symbols !== void 0 && symbols.length !== 0 && travelDepth < maxTravelDepth2) {
+  while (
+    symbols !== void 0 &&
+    symbols.length !== 0 &&
+    travelDepth < maxTravelDepth2
+  ) {
     travelDepth++;
     const len = result.length;
     for (const symbol of symbols) {
@@ -132,8 +156,7 @@ function getSymbolPath(pos, docuemntSymbols, maxTravelDepth2) {
         break;
       }
     }
-    if (len === result.length)
-      return [result, travelDepth];
+    if (len === result.length) return [result, travelDepth];
   }
   return [result, travelDepth];
 }
@@ -141,7 +164,14 @@ function getFilename(uri) {
   return uri.split("/").pop() || "";
 }
 function rangeContain(range, position) {
-  return (position.line < range.end.line || position.line === range.end.line && position.character <= range.end.character) && (position.line > range.start.line || position.line === range.start.line && position.character >= range.start.character);
+  return (
+    (position.line < range.end.line ||
+      (position.line === range.end.line &&
+        position.character <= range.end.character)) &&
+    (position.line > range.start.line ||
+      (position.line === range.start.line &&
+        position.character >= range.start.character))
+  );
 }
 
 // src/render.ts
@@ -172,7 +202,10 @@ var iconMap = {
   [import_coc.SymbolKind.Struct]: { icon: "\u{F0317} ", key: "Struct" },
   [import_coc.SymbolKind.Event]: { icon: "\uF0E7 ", key: "Event" },
   [import_coc.SymbolKind.Operator]: { icon: "\u{F0195} ", key: "Operator" },
-  [import_coc.SymbolKind.TypeParameter]: { icon: "\u{F0284} ", key: "TypeParameter" }
+  [import_coc.SymbolKind.TypeParameter]: {
+    icon: "\u{F0284} ",
+    key: "TypeParameter",
+  },
 };
 function renderWinbarString(prefix, symbolPath) {
   let symbolLink = "";
@@ -192,9 +225,10 @@ var canDisposable;
 var maxTravelDepth;
 var symbolsCache = /* @__PURE__ */ new Map();
 function getMaxTravelDepth() {
-  const depth = import_coc2.workspace.getConfiguration().get("coc-pos.maxTravelDepth");
-  if (typeof depth !== "number" || Number.isNaN(depth))
-    return 30;
+  const depth = import_coc2.workspace
+    .getConfiguration()
+    .get("coc-pos.maxTravelDepth");
+  if (typeof depth !== "number" || Number.isNaN(depth)) return 30;
   return depth;
 }
 function createEventListen(context) {
@@ -206,21 +240,27 @@ function createEventListen(context) {
     (0, import_debounce.default)(async (bufnr, cursor) => {
       const document = import_coc2.workspace.getDocument(bufnr);
       let winbar = "";
-      if (!document || !document.attached || !document.textDocument || document.winid === -1 || await document.buffer.getOption("bufhidden") !== "" || !import_coc2.languages.hasProvider(
-        import_coc2.ProviderName.DocumentSymbol,
-        document.textDocument
-      )) {
+      if (
+        !document ||
+        !document.attached ||
+        !document.textDocument ||
+        document.winid === -1 ||
+        (await document.buffer.getOption("bufhidden")) !== "" ||
+        !import_coc2.languages.hasProvider(
+          import_coc2.ProviderName.DocumentSymbol,
+          document.textDocument,
+        )
+      ) {
         return;
       }
       const win = import_coc2.nvim.createWindow(document.winid);
       const folderUri = import_coc2.workspace.getWorkspaceFolder(
-        document.textDocument.uri
+        document.textDocument.uri,
       )?.uri;
-      if (!folderUri)
-        return;
+      if (!folderUri) return;
       const changedtick = await import_coc2.nvim.call("nvim_buf_get_var", [
         bufnr,
-        "changedtick"
+        "changedtick",
       ]);
       let symbols;
       const cache = symbolsCache.get(bufnr);
@@ -230,23 +270,25 @@ function createEventListen(context) {
         cancelTokenSource?.cancel();
         cancelTokenSource?.dispose();
         cancelTokenSource = new import_coc2.CancellationTokenSource();
-        const res = await import_coc2.languages.getDocumentSymbol(document.textDocument, cancelTokenSource.token);
-        if (!res)
-          return;
+        const res = await import_coc2.languages.getDocumentSymbol(
+          document.textDocument,
+          cancelTokenSource.token,
+        );
+        if (!res) return;
         symbols = res;
         symbolsCache.set(bufnr, {
           changedtick,
-          symbols
+          symbols,
         });
       }
       try {
         const [symbolPath] = getSymbolPath(
           {
             line: cursor[0] - 1,
-            character: cursor[1] - 1
+            character: cursor[1] - 1,
           },
           symbols,
-          maxTravelDepth
+          maxTravelDepth,
         );
         const projectName = getFilename(folderUri);
         winbar = renderWinbarString(`\uE624 ${projectName}`, symbolPath);
@@ -254,11 +296,10 @@ function createEventListen(context) {
         log.error(`coc-pos catch some error : ${err.toString()}`);
       }
       if (winbar) {
-        await win.setOption("winbar", winbar).catch(() => {
-        });
+        await win.setOption("winbar", winbar).catch(() => {});
       } else {
       }
-    }, 200)
+    }, 200),
   );
   const eventListeners = [
     symbolEvent,
@@ -273,8 +314,8 @@ function createEventListen(context) {
         } catch (err) {
           log.error(Object.toString.call(err));
         }
-      }
-    })
+      },
+    }),
     // events.on('WinEnter', winbarHandler),
     // events.on('WinLeave', winbarHandler),
     // events.on('BufEnter', winbarHandler),
@@ -295,8 +336,7 @@ function createEventListen(context) {
 async function activate(context) {
   const config = import_coc2.workspace.getConfiguration("coc-pos");
   const enable = config.get("enable", true);
-  if (enable === true)
-    createEventListen(context);
+  if (enable === true) createEventListen(context);
   context.subscriptions.push(
     import_coc2.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration("coc-pos.enable")) {
@@ -306,21 +346,25 @@ async function activate(context) {
           canDisposable?.dispose();
           for (const buf of symbolsCache.keys()) {
             symbolsCache.delete(buf);
-            import_coc2.nvim.request("nvim_set_option_value", ["winbar", "", { buf }]);
+            import_coc2.nvim.request("nvim_set_option_value", [
+              "winbar",
+              "",
+              { buf },
+            ]);
           }
         }
       }
       if (e.affectsConfiguration("coc-pos.maxTravelDepth"))
         maxTravelDepth = getMaxTravelDepth();
-    })
+    }),
   );
 }
 function deactivate() {
-  for (const key of symbolsCache.keys())
-    symbolsCache.delete(key);
+  for (const key of symbolsCache.keys()) symbolsCache.delete(key);
 }
 // Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  activate,
-  deactivate
-});
+0 &&
+  (module.exports = {
+    activate,
+    deactivate,
+  });

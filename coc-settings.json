@@ -1,10 +1,10 @@
 {
   "semanticTokens.enable": false,
-	"typescript.autoClosingTags": true,
+  "typescript.autoClosingTags": true,
   "snippets.snipmate.enable": true,
   "snippets.ultisnips.enable": false,
   "coc.preferences.formatOnSave": true,
-  "coc.preferences.enableMessageDialog": true,
+  "coc.preferences.messageDialogKind": "menu",
   "outline.autoPreview": true,
   "diagnostic.floatConfig": {
     "border": true,
@@ -93,7 +93,7 @@
     },
     "extensions": {
       "nix": "nix",
-			"snippets": "snippets"
+      "snippets": "snippets"
     },
     "filenames": {
       "vimrc": "vim",
@@ -109,7 +109,7 @@
   "Lua.hint.enable": false,
   "eslint.autoFixOnSave": true,
   "eslint.format.enable": false,
-	"eslint.enable": false,
+  "eslint.enable": false,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -166,7 +166,6 @@
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "typescript.implementationsCodeLens.enabled": false,
   "typescript.referencesCodeLens.enabled": false,
-  // some modules contain many useless types especially aws-sdk, will make auto complete list very long and slow
   "typescript.preferences.autoImportFileExcludePatterns": [
     "node_modules/@iconify-json",
     "node_modules/@@google-cloud",
@@ -178,5 +177,5 @@
     "node_modules/aws-sdk",
     "node_modules/framer-motion",
     "node_modules/typescript"
-  ],
+  ]
 }

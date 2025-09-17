@@ -1,5 +1,5 @@
 // eslint.config.js
-const antfu = require('@antfu/eslint-config').default
+const antfu = require("@antfu/eslint-config").default;
 
 module.exports = antfu({
   stylistic: {
@@ -7,9 +7,6 @@ module.exports = antfu({
   },
 
   rules: {
-    'style/brace-style': [
-      'warn',
-      '1tbs',
-    ],
+    "style/brace-style": ["warn", "1tbs"],
   },
-})
+});

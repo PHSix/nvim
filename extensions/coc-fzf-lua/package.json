@@ -41,10 +41,10 @@
         "command": "fzfLua.liveGrep",
         "title": "Rg live grep in cwd"
       },
-			{
+      {
         "command": "fzfLua.findFile",
         "title": "Find file in cwd"
-			}
+      }
     ]
   }
 }

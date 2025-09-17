@@ -2,6 +2,7 @@ local config = {}
 local cmd, fn, api = vim.cmd, vim.fn, vim.api
 
 vim.g.coc_data_home = '~/.config/coc_nvim'
+vim.g.coc_node_args = { '--experimental-vm-modules' }
 
 local ensure_installed_extensions = {
     'coc-json',
@@ -22,6 +23,8 @@ local ensure_installed_extensions = {
     'coc-sumneko-lua',
     'coc-git',
     'coc-basedpyright',
+    'coc-tsserver',
+    'coc-biome',
 }
 
 local function executable(c)

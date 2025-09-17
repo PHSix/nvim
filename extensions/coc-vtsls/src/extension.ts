@@ -51,7 +51,7 @@ export async function activate(ctx: ExtensionContext): Promise<void> {
     outputChannel,
     synchronize: {
       fileEvents: workspace.createFileSystemWatcher(
-        "{**/*.js,**/*.ts,**/*.jsx,**/*.tsx,**/tsconfig.json,**/jsconfig.json}"
+        "{**/*.js,**/*.ts,**/*.jsx,**/*.tsx,**/tsconfig.json,**/jsconfig.json}",
       ),
     },
     middleware: {
@@ -81,7 +81,7 @@ export async function activate(ctx: ExtensionContext): Promise<void> {
     "vtsls",
     "vtsls",
     serverOptions,
-    clientOptions
+    clientOptions,
   );
   ctx.subscriptions.push(services.registerLanguageClient(client));
 
@@ -95,13 +95,13 @@ export async function activate(ctx: ExtensionContext): Promise<void> {
     executeCommand({
       command: "typescript.openTsServerLog",
       arguments: [],
-    })
+    }),
   );
   commands.registerCommand("vtsls.restartTsServer", () =>
     executeCommand({
       command: "typescript.restartTsServer",
       arguments: [],
-    })
+    }),
   );
 
   commands.registerCommand("vtsls.goToSourceDefinition", async () => {
