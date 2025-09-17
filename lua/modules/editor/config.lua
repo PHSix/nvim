@@ -68,12 +68,31 @@ function config.comment_nvim()
 end
 
 function config.fzf_lua()
-    require('fzf-lua').setup({
-        winopts = {
-            height = 0.65,
-            row = 0.7,
-        },
-        grep = {},
+    local function setup()
+        local columns = vim.o.columns / 2
+        local rows = vim.o.lines
+        local layout = columns > rows and 'horizontal' or 'vertical'
+        require('fzf-lua').setup({
+            winopts = {
+                backdrop = 0,
+                preview = {
+                    horizontal = 'right:55%',
+                    vertical = 'up:55%',
+                    default = 'bat',
+                    layout = layout,
+                    flip_columns = 100,
+                },
+            },
+        })
+    end
+
+    setup()
+
+    -- dynamically change windows layout
+    vim.api.nvim_create_autocmd('VimResized', {
+        callback = function()
+            setup()
+        end,
     })
 end
 
