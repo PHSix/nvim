@@ -14,6 +14,11 @@ package({
             -- },
             chunk = {
                 enable = true,
+                chars = {
+                    right_arrow = '▶',
+                    left_top = '┌',
+                    left_bottom = '└',
+                },
             },
         })
     end,
@@ -24,29 +29,25 @@ package({
     opts = {},
 })
 
--- package({
---     'dstein64/nvim-scrollview',
---     config = true,
--- })
+package({
+    'PHSix/vitesse.nvim',
+    config = function()
+        vim.cmd([[colorscheme vitesse]])
+    end,
+})
 
--- package({
---     'PHSix/vitesse.nvim',
---     enabled = false,
---     config = function()
---         vim.cmd([[colorscheme vitesse]])
---     end,
--- })
-
--- package({
---     'olimorris/onedarkpro.nvim',
---     config = function()
---         vim.cmd([[colorscheme onedark]])
---     end,
--- })
+package({
+    'olimorris/onedarkpro.nvim',
+    enabled = false,
+    config = function()
+        vim.cmd([[colorscheme onedark]])
+    end,
+})
 
 package({
     'rose-pine/neovim',
     name = 'rose-pine',
+    enabled = false,
     config = function()
         vim.cmd('colorscheme rose-pine')
     end,

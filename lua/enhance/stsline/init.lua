@@ -154,13 +154,13 @@ local function setup()
         fileencoding_comp,
     }
 
-    -- vim.cmd([[hi link StsLine StatusLine]])
-    -- vim.cmd([[hi! StsLine guifg=#928b95]])
     local function set_hi_group()
         if vim.opt.background == 'dark' then
             vim.cmd([[hi! StsLine ctermfg=245 ctermbg=235 guifg=#928b95 guibg=#262626]])
         else
-            vim.cmd([[hi! link StsLine NormalFloat]])
+            -- vim.cmd([[hi! link StsLine NormalFloat]])
+            -- for vitesse colorscheme
+            vim.cmd([[hi! link StsLine Normal]])
         end
     end
 
