@@ -117,20 +117,6 @@ function config.coc()
     --     end,
     -- })
 
-    vim.api.nvim_create_autocmd({ 'WinEnter' }, {
-        group = 'coc_patch_autocmd',
-        pattern = '*',
-        callback = function()
-            vim.defer_fn(function()
-                if vim.bo.filetype == 'coc-explorer' and vim.api.nvim_win_get_config(0).relative ~= '' then
-                    vim.api.nvim_win_set_config(0, {
-                        zindex = 10,
-                    })
-                end
-            end, 100)
-        end,
-    })
-
     vim.api.nvim_create_user_command('CocFormat', function()
         vim.fn.CocActionAsync('format')
     end, {
@@ -164,6 +150,7 @@ function config.coc()
             vim.cmd([[vertical resize ]] .. string.format(num > 0 and '+%d' or '%d', num))
         end
     end
+    -- shortcut keys for explorer when vertical split.
     vim.api.nvim_create_autocmd('filetype', {
         group = 'coc_patch_autocmd',
         pattern = 'coc-explorer',
@@ -172,8 +159,15 @@ function config.coc()
             vim.keymap.set('n', '=', resize_handler(5), { buffer = true })
         end,
     })
+    --
     vim.api.nvim_create_user_command('CocExplorer', function()
-        vim.cmd(string.format([[CocCommand explorer --position right --width %d]], explorer_size))
+        local rows = vim.o.lines
+        local cols = vim.o.columns / 2
+        if rows > cols then
+            vim.cmd([[CocCommand explorer --position floating --floating-position center --floating-height 40]])
+        else
+            vim.cmd(string.format([[CocCommand explorer --position right --width %d]], explorer_size))
+        end
     end, {
         desc = 'Open Coc Explorer',
     })
