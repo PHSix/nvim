@@ -1,4 +1,3 @@
-require('enhance.habamax')
 require('enhance.stsline')
 
 vim.cmd([[

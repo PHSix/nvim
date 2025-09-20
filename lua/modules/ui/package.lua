@@ -31,6 +31,7 @@ package({
 
 package({
     'PHSix/vitesse.nvim',
+    enabled = false,
     config = function()
         vim.cmd([[colorscheme vitesse]])
     end,
@@ -62,9 +63,10 @@ package({
 --     end,
 -- })
 
--- package({
---     'NTBBloodbath/doom-one.nvim',
---     config = function()
---         vim.cmd([[colorscheme doom-one]])
---     end,
--- })
+package({
+    'NTBBloodbath/doom-one.nvim',
+    enabled = false,
+    config = function()
+        vim.cmd([[colorscheme doom-one]])
+    end,
+})
