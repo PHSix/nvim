@@ -53,7 +53,7 @@ function createEventListen(context: ExtensionContext) {
   const symbolEvent = events.on(
     "CursorMoved",
     debounce(async (bufnr: number, cursor: [number, number]) => {
-			const document = workspace.getDocument(bufnr)
+      const document = workspace.getDocument(bufnr);
       let winbar = "";
 
       if (
@@ -69,7 +69,6 @@ function createEventListen(context: ExtensionContext) {
       ) {
         return;
       }
-
 
       const folderUri = workspace.getWorkspaceFolder(
         document.textDocument.uri,
@@ -127,14 +126,13 @@ function createEventListen(context: ExtensionContext) {
         log.error(`coc-pos catch some error : ${err.toString()}`);
       }
       if (winbar) {
-				const currentBuffer = await nvim.buffer;
-				if (currentBuffer
-				.id !== bufnr) {
-					return
-				}
-				const currentWindow = await nvim.window;
-				const win = nvim.createWindow(currentWindow.id);
-				await win.setOption("winbar", winbar).catch(() => {});
+        const currentBuffer = await nvim.buffer;
+        if (currentBuffer.id !== bufnr) {
+          return;
+        }
+        const currentWindow = await nvim.window;
+        const win = nvim.createWindow(currentWindow.id);
+        await win.setOption("winbar", winbar).catch(() => {});
       }
     }, 200),
   );
