@@ -127,6 +127,8 @@ local function setup_highlights()
         end
 
         hi('Normal', { fg = colors.white, bg = colors.black })
+        -- CHANGE: add NormalFloat
+        hi('NormalFloat', { fg = colors.white, bg = colors.black })
         hi('Statusline', { fg = colors.black, bg = colors.gray })
         hi('StatuslineNC', { fg = colors.black, bg = colors.darkgray })
         -- CHANGE: bg darkgray to black
