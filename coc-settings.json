@@ -6,6 +6,11 @@
   "coc.preferences.formatOnSave": true,
   "coc.preferences.messageDialogKind": "menu",
   "outline.autoPreview": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always",
+		"source.fixAll.stylelint": "always",
+		"source.fixAll.biome": "always",
+	},
   "diagnostic.floatConfig": {
     "border": true,
     "title": "diagnostic",
