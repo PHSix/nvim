@@ -76,11 +76,12 @@ nmap({
     -- { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
     -- fzf-lua
-    { '<Leader>fb', cmd('FzfLua buffers'), opts(noremap, silent) },
-    { '<Leader>fw', cmd('FzfLua live_grep'), opts(noremap, silent) },
-    { '<Leader>ff', cmd('FzfLua files'), opts(noremap, silent) },
-    { '<Leader>fo', cmd('FzfLua oldfiles'), opts(noremap, silent) },
-    { '<leader>fr', cmd('FzfLua resume'), opts(noremap, silent) },
+    { '<Leader>sb', cmd('FzfLua buffers'), opts(noremap, silent) },
+    { '<Leader>sw', cmd('FzfLua live_grep'), opts(noremap, silent) },
+    { '<Leader>sf', cmd('FzfLua files'), opts(noremap, silent) },
+    { '<Leader>so', cmd('FzfLua oldfiles'), opts(noremap, silent) },
+    { '<Leader>s.', cmd('FzfLua oldfiles'), opts(noremap, silent) },
+    { '<leader>sr', cmd('FzfLua resume'), opts(noremap, silent) },
     { '<M-x>', cmd('FzfLua commands'), opts(noremap, silent) },
 
     -- coc-git

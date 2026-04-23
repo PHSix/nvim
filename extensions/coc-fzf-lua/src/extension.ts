@@ -55,12 +55,12 @@ export async function activate(context: ExtensionContext): Promise<void> {
   });
 
   setTimeout(() => {
-    nvim.setKeymap("n", "<leader>ff", "<Cmd>CocCommand fzfLua.findFile<CR>", {
+    nvim.setKeymap("n", "<leader>sf", "<Cmd>CocCommand fzfLua.findFile<CR>", {
       silent: true,
       noremap: true,
     });
 
-    nvim.setKeymap("n", "<leader>fw", "<Cmd>CocCommand fzfLua.liveGrep<CR>", {
+    nvim.setKeymap("n", "<leader>sw", "<Cmd>CocCommand fzfLua.liveGrep<CR>", {
       silent: true,
       noremap: true,
     });

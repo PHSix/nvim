@@ -65,11 +65,11 @@ async function activate(context) {
     import_coc.nvim.command(`cd ${rootPath}`);
   });
   setTimeout(() => {
-    import_coc.nvim.setKeymap("n", "<leader>ff", "<Cmd>CocCommand fzfLua.findFile<CR>", {
+    import_coc.nvim.setKeymap("n", "<leader>sf", "<Cmd>CocCommand fzfLua.findFile<CR>", {
       silent: true,
       noremap: true
     });
-    import_coc.nvim.setKeymap("n", "<leader>fw", "<Cmd>CocCommand fzfLua.liveGrep<CR>", {
+    import_coc.nvim.setKeymap("n", "<leader>sw", "<Cmd>CocCommand fzfLua.liveGrep<CR>", {
       silent: true,
       noremap: true
     });
