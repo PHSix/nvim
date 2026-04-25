@@ -226,24 +226,15 @@ require('lazy').setup {
 
   -- LSP setup
   {
-    'williamboman/mason-lspconfig.nvim',
-    dependencies = { 'williamboman/mason.nvim' },
-    config = function()
-      require('mason').setup()
-      require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'pyright', 'vtsls', 'html', 'cssls', 'jsonls', 'vue_ls', 'rust_analyzer' },
-        automatic_installation = true,
-        automatic_enable = false,
-      }
-    end,
-  },
-  {
     'neovim/nvim-lspconfig',
     lazy = false,
+    priority = 10000,
     dependencies = {
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'saghen/blink.cmp',
       'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
 
       -- Rust
       {
@@ -251,20 +242,22 @@ require('lazy').setup {
         version = '^9',
         lazy = false,
       },
-
-      -- TypeScript enhancements
-      {
-        'nemanjamalesija/ts-expand-hover.nvim',
-        ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
-        config = function() require('ts_expand_hover').setup { keymaps = { hover = '<leader>th' } } end,
-      },
-      {
-        'dmmulroy/ts-error-translator.nvim',
-        ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'vue' },
-        config = function() require('ts-error-translator').setup() end,
-      },
     },
     config = function()
+      require('mason').setup()
+      require('mason-lspconfig').setup {
+        ensure_installed = { 'lua_ls', 'pyright', 'vtsls', 'html', 'cssls', 'jsonls', 'vue_ls', 'rust_analyzer' },
+        automatic_installation = true,
+        automatic_enable = false,
+      }
+      require('blink.cmp').setup {
+        keymap = { preset = 'enter' },
+        appearance = { use_nvim_cmp_as_default = true, nerd_font_variant = 'mono' },
+        snippets = { preset = 'luasnip' },
+        sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
+        signature = { enabled = true },
+      }
+
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -316,21 +309,16 @@ require('lazy').setup {
     end,
   },
 
-  -- Completion
+  -- TypeScript enhancements
   {
-    'saghen/blink.cmp',
-    lazy = false,
-    version = '*',
-    dependencies = { 'L3MON4D3/LuaSnip', 'rafamadriz/friendly-snippets' },
-    config = function()
-      require('blink.cmp').setup {
-        keymap = { preset = 'enter' },
-        appearance = { use_nvim_cmp_as_default = true, nerd_font_variant = 'mono' },
-        snippets = { preset = 'luasnip' },
-        sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
-        signature = { enabled = true },
-      }
-    end,
+    'nemanjamalesija/ts-expand-hover.nvim',
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+    config = function() require('ts_expand_hover').setup { keymaps = { hover = '<leader>th' } } end,
+  },
+  {
+    'dmmulroy/ts-error-translator.nvim',
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'vue' },
+    config = function() require('ts-error-translator').setup() end,
   },
 
   -- LSP UI
@@ -419,16 +407,42 @@ require('lazy').setup {
       { '<leader>sw', '<cmd>FzfLua grep_cword<cr>', desc = 'Grep Word under Cursor' },
     },
     config = function()
-      require('fzf-lua').setup {
-        winopts = { height = 0.85, width = 0.85 },
-      }
+      local function setup()
+        local columns = vim.o.columns / 2
+        local rows = vim.o.lines
+        local layout = columns > rows and 'horizontal' or 'vertical'
+        require('fzf-lua').setup {
+          winopts = {
+            backdrop = 0,
+            preview = {
+              horizontal = 'right:55%',
+              vertical = 'up:55%',
+              default = 'bat',
+              layout = layout,
+              flip_columns = 100,
+            },
+          },
+        }
+      end
+
+      setup()
+
+      -- dynamically change windows layout
+      vim.api.nvim_create_autocmd('VimResized', {
+        callback = function() setup() end,
+      })
     end,
   },
 
   -- Git signs
   {
     'lewis6991/gitsigns.nvim',
-    event = 'BufEnter',
+    lazy = false,
+    keys = {
+      { 'gj', '<Cmd>Gitsigns next_hunk<CR>', desc = 'Goto next hunk' },
+      { 'gk', '<Cmd>Gitsigns prev_hunk<CR>', desc = 'Goto prev hunk' },
+      { '<leader>gP', '<Cmd>Gitsigns preview_hunk<CR>', desc = 'Preview hunk' },
+    },
     opts = {
       signs = {
         add = { text = '┃' },
