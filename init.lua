@@ -399,12 +399,11 @@ require('lazy').setup {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
       { '<leader>sf', '<cmd>FzfLua files<cr>', desc = 'Find Files' },
-      { '<leader>sg', '<cmd>FzfLua live_grep<cr>', desc = 'Live Grep' },
+      { '<leader>sw', '<cmd>FzfLua live_grep<cr>', desc = 'Live Grep' },
       { '<leader>sb', '<cmd>FzfLua buffers<cr>', desc = 'Find Buffers' },
       { '<leader>sh', '<cmd>FzfLua help_tags<cr>', desc = 'Help Tags' },
       { '<leader>sr', '<cmd>FzfLua oldfiles<cr>', desc = 'Recent Files' },
       { '<leader>ss', '<cmd>FzfLua lsp_document_symbols<cr>', desc = 'Document Symbols' },
-      { '<leader>sw', '<cmd>FzfLua grep_cword<cr>', desc = 'Grep Word under Cursor' },
     },
     config = function()
       local function setup()
@@ -481,7 +480,7 @@ require('lazy').setup {
     'kylechui/nvim-surround',
     version = '*',
     event = 'VeryLazy',
-    config = function() require('nvim-surround').setup {} end,
+    opts = {},
   },
 
   -- Smooth scrolling
