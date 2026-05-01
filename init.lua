@@ -537,23 +537,6 @@ require('lazy').setup {
     end,
   },
 
-  -- nvim-hlchunk
-  {
-    'yaocccc/nvim-hlchunk',
-    event = 'BufReadPost',
-    config = function()
-      vim.g.hlchunk_files = '*.lua,*.ts,*.js,*.json,*.go,*.c,*.cpp,*.rs,*.h,*.hpp,*.py,*.md'
-      vim.g.hlchunk_time_delay = 50
-      vim.g.hlchunk_line_limit = 5000
-      vim.cmd [[
-        augroup HLChunkHighlight
-          autocmd!
-          autocmd VimEnter * hi HLIndentLine ctermfg=244 guifg=#5c6370
-        augroup END
-      ]]
-    end,
-  },
-
   -- conform.nvim (smart formatter)
   {
     'stevearc/conform.nvim',
