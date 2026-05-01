@@ -6,6 +6,15 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- remove the default keymapping(which like a dog shit)
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'grx')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'gra')
+
 -- =============================================
 -- Bootstrap lazy.nvim
 -- =============================================
@@ -264,15 +273,7 @@ require('lazy').setup {
         desc = 'LSP Keybindings',
         callback = function(event)
           local bufnr = event.buf
-          local map = function(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc, silent = true }) end
-
-          -- remove the default keymapping(which like a dog shit)
-          vim.keymap.del('n', 'gra')
-          vim.keymap.del('n', 'gri')
-          vim.keymap.del('n', 'grn')
-          vim.keymap.del('n', 'gri')
-          vim.keymap.del('n', 'grt')
-          vim.keymap.del('n', 'grx')
+          local map = function(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buf = bufnr, desc = desc, silent = true }) end
 
           map('n', 'gd', vim.lsp.buf.definition, 'Go to Definition')
           map('n', 'gD', vim.lsp.buf.declaration, 'Go to Declaration')
@@ -396,7 +397,73 @@ require('lazy').setup {
     config = function()
       require('neo-tree').setup {
         filesystem = { follow_current_file = { enabled = true } },
-        window = { position = 'left', width = 35 },
+        window = {
+          position = 'left',
+          width = 35,
+          mappings = {
+            ['<space>'] = {
+              'toggle_node',
+              nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
+            },
+            ['<2-LeftMouse>'] = 'open',
+            ['<cr>'] = 'open',
+            ['o'] = 'open',
+            -- ["<cr>"] = { "open", config = { expand_nested_files = true } }, -- expand nested file takes precedence
+            ['<esc>'] = 'cancel', -- close preview or floating neo-tree window
+            ['P'] = {
+              'toggle_preview',
+              config = {
+                use_float = true,
+                use_snacks_image = true,
+                use_image_nvim = true,
+                -- title = "Neo-tree Preview", -- You can define a custom title for the preview floating window.
+              },
+            },
+            ['<C-f>'] = { 'scroll_preview', config = { direction = -10 } },
+            ['<C-b>'] = { 'scroll_preview', config = { direction = 10 } },
+            ['l'] = 'focus_preview',
+            ['S'] = 'open_split',
+            -- ["S"] = "split_with_window_picker",
+            ['s'] = 'open_vsplit',
+            -- ["sr"] = "open_rightbelow_vs",
+            -- ["sl"] = "open_leftabove_vs",
+            -- ["s"] = "vsplit_with_window_picker",
+            ['t'] = 'open_tabnew',
+            -- ["<cr>"] = "open_drop",
+            -- ["t"] = "open_tab_drop",
+            ['w'] = 'open_with_window_picker',
+            ['C'] = 'close_node',
+            --["C"] = "close_all_subnodes",
+            ['z'] = 'close_all_nodes',
+            --["Z"] = "expand_all_nodes",
+            --["Z"] = "expand_all_subnodes",
+            ['R'] = 'refresh',
+            ['a'] = {
+              'add',
+              -- some commands may take optional config options, see `:h neo-tree-mappings` for details
+              config = {
+                show_path = 'none', -- "none", "relative", "absolute"
+              },
+            },
+            ['A'] = 'add_directory', -- also accepts the config.show_path and config.insert_as options.
+            ['d'] = 'delete',
+            ['r'] = 'rename',
+            ['y'] = 'copy_to_clipboard',
+            ['x'] = 'cut_to_clipboard',
+            ['p'] = 'paste_from_clipboard',
+            ['<C-r>'] = 'clear_clipboard',
+            ['c'] = 'copy', -- takes text input for destination, also accepts the config.show_path and config.insert_as options
+            ['m'] = 'move', -- takes text input for destination, also accepts the config.show_path and config.insert_as options
+            ['e'] = 'toggle_auto_expand_width',
+            ['q'] = 'close_window',
+            ['?'] = 'show_help',
+            -- You can sort by command name with:
+            -- ["?"] = { "show_help", config = { sorter = function(a, b) return a.mapping.text < b.mapping.text end } },
+            -- The type of a and b are neotree.Help.Mapping
+            ['<'] = 'prev_source',
+            ['>'] = 'next_source',
+          },
+        },
       }
     end,
   },
