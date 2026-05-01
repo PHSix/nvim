@@ -735,4 +735,11 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>gg', function() require('snacks').lazygit() end, { desc = 'Lazygit' })
     end,
   },
+
+  -- autopairs
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+  },
 }
