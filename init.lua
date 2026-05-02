@@ -239,7 +239,11 @@ require('lazy').setup {
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-      'saghen/blink.cmp',
+      'saghen/blink.lib',
+      {
+        'saghen/blink.cmp',
+        build = function() require('blink.cmp').build():wait(60000) end,
+      },
       'L3MON4D3/LuaSnip',
       'rafamadriz/friendly-snippets',
 
