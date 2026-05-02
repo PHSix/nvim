@@ -485,6 +485,21 @@ require('lazy').setup {
         local rows = vim.o.lines
         local layout = columns > rows and 'horizontal' or 'vertical'
         require('fzf-lua').setup {
+          files = {
+            file_ignore_patterns = {
+              'node_modules',
+              'dist',
+              '.next',
+              '.git',
+              '.gitlab',
+              'build',
+              'target',
+              'package-lock.json',
+              'pnpm-lock.yaml',
+              'yarn.lock',
+              'go.sum',
+            },
+          },
           winopts = {
             backdrop = 0,
             preview = {
