@@ -184,30 +184,29 @@ require('lazy').setup {
 
   -- Treesitter
   {
-    'nvim-treesitter/nvim-treesitter',
-    lazy = false,
-    build = ':TSUpdate',
-    opts = {
-      ensure_installed = {
-        'lua',
-        'vim',
-        'vimdoc',
-        'markdown',
-        'markdown_inline',
-        'bash',
-        'python',
-        'javascript',
-        'typescript',
-        'html',
-        'css',
-        'json',
-        'rust',
-        'vue',
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
-      incremental_selection = { enable = true },
-    },
+    'romus204/tree-sitter-manager.nvim',
+    config = function()
+      require('tree-sitter-manager').setup {
+        ensure_installed = {
+          'lua',
+          'vim',
+          'vimdoc',
+          'markdown',
+          'markdown_inline',
+          'bash',
+          'python',
+          'javascript',
+          'typescript',
+          'html',
+          'css',
+          'json',
+          'rust',
+          'vue',
+        },
+        border = 'rounded', -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+        auto_install = true,
+      }
+    end,
   },
 
   -- Comment plugin
