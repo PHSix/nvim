@@ -213,7 +213,15 @@ require('lazy').setup {
   {
     'numToStr/Comment.nvim',
     event = 'VeryLazy',
-    opts = {},
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      lazy = true,
+    },
+    config = function()
+      require('Comment').setup {
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      }
+    end,
   },
 
   -- Colorscheme
@@ -316,7 +324,7 @@ require('lazy').setup {
       }
       vim.lsp.config('*', { capabilities = capabilities })
 
-      vim.lsp.enable { 'lua_ls', 'pyright', 'vtsls', 'html', 'cssls', 'jsonls', 'vue_ls' }
+      vim.lsp.enable { 'lua_ls', 'pyright', 'vtsls', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls' }
     end,
   },
 
@@ -647,6 +655,7 @@ require('lazy').setup {
           css = { 'prettier' },
           json = { 'prettier' },
           markdown = { 'prettier' },
+          go = { 'gofmt' },
         },
         format_on_save = {
           timeout_ms = 800,
