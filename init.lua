@@ -275,6 +275,11 @@ require('lazy').setup {
         snippets = { preset = 'luasnip' },
         sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
         signature = { enabled = true },
+        completion = {
+          trigger = {
+            show_on_insert = true,
+          },
+        },
       }
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
