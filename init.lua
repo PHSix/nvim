@@ -265,7 +265,7 @@ require('lazy').setup {
     config = function()
       require('mason').setup()
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'pyright', 'vtsls', 'html', 'cssls', 'jsonls', 'vue_ls', 'rust_analyzer' },
+        ensure_installed = { 'lua_ls', 'ty', 'ts_ls', 'html', 'cssls', 'jsonls', 'vue_ls', 'rust_analyzer' },
         automatic_installation = true,
         automatic_enable = false,
       }
@@ -329,7 +329,7 @@ require('lazy').setup {
       }
       vim.lsp.config('*', { capabilities = capabilities })
 
-      vim.lsp.enable { 'lua_ls', 'pyright', 'vtsls', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls' }
+      vim.lsp.enable { 'lua_ls', 'ty', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls' }
     end,
   },
 
