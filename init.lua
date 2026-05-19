@@ -218,6 +218,9 @@ require('lazy').setup {
       lazy = true,
     },
     config = function()
+      require('ts_context_commentstring').setup {
+        enable_autocmd = false,
+      }
       require('Comment').setup {
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
       }
@@ -265,7 +268,7 @@ require('lazy').setup {
     config = function()
       require('mason').setup()
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls', 'ty', 'ts_ls', 'html', 'cssls', 'jsonls', 'vue_ls', 'rust_analyzer' },
+        ensure_installed = { 'lua_ls', 'ty', 'ts_ls', 'html', 'cssls', 'jsonls', 'vue_ls', 'rust_analyzer', 'tailwindcss' },
         automatic_installation = true,
         automatic_enable = false,
       }
@@ -329,7 +332,7 @@ require('lazy').setup {
       }
       vim.lsp.config('*', { capabilities = capabilities })
 
-      vim.lsp.enable { 'lua_ls', 'ty', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls' }
+      vim.lsp.enable { 'lua_ls', 'ty', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls', 'ts_ls', 'tailwindcss' }
     end,
   },
 
