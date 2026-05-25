@@ -274,13 +274,43 @@ require('lazy').setup {
       }
       require('blink.cmp').setup {
         keymap = { preset = 'enter' },
-        appearance = { use_nvim_cmp_as_default = true, nerd_font_variant = 'mono' },
+        appearance = { use_nvim_cmp_as_default = false, nerd_font_variant = 'mono' },
         snippets = { preset = 'luasnip' },
         sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
         signature = { enabled = true },
         completion = {
-          trigger = {
-            show_on_insert = true,
+          accept = {
+            -- experimental auto-brackets support
+            auto_brackets = {
+              enabled = true,
+            },
+          },
+          menu = {
+            draw = {
+              treesitter = { 'lsp' },
+            },
+          },
+          documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 200,
+          },
+          ghost_text = {
+            enabled = vim.g.ai_cmp,
+          },
+        },
+        cmdline = {
+          enabled = true,
+          keymap = {
+            preset = 'cmdline',
+            ['<Right>'] = false,
+            ['<Left>'] = false,
+          },
+          completion = {
+            list = { selection = { preselect = false } },
+            menu = {
+              auto_show = function(ctx) return vim.fn.getcmdtype() == ':' end,
+            },
+            ghost_text = { enabled = true },
           },
         },
       }
