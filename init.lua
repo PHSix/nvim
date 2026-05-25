@@ -705,22 +705,6 @@ require('lazy').setup {
     end,
   },
 
-  -- OpenCode AI
-  {
-    'nickjvandyke/opencode.nvim',
-    version = '*',
-    config = function()
-      vim.g.opencode_opts = {}
-      vim.o.autoread = true
-
-      vim.keymap.set({ 'n', 'x' }, '<C-a>', function() require('opencode').ask('@this: ', { submit = true }) end, { desc = 'Ask opencode' })
-
-      vim.keymap.set({ 'n', 'x' }, '<C-x>', function() require('opencode').select() end, { desc = 'Select opencode action' })
-
-      vim.keymap.set({ 'n', 't' }, '<C-.>', function() require('opencode').toggle() end, { desc = 'Toggle opencode' })
-    end,
-  },
-
   -- Which-key
   {
     'folke/which-key.nvim',
