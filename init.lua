@@ -253,7 +253,7 @@ require('lazy').setup {
       'saghen/blink.lib',
       {
         'saghen/blink.cmp',
-        build = function() require('blink.cmp').build():wait(60000) end,
+        build = function() require('blink.cmp').build():pwait() end,
       },
       'L3MON4D3/LuaSnip',
       'rafamadriz/friendly-snippets',
