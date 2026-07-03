@@ -2,19 +2,46 @@ local package = require('core.pack').package
 local conf = require('modules.editor.config')
 
 package({
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    -- commit = 'f5062ebc8d5c0542465c6e2432d6cd544a92f348',
-    config = conf.nvim_treesitter,
-    dependencies = {
+    'romus204/tree-sitter-manager.nvim',
+    opts = {
         {
-            'JoosepAlviste/nvim-ts-context-commentstring',
-            lazy = true,
+            ensure_installed = {
+                'lua',
+                'vim',
+                'vimdoc',
+                'markdown',
+                'markdown_inline',
+                'bash',
+                'python',
+                'javascript',
+                'typescript',
+                'html',
+                'css',
+                'json',
+                'rust',
+                'vue',
+                'jsx',
+                'toml',
+                'tsx',
+                'tmux',
+                'vhs',
+                'yaml',
+                'zsh',
+                'c',
+                'cpp',
+                'fish',
+                'gitcommit',
+                'gitignore',
+                'go',
+                'gomod',
+                'gosum',
+                'json5',
+            },
+            border = 'rounded', -- border style for the window (e.g. "rounded", "single"), if nil, use the default border style defined by 'vim.o.winborder'. See :h 'winborder' for more info.
+            auto_install = true,
         },
-        'rescript-lang/tree-sitter-rescript',
     },
 })
-
 package({
     'psliwka/vim-smoothie',
 })
@@ -90,7 +117,11 @@ package({
 package({
     'numToStr/Comment.nvim',
     config = conf.comment_nvim,
-    lazy = true,
+    event = 'VeryLazy',
+    dependencies = {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        lazy = true,
+    },
 })
 
 -- package({
@@ -116,12 +147,6 @@ package({
 -- })
 
 package({
-    'ibhagwan/fzf-lua',
-    cmd = 'FzfLua',
-    config = conf.fzf_lua,
-})
-
-package({
     'h-hg/fcitx.nvim',
     enabled = vim.fn.executable('fcitx5') == 1,
 })
@@ -144,19 +169,6 @@ package({
 })
 
 package({
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-        require('supermaven-nvim').setup({
-            keymaps = {
-                accept_suggestion = '<C-f>',
-                clear_suggestion = '<C-]>',
-                accept_word = '<C-j>',
-            },
-        })
-    end,
-})
-
-package({
     'kdheepak/lazygit.nvim',
     lazy = true,
     cmd = {
@@ -170,3 +182,5 @@ package({
         'nvim-lua/plenary.nvim',
     },
 })
+
+

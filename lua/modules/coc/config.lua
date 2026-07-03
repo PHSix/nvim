@@ -20,7 +20,6 @@ local ensure_installed_extensions = {
     'coc-explorer',
     'coc-pairs',
     'coc-go',
-    'coc-sumneko-lua',
     'coc-git',
     'coc-basedpyright',
     'coc-tsserver',
@@ -99,23 +98,44 @@ function config.coc()
         once = false,
     })
 
-    -- vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-    --     group = 'coc_patch_autocmd',
-    --     pattern = '*',
-    --     callback = function()
-    --         local file = fn.expand('%:p')
-    --         if fn.exists('g:WorkspaceFolders') == 1 then
-    --             for _, f in ipairs(vim.g.WorkspaceFolders) do
-    --                 if fn.match(file, f, 0) == 1 then
-    --                     api.nvim_set_current_dir(f)
-    --                     -- vim.cmd(string.format([[cd %s]], f))
-    --                     return
-    --                 end
-    --             end
-    --         end
-    --         -- vim.opt.statusline = vim.opt.statusline
-    --     end,
-    -- })
+    -- 替换 coc-fzf-lua 扩展的自动 cd（修复 monorepo 时序问题）
+    local function auto_cd_to_workspace(file)
+        local folders = vim.g.WorkspaceFolders
+        if type(folders) ~= 'table' or #folders == 0 then
+            return
+        end
+        -- 按路径长度降序排列（最具体的先匹配）
+        table.sort(folders, function(a, b) return #a > #b end)
+        for _, folder in ipairs(folders) do
+            if vim.startswith(file, folder .. '/') then
+                if vim.fn.getcwd() ~= folder then
+                    vim.api.nvim_set_current_dir(folder)
+                end
+                return
+            end
+        end
+    end
+
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'VimEnter' }, {
+        group = 'coc_patch_autocmd',
+        pattern = '*',
+        callback = function()
+            local file = vim.fn.expand('%:p')
+            if file == '' or vim.bo.buftype ~= '' then
+                return
+            end
+            -- 首次触发时 g:WorkspaceFolders 可能尚未设置（coc 异步初始化）
+            if vim.fn.exists('g:WorkspaceFolders') == 0 then
+                vim.defer_fn(function()
+                    if vim.fn.exists('g:WorkspaceFolders') == 1 then
+                        auto_cd_to_workspace(vim.fn.expand('%:p'))
+                    end
+                end, 500)
+                return
+            end
+            auto_cd_to_workspace(file)
+        end,
+    })
 
     vim.api.nvim_create_user_command('CocFormat', function()
         vim.fn.CocActionAsync('format')

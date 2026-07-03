@@ -7,23 +7,6 @@ local opts = keymap.new_opts
 local cmd = keymap.cmd
 local fn, api = vim.fn, vim.api
 
-local function find_cwd()
-    local file = fn.expand('%:p')
-    if fn.exists('g:WorkspaceFolders') == 0 then
-        return
-    end
-    for _, f in ipairs(vim.g.WorkspaceFolders) do
-        if fn.match(file, f, 0) == 1 then
-            return f
-        end
-    end
-end
-
-local function wrap_fzf_cwd(command)
-    local cwd = find_cwd()
-    -- vim.cmd(command .. ' cwd=${}')
-end
-
 -- Use space as leader key
 vim.g.mapleader = ' '
 
@@ -68,30 +51,19 @@ nmap({
     { '<Leader>pu', cmd('Lazy update'), opts(noremap, silent) },
     { '<Leader>pi', cmd('Lazy install'), opts(noremap, silent) },
     -- Telescope
-    -- { '<Leader>fb', cmd('Telescope buffers'), opts(noremap, silent) },
-    -- { '<Leader>fw', cmd('Telescope live_grep'), opts(noremap, silent) },
-    -- { '<Leader>ff', cmd('Telescope find_files'), opts(noremap, silent) },
-    -- { '<Leader>fo', cmd('Telescope oldfiles'), opts(noremap, silent) },
-    -- { '<leader>fr', cmd('Telescope resume'), opts(noremap, silent) },
-    -- { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
-
-    -- fzf-lua
-    { '<Leader>sb', cmd('FzfLua buffers'), opts(noremap, silent) },
-    { '<Leader>sw', cmd('FzfLua live_grep'), opts(noremap, silent) },
-    { '<Leader>sf', cmd('FzfLua files'), opts(noremap, silent) },
-    { '<Leader>so', cmd('FzfLua oldfiles'), opts(noremap, silent) },
-    { '<Leader>s.', cmd('FzfLua oldfiles'), opts(noremap, silent) },
-    { '<leader>sr', cmd('FzfLua resume'), opts(noremap, silent) },
-    { '<M-x>', cmd('FzfLua commands'), opts(noremap, silent) },
+    { '<Leader>sb', cmd('Telescope buffers'), opts(noremap, silent) },
+    { '<Leader>sw', cmd('Telescope live_grep'), opts(noremap, silent) },
+    { '<Leader>sf', cmd('Telescope find_files'), opts(noremap, silent) },
+    { '<Leader>so', cmd('Telescope oldfiles'), opts(noremap, silent) },
+    { '<Leader>s.', cmd('Telescope oldfiles'), opts(noremap, silent) },
+    { '<leader>sr', cmd('Telescope resume'), opts(noremap, silent) },
+    { '<M-x>', cmd('Telescope commands'), opts(noremap, silent) },
 
     -- coc-git
     { '<leader>gp', '<Plug>(coc-git-chunkinfo)', opts(noremap, silent) },
     { '<leader>gs', cmd('CocCommand git.chunkStage'), opts(noremap, silent) },
     { 'gj', '<Plug>(coc-git-nextchunk)', opts(noremap, silent) },
     { 'gk', '<Plug>(coc-git-prevchunk)', opts(noremap, silent) },
-
-    -- Spectre
-    { '<leader>sw', cmd('Spectre'), opts(noremap, silent) },
 
     -- coc
     { '<leader>cf', cmd('CocFormat'), opts(noremap, silent) },

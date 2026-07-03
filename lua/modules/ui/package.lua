@@ -38,14 +38,6 @@ package({
 })
 
 package({
-    'olimorris/onedarkpro.nvim',
-    enabled = false,
-    config = function()
-        vim.cmd([[colorscheme onedark]])
-    end,
-})
-
-package({
     'rose-pine/neovim',
     name = 'rose-pine',
     enabled = false,
@@ -54,19 +46,10 @@ package({
     end,
 })
 
--- package({
---     'sainnhe/everforest',
---     config = function()
---         vim.g.everforest_better_performance = 1
---         vim.g.everforest_background = 'hard'
---         vim.cmd([[colorscheme everforest]])
---     end,
--- })
-
 package({
-    'NTBBloodbath/doom-one.nvim',
-    enabled = false,
+    'ntbbloodbath/doom-one.nvim',
     config = function()
-        vim.cmd([[colorscheme doom-one]])
+        vim.o.background = 'light'
+        vim.cmd('colorscheme doom-one')
     end,
 })

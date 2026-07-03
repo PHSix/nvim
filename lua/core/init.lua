@@ -51,5 +51,3 @@ require('core.options')
 require('core.autocmd')
 require('keymap')
 require('enhance')
-
-vim.cmd([[colorscheme habamax-plus]])
