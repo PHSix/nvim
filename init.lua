@@ -243,18 +243,13 @@ require('lazy').setup {
     end,
   },
 
-  -- Colorscheme
+  -- Colorscheme: vitesse
   {
-    'navarasu/onedark.nvim',
+    'PHSix/vitesse.nvim',
     priority = 1000,
     config = function()
-      require('onedark').setup {
-        style = 'darker',
-        transparent = false,
-        term_colors = true,
-        code_style = { comments = 'italic' },
-      }
-      require('onedark').load()
+      vim.o.background = 'light'
+      vim.cmd 'colorscheme vitesse'
     end,
   },
 
@@ -266,11 +261,7 @@ require('lazy').setup {
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-      'saghen/blink.lib',
-      {
-        'saghen/blink.cmp',
-        build = function() require('blink.cmp').build():pwait() end,
-      },
+      'hrsh7th/cmp-nvim-lsp',
       'L3MON4D3/LuaSnip',
       'rafamadriz/friendly-snippets',
 
@@ -288,50 +279,7 @@ require('lazy').setup {
         automatic_installation = true,
         automatic_enable = false,
       }
-      require('blink.cmp').setup {
-        keymap = { preset = 'enter' },
-        appearance = { use_nvim_cmp_as_default = false, nerd_font_variant = 'mono' },
-        snippets = { preset = 'luasnip' },
-        sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
-        signature = { enabled = true },
-        completion = {
-          accept = {
-            -- experimental auto-brackets support
-            auto_brackets = {
-              enabled = true,
-            },
-          },
-          menu = {
-            draw = {
-              treesitter = { 'lsp' },
-            },
-          },
-          documentation = {
-            auto_show = true,
-            auto_show_delay_ms = 200,
-          },
-          ghost_text = {
-            enabled = vim.g.ai_cmp,
-          },
-        },
-        cmdline = {
-          enabled = true,
-          keymap = {
-            preset = 'cmdline',
-            ['<Right>'] = false,
-            ['<Left>'] = false,
-          },
-          completion = {
-            list = { selection = { preselect = false } },
-            menu = {
-              auto_show = function(ctx) return vim.fn.getcmdtype() == ':' end,
-            },
-            ghost_text = { enabled = true },
-          },
-        },
-      }
-
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP Keybindings',
@@ -371,14 +319,16 @@ require('lazy').setup {
 
       vim.lsp.config('lua_ls', config)
 
-      -- configuration work for nvim-ufo fold
+      -- ufo fold capabilities
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
       }
       vim.lsp.config('*', { capabilities = capabilities })
 
-      vim.lsp.enable { 'lua_ls', 'ty', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls', 'ts_ls', 'tailwindcss' }
+      vim.lsp.enable { 'lua_ls', 'ty', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls', 'ts_ls', 'tailwindcss', 'sourcekit' }
+
+      vim.schedule(function() vim.lsp.enable { 'lua_ls', 'ty', 'html', 'cssls', 'jsonls', 'vue_ls', 'gopls', 'ts_ls', 'tailwindcss', 'sourcekit' } end)
     end,
   },
 
@@ -399,6 +349,106 @@ require('lazy').setup {
     'j-hui/fidget.nvim',
     event = 'LspAttach',
     config = function() require('fidget').setup { notification = { window = { winblend = 0 } } } end,
+  },
+
+  -- nvim-cmp
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'saadparwaiz1/cmp_luasnip',
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
+      'nvim-tree/nvim-web-devicons',
+    },
+    event = 'InsertEnter',
+    config = function()
+      local cmp = require 'cmp'
+
+      local kind_icons = {
+        Text = '󰊄',
+        Method = '',
+        Function = '󰊕',
+        Constructor = '',
+        Field = '',
+        Variable = '',
+        Class = '󰠱',
+        Interface = '󰜰',
+        Module = '󰕈',
+        Property = '󰜢',
+        Unit = '󰑭',
+        Value = '󰎠',
+        Enum = '󰅩',
+        Keyword = '󰌋',
+        Snippet = '󰅫',
+        Color = '󰏘',
+        File = '󰈙',
+        Reference = '󰈇',
+        Folder = '󰉋',
+        EnumMember = '',
+        Constant = '󰏿',
+        Struct = '󰙅',
+        Event = '',
+        Operator = '󰆕',
+        TypeParameter = '󰪞',
+      }
+
+      cmp.setup {
+        snippet = {
+          expand = function(args) require('luasnip').lsp_expand(args.body) end,
+        },
+        mapping = cmp.mapping.preset.insert {
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+        },
+        completion = {
+          completeopt = 'menu,menuone,preview',
+        },
+        sources = cmp.config.sources {
+          { name = 'nvim_lsp' },
+          { name = 'path' },
+          { name = 'luasnip' },
+          { name = 'buffer' },
+        },
+        window = {
+          completion = cmp.config.window.bordered { winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder' },
+          documentation = cmp.config.window.bordered { winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder' },
+        },
+        formatting = {
+          fields = { 'kind', 'abbr', 'menu' },
+          format = function(entry, vim_item)
+            local kind_name = require('cmp.types').lsp.CompletionItemKind[entry:get_kind()]
+            vim_item.kind = kind_icons[kind_name] or ''
+            vim_item.menu = ({
+              nvim_lsp = '[LSP]',
+              luasnip = '[Snip]',
+              buffer = '[Buf]',
+              path = '[Path]',
+            })[entry.source.name]
+            return vim_item
+          end,
+        },
+      }
+
+      -- cmdline completion
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
+      })
+
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = { { name = 'buffer' } },
+      })
+    end,
   },
 
   -- nvim-bqf with LSP-friendly configuration
@@ -532,58 +582,49 @@ require('lazy').setup {
     end,
   },
 
-  -- fzf-lua
+  -- devicons
   {
-    'ibhagwan/fzf-lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    'nvim-tree/nvim-web-devicons',
+    priority = 1000,
+    config = function() require('nvim-web-devicons').setup { variant = 'light' } end,
+  },
+
+  -- Telescope
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
-      { '<leader>sf', '<cmd>FzfLua files<cr>', desc = 'Find Files' },
-      { '<leader>sw', '<cmd>FzfLua live_grep<cr>', desc = 'Live Grep' },
-      { '<leader>sb', '<cmd>FzfLua buffers<cr>', desc = 'Find Buffers' },
-      { '<leader>sh', '<cmd>FzfLua help_tags<cr>', desc = 'Help Tags' },
-      { '<leader>sr', '<cmd>FzfLua oldfiles<cr>', desc = 'Recent Files' },
-      { '<leader>ss', '<cmd>FzfLua lsp_document_symbols<cr>', desc = 'Document Symbols' },
+      { '<leader>sf', function() require('telescope.builtin').find_files() end, desc = 'Find Files' },
+      { '<leader>sw', function() require('telescope.builtin').live_grep() end, desc = 'Live Grep' },
+      { '<leader>sb', function() require('telescope.builtin').buffers() end, desc = 'Find Buffers' },
+      { '<leader>sh', function() require('telescope.builtin').help_tags() end, desc = 'Help Tags' },
+      { '<leader>sr', function() require('telescope.builtin').oldfiles() end, desc = 'Recent Files' },
+      { '<leader>ss', function() require('telescope.builtin').lsp_document_symbols() end, desc = 'Document Symbols' },
     },
     config = function()
-      local function setup()
-        local columns = vim.o.columns / 2
-        local rows = vim.o.lines
-        local layout = columns > rows and 'horizontal' or 'vertical'
-        require('fzf-lua').setup {
-          files = {
-            file_ignore_patterns = {
-              'node_modules',
-              'dist',
-              '.next',
-              '.git',
-              '.gitlab',
-              'build',
-              'target',
-              'package-lock.json',
-              'pnpm-lock.yaml',
-              'yarn.lock',
-              'go.sum',
-            },
+      require('telescope').setup {
+        defaults = {
+          file_ignore_patterns = {
+            'node_modules',
+            'dist',
+            '%.next',
+            '%.git',
+            '%.gitlab',
+            'build',
+            'target',
+            'package%-lock%.json',
+            'pnpm%-lock%.yaml',
+            'yarn%.lock',
+            'go%.sum',
           },
-          winopts = {
-            backdrop = 0,
-            preview = {
-              horizontal = 'right:55%',
-              vertical = 'up:55%',
-              default = 'bat',
-              layout = layout,
-              flip_columns = 100,
-            },
+          layout_strategy = 'flex',
+          layout_config = {
+            horizontal = { preview_width = 0.55 },
+            vertical = { preview_height = 0.55 },
+            flip_columns = 100,
           },
-        }
-      end
-
-      setup()
-
-      -- dynamically change windows layout
-      vim.api.nvim_create_autocmd('VimResized', {
-        callback = function() setup() end,
-      })
+        },
+      }
     end,
   },
 
@@ -759,7 +800,7 @@ require('lazy').setup {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       options = {
-        theme = 'onedark',
+        theme = 'vitesse',
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         globalstatus = true,
